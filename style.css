@@ -887,6 +887,28 @@ h3 { font-size: 1.8rem; }
     position: relative;
 }
 
+.modal-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.modal-tech-stack span {
+    padding: 0.3rem 0.8rem;
+    background: rgba(74, 144, 226, 0.1);
+    border: 1px solid rgba(74, 144, 226, 0.3);
+    border-radius: 15px;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+}
+
+.modal-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
 .close {
     color: var(--text-secondary);
     position: absolute;

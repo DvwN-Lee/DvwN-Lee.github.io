@@ -104,6 +104,10 @@
                         <div class="stat-label">완성된 프로젝트</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-number" data-target="100">0</div>
+                        <div class="stat-label">GitHub Commits (월평균)</div>
+                    </div>
+                    <div class="stat-card">
                         <div class="stat-number" data-target="12">0</div>
                         <div class="stat-label">기술 스택</div>
                     </div>
@@ -122,50 +126,121 @@
             <h2 class="section-title" data-aos="fade-up">Technical Skills</h2>
             
             <div class="skills-grid">
-                <!-- Cloud & DevOps -->
+                <!-- Container & Orchestration -->
                 <div class="skill-category" data-aos="fade-up">
-                    <h3><i class="fas fa-cloud"></i> Cloud & DevOps</h3>
+                    <h3><i class="fas fa-ship"></i> Container & Orchestration</h3>
                     <div class="skill-items">
                         <div class="skill-item" data-level="90">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes">
                             <span>Kubernetes</span>
                             <div class="skill-level"></div>
                         </div>
-                        <div class="skill-item" data-level="85">
+                        <div class="skill-item" data-level="90">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
                             <span>Docker</span>
                             <div class="skill-level"></div>
                         </div>
+                        <div class="skill-item" data-level="85">
+                            <img src="https://www.vectorlogo.zone/logos/helmsh/helmsh-icon.svg" alt="Helm" style="filter: invert(0.2);">
+                            <span>Helm</span>
+                            <div class="skill-level"></div>
+                        </div>
                         <div class="skill-item" data-level="80">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform">
-                            <span>Terraform</span>
+                            <img src="images/kustomize.png" alt="Kustomize">
+                            <span>Kustomize</span>
                             <div class="skill-level"></div>
                         </div>
                         <div class="skill-item" data-level="75">
-                            <img src="https://www.vectorlogo.zone/logos/istioio/istioio-icon.svg" alt="Istio">
-                            <span>Istio</span>
-                            <div class="skill-level"></div>
-                        </div>
-                        <div class="skill-item" data-level="85">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Actions">
-                            <span>GitHub Actions</span>
-                            <div class="skill-level"></div>
-                        </div>
-                        <div class="skill-item" data-level="80">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg" alt="ArgoCD">
-                            <span>ArgoCD</span>
+                            <img src="images/skaffold.svg" alt="Skaffold">
+                            <span>Skaffold</span>
                             <div class="skill-level"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Backend -->
+                <!-- Infrastructure as Code & GitOps -->
                 <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
-                    <h3><i class="fas fa-server"></i> Backend</h3>
+                    <h3><i class="fas fa-code"></i> IaC & GitOps</h3>
                     <div class="skill-items">
                         <div class="skill-item" data-level="85">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot">
-                            <span>Spring Boot</span>
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform">
+                            <span>Terraform</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="85">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg" alt="ArgoCD">
+                            <span>ArgoCD</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="90">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Actions">
+                            <span>GitHub Actions</span>
+                            <div class="skill-level"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Mesh & Security -->
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fas fa-shield-alt"></i> Service Mesh & Security</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-level="75">
+                            <img src="https://www.vectorlogo.zone/logos/istioio/istioio-icon.svg" alt="Istio">
+                            <span>Istio</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="70">
+                            <img src="images/kiali.png" alt="Kiali">
+                            <span>Kiali</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="80">
+                            <img src="https://raw.githubusercontent.com/aquasecurity/trivy/main/docs/imgs/logo.png" alt="Trivy">
+                            <span>Trivy</span>
+                            <div class="skill-level"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monitoring & Observability -->
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
+                    <h3><i class="fas fa-chart-line"></i> Monitoring & Observability</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-level="85">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus">
+                            <span>Prometheus</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="85">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana">
+                            <span>Grafana</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="80">
+                            <img src="https://raw.githubusercontent.com/grafana/loki/main/docs/sources/logo.png" alt="Loki">
+                            <span>Loki</span>
+                            <div class="skill-level"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend Development -->
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="400">
+                    <h3><i class="fas fa-server"></i> Backend Development</h3>
+                    <div class="skill-items">
+                        <div class="skill-item" data-level="85">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg" alt="Go">
+                            <span>Go</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="90">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            <span>Python</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="85">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI">
+                            <span>FastAPI</span>
                             <div class="skill-level"></div>
                         </div>
                         <div class="skill-item" data-level="80">
@@ -173,46 +248,41 @@
                             <span>Django</span>
                             <div class="skill-level"></div>
                         </div>
-                        <div class="skill-item" data-level="75">
+                        <div class="skill-item" data-level="85">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
                             <span>Node.js</span>
                             <div class="skill-level"></div>
                         </div>
-                        <div class="skill-item" data-level="85">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
-                            <span>Java</span>
-                            <div class="skill-level"></div>
-                        </div>
                         <div class="skill-item" data-level="80">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-                            <span>Python</span>
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                            <span>JavaScript</span>
                             <div class="skill-level"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Monitoring & Database -->
-                <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
-                    <h3><i class="fas fa-chart-line"></i> Monitoring & Database</h3>
+                <!-- Database & Storage -->
+                <div class="skill-category" data-aos="fade-up" data-aos-delay="500">
+                    <h3><i class="fas fa-database"></i> Database & Storage</h3>
                     <div class="skill-items">
-                        <div class="skill-item" data-level="80">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus">
-                            <span>Prometheus</span>
-                            <div class="skill-level"></div>
-                        </div>
-                        <div class="skill-item" data-level="80">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana">
-                            <span>Grafana</span>
-                            <div class="skill-level"></div>
-                        </div>
                         <div class="skill-item" data-level="85">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
                             <span>PostgreSQL</span>
                             <div class="skill-level"></div>
                         </div>
                         <div class="skill-item" data-level="80">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis">
+                            <span>Redis</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="75">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
                             <span>MySQL</span>
+                            <div class="skill-level"></div>
+                        </div>
+                        <div class="skill-item" data-level="75">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite">
+                            <span>SQLite</span>
                             <div class="skill-level"></div>
                         </div>
                     </div>
@@ -220,6 +290,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
@@ -238,13 +309,13 @@
                 <!-- Cloud-Native Microservices Platform -->
                 <div class="project-card featured" data-category="cloud" data-aos="fade-up">
                     <div class="project-image">
-                        <img src="https://via.placeholder.com/600x400/4A90E2/ffffff?text=Cloud+Native+Platform" alt="Cloud-Native Platform">
+                        <img src="" alt="Cloud-Native Platform-v2">
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="https://github.com/DvwN-Lee/Monitoring-v2" target="_blank" class="project-link">
                                     <i class="fab fa-github"></i>
                                 </a>
-                                <a href="#" class="project-link" onclick="openProjectModal('cloudnative'); return false;">
+                                <a href="#" class="project-link" onclick="openProjectModal('cloudnative_v2'); return false;">
                                     <i class="fas fa-expand"></i>
                                 </a>
                             </div>
@@ -260,12 +331,14 @@
                             <span>Istio</span>
                             <span>Prometheus</span>
                             <span>ArgoCD</span>
+                            <span>GitHub Actions</span>
                         </div>
                         <ul class="project-highlights">
-                            <li>GitOps 기반 CI/CD 파이프라인 구축</li>
-                            <li>Istio 서비스 메시로 mTLS 보안 강화</li>
-                            <li>Prometheus + Grafana 실시간 모니터링</li>
-                            <li>HPA 최적화로 11.6% 성능 개선</li>
+                            <li>Terraform(IaC)으로 인프라 자동화</li>
+                            <li>GitOps CI/CD (GitHub Actions + ArgoCD)</li>
+                            <li>Istio mTLS STRICT 보안 적용</li>
+                            <li>Prometheus/Grafana (Golden Signals)</li>
+                            <li>k6 테스트 및 HPA 튜닝 (11.6% 성능 개선)</li>
                         </ul>
                     </div>
                 </div>
@@ -299,6 +372,41 @@
                             <li>실시간 좌석 현황 확인 기능</li>
                             <li>공부 시간 측정 및 랭킹 시스템</li>
                             <li>Firebase 실시간 데이터베이스 활용</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="cloud" data-aos="fade-up">
+                    <div class="project-image">
+                        <img src="https://github.com/user-attachments/assets/9a7b890b-1d7c-4c96-826f-e019df475dfb" alt="Monitoring Dashboard">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://github.com/DvwN-Lee/Monitoring-v2" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="project-link" onclick="openProjectModal('cloudnative_v1'); return false;">
+                                    <i class="fas fa-expand"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>실시간 마이크로서비스 모니터링 플랫폼</h3>
+                        <p>Go, FastAPI, K8s 기반 실시간 모니터링 대시보드</p>
+                        <div class="project-tech">
+                            <span>Go (Golang)</span>
+                            <span>Python (FastAPI)</span>
+                            <span>Kubernetes</span>
+                            <span>Kustomize</span>
+                            <span>JavaScript</span>
+                            <span>Redis</span>
+                        </div>
+                        <ul class="project-highlights">
+                            <li>Go 기반 Stats Aggregator (병렬 수집)</li>
+                            <li>Kustomize(base/overlay) 배포 관리</li>
+                            <li>Vanilla JS + Chart.js 대시보드 UI</li>
+                            <li>WebSocket 하트비트로 'IDLE' 상태 방지</li>
+                            <li>Redis (Cache-Aside) 및 SQLite</li>
                         </ul>
                     </div>
                 </div>
@@ -341,7 +449,8 @@
                         <img src="https://via.placeholder.com/600x400/F0AD4E/ffffff?text=Online+Exam" alt="Online Exam">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="https://github.com/Lee-Coderrr/OnlineExam.git" target="_blank" class="project-link">
+                                <!-- [MODIFIED] GitHub 링크 수정 -->
+                                <a href="https://github.com/DvwN-Lee/onlineexam" target="_blank" class="project-link">
                                     <i class="fab fa-github"></i>
                                 </a>
                                 <a href="#" class="project-link" onclick="openProjectModal('exam'); return false;">
@@ -353,16 +462,50 @@
                     <div class="project-content">
                         <h3>온라인 시험 관리 시스템</h3>
                         <p>Django 기반 온라인 시험 출제 및 채점 시스템</p>
+                        <!-- [MODIFIED] 기술 스택 수정 -->
                         <div class="project-tech">
                             <span>Django</span>
-                            <span>PostgreSQL</span>
-                            <span>Redis</span>
-                            <span>Celery</span>
+                            <span>MySQL</span>
+                            <span>jQuery</span>
+                            <span>Bootstrap</span>
                         </div>
+                        <!-- [MODIFIED] 하이라이트 수정 -->
                         <ul class="project-highlights">
                             <li>실시간 시험 진행 및 자동 채점</li>
-                            <li>Redis 캐싱으로 성능 최적화</li>
-                            <li>Celery 비동기 작업 처리</li>
+                            <li>역할 기반 사용자 관리 (학생, 교사)</li>
+                            <li>Django Admin을 통한 관리자 기능</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="project-card" data-category="backend" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-image">
+                        <img src="images/main.png" alt="SimpleChat">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="https://github.com/DvwN-Lee/demochat" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="project-link" onclick="openProjectModal('demochat'); return false;">
+                                    <i class="fas fa-expand"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>SimpleChat - 실시간 채팅 앱</h3>
+                        <p>Spring Boot와 WebSocket 기반 실시간 채팅 프로젝트</p>
+                        <div class="project-tech">
+                            <span>Spring Boot</span>
+                            <span>WebSocket</span>
+                            <span>JPA</span>
+                            <span>Thymeleaf</span>
+                            <span>MySQL</span>
+                        </div>
+                        <ul class="project-highlights">
+                            <li>실시간 메시징 및 구독/발행</li>
+                            <li>JPA를 통한 메시지 영속화</li>
+                            <li>Thymeleaf/SockJS/STOMP 연동</li>
                         </ul>
                     </div>
                 </div>
@@ -379,26 +522,71 @@
                 <div class="timeline-item" data-aos="fade-right">
                     <div class="timeline-date">2025.11</div>
                     <div class="timeline-content">
-                        <h3>Cloud-Native 마이크로서비스 플랫폼 구축</h3>
-                        <p>5주간 단독 개발 프로젝트</p>
+                        <h3>Cloud-Native 마이크로서비스 플랫폼 v2.0</h3>
+                        <p>5주 단독 개발 프로젝트 (v1.0 고도화)</p>
                         <ul>
-                            <li>Terraform IaC로 인프라 자동화</li>
-                            <li>GitHub Actions + ArgoCD GitOps 구현</li>
-                            <li>Istio 서비스 메시 적용</li>
-                            <li>k6 부하 테스트로 성능 11.6% 개선</li>
+                            <li>Terraform(IaC)으로 K8s, PostgreSQL 인프라 자동화</li>
+                            <li>GitHub Actions(CI) + ArgoCD(CD)로 GitOps 파이프라인 구축</li>
+                            <li>Istio 서비스 메시 도입 (mTLS STRICT 모드)</li>
+                            <li>Prometheus/Grafana/Loki로 관측성(Golden Signals) 확보</li>
+                            <li>k6 부하 테스트 기반 HPA 튜닝 (11.6% 성능 개선)</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-date">2023.11</div>
+                    <div class="timeline-date">2025.08</div>
+                    <div class="timeline-content">
+                        <h3>Cloud-Native 마이크로서비스 모니터링 플랫폼</h3>
+                        <p>Go, FastAPI, K8s 기반 MSA 프로젝트</p>
+                        <ul>
+                            <li>Go로 Stats Aggregator 및 API Gateway 개발</li>
+                            <li>FastAPI로 Auth/User/Blog 서비스 구현 (Redis, SQLite)</li>
+                            <li>Kustomize로 K8s 매니페스트 관리 (base/overlay)</li>
+                            <li>Vanilla JS + Chart.js + WebSocket 하트비트 UI</li>
+                            <li>CronJob을 이용한 자동화된 DB 백업 구성</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-date">2023.06</div>
+                    <div class="timeline-content">
+                        <h3>온라인 시험 관리 시스템 개발</h3>
+                        <p>Django 기반 백엔드 프로젝트</p>
+                        <ul>
+                            <li>Django, MySQL, jQuery/Bootstrap 활용</li>
+                            <li>역할 기반 사용자(학생, 교사) 관리 기능</li>
+                            <li>시험, 문제, 성적 관리 모듈 개발</li>
+                            <li>Django Admin을 통한 관리자 기능 구현</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-date">2023.05</div>
+                    <div class="timeline-content">
+                        <h3>SimpleChat 실시간 채팅 앱 개발</h3>
+                        <p>Spring Boot, WebSocket 개인 프로젝트</p>
+                        <ul>
+                            <li>Spring Boot, Spring WebSocket, STOMP 활용</li>
+                            <li>JPA로 사용자 및 메시지 데이터 관리</li>
+                            <li>SockJS, STOMP.js 클라이언트 구현</li>
+                            <li>Thymeleaf로 채팅방 UI 구성</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-date">2022.08</div>
                     <div class="timeline-content">
                         <h3>경소톤 해커톤 동상 수상</h3>
                         <p>SW융합대학 X 경영경제대학 연합 해커톤</p>
                         <ul>
-                            <li>팀 리더로서 프로젝트 총괄</li>
-                            <li>Android 앱 개발 담당</li>
+                            <li>Kotlin 기반 Android 앱 개발</li>
+                            <li>실시간 좌석 현황 확인 및 회의실 예약 기능 구현</li>
                             <li>Firebase 실시간 데이터베이스 구축</li>
+                            <li>Figma를 통한 UI 설계</li>
                         </ul>
                     </div>
                 </div>
@@ -410,8 +598,10 @@
                         <p>학부 재학 중</p>
                         <ul>
                             <li>클라우드 컴퓨팅 집중 학습</li>
-                            <li>컴퓨터공학과 부회장 경험(22년)</li>
+                            <li>컴퓨터공학과 2022년도 부회장</li>
                             <li>다수 프로젝트 리더 경험</li>
+                            <li>아키텍처 설계 경험</li>
+                            <li>체계적 문서화 진행</li>
                         </ul>
                     </div>
                 </div>

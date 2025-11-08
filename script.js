@@ -360,31 +360,71 @@ const projectData = {
             
             <h3>주요 기능</h3>
             <ul>
-                <li>시험 문제 출제 및 관리</li>
-                <li>실시간 시험 진행 및 시간 제한</li>
-                <li>자동 채점 시스템</li>
-                <li>성적 통계 및 분석</li>
-                <li>문제 은행 관리</li>
+                <li>시험 문제 출제 및 관리 (문제 은행)</li>
+                <li>역할 기반 사용자 관리 (학생, 교사, 관리자)</li>
+                <li>실시간 시험 진행 및 자동 채점</li>
+                <li>성적 조회 및 통계</li>
             </ul>
             
             <h3>기술적 구현</h3>
             <ul>
+                <li>Django MTV 패턴 이해 및 적용</li>
                 <li>Django ORM을 활용한 데이터베이스 설계</li>
-                <li>Redis를 활용한 세션 관리 및 캐싱</li>
-                <li>Celery를 통한 비동기 작업 처리 (채점, 이메일 발송)</li>
-                <li>WebSocket을 활용한 실시간 시험 상태 업데이트</li>
-                <li>PostgreSQL 데이터베이스 활용</li>
+                <li>Django Admin을 활용한 백엔드 관리 시스템 구축</li>
+                <li>jQuery, Bootstrap을 활용한 클라이언트 UI</li>
+                <li>MySQL 데이터베이스 활용</li>
             </ul>
             
-            <h3>성능 최적화</h3>
+            <h3>학습 포인트</h3>
             <ul>
-                <li>Redis 캐싱으로 조회 성능 개선</li>
-                <li>Celery Worker로 무거운 작업 분산 처리</li>
-                <li>데이터베이스 인덱싱 최적화</li>
+                <li>Django MTV 패턴 이해 및 적용</li>
+                <li>관계형 데이터베이스(MySQL) 모델링</li>
+                <li>기본적인 웹 프론트엔드(jQuery)와 백엔드(Django) 연동</li>
             </ul>
             
             <div class="modal-links">
                 <a href="https://github.com/Lee-Coderrr/OnlineExam.git" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> GitHub Repository
+                </a>
+            </div>
+        `
+    },
+    demochat: {
+        title: 'SimpleChat - 실시간 채팅 애플리케이션',
+        description: `
+            <h2>프로젝트 개요</h2>
+            <p>Spring Boot, Thymeleaf, WebSocket(STOMP)을 사용하여 구축한 간단한 실시간 채팅 애플리케이션입니다.</p>
+            
+            <h3>주요 기능</h3>
+            <ul>
+                <li>WebSocket/STOMP 기반 실시간 메시지 전송 및 수신</li>
+                <li>사용자 이름 입력으로 채팅방 접속</li>
+                <li>Spring Data JPA를 통한 메시지 및 사용자 정보 데이터베이스 영속화</li>
+                <li>Thymeleaf와 JavaScript(SockJS, STOMP.js)를 활용한 동적 채팅 UI 구현</li>
+                <li>채팅 메시지 전송 시간 표시</li>
+            </ul>
+            
+            <h3>기술 스택</h3>
+            <div class="modal-tech-stack">
+                <span>Spring Boot</span>
+                <span>Spring WebSocket</span>
+                <span>JPA</span>
+                <span>Thymeleaf</span>
+                <span>JavaScript</span>
+                <span>STOMP</span>
+                <span>MySQL</span>
+                <span>Gradle</span>
+            </div>
+            
+            <h3>학습 포인트</h3>
+            <ul>
+                <li>Spring Boot 환경에서 WebSocket 연동 및 STOMP 메시지 브로커 설정</li>
+                <li>JPA를 활용한 엔티티(User, Message) 설계 및 리포지토리 구현</li>
+                <li>Thymeleaf를 이용한 서버 사이드 렌더링과 JavaScript(SockJS, STOMP.js)를 통한 클라이언트-서버 비동기 통신</li>
+            </ul>
+            
+            <div class="modal-links">
+                <a href="https://github.com/Lee-Coderrr/DemoChat.git" target="_blank" class="btn btn-primary">
                     <i class="fab fa-github"></i> GitHub Repository
                 </a>
             </div>
