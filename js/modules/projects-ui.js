@@ -15,9 +15,6 @@ function renderProjects() {
     }
 
     const projectCardsHTML = projectsData.map(project => {
-        // AOS delay 속성 처리
-        const aosDelayAttr = project.aosDelay ? `data-aos-delay="${project.aosDelay}"` : '';
-
         // Featured 클래스 처리
         const featuredClass = project.featured ? 'featured' : '';
 
@@ -31,7 +28,7 @@ function renderProjects() {
         const highlightsHTML = project.highlights.map(highlight => `<li>${highlight}</li>`).join('');
 
         return `
-            <div class="project-card ${featuredClass}" data-category="${project.category}" data-aos="fade-up" ${aosDelayAttr}>
+            <div class="project-card ${featuredClass}" data-category="${project.category}">
                 <div class="project-image">
                     <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="lazy" decoding="async">
                     <div class="project-overlay">
@@ -61,6 +58,17 @@ function renderProjects() {
     }).join('');
 
     projectsGrid.innerHTML = projectCardsHTML;
+
+    // 초기 로드 애니메이션 (필터 전환과 동일한 효과)
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+        }, index * 100 + 10); // 순차적으로 나타남
+    });
 
     // 모달 열기 이벤트 리스너 추가
     setupModalListeners();
