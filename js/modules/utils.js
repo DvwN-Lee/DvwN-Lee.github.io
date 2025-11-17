@@ -107,10 +107,67 @@ function setupScrollToTop() {
 }
 
 /**
+ * Details/Summary 아코디언 애니메이션 설정
+ */
+function setupDetailsAccordion() {
+    document.querySelectorAll('.problem-item details').forEach(detail => {
+        const summary = detail.querySelector('summary');
+        const content = detail.querySelector('.problem-details');
+
+        summary.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            // 다른 details가 열려있으면 닫기 (아코디언 효과)
+            document.querySelectorAll('.problem-item details[open]').forEach(openDetail => {
+                if (openDetail !== detail && openDetail.open) {
+                    const openContent = openDetail.querySelector('.problem-details');
+                    openContent.style.height = '0px';
+                    setTimeout(() => {
+                        openDetail.removeAttribute('open');
+                    }, 400);
+                }
+            });
+
+            // 현재 details 토글
+            if (detail.open) {
+                // 닫기 애니메이션
+                const currentHeight = content.scrollHeight;
+                content.style.height = `${currentHeight}px`;
+
+                requestAnimationFrame(() => {
+                    content.style.height = '0px';
+                });
+
+                setTimeout(() => {
+                    detail.removeAttribute('open');
+                }, 400);
+
+            } else {
+                // 열기 애니메이션
+                detail.setAttribute('open', '');
+                const targetHeight = content.scrollHeight;
+
+                content.style.height = '0px';
+
+                requestAnimationFrame(() => {
+                    content.style.height = `${targetHeight}px`;
+                });
+
+                // 애니메이션 완료 후 height를 auto로 설정 (반응형 대응)
+                setTimeout(() => {
+                    content.style.height = 'auto';
+                }, 400);
+            }
+        });
+    });
+}
+
+/**
  * 유틸리티 모듈 초기화
  */
 export function initUtils() {
     setupScrollToTop();
+    setupDetailsAccordion();
 
     // copyEmail 함수를 전역으로 노출 (HTML onclick에서 사용)
     window.copyEmail = copyEmail;
