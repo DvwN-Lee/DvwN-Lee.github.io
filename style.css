@@ -1289,7 +1289,7 @@ h3 { font-size: 1.8rem; }
     }
 
     .scroll-to-top {
-        bottom: 20px;
+        bottom: 75px;
         right: 20px;
         width: 45px;
         height: 45px;
@@ -1602,7 +1602,7 @@ h3 { font-size: 1.8rem; }
 /* Scroll to Top Button */
 .scroll-to-top {
     position: fixed;
-    bottom: 30px;
+    bottom: 90px;
     right: 30px;
     width: 50px;
     height: 50px;
