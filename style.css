@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
 /* ===== Global Styles ===== */
 /* Dark Theme (Default) */
 :root {
@@ -49,7 +51,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'IBM Plex Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
@@ -523,7 +525,7 @@ h3 { font-size: 1.8rem; }
     margin: 0 auto;
 }
 
-/* double-item 클래스 제거 - 그리드를 항상 3열로 유지 */
+
 
 /* single 상태일 때만 featured 카드의 2단 확장 비활성화 */
 .projects-grid.single-item .project-card.featured {
@@ -905,6 +907,12 @@ h3 { font-size: 1.8rem; }
     color: var(--text-primary);
 }
 
+/* Hide Blog and LinkedIn */
+.contact-info .contact-item:nth-child(3),
+.contact-info .contact-item:nth-child(4) {
+    display: none;
+}
+
 /* 모든 링크에 클릭 애니메이션 적용 */
 @keyframes linkClick {
     0% {
@@ -1094,6 +1102,11 @@ h3 { font-size: 1.8rem; }
     overflow: auto;
 }
 
+.modal-content h2 {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
 .modal-content {
     background-color: var(--bg-secondary);
     margin: 5% auto;
@@ -1103,6 +1116,66 @@ h3 { font-size: 1.8rem; }
     width: 80%;
     max-width: 900px;
     position: relative;
+}
+
+.modal-content ul {
+    list-style: none;
+}
+
+.modal-content li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.modal-content li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.modal-content .architecture-list li::before {
+    content: '•';
+    color: var(--primary-color);
+    font-weight: normal;
+}
+
+.modal-section {
+    margin-bottom: 2rem;
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.modal-section h3, .modal-section h4 {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+
+
+.modal-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.modal-grid-2col ul {
+    padding-left: 0;
+}
+
+@media (max-width: 768px) {
+    .modal-grid-2col {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    .modal-grid-2col ul:last-child {
+        margin-top: 1rem;
+    }
 }
 
 .modal-tech-stack {
@@ -1285,8 +1358,7 @@ h3 { font-size: 1.8rem; }
         grid-template-columns: 1fr;
     }
 
-    .projects-grid.single-item,
-    .projects-grid.double-item {
+    .projects-grid.single-item {
         grid-template-columns: 1fr;
         max-width: 100%;
     }

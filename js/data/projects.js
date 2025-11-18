@@ -43,38 +43,53 @@ export const projectsData = [
         ],
         githubUrl: 'https://github.com/DvwN-Lee/Monitoring-v2',
         modalContent: `
-            <h2>프로젝트 개요</h2>
-            <p>로컬 환경에서 운영되던 마이크로서비스를 클라우드 네이티브 아키텍처로 완전히 재구축한 프로젝트입니다.
-            5주간의 개발 기간 동안 Must-Have 100%, Should-Have 100%를 달성했습니다.</p>
-
-            <h3>핵심 성과</h3>
-            <ul>
-                <li><strong>완전 자동화된 CI/CD</strong>: Git Push부터 프로덕션 배포까지 5분 이내 완료</li>
-                <li><strong>실시간 모니터링</strong>: Prometheus + Grafana로 Golden Signals 대시보드 구축</li>
-                <li><strong>보안 강화</strong>: Istio mTLS STRICT 모드로 서비스 간 암호화 통신</li>
-                <li><strong>성능 최적화</strong>: k6 부하 테스트 기반 HPA 튜닝으로 11.6% 성능 개선</li>
-            </ul>
-
-            <h3>기술 스택</h3>
-            <div class="modal-tech-stack">
-                <span>Kubernetes</span>
-                <span>Terraform</span>
-                <span>Istio</span>
-                <span>Prometheus</span>
-                <span>Grafana</span>
-                <span>ArgoCD</span>
-                <span>GitHub Actions</span>
-                <span>PostgreSQL</span>
+            <div class="modal-section">
+                <h4>프로젝트 개요</h4>
+                <p>로컬 환경에서 운영되던 마이크로서비스를 클라우드 네이티브 아키텍처로 완전히 재구축한 프로젝트입니다. 5주간의 개발 기간 동안 Must-Have 100%, Should-Have 100%를 달성했습니다.</p>
             </div>
 
-            <h3>아키텍처</h3>
-            <ul>
-                <li>4개의 마이크로서비스 (API Gateway, Auth, User, Blog)</li>
-                <li>Terraform IaC로 인프라 자동 프로비저닝</li>
-                <li>GitOps 방식의 배포 (ArgoCD)</li>
-                <li>Istio 서비스 메시로 트래픽 관리</li>
-                <li>중앙 집중식 로깅 (Loki + Promtail)</li>
-            </ul>
+            <div class="modal-section">
+                <h4>핵심 성과</h4>
+                <div class="modal-grid-2col">
+                    <ul>
+                        <li><strong>완전 자동화된 CI/CD</strong>: Git Push부터 프로덕션 배포까지 5분 이내 완료</li>
+                        <li><strong>실시간 모니터링</strong>: Prometheus + Grafana로 Golden Signals 대시보드 구축</li>
+                    </ul>
+                    <ul>
+                        <li><strong>보안 강화</strong>: Istio mTLS STRICT 모드로 서비스 간 암호화 통신</li>
+                        <li><strong>성능 최적화</strong>: k6 부하 테스트 기반 HPA 튜닝으로 11.6% 성능 개선</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-section">
+                <h4>기술 스택</h4>
+                <div class="modal-tech-stack">
+                    <span>Kubernetes</span>
+                    <span>Terraform</span>
+                    <span>Istio</span>
+                    <span>Prometheus</span>
+                    <span>Grafana</span>
+                    <span>ArgoCD</span>
+                    <span>GitHub Actions</span>
+                    <span>PostgreSQL</span>
+                </div>
+            </div>
+
+            <div class="modal-section">
+                <h4>아키텍처</h4>
+                <div class="modal-grid-2col">
+                    <ul class="architecture-list">
+                        <li>4개의 마이크로서비스 (API Gateway, Auth, User, Blog)</li>
+                        <li>Terraform IaC로 인프라 자동 프로비저닝</li>
+                        <li>GitOps 방식의 배포 (ArgoCD)</li>
+                    </ul>
+                    <ul class="architecture-list">
+                        <li>Istio 서비스 메시로 트래픽 관리</li>
+                        <li>중앙 집중식 로깅 (Loki + Promtail)</li>
+                    </ul>
+                </div>
+            </div>
 
             <div class="modal-links">
                 <a href="https://github.com/DvwN-Lee/Monitoring-v2" target="_blank" class="btn btn-primary">
@@ -101,34 +116,35 @@ export const projectsData = [
         ],
         githubUrl: 'https://github.com/kimyeonhong00/dorazy.git',
         modalContent: `
-            <h2>프로젝트 개요</h2>
-            <p>단국대학교 도산라운지 활성화를 위한 좌석 예약 및 관리 안드로이드 애플리케이션입니다.
-            경소톤(SW융합대학 X 경영경제대학 연합 해커톤)에서 <strong>동상을 수상</strong>했습니다.</p>
-
-            <h3>주요 기능</h3>
-            <ul>
-                <li>도산라운지 위치 및 이용 안내</li>
-                <li>실시간 좌석 현황 확인 및 회의실 예약</li>
-                <li>공부 시간 측정 타이머 기능</li>
-                <li>공부 시간 기반 랭킹 시스템</li>
-            </ul>
-
-            <h3>기술적 구현</h3>
-            <ul>
-                <li>Firebase Realtime Database로 실시간 좌석 정보 동기화</li>
-                <li>Firebase Authentication으로 사용자 인증</li>
-                <li>Material Design 가이드라인 적용</li>
-                <li>Figma를 활용한 UI/UX 디자인</li>
-            </ul>
-
-            <h3>팀 구성 및 역할</h3>
-            <ul>
-                <li><strong>팀 리더</strong>로서 프로젝트 총괄</li>
-                <li>Android 앱 개발 담당</li>
-                <li>Firebase 백엔드 구축</li>
-                <li>4명의 팀원과 협업</li>
-            </ul>
-
+            <div class="modal-section">
+                <h4>프로젝트 개요</h4>
+                <p>단국대학교 도산라운지 활성화를 위한 좌석 예약 및 관리 안드로이드 애플리케이션입니다. 경소톤(SW융합대학 X 경영경제대학 연합 해커톤)에서 <strong>동상을 수상</strong>했습니다.</p>
+            </div>
+            <div class="modal-section">
+                <h4>주요 기능</h4>
+                <ul>
+                    <li>도산라운지 위치 및 이용 안내</li>
+                    <li>실시간 좌석 현황 확인 및 회의실 예약</li>
+                    <li>공부 시간 측정 타이머 기능</li>
+                    <li>공부 시간 기반 랭킹 시스템</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>기술적 구현</h4>
+                <ul class="architecture-list">
+                    <li>Firebase Realtime Database로 실시간 좌석 정보 동기화</li>
+                    <li>Firebase Authentication으로 사용자 인증</li>
+                    <li>Material Design 가이드라인 적용</li>
+                    <li>Figma를 활용한 UI/UX 디자인</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>팀 구성 및 역할</h4>
+                <ul class="architecture-list">
+                    <li>Android 앱 개발 담당</li>
+                    <li>Firebase, 백엔드 구축</li>
+                </ul>
+            </div>
             <div class="modal-links">
                 <a href="https://github.com/kimyeonhong00/dorazy.git" target="_blank" class="btn btn-primary">
                     <i class="fab fa-github"></i> GitHub Repository
@@ -155,38 +171,41 @@ export const projectsData = [
         ],
         githubUrl: 'https://github.com/DvwN-Lee/Monitoring',
         modalContent: `
-            <h2>프로젝트 개요</h2>
-            <p>Go와 Python FastAPI를 사용한 마이크로서비스 아키텍처 기반 실시간 모니터링 플랫폼입니다.
-            커스텀 로드밸런서와 통계 집계 시스템을 구축하여 100 RPS 이상의 트래픽을 안정적으로 처리합니다.</p>
-
-            <h3>핵심 성과</h3>
-            <ul>
-                <li><strong>고성능 로드밸런서</strong>: Go 고루틴 기반 비동기 처리로 100 RPS 이상 안정적 처리</li>
-                <li><strong>장애 격리</strong>: 타임아웃 2초 설정으로 서비스 간 장애 전파 차단</li>
-                <li><strong>실시간 대시보드</strong>: WebSocket을 통한 실시간 RPS, 응답시간, 서비스 상태 시각화</li>
-                <li><strong>환경별 배포</strong>: Kustomize로 개발/운영 환경 매니페스트 분리 관리</li>
-            </ul>
-
-            <h3>기술 스택</h3>
-            <div class="modal-tech-stack">
-                <span>Go (Golang)</span>
-                <span>Python FastAPI</span>
-                <span>Kubernetes</span>
-                <span>Kustomize</span>
-                <span>JavaScript</span>
-                <span>WebSocket</span>
-                <span>Redis</span>
+            <div class="modal-section">
+                <h4>프로젝트 개요</h4>
+                <p>Go와 Python FastAPI를 사용한 마이크로서비스 아키텍처 기반 실시간 모니터링 플랫폼입니다. 커스텀 로드밸런서와 통계 집계 시스템을 구축하여 100 RPS 이상의 트래픽을 안정적으로 처리합니다.</p>
             </div>
-
-            <h3>아키텍처</h3>
-            <ul>
-                <li>Go 기반 커스텀 로드밸런서 및 Stats Aggregator</li>
-                <li>Python FastAPI 마이크로서비스 (여러 백엔드 서비스)</li>
-                <li>Vanilla JavaScript + WebSocket 실시간 대시보드</li>
-                <li>Redis 기반 통계 데이터 캐싱</li>
-                <li>Kubernetes 오케스트레이션 및 Kustomize 기반 배포 관리</li>
-            </ul>
-
+            <div class="modal-section">
+                <h4>핵심 성과</h4>
+                <ul>
+                    <li><strong>고성능 로드밸런서</strong>: Go 고루틴 기반 비동기 처리로 100 RPS 이상 안정적 처리</li>
+                    <li><strong>장애 격리</strong>: 타임아웃 2초 설정으로 서비스 간 장애 전파 차단</li>
+                    <li><strong>실시간 대시보드</strong>: WebSocket을 통한 실시간 RPS, 응답시간, 서비스 상태 시각화</li>
+                    <li><strong>환경별 배포</strong>: Kustomize로 개발/운영 환경 매니페스트 분리 관리</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>기술 스택</h4>
+                <div class="modal-tech-stack">
+                    <span>Go (Golang)</span>
+                    <span>Python FastAPI</span>
+                    <span>Kubernetes</span>
+                    <span>Kustomize</span>
+                    <span>JavaScript</span>
+                    <span>WebSocket</span>
+                    <span>Redis</span>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h4>아키텍처</h4>
+                <ul class="architecture-list">
+                    <li>Go 기반 커스텀 로드밸런서 및 Stats Aggregator</li>
+                    <li>Python FastAPI 마이크로서비스 (여러 백엔드 서비스)</li>
+                    <li>Vanilla JavaScript + WebSocket 실시간 대시보드</li>
+                    <li>Redis 기반 통계 데이터 캐싱</li>
+                    <li>Kubernetes 오케스트레이션 및 Kustomize 기반 배포 관리</li>
+                </ul>
+            </div>
             <div class="modal-links">
                 <a href="https://github.com/DvwN-Lee/Monitoring" target="_blank" class="btn btn-primary">
                     <i class="fab fa-github"></i> GitHub Repository
@@ -212,34 +231,38 @@ export const projectsData = [
         ],
         githubUrl: 'https://github.com/Lee-Coderrr/forum.git',
         modalContent: `
-            <h2>프로젝트 개요</h2>
-            <p>Spring Boot를 활용한 RESTful API 기반의 CRUD 게시판 웹 애플리케이션입니다.</p>
-
-            <h3>주요 기능</h3>
-            <ul>
-                <li>게시글 CRUD (생성, 읽기, 수정, 삭제)</li>
-                <li>댓글 시스템</li>
-                <li>페이징 및 검색 기능</li>
-                <li>사용자 인증 및 권한 관리</li>
-            </ul>
-
-            <h3>기술적 특징</h3>
-            <ul>
-                <li>RESTful API 설계 원칙 준수</li>
-                <li>JPA/Hibernate를 활용한 ORM</li>
-                <li>Spring Security를 통한 보안 구현</li>
-                <li>Docker 컨테이너화로 배포 환경 통일</li>
-                <li>JUnit을 활용한 단위 테스트</li>
-            </ul>
-
-            <h3>학습 포인트</h3>
-            <ul>
-                <li>Spring Boot 프레임워크의 핵심 개념</li>
-                <li>RESTful API 설계 및 구현</li>
-                <li>데이터베이스 연동 및 트랜잭션 관리</li>
-                <li>컨테이너 기반 배포 프로세스</li>
-            </ul>
-
+            <div class="modal-section">
+                <h4>프로젝트 개요</h4>
+                <p>Spring Boot를 활용한 RESTful API 기반의 CRUD 게시판 웹 애플리케이션입니다.</p>
+            </div>
+            <div class="modal-section">
+                <h4>주요 기능</h4>
+                <ul>
+                    <li>게시글 CRUD (생성, 읽기, 수정, 삭제)</li>
+                    <li>댓글 시스템</li>
+                    <li>페이징 및 검색 기능</li>
+                    <li>사용자 인증 및 권한 관리</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>기술적 특징</h4>
+                <ul class="architecture-list">
+                    <li>RESTful API 설계 원칙 준수</li>
+                    <li>JPA/Hibernate를 활용한 ORM</li>
+                    <li>Spring Security를 통한 보안 구현</li>
+                    <li>Docker 컨테이너화로 배포 환경 통일</li>
+                    <li>JUnit을 활용한 단위 테스트</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>학습 포인트</h4>
+                <ul class="architecture-list">
+                    <li>Spring Boot 프레임워크의 핵심 개념</li>
+                    <li>RESTful API 설계 및 구현</li>
+                    <li>데이터베이스 연동 및 트랜잭션 관리</li>
+                    <li>컨테이너 기반 배포 프로세스</li>
+                </ul>
+            </div>
             <div class="modal-links">
                 <a href="https://github.com/Lee-Coderrr/forum.git" target="_blank" class="btn btn-primary">
                     <i class="fab fa-github"></i> GitHub Repository
@@ -265,35 +288,39 @@ export const projectsData = [
         ],
         githubUrl: 'https://github.com/DvwN-Lee/onlineexam',
         modalContent: `
-            <h2>프로젝트 개요</h2>
-            <p>Django 프레임워크를 기반으로 구축한 온라인 시험 출제 및 채점 시스템입니다.</p>
-
-            <h3>주요 기능</h3>
-            <ul>
-                <li>시험 문제 출제 및 관리 (문제 은행)</li>
-                <li>역할 기반 사용자 관리 (학생, 교사, 관리자)</li>
-                <li>실시간 시험 진행 및 자동 채점</li>
-                <li>성적 조회 및 통계</li>
-            </ul>
-
-            <h3>기술적 구현</h3>
-            <ul>
-                <li>Django MTV 패턴 이해 및 적용</li>
-                <li>Django ORM을 활용한 데이터베이스 설계</li>
-                <li>Django Admin을 활용한 백엔드 관리 시스템 구축</li>
-                <li>jQuery, Bootstrap을 활용한 클라이언트 UI</li>
-                <li>MySQL 데이터베이스 활용</li>
-            </ul>
-
-            <h3>학습 포인트</h3>
-            <ul>
-                <li>Django MTV 패턴 이해 및 적용</li>
-                <li>관계형 데이터베이스(MySQL) 모델링</li>
-                <li>기본적인 웹 프론트엔드(jQuery)와 백엔드(Django) 연동</li>
-            </ul>
-
+            <div class="modal-section">
+                <h4>프로젝트 개요</h4>
+                <p>Django 프레임워크를 기반으로 구축한 온라인 시험 출제 및 채점 시스템입니다.</p>
+            </div>
+            <div class="modal-section">
+                <h4>주요 기능</h4>
+                <ul>
+                    <li>시험 문제 출제 및 관리 (문제 은행)</li>
+                    <li>역할 기반 사용자 관리 (학생, 교사, 관리자)</li>
+                    <li>실시간 시험 진행 및 자동 채점</li>
+                    <li>성적 조회 및 통계</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>기술적 구현</h4>
+                <ul class="architecture-list">
+                    <li>Django MTV 패턴 이해 및 적용</li>
+                    <li>Django ORM을 활용한 데이터베이스 설계</li>
+                    <li>Django Admin을 활용한 백엔드 관리 시스템 구축</li>
+                    <li>jQuery, Bootstrap을 활용한 클라이언트 UI</li>
+                    <li>MySQL 데이터베이스 활용</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>학습 포인트</h4>
+                <ul class="architecture-list">
+                    <li>Django MTV 패턴 이해 및 적용</li>
+                    <li>관계형 데이터베이스(MySQL) 모델링</li>
+                    <li>기본적인 웹 프론트엔드(jQuery)와 백엔드(Django) 연동</li>
+                </ul>
+            </div>
             <div class="modal-links">
-                <a href="https://github.com/Lee-Coderrr/OnlineExam.git" target="_blank" class="btn btn-primary">
+                <a href="https://github.com/DvwN-Lee/onlineexam" target="_blank" class="btn btn-primary">
                     <i class="fab fa-github"></i> GitHub Repository
                 </a>
             </div>
@@ -317,39 +344,43 @@ export const projectsData = [
         ],
         githubUrl: 'https://github.com/DvwN-Lee/demochat',
         modalContent: `
-            <h2>프로젝트 개요</h2>
-            <p>Spring Boot, Thymeleaf, WebSocket(STOMP)을 사용하여 구축한 간단한 실시간 채팅 애플리케이션입니다.</p>
-
-            <h3>주요 기능</h3>
-            <ul>
-                <li>WebSocket/STOMP 기반 실시간 메시지 전송 및 수신</li>
-                <li>사용자 이름 입력으로 채팅방 접속</li>
-                <li>Spring Data JPA를 통한 메시지 및 사용자 정보 데이터베이스 영속화</li>
-                <li>Thymeleaf와 JavaScript(SockJS, STOMP.js)를 활용한 동적 채팅 UI 구현</li>
-                <li>채팅 메시지 전송 시간 표시</li>
-            </ul>
-
-            <h3>기술 스택</h3>
-            <div class="modal-tech-stack">
-                <span>Spring Boot</span>
-                <span>Spring WebSocket</span>
-                <span>JPA</span>
-                <span>Thymeleaf</span>
-                <span>JavaScript</span>
-                <span>STOMP</span>
-                <span>MySQL</span>
-                <span>Gradle</span>
+            <div class="modal-section">
+                <h4>프로젝트 개요</h4>
+                <p>Spring Boot, Thymeleaf, WebSocket(STOMP)을 사용하여 구축한 간단한 실시간 채팅 애플리케이션입니다.</p>
             </div>
-
-            <h3>학습 포인트</h3>
-            <ul>
-                <li>Spring Boot 환경에서 WebSocket 연동 및 STOMP 메시지 브로커 설정</li>
-                <li>JPA를 활용한 엔티티(User, Message) 설계 및 리포지토리 구현</li>
-                <li>Thymeleaf를 이용한 서버 사이드 렌더링과 JavaScript(SockJS, STOMP.js)를 통한 클라이언트-서버 비동기 통신</li>
-            </ul>
-
+            <div class="modal-section">
+                <h4>주요 기능</h4>
+                <ul>
+                    <li>WebSocket/STOMP 기반 실시간 메시지 전송 및 수신</li>
+                    <li>사용자 이름 입력으로 채팅방 접속</li>
+                    <li>Spring Data JPA를 통한 메시지 및 사용자 정보 데이터베이스 영속화</li>
+                    <li>Thymeleaf와 JavaScript(SockJS, STOMP.js)를 활용한 동적 채팅 UI 구현</li>
+                    <li>채팅 메시지 전송 시간 표시</li>
+                </ul>
+            </div>
+            <div class="modal-section">
+                <h4>기술 스택</h4>
+                <div class="modal-tech-stack">
+                    <span>Spring Boot</span>
+                    <span>Spring WebSocket</span>
+                    <span>JPA</span>
+                    <span>Thymeleaf</span>
+                    <span>JavaScript</span>
+                    <span>STOMP</span>
+                    <span>MySQL</span>
+                    <span>Gradle</span>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h4>학습 포인트</h4>
+                <ul class="architecture-list">
+                    <li>Spring Boot 환경에서 WebSocket 연동 및 STOMP 메시지 브로커 설정</li>
+                    <li>JPA를 활용한 엔티티(User, Message) 설계 및 리포지토리 구현</li>
+                    <li>Thymeleaf를 이용한 서버 사이드 렌더링과 JavaScript(SockJS, STOMP.js)를 통한 클라이언트-서버 비동기 통신</li>
+                </ul>
+            </div>
             <div class="modal-links">
-                <a href="https://github.com/Lee-Coderrr/DemoChat.git" target="_blank" class="btn btn-primary">
+                <a href="https://github.com/DvwN-Lee/demochat" target="_blank" class="btn btn-primary">
                     <i class="fab fa-github"></i> GitHub Repository
                 </a>
             </div>
