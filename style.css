@@ -468,8 +468,15 @@ h3 { font-size: 1.8rem; }
     top: 0;
     height: 100%;
     background: var(--gradient-2);
-    width: var(--skill-level);
-    animation: fillBar 2s ease-out;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* is-visible 클래스가 추가되면 애니메이션 시작 */
+.skills.is-visible .skill-level::after {
+    transform: scaleX(var(--skill-level-decimal));
 }
 
 /* ===== Projects Section ===== */
@@ -1229,14 +1236,7 @@ h3 { font-size: 1.8rem; }
     }
 }
 
-@keyframes fillBar {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: var(--skill-level);
-    }
-}
+/* fillBar 키프레임 삭제됨 - transform: scaleX()를 사용하여 성능 최적화 */
 
 /* ===== Responsive Design ===== */
 /* 태블릿 (768px - 1024px) */

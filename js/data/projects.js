@@ -31,7 +31,7 @@ export const projectsData = [
         badge: 'Featured',
         title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
         summary: 'Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 완전 자동화된 마이크로서비스 플랫폼 구축',
-        imageUrl: 'https://raw.githubusercontent.com/DvwN-Lee/Monitoring-v2/main/docs/04-operations/screenshots/grafana-golden-signals.webp',
+        imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v2/raw/main/docs/04-operations/screenshots/grafana-golden-signals.png',
         imageAlt: 'Kubernetes 기반 Cloud-Native 마이크로서비스 플랫폼 v2.0 아키텍처',
         tech: ['Kubernetes', 'Terraform', 'Istio', 'Prometheus', 'ArgoCD', 'GitHub Actions'],
         highlights: [
@@ -220,7 +220,7 @@ export const projectsData = [
         badge: '',
         title: '온라인 시험 관리 시스템',
         summary: 'Django 기반 온라인 시험 출제 및 채점 시스템',
-        imageUrl: 'https://github.com/DvwN-Lee/OnlineExam/raw/main/images/Main.webp',
+        imageUrl: 'https://github.com/DvwN-Lee/OnlineExam/raw/main/images/Main.png',
         imageAlt: 'Django 기반 온라인 시험 출제 및 채점 관리 시스템',
         tech: ['Django', 'MySQL', 'jQuery', 'Bootstrap'],
         highlights: [
@@ -276,7 +276,7 @@ export const projectsData = [
         badge: '',
         title: 'SimpleChat - 실시간 채팅 앱',
         summary: 'Spring Boot와 WebSocket 기반 실시간 채팅 프로젝트',
-        imageUrl: 'https://github.com/DvwN-Lee/DemoChat/raw/main/images/chat_2.webp',
+        imageUrl: 'https://github.com/DvwN-Lee/DemoChat/raw/main/images/chat_2.png',
         imageAlt: 'Spring Boot와 WebSocket 기반 실시간 채팅 애플리케이션',
         tech: ['Spring Boot', 'WebSocket', 'JPA', 'Thymeleaf', 'MySQL'],
         highlights: [
