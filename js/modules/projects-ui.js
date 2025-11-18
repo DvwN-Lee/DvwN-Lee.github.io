@@ -10,26 +10,82 @@ import { projectsData } from '../data/projects.js';
  */
 function animateProjectCards(filterValue = 'all') {
     const projectCards = document.querySelectorAll('.project-card');
+    const projectsGrid = document.querySelector('.projects-grid');
 
+    // 1단계: 모든 카드 fade-out
     projectCards.forEach(card => {
-        const shouldShow = filterValue === 'all' || card.getAttribute('data-category') === filterValue;
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.8)';
+    });
 
-        if (shouldShow) {
+    // 2단계: fade-out 애니메이션 완료 후 레이아웃 변경 및 fade-in
+    setTimeout(() => {
+        const cardsToShow = [];
+        const cardsToHide = [];
+
+        projectCards.forEach(card => {
+            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                cardsToShow.push(card);
+            } else {
+                cardsToHide.push(card);
+            }
+        });
+
+        // 레이아웃 변경 전에 숨길 카드들을 먼저 처리
+        cardsToHide.forEach(card => {
+            card.style.display = 'none';
+        });
+
+        // 중앙 정렬 클래스 초기화
+        cardsToShow.forEach(card => card.classList.remove('last-row-single', 'last-row-pair-1', 'last-row-pair-2'));
+
+        // Grid 레이아웃 및 중앙 정렬 로직
+        projectsGrid.classList.remove('single-item');
+        if (cardsToShow.length === 1) {
+            projectsGrid.classList.add('single-item');
+        } else if (cardsToShow.length > 1) {
+            const featuredCount = cardsToShow.filter(card => card.classList.contains('featured')).length;
+            const totalSlots = cardsToShow.length + featuredCount;
+            const lastRowSlots = totalSlots % 3;
+
+            if (lastRowSlots === 1) {
+                cardsToShow[cardsToShow.length - 1].classList.add('last-row-single');
+            } else if (lastRowSlots === 2) {
+                const lastTwoCards = cardsToShow.slice(-2);
+                if (lastTwoCards.length === 2) {
+                    lastTwoCards[0].classList.add('last-row-pair-1');
+                    lastTwoCards[1].classList.add('last-row-pair-2');
+                }
+            }
+        }
+
+        // 표시할 카드들 스타일 설정 및 fade-in 준비
+        cardsToShow.forEach(card => {
             card.style.display = 'block';
             card.style.opacity = '0';
             card.style.transform = 'scale(0.8)';
-            setTimeout(() => {
+        });
+
+        // 3단계: 레이아웃 변경 후 fade-in 애니메이션 시작
+        requestAnimationFrame(() => {
+            cardsToShow.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 50}ms`;
                 card.style.opacity = '1';
                 card.style.transform = 'scale(1)';
-            }, 400);
-        } else {
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-                card.style.display = 'none';
-            }, 400);
-        }
-    });
+            });
+        });
+
+        // 애니메이션이 끝난 후 transition-delay 초기화 및 AOS 새로고침
+        setTimeout(() => {
+            cardsToShow.forEach(card => {
+                card.style.transitionDelay = '0ms';
+            });
+            // AOS 라이브러리가 있으면 새로고침하여 스크롤 애니메이션 위치 재계산
+            if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+            }
+        }, 400 + cardsToShow.length * 50);
+    }, 400);
 }
 
 /**
