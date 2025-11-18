@@ -31,7 +31,7 @@ export const skillsData = [
       { name: 'Kubernetes', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', level: 90 },
       { name: 'Docker', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', level: 90 },
       { name: 'Helm', iconUrl: 'https://www.vectorlogo.zone/logos/helmsh/helmsh-icon.svg', level: 85, iconStyle: 'filter: invert(0.2);' },
-      { name: 'Kustomize', iconUrl: 'images/kustomize.png', level: 80 },
+      { name: 'Kustomize', iconUrl: 'images/kustomize.webp', level: 80 },
       { name: 'Skaffold', iconUrl: 'images/skaffold.svg', level: 75 }
     ]
   },
@@ -49,7 +49,7 @@ export const skillsData = [
     title: 'Service Mesh & Security',
     skills: [
       { name: 'Istio', iconUrl: 'https://www.vectorlogo.zone/logos/istioio/istioio-icon.svg', level: 75 },
-      { name: 'Kiali', iconUrl: 'images/kiali.png', level: 70 },
+      { name: 'Kiali', iconUrl: 'images/kiali.webp', level: 70 },
       { name: 'Trivy', iconUrl: 'https://raw.githubusercontent.com/aquasecurity/trivy/main/docs/imgs/logo.png', level: 80 }
     ]
   },

@@ -36,29 +36,6 @@ function animateProjectCards(filterValue = 'all') {
             card.style.display = 'none';
         });
 
-        // 중앙 정렬 클래스 초기화
-        cardsToShow.forEach(card => card.classList.remove('last-row-single', 'last-row-pair-1', 'last-row-pair-2'));
-
-        // Grid 레이아웃 및 중앙 정렬 로직
-        projectsGrid.classList.remove('single-item');
-        if (cardsToShow.length === 1) {
-            projectsGrid.classList.add('single-item');
-        } else if (cardsToShow.length > 1) {
-            const featuredCount = cardsToShow.filter(card => card.classList.contains('featured')).length;
-            const totalSlots = cardsToShow.length + featuredCount;
-            const lastRowSlots = totalSlots % 3;
-
-            if (lastRowSlots === 1) {
-                cardsToShow[cardsToShow.length - 1].classList.add('last-row-single');
-            } else if (lastRowSlots === 2) {
-                const lastTwoCards = cardsToShow.slice(-2);
-                if (lastTwoCards.length === 2) {
-                    lastTwoCards[0].classList.add('last-row-pair-1');
-                    lastTwoCards[1].classList.add('last-row-pair-2');
-                }
-            }
-        }
-
         // 표시할 카드들 스타일 설정 및 fade-in 준비
         cardsToShow.forEach(card => {
             card.style.display = 'block';

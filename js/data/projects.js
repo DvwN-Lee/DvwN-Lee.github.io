@@ -31,7 +31,7 @@ export const projectsData = [
         badge: 'Featured',
         title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
         summary: 'Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 완전 자동화된 마이크로서비스 플랫폼 구축',
-        imageUrl: 'https://raw.githubusercontent.com/DvwN-Lee/Monitoring-v2/main/docs/04-operations/screenshots/grafana-golden-signals.png',
+        imageUrl: 'https://raw.githubusercontent.com/DvwN-Lee/Monitoring-v2/main/docs/04-operations/screenshots/grafana-golden-signals.webp',
         imageAlt: 'Kubernetes 기반 Cloud-Native 마이크로서비스 플랫폼 v2.0 아키텍처',
         tech: ['Kubernetes', 'Terraform', 'Istio', 'Prometheus', 'ArgoCD', 'GitHub Actions'],
         highlights: [
@@ -214,70 +214,13 @@ export const projectsData = [
         `
     },
     {
-        id: 'forum',
-        category: 'backend',
-        featured: false,
-        badge: '',
-        title: 'Spring Boot 게시판 시스템',
-        summary: 'RESTful API 기반 CRUD 게시판 웹 애플리케이션',
-        imageUrl: 'https://mermaid.ink/img/Z3JhcGggVEQKICAgIHN1YmdyYXBoICJDbGllbnQgVGllciIKICAgICAgICBBW+ybuSDruIzrnbzsmrDsoIBdCiAgICBlbmQKCiAgICBzdWJncmFwaCAiQXBwbGljYXRpb24gVGllciAoU3ByaW5nIEJvb3QpIgogICAgICAgIEJbPGI+Q29udHJvbGxlciBMYXllcjwvYj48YnI+PGk+UkVTVCBBUEkgRW5kcG9pbnRzPC9pPjxicj7smpTssq0v7J2R64u1IOyymOumrF0KICAgICAgICBDWzxiPlNlcnZpY2UgTGF5ZXI8L2I+PGJyPjxpPkJ1c2luZXNzIExvZ2ljPC9pPjxicj7tirjrnpzsnq3shZgg7LKY66asXQogICAgICAgIERbPGI+UmVwb3NpdG9yeSBMYXllcjwvYj48YnI+PGk+RGF0YSBBY2Nlc3M8L2k+PGJyPkRCIOyXsOuPmSDsnbjthLDtjpjsnbTsiqRdCiAgICBlbmQKCiAgICBzdWJncmFwaCAiUGVyc2lzdGVuY2UgVGllciIKICAgICAgICBFWzxiPkpQQSAvIEhpYmVybmF0ZTwvYj48YnI+PGk+T1JNIEZyYW1ld29yazwvaT5dCiAgICBlbmQKCiAgICBzdWJncmFwaCAiRGF0YSBUaWVyIgogICAgICAgIEZbPGI+UG9zdGdyZVNRTDwvYj48YnI+KOyatOyYgSBEQildCiAgICAgICAgR1s8Yj5IMjwvYj48YnI+KOqwnOuwnC/thYzsiqTtirggREIpXQogICAgZW5kCgogICAgQSAtLSAiMS4gSFRUUCBSZXF1ZXN0IChHRVQsIFBPU1QsIGV0Yy4pIiAtLT4gQgogICAgQiAtLSAiMi4gRFRP66W8IO2Tte2VnCDrqZTshozrk5wg7Zi47LacIiAtLT4gQwogICAgQyAtLSAiMy4gRW50aXR566W8IO2Tte2VnCDrqZTshozrk5wg7Zi47LacIiAtLT4gRAogICAgRCAtLSAiNC4gSlBBIOuplOyGjOuTnCDtmLjstpwgKGUuZy4sIHNhdmUsIGZpbmRCeUlkKSIgLS0+IEUKICAgIEUgLS0gIjUuIFNRTCDsv7zrpqwg7IOd7ISxIOuwjSDsi6TtlokiIC0tPiBGCiAgICBFIC0tICI1LiBTUUwg7L+866asIOyDneyEsSDrsI8g7Iuk7ZaJIiAtLT4gRwogICAgRyAtLSAiNi4g642w7J207YSwIOuwmO2ZmCIgLS0+IEUKICAgIEYgLS0gIjYuIOuNsOydtO2EsCDrsJjtmZgiIC0tPiBFCiAgICBFIC0tICI3LiBFbnRpdHkg6rCd7LK0IOunpO2VkSIgLS0+IEQKICAgIEQgLS0gIjguIEVudGl0eSDqsJ3ssrQg67CY7ZmYIiAtLT4gQwogICAgQyAtLSAiOS4gRFRP66GcIOuzgO2ZmCDtm4Qg67CY7ZmYIiAtLT4gQgogICAgQiAtLSAiMTAuIEhUTUwgKE11c3RhY2hlKSDrmJDripQgSlNPTiDsnZHri7UiIC0tPiBBCg==',
-        imageAlt: 'Spring Boot와 JPA 기반 RESTful 게시판 시스템 아키텍처',
-        tech: ['Spring Boot', 'JPA', 'Mustache', 'PostgreSQL', 'H2'],
-        highlights: [
-            'Spring Boot 프레임워크 기반 독립 실행형 웹 애플리케이션 아키텍처 설계 및 구축',
-            'Spring Data JPA를 활용한 PostgreSQL/H2 데이터베이스 연동 및 데이터 영속성 관리',
-            'RESTful API 원칙에 따른 게시글 및 댓글 CRUD 기능 구현',
-            'Mustache 템플릿 엔진을 사용한 서버 사이드 렌더링(SSR) 방식의 UI 개발'
-        ],
-        githubUrl: 'https://github.com/Lee-Coderrr/forum.git',
-        modalContent: `
-            <div class="modal-section">
-                <h4>프로젝트 개요</h4>
-                <p>Spring Boot를 활용한 RESTful API 기반의 CRUD 게시판 웹 애플리케이션입니다.</p>
-            </div>
-            <div class="modal-section">
-                <h4>주요 기능</h4>
-                <ul>
-                    <li>게시글 CRUD (생성, 읽기, 수정, 삭제)</li>
-                    <li>댓글 시스템</li>
-                    <li>페이징 및 검색 기능</li>
-                    <li>사용자 인증 및 권한 관리</li>
-                </ul>
-            </div>
-            <div class="modal-section">
-                <h4>기술적 특징</h4>
-                <ul class="architecture-list">
-                    <li>RESTful API 설계 원칙 준수</li>
-                    <li>JPA/Hibernate를 활용한 ORM</li>
-                    <li>Spring Security를 통한 보안 구현</li>
-                    <li>Docker 컨테이너화로 배포 환경 통일</li>
-                    <li>JUnit을 활용한 단위 테스트</li>
-                </ul>
-            </div>
-            <div class="modal-section">
-                <h4>학습 포인트</h4>
-                <ul class="architecture-list">
-                    <li>Spring Boot 프레임워크의 핵심 개념</li>
-                    <li>RESTful API 설계 및 구현</li>
-                    <li>데이터베이스 연동 및 트랜잭션 관리</li>
-                    <li>컨테이너 기반 배포 프로세스</li>
-                </ul>
-            </div>
-            <div class="modal-links">
-                <a href="https://github.com/Lee-Coderrr/forum.git" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-github"></i> GitHub Repository
-                </a>
-            </div>
-        `
-    },
-    {
         id: 'exam',
         category: 'backend',
         featured: false,
         badge: '',
         title: '온라인 시험 관리 시스템',
         summary: 'Django 기반 온라인 시험 출제 및 채점 시스템',
-        imageUrl: 'https://github.com/DvwN-Lee/OnlineExam/raw/main/images/Main.png',
+        imageUrl: 'https://github.com/DvwN-Lee/OnlineExam/raw/main/images/Main.webp',
         imageAlt: 'Django 기반 온라인 시험 출제 및 채점 관리 시스템',
         tech: ['Django', 'MySQL', 'jQuery', 'Bootstrap'],
         highlights: [
@@ -333,7 +276,7 @@ export const projectsData = [
         badge: '',
         title: 'SimpleChat - 실시간 채팅 앱',
         summary: 'Spring Boot와 WebSocket 기반 실시간 채팅 프로젝트',
-        imageUrl: 'https://github.com/DvwN-Lee/DemoChat/raw/main/images/chat_2.png',
+        imageUrl: 'https://github.com/DvwN-Lee/DemoChat/raw/main/images/chat_2.webp',
         imageAlt: 'Spring Boot와 WebSocket 기반 실시간 채팅 애플리케이션',
         tech: ['Spring Boot', 'WebSocket', 'JPA', 'Thymeleaf', 'MySQL'],
         highlights: [
