@@ -8,14 +8,6 @@
  * @param {Event} event - 클릭 이벤트 객체
  */
 function copyEmail(email, event) {
-    const emailLink = event.target.closest('.email-copy');
-    if (emailLink) {
-        emailLink.classList.add('copying');
-        setTimeout(() => {
-            emailLink.classList.remove('copying');
-        }, 300);
-    }
-
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(email).then(() => {
             showCopyFeedback(event);
@@ -69,8 +61,6 @@ function showCopyFeedback(evt) {
     const emailLink = evt.target.closest('.email-copy');
     if (!emailLink) return;
 
-    emailLink.classList.add('copied');
-
     const tooltip = document.createElement('div');
     tooltip.className = 'copy-tooltip';
     tooltip.textContent = '이메일 주소가 클립보드에 복사되었습니다!';
@@ -84,10 +74,6 @@ function showCopyFeedback(evt) {
             }
         }, 300);
     }, 2000);
-
-    setTimeout(() => {
-        emailLink.classList.remove('copied');
-    }, 2500);
 }
 
 /**
@@ -110,15 +96,18 @@ function setupScrollToTop() {
  * Details/Summary 아코디언 애니메이션 설정
  */
 function setupDetailsAccordion() {
-    document.querySelectorAll('.problem-item details').forEach(detail => {
+    // DOM 쿼리를 한 번만 수행하여 캐싱 (성능 최적화)
+    const allDetails = document.querySelectorAll('.problem-item details');
+
+    allDetails.forEach(detail => {
         const summary = detail.querySelector('summary');
         const content = detail.querySelector('.problem-details');
 
         summary.addEventListener('click', (event) => {
             event.preventDefault();
 
-            // 다른 details가 열려있으면 닫기 (아코디언 효과)
-            document.querySelectorAll('.problem-item details[open]').forEach(openDetail => {
+            // 캐싱된 배열을 사용하여 다른 열린 details 닫기 (아코디언 효과)
+            allDetails.forEach(openDetail => {
                 if (openDetail !== detail && openDetail.open) {
                     const openContent = openDetail.querySelector('.problem-details');
                     openContent.style.height = '0px';
@@ -163,14 +152,29 @@ function setupDetailsAccordion() {
 }
 
 /**
+ * 이메일 복사 이벤트 리스너 설정
+ */
+function setupEmailCopy() {
+    const emailLink = document.querySelector('.email-copy');
+
+    if (emailLink) {
+        emailLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            const email = emailLink.getAttribute('data-email');
+            if (email) {
+                copyEmail(email, event);
+            }
+        });
+    }
+}
+
+/**
  * 유틸리티 모듈 초기화
  */
 export function initUtils() {
     setupScrollToTop();
     setupDetailsAccordion();
-
-    // copyEmail 함수를 전역으로 노출 (HTML onclick에서 사용)
-    window.copyEmail = copyEmail;
+    setupEmailCopy();
 
     console.log('✅ Utils module initialized');
 }

@@ -65,8 +65,9 @@ class TypeWriter {
         this.text = '';
         this.wordIndex = 0;
         this.wait = parseInt(wait, 10);
-        this.type();
         this.isDeleting = false;
+        this.timeoutId = null; // setTimeout ID 저장 (메모리 누수 방지)
+        this.type();
     }
 
     type() {
@@ -96,7 +97,18 @@ class TypeWriter {
             typeSpeed = 500;
         }
 
-        setTimeout(() => this.type(), typeSpeed);
+        // setTimeout ID를 저장하여 나중에 정리 가능하도록 함
+        this.timeoutId = setTimeout(() => this.type(), typeSpeed);
+    }
+
+    /**
+     * TypeWriter 애니메이션을 정리하는 메서드 (메모리 누수 방지)
+     */
+    cleanup() {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
     }
 }
 

@@ -960,43 +960,6 @@ h3 { font-size: 1.8rem; }
     }
 }
 
-.email-copy.copying {
-    animation: copyClick 0.3s ease;
-}
-
-/* 복사 완료 상태 */
-.email-copy.copied {
-    color: var(--primary-color);
-}
-
-/* 체크 아이콘 표시 */
-.email-copy .check-icon {
-    display: inline-block;
-    margin-left: 0.5rem;
-    color: var(--primary-color);
-    opacity: 0;
-    transform: scale(0);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.email-copy.copied .check-icon {
-    opacity: 1;
-    transform: scale(1);
-    animation: checkPop 0.4s ease;
-}
-
-@keyframes checkPop {
-    0% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
 /* 복사 완료 툴팁 */
 .copy-tooltip {
     position: fixed;
@@ -1625,7 +1588,7 @@ h3 { font-size: 1.8rem; }
 }
 
 .scroll-to-top:hover {
-    background: var(--secondary-color);
+    background: #5BA3F5;
     transform: translateY(-5px);
     box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
 }

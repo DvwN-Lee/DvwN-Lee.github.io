@@ -2,24 +2,25 @@
 // Navigation Module
 // ========================================
 
+// DOM 요소 캐싱 (모듈 스코프 - 한 번만 조회)
+const navbar = document.querySelector('.navbar');
+const scrollProgress = document.querySelector('.scroll-progress');
+const scrollToTopBtn = document.getElementById('scrollToTop');
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+// 현재 활성화된 링크 추적
+let currentActiveLink = null;
+
 /**
- * 스크롤 이벤트 핸들러
+ * 스크롤 이벤트 핸들러 (최적화)
  */
 function handleScroll() {
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    const navbar = document.querySelector('.navbar');
-    const scrollProgress = document.querySelector('.scroll-progress');
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
 
     // Navbar scroll effect
     if (navbar) {
-        if (scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+        navbar.classList.toggle('scrolled', scrollY > 50);
     }
 
     // Scroll progress bar
@@ -32,29 +33,28 @@ function handleScroll() {
 
     // Scroll to top button
     if (scrollToTopBtn) {
-        if (scrollY > 300) {
-            scrollToTopBtn.classList.add('visible');
-        } else {
-            scrollToTopBtn.classList.remove('visible');
+        scrollToTopBtn.classList.toggle('visible', scrollY > 300);
+    }
+
+    // Active navigation link (최적화 - 변경된 경우에만 DOM 조작)
+    let currentSectionId = '';
+    for (const section of sections) {
+        if (scrollY >= section.offsetTop - 100) {
+            currentSectionId = section.getAttribute('id');
         }
     }
 
-    // Active navigation link
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= (sectionTop - 100)) {
-            current = section.getAttribute('id');
-        }
-    });
+    const newActiveLink = document.querySelector(`.nav-link[href="#${currentSectionId}"]`);
 
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
-            link.classList.add('active');
+    if (newActiveLink !== currentActiveLink) {
+        if (currentActiveLink) {
+            currentActiveLink.classList.remove('active');
         }
-    });
+        if (newActiveLink) {
+            newActiveLink.classList.add('active');
+        }
+        currentActiveLink = newActiveLink;
+    }
 }
 
 /**
@@ -76,17 +76,20 @@ function setupMobileMenu() {
 }
 
 /**
- * 네비게이션 링크 부드러운 스크롤 설정
+ * 네비게이션 링크 부드러운 스크롤 설정 (이벤트 위임 적용)
  */
 function setupSmoothScroll() {
-    const navLinks = document.querySelectorAll('.nav-link');
     const navMenu = document.getElementById('nav-menu');
     const navToggle = document.getElementById('nav-toggle');
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+    if (navMenu) {
+        // 이벤트 위임: navMenu에 하나의 리스너만 등록
+        navMenu.addEventListener('click', (e) => {
+            const link = e.target.closest('.nav-link');
+            if (!link) return;
+
             e.preventDefault();
-            const targetId = this.getAttribute('href');
+            const targetId = link.getAttribute('href');
             const targetSection = document.querySelector(targetId);
 
             if (targetSection) {
@@ -96,13 +99,14 @@ function setupSmoothScroll() {
                 });
 
                 // Close mobile menu if open
-                if (navMenu && navToggle) {
+                if (navMenu.classList.contains('active') && navToggle) {
                     navMenu.classList.remove('active');
                     navToggle.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
                 }
             }
         });
-    });
+    }
 }
 
 /**

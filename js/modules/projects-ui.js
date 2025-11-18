@@ -5,6 +5,34 @@
 import { projectsData } from '../data/projects.js';
 
 /**
+ * 프로젝트 카드 애니메이션 적용
+ * @param {string} filterValue - 필터 값 ('all', 'cloud', 'backend', 'fullstack')
+ */
+function animateProjectCards(filterValue = 'all') {
+    const projectCards = document.querySelectorAll('.project-card');
+
+    projectCards.forEach(card => {
+        const shouldShow = filterValue === 'all' || card.getAttribute('data-category') === filterValue;
+
+        if (shouldShow) {
+            card.style.display = 'block';
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+            }, 400);
+        } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                card.style.display = 'none';
+            }, 400);
+        }
+    });
+}
+
+/**
  * 프로젝트 카드를 동적으로 렌더링하는 함수
  */
 function renderProjects() {
@@ -59,52 +87,35 @@ function renderProjects() {
 
     projectsGrid.innerHTML = projectCardsHTML;
 
-    // 초기 로드 애니메이션 (필터 전환과 동일한 효과)
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'scale(0.8)';
-        setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'scale(1)';
-        }, index * 100 + 10); // 순차적으로 나타남
-    });
+    // 초기 로드 애니메이션
+    animateProjectCards('all');
 
     // 모달 열기 이벤트 리스너 추가
     setupModalListeners();
 }
 
+// 필터 버튼 DOM 캐싱 (성능 최적화 - 정적 요소이므로 한 번만 쿼리)
+let cachedFilterButtons = null;
+
 /**
  * 프로젝트 필터링 이벤트 리스너 초기화
  */
 function initializeProjectFilter() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    // 캐시된 버튼이 없으면 쿼리하여 캐싱
+    if (!cachedFilterButtons) {
+        cachedFilterButtons = document.querySelectorAll('.filter-btn');
+    }
 
-    filterButtons.forEach(button => {
+    cachedFilterButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Update active button
-            filterButtons.forEach(btn => btn.classList.remove('active'));
+            cachedFilterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
             const filterValue = button.getAttribute('data-filter');
 
-            // 동적으로 생성된 카드들을 필터링
-            const projectCards = document.querySelectorAll('.project-card');
-            projectCards.forEach(card => {
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    }, 10);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.8)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
-                }
-            });
+            // 공통 애니메이션 함수 사용
+            animateProjectCards(filterValue);
         });
     });
 }
