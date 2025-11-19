@@ -4,6 +4,8 @@
 
 import { projectsData } from '../data/projects.js';
 
+
+
 /**
  * 프로젝트 카드 애니메이션 적용
  * @param {string} filterValue - 필터 값 ('all', 'cloud', 'backend', 'fullstack')
@@ -156,19 +158,104 @@ function initializeProjectFilter() {
 /**
  * 프로젝트 모달 열기
  * @param {string} projectId - 프로젝트 ID
+ * @param {HTMLElement} clickedElement - 클릭된 요소
  */
-function openProjectModal(projectId) {
+function openProjectModal(projectId, clickedElement = null) {
     const modal = document.getElementById('projectModal');
-    const modalContent = document.getElementById('modalContent');
+    const modalContent = modal ? modal.querySelector('.modal-content') : null;
+    const modalContentInner = document.getElementById('modalContent');
     const project = projectsData.find(p => p.id === projectId);
 
-    if (project && modal && modalContent) {
-        modalContent.innerHTML = `
-            <h2>${project.title}</h2>
-            ${project.modalContent}
+    if (!project || !modal || !modalContent || !modalContentInner) return;
+
+    let contentHTML = '';
+
+    if (project.modalDetails) {
+        const sectionsHTML = project.modalDetails.map(section => {
+            let sectionContent = '';
+            if (section.content) {
+                sectionContent = `<p>${section.content}</p>`;
+            } else if (section.items) {
+                if (section.type === 'techStack') {
+                    const techItems = section.items.map(item => `<span>${item}</span>`).join('');
+                    sectionContent = `<div class="modal-tech-stack">${techItems}</div>`;
+                } else {
+                    const listTag = section.listType === 'ol' ? 'ol' : 'ul';
+                    const itemsHTML = section.items.map(item => `<li>${item}</li>`).join('');
+                    sectionContent = `<${listTag}>${itemsHTML}</${listTag}>`;
+                }
+            }
+
+            return `
+                <div class="modal-section">
+                    <h4>${section.title}</h4>
+                    ${sectionContent}
+                </div>
+            `;
+        }).join('');
+
+        contentHTML = `
+            <div class="modal-details-content visible">
+                ${sectionsHTML}
+                <div class="modal-links">
+                    <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-github"></i> GitHub Repository
+                    </a>
+                </div>
+            </div>
         `;
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+    }
+
+    modalContentInner.innerHTML = `
+        <h2>${project.title}</h2>
+        ${contentHTML}
+    `;
+
+    // 모달 표시 애니메이션 (카드 위치에서 시작)
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+
+    if (clickedElement) {
+        // 클릭된 요소의 위치 가져오기
+        const rect = clickedElement.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // 뷰포트 중앙 계산
+        const viewportCenterX = window.innerWidth / 2;
+        const viewportCenterY = window.innerHeight / 2;
+
+        // 초기 위치 설정 (카드 위치)
+        const translateX = centerX - viewportCenterX;
+        const translateY = centerY - viewportCenterY;
+
+        // 첫 번째 프레임: 초기 위치 설정
+        requestAnimationFrame(() => {
+            // position: fixed; top: 50%; left: 50%이므로
+            // translate(-50%, -50%)를 기본으로 요소 중심을 제어
+            modalContent.style.transform = `translate(calc(-50% + ${translateX}px), calc(-50% + ${translateY}px)) scale(0.1)`;
+            modalContent.style.opacity = '0';
+
+            // 두 번째 프레임: 애니메이션 시작 (최종 상태로 transition)
+            requestAnimationFrame(() => {
+                modal.classList.add('show');
+                // 최종 상태: 요소 중심을 viewport 중앙에 배치
+                modalContent.style.transform = 'translate(-50%, -50%) scale(1)';
+                modalContent.style.opacity = '1';
+            });
+        });
+    } else {
+        // 클릭 요소 없으면 기본 애니메이션 (중앙에서 fade in)
+        requestAnimationFrame(() => {
+            modalContent.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            modalContent.style.opacity = '0';
+
+            requestAnimationFrame(() => {
+                modal.classList.add('show');
+                modalContent.style.transform = 'translate(-50%, -50%) scale(1)';
+                modalContent.style.opacity = '1';
+            });
+        });
     }
 }
 
@@ -177,8 +264,18 @@ function openProjectModal(projectId) {
  */
 function closeProjectModal() {
     const modal = document.getElementById('projectModal');
+    const modalContent = modal ? modal.querySelector('.modal-content') : null;
     if (modal) {
-        modal.style.display = 'none';
+        // 애니메이션 클래스 제거
+        modal.classList.remove('show');
+        // 애니메이션이 끝난 후 display none 및 transform 초기화
+        setTimeout(() => {
+            modal.style.display = 'none';
+            if (modalContent) {
+                modalContent.style.transform = '';
+                modalContent.style.opacity = '';
+            }
+        }, 500); // transition 시간과 동일 (0.5s)
         document.body.style.overflow = 'auto';
     }
 }
@@ -195,7 +292,9 @@ function setupModalListeners() {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const projectId = e.currentTarget.getAttribute('data-project-id');
-            openProjectModal(projectId);
+            // 클릭된 카드 요소 찾기
+            const projectCard = e.currentTarget.closest('.project-card');
+            openProjectModal(projectId, projectCard || e.currentTarget);
         });
     });
 

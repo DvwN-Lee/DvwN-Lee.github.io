@@ -684,6 +684,353 @@ h3 { font-size: 1.8rem; }
     color: var(--accent-color);
 }
 
+/* ===== Project Details (Problem Solving Style) ===== */
+.project-details-wrapper {
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.project-details-wrapper summary {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    padding: 16px 20px;
+    padding-left: 40px;
+    outline: none;
+    background: rgba(74, 144, 226, 0.05);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    user-select: none;
+    list-style: none;
+}
+
+.project-details-wrapper summary:hover {
+    background: rgba(74, 144, 226, 0.08);
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.project-details-wrapper summary::-webkit-details-marker {
+    display: none;
+}
+
+.project-details-wrapper summary::before {
+    content: '▶';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    color: var(--primary-color);
+}
+
+.project-details-wrapper[open] summary {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+}
+
+.project-details-wrapper[open] summary::before {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.project-details-content {
+    margin-top: 0;
+    padding: 0 30px;
+    padding-left: 50px;
+    background: rgba(74, 144, 226, 0.03);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-details-wrapper[open] .project-details-content {
+    opacity: 1;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.project-details-content h4 {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.project-details-content h4::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-2);
+}
+
+.project-details-content h4:first-of-type {
+    margin-top: 0;
+}
+
+.project-details-content p,
+.project-details-content li {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.project-details-content p {
+    margin-bottom: 20px;
+}
+
+.project-details-content ol,
+.project-details-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.project-details-content ol li {
+    counter-increment: item;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 15px;
+}
+
+.project-details-content ol {
+    counter-reset: item;
+}
+
+.project-details-content ol li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.project-details-content ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 15px;
+}
+
+.project-details-content ul li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent-color);
+    font-size: 0.8rem;
+}
+
+.project-modal-links {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ===== Modal Details (Accordion Style) ===== */
+.modal-details-wrapper {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.modal-details-wrapper summary {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    padding: 16px 20px;
+    padding-left: 40px;
+    outline: none;
+    background: rgba(74, 144, 226, 0.05);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    user-select: none;
+    list-style: none;
+}
+
+.modal-details-wrapper summary:hover {
+    background: rgba(74, 144, 226, 0.08);
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.modal-details-wrapper summary::-webkit-details-marker {
+    display: none;
+}
+
+.modal-details-wrapper summary::before {
+    content: '▶';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    color: var(--primary-color);
+}
+
+.modal-details-wrapper[open] summary {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+}
+
+.modal-details-wrapper[open] summary::before {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.modal-details-content {
+    margin-top: 0;
+    padding: 0 30px;
+    padding-left: 50px;
+    background: rgba(74, 144, 226, 0.03);
+    border: 1px solid rgba(74, 144, 226, 0.2);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-details-wrapper[open] .modal-details-content {
+    opacity: 1;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    height: auto;
+}
+
+.modal-details-content .modal-section h4 {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.modal-details-content .modal-section h4::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-2);
+}
+
+.modal-details-content .modal-section:first-child h4 {
+    margin-top: 0;
+}
+
+.modal-details-content p,
+.modal-details-content li {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.modal-details-content p {
+    margin-bottom: 20px;
+}
+
+.modal-details-content ol,
+.modal-details-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.modal-details-content ol li {
+    counter-increment: item;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.modal-details-content ol li:hover {
+    color: var(--text-primary);
+    transform: translateX(3px);
+}
+
+.modal-details-content ol {
+    counter-reset: item;
+}
+
+.modal-details-content ol li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.modal-details-content ol li:hover::before {
+    transform: scale(1.15);
+}
+
+.modal-details-content ul li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.modal-details-content ul li:hover {
+    color: var(--text-primary);
+    transform: translateX(3px);
+}
+
+.modal-details-content ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: var(--transition);
+}
+
+.modal-details-content ul li:hover::before {
+    transform: scale(1.2);
+}
+
 /* ===== Timeline ===== */
 .experience {
     padding: 100px 0;
@@ -1078,15 +1425,23 @@ h3 { font-size: 1.8rem; }
 
 /* ===== Modal ===== */
 .modal {
-    display: none;
     position: fixed;
     z-index: 9999;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
     overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 .modal-content h2 {
@@ -1096,38 +1451,20 @@ h3 { font-size: 1.8rem; }
 
 .modal-content {
     background-color: var(--bg-secondary);
-    margin: 5% auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
     padding: 2rem;
     border: 1px solid var(--border-color);
     border-radius: 20px;
     width: 80%;
     max-width: 900px;
-    position: relative;
+    will-change: transform, opacity;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s ease;
 }
 
-.modal-content ul {
-    list-style: none;
-}
-
-.modal-content li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin-bottom: 0.75rem;
-}
-
-.modal-content li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--accent-color);
-    font-weight: bold;
-}
-
-.modal-content .architecture-list li::before {
-    content: '•';
-    color: var(--primary-color);
-    font-weight: normal;
-}
+/* .modal.show .modal-content의 transform과 opacity는 JavaScript에서 제어 */
 
 .modal-section {
     margin-bottom: 2rem;
@@ -1143,28 +1480,94 @@ h3 { font-size: 1.8rem; }
     border-bottom: 1px solid var(--border-color);
 }
 
-
-
-.modal-grid-2col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+.modal-section p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    transition: var(--transition);
+    cursor: default;
 }
 
-.modal-grid-2col ul {
+.modal-section p:hover {
+    color: var(--text-primary);
+    transform: translateX(3px);
+}
+
+/* Modal Section - 리스트 스타일 (모든 모달에 동일하게 적용) */
+.modal-section ul,
+.modal-section ol {
+    list-style: none;
     padding-left: 0;
+    margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-    .modal-grid-2col {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
-    .modal-grid-2col ul:last-child {
-        margin-top: 1rem;
-    }
+.modal-section ol {
+    counter-reset: item;
 }
 
+.modal-section ol li {
+    counter-increment: item;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.modal-section ol li:hover {
+    color: var(--text-primary);
+    transform: translateX(3px);
+}
+
+.modal-section ol li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.modal-section ol li:hover::before {
+    transform: scale(1.15);
+}
+
+.modal-section ul li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.modal-section ul li:hover {
+    color: var(--text-primary);
+    transform: translateX(3px);
+}
+
+.modal-section ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: var(--transition);
+}
+
+.modal-section ul li:hover::before {
+    transform: scale(1.2);
+}
+
+/* Modal Tech Stack */
 .modal-tech-stack {
     display: flex;
     flex-wrap: wrap;
@@ -1179,12 +1582,21 @@ h3 { font-size: 1.8rem; }
     border-radius: 15px;
     font-size: 0.85rem;
     color: var(--primary-color);
+    transition: var(--transition);
 }
 
+.modal-tech-stack span:hover {
+    background: rgba(74, 144, 226, 0.2);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Modal Links */
 .modal-links {
     margin-top: 2rem;
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .close {
@@ -1580,12 +1992,77 @@ h3 { font-size: 1.8rem; }
 
 .problem-details ul,
 .problem-details ol {
-    padding-left: 25px;
+    list-style: none;
+    padding-left: 0;
 }
 
-.problem-details li {
+.problem-details ol {
+    counter-reset: item;
+}
+
+.problem-details ol li {
+    counter-increment: item;
+    position: relative;
+    padding-left: 30px;
     margin-bottom: 14px;
     line-height: 1.8;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.problem-details ol li:hover {
+    color: var(--text-primary);
+    transform: translateX(3px);
+}
+
+.problem-details ol li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.problem-details ol li:hover::before {
+    transform: scale(1.15);
+}
+
+.problem-details ul li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 14px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.problem-details ul li:hover {
+    color: var(--text-primary);
+    transform: translateX(3px);
+}
+
+.problem-details ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: var(--transition);
+}
+
+.problem-details ul li:hover::before {
+    transform: scale(1.2);
 }
 
 .problem-details strong {
@@ -1778,4 +2255,12 @@ a:focus-visible {
     .theme-toggle i {
         font-size: 1.1rem;
     }
+}
+
+.modal-details-content.visible {
+    height: auto;
+    opacity: 1;
+    border-top: 1px solid rgba(74, 144, 226, 0.2);
+    border-radius: 12px;
+    padding: 25px 40px;
 }
