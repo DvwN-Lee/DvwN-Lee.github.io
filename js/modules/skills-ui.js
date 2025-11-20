@@ -3,16 +3,14 @@
 // ========================================
 
 import { skillsData } from '../data/skills.js';
+import { getRequiredElement } from './utils.js';
 
 /**
  * 스킬 섹션을 동적으로 렌더링하는 함수
  */
 function renderSkills() {
-    const skillsGrid = document.querySelector('.skills-grid');
-    if (!skillsGrid) {
-        console.error('skills-grid container not found');
-        return;
-    }
+    const skillsGrid = getRequiredElement('.skills-grid', 'Skills UI');
+    if (!skillsGrid) return;
 
     const skillCategoriesHTML = skillsData.map((category, index) => {
         // AOS delay 계산 (100ms 간격)
@@ -51,13 +49,10 @@ function renderSkills() {
  * IntersectionObserver를 사용하여 뷰포트 진입 시에만 애니메이션 실행
  */
 function initSkillsAnimation() {
-    const skillsSection = document.querySelector('.skills');
+    const skillsSection = getRequiredElement('.skills', 'Skills UI');
     const skillItems = document.querySelectorAll('.skill-item[data-level]');
 
-    if (!skillsSection || skillItems.length === 0) {
-        console.warn('Skills section or skill items not found');
-        return;
-    }
+    if (!skillsSection || skillItems.length === 0) return;
 
     // 각 스킬 아이템의 data-level을 CSS 변수로 설정
     skillItems.forEach(item => {

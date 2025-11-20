@@ -3,13 +3,14 @@
 // ========================================
 
 import { config } from '../data/config.js';
+import { getRequiredElement } from './utils.js';
 
 /**
  * Hero 섹션의 텍스트를 동적으로 렌더링합니다.
  */
 function renderHero() {
-    const heroTitle = document.querySelector('.hero-title');
-    const heroSubtitle = document.querySelector('.hero-subtitle');
+    const heroTitle = getRequiredElement('.hero-title', 'Intro UI');
+    const heroSubtitle = getRequiredElement('.hero-subtitle', 'Intro UI');
 
     if (heroTitle) {
         heroTitle.innerHTML = config.hero.title;
@@ -23,11 +24,8 @@ function renderHero() {
  * About 섹션의 텍스트를 동적으로 렌더링합니다.
  */
 function renderAbout() {
-    const aboutTextContainer = document.querySelector('.about-text');
-    if (!aboutTextContainer) {
-        console.error('About text container not found');
-        return;
-    }
+    const aboutTextContainer = getRequiredElement('.about-text', 'Intro UI');
+    if (!aboutTextContainer) return;
 
     const titleHTML = `<h3>${config.about.title}</h3>`;
     const paragraphsHTML = config.about.paragraphs.map(p => `<p>${p}</p>`).join('');

@@ -92,18 +92,23 @@ function showCopyFeedback(evt) {
 }
 
 /**
+ * 페이지 최상단으로 부드럽게 스크롤
+ */
+export function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+/**
  * 스크롤 투 탑 버튼 이벤트 리스너 설정
  */
 function setupScrollToTop() {
     const scrollToTopBtn = document.getElementById('scrollToTop');
 
     if (scrollToTopBtn) {
-        scrollToTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+        scrollToTopBtn.addEventListener('click', scrollToTop);
     }
 }
 

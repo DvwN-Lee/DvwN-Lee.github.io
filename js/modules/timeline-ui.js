@@ -3,16 +3,14 @@
 // ========================================
 
 import { experiencesData } from '../data/experiences.js';
+import { getRequiredElement } from './utils.js';
 
 /**
  * 경력/타임라인 섹션을 동적으로 렌더링하는 함수
  */
 function renderExperiences() {
-    const timeline = document.querySelector('.timeline');
-    if (!timeline) {
-        console.error('timeline container not found');
-        return;
-    }
+    const timeline = getRequiredElement('.timeline', 'Timeline UI');
+    if (!timeline) return;
 
     const timelineHTML = experiencesData.map((experience, index) => {
         // 짝수/홀수에 따라 fade 방향 결정

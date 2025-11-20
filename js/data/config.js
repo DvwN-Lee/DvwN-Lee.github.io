@@ -22,7 +22,7 @@
 export const config = {
     hero: {
         title: '안녕하세요,<br><span class="gradient-text">Cloud/DevOps Engineer</span><br>이동주입니다',
-        subtitle: '클라우드 네이티브 아키텍처와 DevOps 문화를 통해<br>안정적이고 확장 가능한 시스템을 구축합니다'
+        subtitle: '클라우드 네이티브 아키텍처와 DevOps 엔지니어링을 통해<br>안정적이고 확장 가능한 시스템을 구축합니다'
     },
     about: {
         title: '자동화로 견고한 시스템을 구축하는 DevOps 엔지니어, 이동주입니다.',

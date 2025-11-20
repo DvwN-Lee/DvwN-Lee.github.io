@@ -2,6 +2,8 @@
 // Navigation Module
 // ========================================
 
+import { scrollToTop } from './utils.js';
+
 // DOM 요소 캐싱 (모듈 스코프 - 한 번만 조회)
 const navbar = document.querySelector('.navbar');
 const scrollProgress = document.querySelector('.scroll-progress');
@@ -126,12 +128,25 @@ function setupScrollListener() {
 }
 
 /**
+ * 로고 클릭 시 최상단 스크롤 설정
+ */
+function setupLogoScrollToTop() {
+    const navLogo = document.querySelector('.nav-logo');
+
+    if (navLogo) {
+        navLogo.style.cursor = 'pointer';
+        navLogo.addEventListener('click', scrollToTop);
+    }
+}
+
+/**
  * 네비게이션 모듈 초기화
  */
 export function initNavigation() {
     setupMobileMenu();
     setupSmoothScroll();
     setupScrollListener();
+    setupLogoScrollToTop();
 
     console.log('✅ Navigation module initialized');
 }
