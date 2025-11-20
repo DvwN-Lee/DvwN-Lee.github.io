@@ -1276,20 +1276,25 @@ h3 { font-size: 1.8rem; }
 }
 
 /* 호버 상태 - copied가 아닐 때만 흰색 */
-.email-copy.hovering:not(.copied) {
-    color: var(--text-primary) !important;
+.contact-info .contact-item .email-copy.hovering:not(.copied) {
+    color: var(--text-primary);
     text-shadow: none;
 }
 
 /* 복사 완료 상태 - 마우스 위치 관계없이 파란색 유지 */
-.contact-item a.email-copy.copied {
-    color: var(--primary-color) !important;
+.contact-info .contact-item a.email-copy.copied {
+    color: var(--primary-color);
     text-shadow: 0 0 1px var(--primary-color);
 }
 
 /* Contact 아이콘에 트랜지션 추가 (빠른 전환) */
 .contact-item i {
     transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
+}
+
+/* 아이콘 페이드 아웃 상태 */
+.contact-item i.is-fading-out {
+    opacity: 0;
 }
 
 /* 체크 아이콘 애니메이션 */

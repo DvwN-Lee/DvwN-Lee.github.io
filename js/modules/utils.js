@@ -66,6 +66,10 @@ function fallbackCopyEmail(email, evt) {
     document.body.removeChild(tempInput);
 }
 
+// 이메일 복사 피드백 타이밍 상수
+const ICON_TRANSITION_DURATION = 100;
+const FEEDBACK_RESET_DELAY = 2000;
+
 /**
  * 이메일 복사 완료 피드백 표시 (아이콘 + 텍스트 색상 변경 방식)
  * @param {Event} evt - 클릭 이벤트 객체
@@ -88,26 +92,26 @@ function showCopyFeedback(evt) {
     emailLink.classList.add('copied');
     const originalIconClass = icon.className;
 
-    // 아이콘 페이드 아웃 후 변경 (빠른 전환)
-    icon.style.opacity = '0';
+    // 아이콘 페이드 아웃 후 변경
+    icon.classList.add('is-fading-out');
 
     setTimeout(() => {
         icon.className = 'fas fa-check';
         icon.classList.add('icon-check-animation');
-        icon.style.opacity = '1';
-    }, 100);
+        icon.classList.remove('is-fading-out');
+    }, ICON_TRANSITION_DURATION);
 
     // 타이머 ID 저장
     let iconResetTimer = null;
 
     // 아이콘을 원래대로 복귀하는 함수
     const resetIcon = () => {
-        icon.style.opacity = '0';
+        icon.classList.add('is-fading-out');
 
         setTimeout(() => {
             icon.className = originalIconClass;
-            icon.style.opacity = '1';
-        }, 100);
+            icon.classList.remove('is-fading-out');
+        }, ICON_TRANSITION_DURATION);
     };
 
     // 색상과 아이콘을 모두 원래대로 복귀하는 함수 (시나리오 2)
@@ -139,7 +143,7 @@ function showCopyFeedback(evt) {
     // 마우스 leave 이벤트 리스너 추가
     emailLink.addEventListener('mouseleave', onMouseLeave);
 
-    // 2초 후 아이콘 복귀
+    // 설정된 시간 후 아이콘 복귀
     iconResetTimer = setTimeout(() => {
         // 마우스가 벗어난 경우 (copied 클래스가 없는 경우) - 아이콘만 복귀
         if (!emailLink.classList.contains('copied')) {
@@ -148,7 +152,7 @@ function showCopyFeedback(evt) {
             // 마우스를 계속 대고 있는 경우 - 아이콘과 색상 모두 복귀
             resetBoth();
         }
-    }, 2000);
+    }, FEEDBACK_RESET_DELAY);
 }
 
 /**
