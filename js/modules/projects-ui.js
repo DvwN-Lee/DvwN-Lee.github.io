@@ -4,24 +4,36 @@
 
 import { projectsData } from '../data/projects.js';
 
-
+// 필터 애니메이션 상태 관리
+let isFilterAnimating = false;
+let animationTimeouts = [];
 
 /**
  * 프로젝트 카드 애니메이션 적용
  * @param {string} filterValue - 필터 값 ('all', 'cloud', 'backend', 'fullstack')
  */
 function animateProjectCards(filterValue = 'all') {
+    // 이미 애니메이션이 진행 중이면 취소하고 새로 시작
+    if (isFilterAnimating) {
+        // 진행 중인 모든 타임아웃 취소
+        animationTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+        animationTimeouts = [];
+    }
+
+    isFilterAnimating = true;
+
     const projectCards = document.querySelectorAll('.project-card');
     const projectsGrid = document.querySelector('.projects-grid');
 
     // 1단계: 모든 카드 fade-out
     projectCards.forEach(card => {
+        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
         card.style.opacity = '0';
         card.style.transform = 'scale(0.8)';
     });
 
     // 2단계: fade-out 애니메이션 완료 후 레이아웃 변경 및 fade-in
-    setTimeout(() => {
+    const timeout1 = setTimeout(() => {
         const cardsToShow = [];
         const cardsToHide = [];
 
@@ -55,7 +67,7 @@ function animateProjectCards(filterValue = 'all') {
         });
 
         // 애니메이션이 끝난 후 스타일 초기화 및 AOS 새로고침
-        setTimeout(() => {
+        const timeout2 = setTimeout(() => {
             cardsToShow.forEach(card => {
                 card.style.transitionDelay = '';
                 card.style.transform = '';
@@ -65,8 +77,17 @@ function animateProjectCards(filterValue = 'all') {
             if (typeof AOS !== 'undefined') {
                 AOS.refresh();
             }
+            isFilterAnimating = false;
+            // timeout2가 완료되면 배열에서 제거
+            animationTimeouts = animationTimeouts.filter(id => id !== timeout2);
         }, 400 + cardsToShow.length * 50);
-    }, 400);
+
+        animationTimeouts.push(timeout2);
+        // timeout1이 완료되면 배열에서 제거 (timeout2만 남김)
+        animationTimeouts = animationTimeouts.filter(id => id !== timeout1);
+    }, 300);
+
+    animationTimeouts.push(timeout1);
 }
 
 /**
