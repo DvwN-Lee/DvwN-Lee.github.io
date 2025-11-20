@@ -3,102 +3,84 @@
 // ========================================
 
 import { projectsData } from '../data/projects.js';
+import { getRequiredElement } from './utils.js';
+import { AnimationQueue } from './animation-utils.js';
 
 // 필터 애니메이션 상태 관리
-let isFilterAnimating = false;
-let animationTimeouts = [];
+const filterAnimationQueue = new AnimationQueue();
+const modalAnimationQueue = new AnimationQueue();
 
 /**
  * 프로젝트 카드 애니메이션 적용
  * @param {string} filterValue - 필터 값 ('all', 'cloud', 'backend', 'fullstack')
  */
 function animateProjectCards(filterValue = 'all') {
-    // 이미 애니메이션이 진행 중이면 취소하고 새로 시작
-    if (isFilterAnimating) {
-        // 진행 중인 모든 타임아웃 취소
-        animationTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
-        animationTimeouts = [];
-    }
+    filterAnimationQueue.start((queue) => {
+        const projectCards = document.querySelectorAll('.project-card');
 
-    isFilterAnimating = true;
-
-    const projectCards = document.querySelectorAll('.project-card');
-    const projectsGrid = document.querySelector('.projects-grid');
-
-    // 1단계: 모든 카드 fade-out
-    projectCards.forEach(card => {
-        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        card.style.opacity = '0';
-        card.style.transform = 'scale(0.8)';
-    });
-
-    // 2단계: fade-out 애니메이션 완료 후 레이아웃 변경 및 fade-in
-    const timeout1 = setTimeout(() => {
-        const cardsToShow = [];
-        const cardsToHide = [];
-
+        // 1단계: 모든 카드 fade-out
         projectCards.forEach(card => {
-            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                cardsToShow.push(card);
-            } else {
-                cardsToHide.push(card);
-            }
-        });
-
-        // 레이아웃 변경 전에 숨길 카드들을 먼저 처리
-        cardsToHide.forEach(card => {
-            card.style.display = 'none';
-        });
-
-        // 표시할 카드들 스타일 설정 및 fade-in 준비
-        cardsToShow.forEach(card => {
-            card.style.display = 'block';
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
             card.style.opacity = '0';
             card.style.transform = 'scale(0.8)';
         });
 
-        // 3단계: 레이아웃 변경 후 fade-in 애니메이션 시작
-        requestAnimationFrame(() => {
-            cardsToShow.forEach((card, index) => {
-                card.style.transitionDelay = `${index * 50}ms`;
-                card.style.opacity = '1';
-                card.style.transform = 'scale(1)';
-            });
-        });
+        // 2단계: fade-out 애니메이션 완료 후 레이아웃 변경 및 fade-in
+        queue.addTimeout(() => {
+            const cardsToShow = [];
+            const cardsToHide = [];
 
-        // 애니메이션이 끝난 후 스타일 초기화 및 AOS 새로고침
-        const timeout2 = setTimeout(() => {
+            projectCards.forEach(card => {
+                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                    cardsToShow.push(card);
+                } else {
+                    cardsToHide.push(card);
+                }
+            });
+
+            // 레이아웃 변경 전에 숨길 카드들을 먼저 처리
+            cardsToHide.forEach(card => {
+                card.style.display = 'none';
+            });
+
+            // 표시할 카드들 스타일 설정 및 fade-in 준비
             cardsToShow.forEach(card => {
-                card.style.transitionDelay = '';
-                card.style.transform = '';
-                card.style.opacity = '';
+                card.style.display = 'block';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.8)';
             });
-            // AOS 라이브러리가 있으면 새로고침하여 스크롤 애니메이션 위치 재계산
-            if (typeof AOS !== 'undefined') {
-                AOS.refresh();
-            }
-            isFilterAnimating = false;
-            // timeout2가 완료되면 배열에서 제거
-            animationTimeouts = animationTimeouts.filter(id => id !== timeout2);
-        }, 400 + cardsToShow.length * 50);
 
-        animationTimeouts.push(timeout2);
-        // timeout1이 완료되면 배열에서 제거 (timeout2만 남김)
-        animationTimeouts = animationTimeouts.filter(id => id !== timeout1);
-    }, 300);
+            // 3단계: 레이아웃 변경 후 fade-in 애니메이션 시작
+            requestAnimationFrame(() => {
+                cardsToShow.forEach((card, index) => {
+                    card.style.transitionDelay = `${index * 50}ms`;
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                });
+            });
 
-    animationTimeouts.push(timeout1);
+            // 애니메이션이 끝난 후 스타일 초기화 및 AOS 새로고침
+            queue.addTimeout(() => {
+                cardsToShow.forEach(card => {
+                    card.style.transitionDelay = '';
+                    card.style.transform = '';
+                    card.style.opacity = '';
+                });
+                // AOS 라이브러리가 있으면 새로고침하여 스크롤 애니메이션 위치 재계산
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                }
+            }, 400 + cardsToShow.length * 50);
+        }, 300);
+    });
 }
 
 /**
  * 프로젝트 카드를 동적으로 렌더링하는 함수
  */
 function renderProjects() {
-    const projectsGrid = document.querySelector('.projects-grid');
-    if (!projectsGrid) {
-        console.error('projects-grid container not found');
-        return;
-    }
+    const projectsGrid = getRequiredElement('.projects-grid', 'Projects UI');
+    if (!projectsGrid) return;
 
     const projectCardsHTML = projectsData.map(project => {
         // Featured 클래스 처리
@@ -182,7 +164,6 @@ let focusedElementBeforeModal = null;
 let focusableElements = [];
 let firstFocusableElement = null;
 let lastFocusableElement = null;
-let isModalAnimating = false;
 
 /**
  * Opens a project modal with a center fade-in/scale animation.
@@ -190,88 +171,85 @@ let isModalAnimating = false;
  * @param {HTMLElement} clickedCard - The clicked project card element.
  */
 function openProjectModal(projectId, clickedCard) {
-    if (isModalAnimating) return;
+    if (modalAnimationQueue.inProgress) return;
 
     const project = projectsData.find(p => p.id === projectId);
     if (!project) return;
 
-    isModalAnimating = true;
+    modalAnimationQueue.start(() => {
+        const modal = getRequiredElement('#projectModal', 'Projects UI');
+        if (!modal) return;
 
-    const modal = document.getElementById('projectModal');
-    const modalContent = modal.querySelector('.modal-content');
-    const modalContentInner = modal.querySelector('.modal-content-inner');
+        const modalContent = modal.querySelector('.modal-content');
+        const modalContentInner = modal.querySelector('.modal-content-inner');
 
-    let contentHTML = '';
-    if (project.modalDetails) {
-        const sectionsHTML = project.modalDetails.map(section => {
-            let sectionContent = '';
-            if (section.content) {
-                sectionContent = `<p>${section.content}</p>`;
-            } else if (section.items) {
-                const listTag = section.listType === 'ol' ? 'ol' : 'ul';
-                const itemsHTML = section.items.map(item => `<li>${item}</li>`).join('');
-                sectionContent = `<${listTag}>${itemsHTML}</${listTag}>`;
-            }
-            return `<div class="modal-section"><h4>${section.title}</h4>${sectionContent}</div>`;
-        }).join('');
+        let contentHTML = '';
+        if (project.modalDetails) {
+            const sectionsHTML = project.modalDetails.map(section => {
+                let sectionContent = '';
+                if (section.content) {
+                    sectionContent = `<p>${section.content}</p>`;
+                } else if (section.items) {
+                    const listTag = section.listType === 'ol' ? 'ol' : 'ul';
+                    const itemsHTML = section.items.map(item => `<li>${item}</li>`).join('');
+                    sectionContent = `<${listTag}>${itemsHTML}</${listTag}>`;
+                }
+                return `<div class="modal-section"><h4>${section.title}</h4>${sectionContent}</div>`;
+            }).join('');
 
-        contentHTML = `
-            <h2 id="modalTitle">${project.title}</h2>
-            <div class="modal-details-content visible">
-                ${sectionsHTML}
-                <div class="modal-links">
-                    <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-github"></i> GitHub Repository
-                    </a>
-                </div>
-            </div>`;
-    }
-    modalContentInner.innerHTML = contentHTML;
+            contentHTML = `
+                <h2 id="modalTitle">${project.title}</h2>
+                <div class="modal-details-content visible">
+                    ${sectionsHTML}
+                    <div class="modal-links">
+                        <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
+                            <i class="fab fa-github"></i> GitHub Repository
+                        </a>
+                    </div>
+                </div>`;
+        }
+        modalContentInner.innerHTML = contentHTML;
 
-    focusedElementBeforeModal = document.activeElement;
-    modal.setAttribute('aria-hidden', 'false');
+        focusedElementBeforeModal = document.activeElement;
+        modal.setAttribute('aria-hidden', 'false');
 
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    document.body.style.overflow = 'hidden';
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-    modal.style.display = 'flex';
+        modal.style.display = 'flex';
 
-    // 스크롤을 항상 맨 위로 설정 (display 설정 후 DOM이 레이아웃된 다음에 실행)
-    requestAnimationFrame(() => {
-        modalContentInner.scrollTop = 0;
+        // 스크롤을 항상 맨 위로 설정 (display 설정 후 DOM이 레이아웃된 다음에 실행)
         requestAnimationFrame(() => {
             modalContentInner.scrollTop = 0;
-            modal.classList.add('is-opening');
-            // 애니메이션 시작 후에도 한번 더 스크롤 위치 강제
             requestAnimationFrame(() => {
                 modalContentInner.scrollTop = 0;
+                modal.classList.add('is-opening');
+                // 애니메이션 시작 후에도 한번 더 스크롤 위치 강제
+                requestAnimationFrame(() => {
+                    modalContentInner.scrollTop = 0;
+                });
             });
         });
+
+        const handleTransitionEnd = (e) => {
+            if (e.target === modalContent && e.propertyName === 'transform') {
+                setupFocusTrap();
+                modalAnimationQueue.complete();
+            }
+        };
+
+        modalContent.addEventListener('transitionend', handleTransitionEnd, { once: true });
     });
-
-    const handleTransitionEnd = (e) => {
-        if (e.target === modalContent && e.propertyName === 'transform') {
-            isModalAnimating = false;
-            setupFocusTrap();
-        }
-    };
-
-    modalContent.addEventListener('transitionend', handleTransitionEnd, { once: true });
-
-    setTimeout(() => {
-        if (isModalAnimating) {
-            isModalAnimating = false;
-            setupFocusTrap();
-        }
-    }, 500)
 }
 
 /**
  * 모달 내부 포커스 트랩 설정
  */
 function setupFocusTrap() {
-    const modal = document.getElementById('projectModal');
+    const modal = getRequiredElement('#projectModal', 'Projects UI');
+    if (!modal) return;
+
     const modalContentInner = modal.querySelector('.modal-content-inner');
 
     // 포커스 가능한 모든 요소 선택
@@ -295,18 +273,25 @@ function setupFocusTrap() {
  * Closes the project modal.
  */
 function closeProjectModal() {
-    if (isModalAnimating) return;
-    isModalAnimating = true;
+    // 진행 중인 애니메이션이 있으면 취소하고 새로 시작
+    modalAnimationQueue.start(() => {
+        const modal = getRequiredElement('#projectModal', 'Projects UI');
+        if (!modal) return;
 
-    const modal = document.getElementById('projectModal');
-    const modalContent = modal.querySelector('.modal-content');
+        const modalContent = modal.querySelector('.modal-content');
 
-    modal.classList.remove('is-opening');
+        modal.classList.remove('is-opening');
 
-    const handleTransitionEnd = (e) => {
-        if (e.target === modalContent && e.propertyName === 'transform') {
+        // 클린업이 이미 실행되었는지 추적하는 플래그
+        let cleanupExecuted = false;
+
+        // 클린업 함수: 모달을 완전히 닫는 공통 로직
+        const cleanupModal = () => {
+            if (cleanupExecuted) return;
+            cleanupExecuted = true;
+
+            clearTimeout(fallbackTimeout);
             modal.style.display = 'none';
-            isModalAnimating = false;
             document.body.style.overflow = 'auto';
             document.body.style.paddingRight = '';
             modal.setAttribute('aria-hidden', 'true');
@@ -314,20 +299,26 @@ function closeProjectModal() {
             if (focusedElementBeforeModal) {
                 focusedElementBeforeModal.focus();
             }
-        }
-    };
 
-    modalContent.addEventListener('transitionend', handleTransitionEnd, { once: true });
+            modalAnimationQueue.complete();
+        };
 
-    setTimeout(() => {
-        if (isModalAnimating) {
-            modal.style.display = 'none';
-            isModalAnimating = false;
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '';
-            modal.setAttribute('aria-hidden', 'true');
-        }
-    }, 500);
+        const handleTransitionEnd = (e) => {
+            if (e.target === modalContent && e.propertyName === 'transform') {
+                cleanupModal();
+            }
+        };
+
+        // transitionend 이벤트 리스너 등록
+        modalContent.addEventListener('transitionend', handleTransitionEnd, { once: true });
+
+        // Fallback: transitionend가 발생하지 않을 경우를 대비한 타이머 (400ms)
+        // CSS transition은 300ms이므로 여유있게 400ms 후 강제 정리
+        const fallbackTimeout = setTimeout(() => {
+            modalContent.removeEventListener('transitionend', handleTransitionEnd);
+            cleanupModal();
+        }, 400);
+    });
 }
 
 /**
@@ -348,18 +339,21 @@ function setupProjectCardListeners() {
  * 모달 자체의 이벤트 리스너 설정 (초기화 시 한 번만 호출)
  */
 function setupModalListeners() {
-    const modal = document.getElementById('projectModal');
+    const modal = getRequiredElement('#projectModal', 'Projects UI');
+    if (!modal) return;
 
     // Clicking on the modal backdrop - 한 번만 등록
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
+        if (e.target === e.currentTarget) {
             closeProjectModal();
         }
     });
 
     // Closing with the Escape key and focus trap management - 한 번만 등록
     document.addEventListener('keydown', (e) => {
-        const modal = document.getElementById('projectModal');
+        const modal = getRequiredElement('#projectModal', 'Projects UI');
+        if (!modal) return;
+
         const isModalOpen = modal.classList.contains('is-opening');
 
         if (e.key === 'Escape' && isModalOpen) {

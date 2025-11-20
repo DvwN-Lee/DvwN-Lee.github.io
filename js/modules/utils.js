@@ -3,6 +3,21 @@
 // ========================================
 
 /**
+ * DOM 요소를 안전하게 선택하고 null 체크를 수행하는 유틸리티 함수
+ * @param {string} selector - CSS 선택자
+ * @param {string} moduleName - 모듈 이름 (에러 메시지용)
+ * @returns {Element|null} - 선택된 요소 또는 null
+ */
+export function getRequiredElement(selector, moduleName = '') {
+    const element = document.querySelector(selector);
+    if (!element) {
+        const prefix = moduleName ? `[${moduleName}]` : '';
+        console.error(`${prefix} Required element not found: ${selector}`);
+    }
+    return element;
+}
+
+/**
  * 이메일 주소를 클립보드에 복사
  * @param {string} email - 복사할 이메일 주소
  * @param {Event} event - 클릭 이벤트 객체
@@ -94,8 +109,9 @@ function setupScrollToTop() {
 
 /**
  * Details/Summary 아코디언 애니메이션 설정
+ * padding 애니메이션을 포함하여 더 부드러운 전환 효과 제공
  */
-function setupDetailsAccordion() {
+export function setupDetailsAccordion() {
     // DOM 쿼리를 한 번만 수행하여 캐싱 (성능 최적화)
     const allDetails = document.querySelectorAll('.problem-item details');
 
@@ -110,42 +126,48 @@ function setupDetailsAccordion() {
             allDetails.forEach(openDetail => {
                 if (openDetail !== detail && openDetail.open) {
                     const openContent = openDetail.querySelector('.problem-details');
-                    openContent.style.height = '0px';
-                    setTimeout(() => {
+                    openContent.style.height = `${openContent.scrollHeight}px`;
+                    requestAnimationFrame(() => {
+                        openContent.style.height = '0px';
+                        openContent.style.paddingTop = '0';
+                        openContent.style.paddingBottom = '0';
+                    });
+                    openContent.addEventListener('transitionend', () => {
                         openDetail.removeAttribute('open');
-                    }, 400);
+                    }, { once: true });
                 }
             });
 
             // 현재 details 토글
             if (detail.open) {
                 // 닫기 애니메이션
-                const currentHeight = content.scrollHeight;
-                content.style.height = `${currentHeight}px`;
-
+                content.style.height = `${content.scrollHeight}px`;
                 requestAnimationFrame(() => {
                     content.style.height = '0px';
+                    content.style.paddingTop = '0';
+                    content.style.paddingBottom = '0';
                 });
-
-                setTimeout(() => {
+                content.addEventListener('transitionend', () => {
                     detail.removeAttribute('open');
-                }, 400);
+                }, { once: true });
 
             } else {
                 // 열기 애니메이션
                 detail.setAttribute('open', '');
-                const targetHeight = content.scrollHeight;
-
                 content.style.height = '0px';
+                content.style.paddingTop = '0';
+                content.style.paddingBottom = '0';
 
                 requestAnimationFrame(() => {
-                    content.style.height = `${targetHeight}px`;
+                    content.style.height = `${content.scrollHeight}px`;
+                    content.style.paddingTop = '25px';
+                    content.style.paddingBottom = '25px';
                 });
 
                 // 애니메이션 완료 후 height를 auto로 설정 (반응형 대응)
-                setTimeout(() => {
+                content.addEventListener('transitionend', () => {
                     content.style.height = 'auto';
-                }, 400);
+                }, { once: true });
             }
         });
     });
@@ -173,8 +195,8 @@ function setupEmailCopy() {
  */
 export function initUtils() {
     setupScrollToTop();
-    setupDetailsAccordion();
     setupEmailCopy();
+    // setupDetailsAccordion은 각 모듈에서 동적 콘텐츠 렌더링 후 호출됨
 
     console.log('✅ Utils module initialized');
 }

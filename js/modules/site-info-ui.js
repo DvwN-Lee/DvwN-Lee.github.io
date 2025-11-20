@@ -3,16 +3,14 @@
 // ========================================
 
 import { config } from '../data/config.js';
+import { getRequiredElement } from './utils.js';
 
 /**
  * Contact 섹션의 정보를 동적으로 렌더링합니다.
  */
 function renderContactInfo() {
-    const contactContainer = document.querySelector('#contact .contact-info');
-    if (!contactContainer) {
-        console.error('Contact container not found');
-        return;
-    }
+    const contactContainer = getRequiredElement('#contact .contact-info', 'Site Info UI');
+    if (!contactContainer) return;
 
     const emailHTML = `
         <div class="contact-item">
@@ -51,17 +49,17 @@ function renderContactInfo() {
  * Footer 정보를 동적으로 렌더링합니다. (저작권 연도 및 소셜 링크)
  */
 function renderFooter() {
-    const footerContainer = document.querySelector('footer .container');
-    if (!footerContainer) {
-        console.error('Footer container not found');
-        return;
-    }
+    const footerContainer = getRequiredElement('footer .container', 'Site Info UI');
+    if (!footerContainer) return;
 
     const currentYear = new Date().getFullYear();
 
-    const footerLinksHTML = config.socials.map(social => `
-        <a href="${social.url}" target="_blank" aria-label="${social.name}"><i class="${social.iconClass}"></i></a>
-    `).join('');
+    // GitHub만 필터링하여 표시
+    const footerLinksHTML = config.socials
+        .filter(social => social.name === 'GitHub')
+        .map(social => `
+            <a href="${social.url}" target="_blank" aria-label="${social.name}"><i class="${social.iconClass}"></i></a>
+        `).join('');
 
     footerContainer.innerHTML = `
         <p>© ${currentYear} 이동주. All rights reserved.</p>
