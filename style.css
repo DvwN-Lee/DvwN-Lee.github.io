@@ -1250,7 +1250,7 @@ h3 { font-size: 1.8rem; }
     display: none;
 }
 
-/* 모든 링크에 클릭 애니메이션 적용 */
+/* 클릭 애니메이션 - 이메일 제외 */
 @keyframes linkClick {
     0% {
         transform: scale(1);
@@ -1263,7 +1263,7 @@ h3 { font-size: 1.8rem; }
     }
 }
 
-.contact-item a.clicking {
+.contact-item a.clicking:not(.email-copy) {
     animation: linkClick 0.3s ease;
 }
 
@@ -1271,122 +1271,51 @@ h3 { font-size: 1.8rem; }
 .email-copy {
     position: relative;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.email-copy:hover {
-    color: var(--text-primary);
+/* 호버 상태 - copied가 아닐 때만 흰색 */
+.email-copy.hovering:not(.copied) {
+    color: var(--text-primary) !important;
+    text-shadow: none;
 }
 
-/* 호버 툴팁 - 위로 표시, 은은하게 */
-.email-copy::after {
-    content: '클릭해서 복사하기';
-    position: absolute;
-    bottom: 100%;  /* 위로 표시 */
-    left: 50%;
-    transform: translateX(-50%) translateY(-5px);
-    background: rgba(20, 22, 39, 0.95);
-    color: var(--text-secondary);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    border: 1px solid rgba(74, 144, 226, 0.3);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    z-index: 10;
-    backdrop-filter: blur(10px);
+/* 복사 완료 상태 - 마우스 위치 관계없이 파란색 유지 */
+.contact-item a.email-copy.copied {
+    color: var(--primary-color) !important;
+    text-shadow: 0 0 1px var(--primary-color);
 }
 
-/* 툴팁 화살표 - 아래쪽에 표시 */
-.email-copy::before {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(3px);
-    border: 6px solid transparent;
-    border-top-color: rgba(74, 144, 226, 0.3);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    z-index: 10;
+/* Contact 아이콘에 트랜지션 추가 (빠른 전환) */
+.contact-item i {
+    transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
 }
 
-.email-copy:hover::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(-10px);
-}
-
-.email-copy:hover::before {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(-2px);
-}
-
-/* 클릭 시 애니메이션 */
-@keyframes copyClick {
+/* 체크 아이콘 애니메이션 */
+@keyframes iconCheckBounce {
     0% {
         transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
     }
     50% {
-        transform: scale(0.95);
-        color: var(--primary-color);
+        transform: scale(0.9);
+    }
+    75% {
+        transform: scale(1.1);
     }
     100% {
         transform: scale(1);
     }
 }
 
-/* 복사 완료 툴팁 */
-.copy-tooltip {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    padding: 12px 24px;
-    border-radius: 12px;
-    border: 1px solid var(--primary-color);
-    box-shadow: 0 8px 32px rgba(74, 144, 226, 0.4);
-    font-size: 0.95rem;
-    font-weight: 600;
-    z-index: 10000;
-    pointer-events: none;
-    animation: slideUpFade 0.3s ease forwards;
+.contact-item i.icon-check-animation {
+    animation: iconCheckBounce 0.5s ease-out;
+    color: var(--primary-color);
 }
 
-@keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-}
-
-.copy-tooltip.fade-out {
-    animation: slideDownFade 0.3s ease forwards;
-}
-
-@keyframes slideDownFade {
-    0% {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateX(-50%) translateY(20px);
-    }
-}
 
 .contact-item p {
     display: flex;
