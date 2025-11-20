@@ -54,10 +54,12 @@ function animateProjectCards(filterValue = 'all') {
             });
         });
 
-        // 애니메이션이 끝난 후 transition-delay 초기화 및 AOS 새로고침
+        // 애니메이션이 끝난 후 스타일 초기화 및 AOS 새로고침
         setTimeout(() => {
             cardsToShow.forEach(card => {
-                card.style.transitionDelay = '0ms';
+                card.style.transitionDelay = '';
+                card.style.transform = '';
+                card.style.opacity = '';
             });
             // AOS 라이브러리가 있으면 새로고침하여 스크롤 애니메이션 위치 재계산
             if (typeof AOS !== 'undefined') {
@@ -125,8 +127,8 @@ function renderProjects() {
     // 초기 로드 애니메이션
     animateProjectCards('all');
 
-    // 모달 열기 이벤트 리스너 추가
-    setupModalListeners();
+    // 프로젝트 카드 클릭 이벤트 리스너만 추가 (모달 이벤트는 initProjectsUI에서 한 번만 등록)
+    setupProjectCardListeners();
 }
 
 // 필터 버튼 DOM 캐싱 (성능 최적화 - 정적 요소이므로 한 번만 쿼리)
@@ -155,46 +157,45 @@ function initializeProjectFilter() {
     });
 }
 
-/**
- * 프로젝트 모달 열기
- * @param {string} projectId - 프로젝트 ID
- * @param {HTMLElement} clickedElement - 클릭된 요소
- */
-function openProjectModal(projectId, clickedElement = null) {
-    const modal = document.getElementById('projectModal');
-    const modalContent = modal ? modal.querySelector('.modal-content') : null;
-    const modalContentInner = document.getElementById('modalContent');
-    const project = projectsData.find(p => p.id === projectId);
+let focusedElementBeforeModal = null;
+let focusableElements = [];
+let firstFocusableElement = null;
+let lastFocusableElement = null;
+let isModalAnimating = false;
 
-    if (!project || !modal || !modalContent || !modalContentInner) return;
+/**
+ * Opens a project modal with a center fade-in/scale animation.
+ * @param {string} projectId - The ID of the project to display.
+ * @param {HTMLElement} clickedCard - The clicked project card element.
+ */
+function openProjectModal(projectId, clickedCard) {
+    if (isModalAnimating) return;
+
+    const project = projectsData.find(p => p.id === projectId);
+    if (!project) return;
+
+    isModalAnimating = true;
+
+    const modal = document.getElementById('projectModal');
+    const modalContent = modal.querySelector('.modal-content');
+    const modalContentInner = modal.querySelector('.modal-content-inner');
 
     let contentHTML = '';
-
     if (project.modalDetails) {
         const sectionsHTML = project.modalDetails.map(section => {
             let sectionContent = '';
             if (section.content) {
                 sectionContent = `<p>${section.content}</p>`;
             } else if (section.items) {
-                if (section.type === 'techStack') {
-                    const techItems = section.items.map(item => `<span>${item}</span>`).join('');
-                    sectionContent = `<div class="modal-tech-stack">${techItems}</div>`;
-                } else {
-                    const listTag = section.listType === 'ol' ? 'ol' : 'ul';
-                    const itemsHTML = section.items.map(item => `<li>${item}</li>`).join('');
-                    sectionContent = `<${listTag}>${itemsHTML}</${listTag}>`;
-                }
+                const listTag = section.listType === 'ol' ? 'ol' : 'ul';
+                const itemsHTML = section.items.map(item => `<li>${item}</li>`).join('');
+                sectionContent = `<${listTag}>${itemsHTML}</${listTag}>`;
             }
-
-            return `
-                <div class="modal-section">
-                    <h4>${section.title}</h4>
-                    ${sectionContent}
-                </div>
-            `;
+            return `<div class="modal-section"><h4>${section.title}</h4>${sectionContent}</div>`;
         }).join('');
 
         contentHTML = `
+            <h2 id="modalTitle">${project.title}</h2>
             <div class="modal-details-content visible">
                 ${sectionsHTML}
                 <div class="modal-links">
@@ -202,115 +203,163 @@ function openProjectModal(projectId, clickedElement = null) {
                         <i class="fab fa-github"></i> GitHub Repository
                     </a>
                 </div>
-            </div>
-        `;
+            </div>`;
     }
+    modalContentInner.innerHTML = contentHTML;
 
-    modalContentInner.innerHTML = `
-        <h2>${project.title}</h2>
-        ${contentHTML}
-    `;
+    focusedElementBeforeModal = document.activeElement;
+    modal.setAttribute('aria-hidden', 'false');
 
-    // 모달 표시 애니메이션 (카드 위치에서 시작)
-    modal.style.display = 'block';
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-    if (clickedElement) {
-        // 클릭된 요소의 위치 가져오기
-        const rect = clickedElement.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+    modal.style.display = 'flex';
 
-        // 뷰포트 중앙 계산
-        const viewportCenterX = window.innerWidth / 2;
-        const viewportCenterY = window.innerHeight / 2;
-
-        // 초기 위치 설정 (카드 위치)
-        const translateX = centerX - viewportCenterX;
-        const translateY = centerY - viewportCenterY;
-
-        // 첫 번째 프레임: 초기 위치 설정
+    // 스크롤을 항상 맨 위로 설정 (display 설정 후 DOM이 레이아웃된 다음에 실행)
+    requestAnimationFrame(() => {
+        modalContentInner.scrollTop = 0;
         requestAnimationFrame(() => {
-            // position: fixed; top: 50%; left: 50%이므로
-            // translate(-50%, -50%)를 기본으로 요소 중심을 제어
-            modalContent.style.transform = `translate(calc(-50% + ${translateX}px), calc(-50% + ${translateY}px)) scale(0.1)`;
-            modalContent.style.opacity = '0';
-
-            // 두 번째 프레임: 애니메이션 시작 (최종 상태로 transition)
+            modalContentInner.scrollTop = 0;
+            modal.classList.add('is-opening');
+            // 애니메이션 시작 후에도 한번 더 스크롤 위치 강제
             requestAnimationFrame(() => {
-                modal.classList.add('show');
-                // 최종 상태: 요소 중심을 viewport 중앙에 배치
-                modalContent.style.transform = 'translate(-50%, -50%) scale(1)';
-                modalContent.style.opacity = '1';
+                modalContentInner.scrollTop = 0;
             });
-        });
-    } else {
-        // 클릭 요소 없으면 기본 애니메이션 (중앙에서 fade in)
-        requestAnimationFrame(() => {
-            modalContent.style.transform = 'translate(-50%, -50%) scale(0.8)';
-            modalContent.style.opacity = '0';
-
-            requestAnimationFrame(() => {
-                modal.classList.add('show');
-                modalContent.style.transform = 'translate(-50%, -50%) scale(1)';
-                modalContent.style.opacity = '1';
-            });
-        });
-    }
-}
-
-/**
- * 모달 닫기
- */
-function closeProjectModal() {
-    const modal = document.getElementById('projectModal');
-    const modalContent = modal ? modal.querySelector('.modal-content') : null;
-    if (modal) {
-        // 애니메이션 클래스 제거
-        modal.classList.remove('show');
-        // 애니메이션이 끝난 후 display none 및 transform 초기화
-        setTimeout(() => {
-            modal.style.display = 'none';
-            if (modalContent) {
-                modalContent.style.transform = '';
-                modalContent.style.opacity = '';
-            }
-        }, 500); // transition 시간과 동일 (0.5s)
-        document.body.style.overflow = 'auto';
-    }
-}
-
-/**
- * 모달 이벤트 리스너 설정
- */
-function setupModalListeners() {
-    const modal = document.getElementById('projectModal');
-    const closeBtn = document.querySelector('.close');
-
-    // 프로젝트 카드의 확장 버튼 이벤트 리스너
-    document.querySelectorAll('[data-project-id]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const projectId = e.currentTarget.getAttribute('data-project-id');
-            // 클릭된 카드 요소 찾기
-            const projectCard = e.currentTarget.closest('.project-card');
-            openProjectModal(projectId, projectCard || e.currentTarget);
         });
     });
 
-    // 모달 닫기 버튼
-    if (closeBtn) {
-        closeBtn.onclick = closeProjectModal;
-    }
+    const handleTransitionEnd = (e) => {
+        if (e.target === modalContent && e.propertyName === 'transform') {
+            isModalAnimating = false;
+            setupFocusTrap();
+        }
+    };
 
-    // 모달 외부 클릭 시 닫기
-    if (modal) {
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                closeProjectModal();
-            }
-        };
+    modalContent.addEventListener('transitionend', handleTransitionEnd, { once: true });
+
+    setTimeout(() => {
+        if (isModalAnimating) {
+            isModalAnimating = false;
+            setupFocusTrap();
+        }
+    }, 500)
+}
+
+/**
+ * 모달 내부 포커스 트랩 설정
+ */
+function setupFocusTrap() {
+    const modal = document.getElementById('projectModal');
+    const modalContentInner = modal.querySelector('.modal-content-inner');
+
+    // 포커스 가능한 모든 요소 선택
+    focusableElements = modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+
+    if (focusableElements.length > 0) {
+        firstFocusableElement = focusableElements[0];
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+        // 포커스 시 스크롤 방지 옵션 사용
+        firstFocusableElement.focus({ preventScroll: true });
+
+        // 포커스 후 스크롤 위치를 맨 위로 강제 설정
+        modalContentInner.scrollTop = 0;
     }
+}
+
+/**
+ * Closes the project modal.
+ */
+function closeProjectModal() {
+    if (isModalAnimating) return;
+    isModalAnimating = true;
+
+    const modal = document.getElementById('projectModal');
+    const modalContent = modal.querySelector('.modal-content');
+
+    modal.classList.remove('is-opening');
+
+    const handleTransitionEnd = (e) => {
+        if (e.target === modalContent && e.propertyName === 'transform') {
+            modal.style.display = 'none';
+            isModalAnimating = false;
+            document.body.style.overflow = 'auto';
+            document.body.style.paddingRight = '';
+            modal.setAttribute('aria-hidden', 'true');
+
+            if (focusedElementBeforeModal) {
+                focusedElementBeforeModal.focus();
+            }
+        }
+    };
+
+    modalContent.addEventListener('transitionend', handleTransitionEnd, { once: true });
+
+    setTimeout(() => {
+        if (isModalAnimating) {
+            modal.style.display = 'none';
+            isModalAnimating = false;
+            document.body.style.overflow = 'auto';
+            document.body.style.paddingRight = '';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+    }, 500);
+}
+
+/**
+ * 프로젝트 카드 클릭 이벤트 리스너만 설정 (렌더링마다 재등록)
+ */
+function setupProjectCardListeners() {
+    document.querySelectorAll('.project-link[data-project-id]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const projectId = e.currentTarget.getAttribute('data-project-id');
+            const clickedCard = e.currentTarget.closest('.project-card');
+            openProjectModal(projectId, clickedCard);
+        });
+    });
+}
+
+/**
+ * 모달 자체의 이벤트 리스너 설정 (초기화 시 한 번만 호출)
+ */
+function setupModalListeners() {
+    const modal = document.getElementById('projectModal');
+
+    // Clicking on the modal backdrop - 한 번만 등록
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeProjectModal();
+        }
+    });
+
+    // Closing with the Escape key and focus trap management - 한 번만 등록
+    document.addEventListener('keydown', (e) => {
+        const modal = document.getElementById('projectModal');
+        const isModalOpen = modal.classList.contains('is-opening');
+
+        if (e.key === 'Escape' && isModalOpen) {
+            closeProjectModal();
+        }
+
+        // 포커스 트랩: Tab 키로 모달 내부에만 포커스 유지
+        if (e.key === 'Tab' && isModalOpen) {
+            if (e.shiftKey) { // Shift + Tab
+                if (document.activeElement === firstFocusableElement) {
+                    e.preventDefault();
+                    lastFocusableElement.focus();
+                }
+            } else { // Tab
+                if (document.activeElement === lastFocusableElement) {
+                    e.preventDefault();
+                    firstFocusableElement.focus();
+                }
+            }
+        }
+    });
 }
 
 /**
@@ -319,6 +368,9 @@ function setupModalListeners() {
 export function initProjectsUI() {
     renderProjects();
     initializeProjectFilter();
+
+    // 모달 이벤트 리스너는 초기화 시 한 번만 등록
+    setupModalListeners();
 
     console.log('✅ Projects UI module initialized');
 }

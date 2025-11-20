@@ -521,10 +521,13 @@ h3 { font-size: 1.8rem; }
     background: rgba(255, 255, 255, 0.03);
     border-radius: 20px;
     overflow: hidden;
-    transition: var(--transition);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid var(--border-color);
     width: 350px;
-    flex-shrink: 0; /* 카드가 줄어들지 않도록 설정 */
+    flex-shrink: 0;
 }
 
 .project-card:hover {
@@ -1423,196 +1426,6 @@ h3 { font-size: 1.8rem; }
     transform: translateY(-3px);
 }
 
-/* ===== Modal ===== */
-.modal {
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
-    overflow: auto;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.modal.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal-content h2 {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-}
-
-.modal-content {
-    background-color: var(--bg-secondary);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    padding: 2rem;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    width: 80%;
-    max-width: 900px;
-    will-change: transform, opacity;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.4s ease;
-}
-
-/* .modal.show .modal-content의 transform과 opacity는 JavaScript에서 제어 */
-
-.modal-section {
-    margin-bottom: 2rem;
-}
-
-.modal-section:last-child {
-    margin-bottom: 0;
-}
-
-.modal-section h3, .modal-section h4 {
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.modal-section p {
-    color: var(--text-secondary);
-    line-height: 1.8;
-    transition: var(--transition);
-    cursor: default;
-}
-
-.modal-section p:hover {
-    color: var(--text-primary);
-    transform: translateX(3px);
-}
-
-/* Modal Section - 리스트 스타일 (모든 모달에 동일하게 적용) */
-.modal-section ul,
-.modal-section ol {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: 20px;
-}
-
-.modal-section ol {
-    counter-reset: item;
-}
-
-.modal-section ol li {
-    counter-increment: item;
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 15px;
-    color: var(--text-secondary);
-    transition: var(--transition);
-    cursor: default;
-}
-
-.modal-section ol li:hover {
-    color: var(--text-primary);
-    transform: translateX(3px);
-}
-
-.modal-section ol li::before {
-    content: counter(item) ".";
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: var(--gradient-2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 700;
-    font-size: 1.1rem;
-    transition: var(--transition);
-}
-
-.modal-section ol li:hover::before {
-    transform: scale(1.15);
-}
-
-.modal-section ul li {
-    position: relative;
-    padding-left: 1.2rem;
-    margin-bottom: 15px;
-    color: var(--text-secondary);
-    transition: var(--transition);
-    cursor: default;
-}
-
-.modal-section ul li:hover {
-    color: var(--text-primary);
-    transform: translateX(3px);
-}
-
-.modal-section ul li::before {
-    content: '▸';
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: var(--gradient-2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    transition: var(--transition);
-}
-
-.modal-section ul li:hover::before {
-    transform: scale(1.2);
-}
-
-/* Modal Tech Stack */
-.modal-tech-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 1rem 0;
-}
-
-.modal-tech-stack span {
-    padding: 0.3rem 0.8rem;
-    background: rgba(74, 144, 226, 0.1);
-    border: 1px solid rgba(74, 144, 226, 0.3);
-    border-radius: 15px;
-    font-size: 0.85rem;
-    color: var(--primary-color);
-    transition: var(--transition);
-}
-
-.modal-tech-stack span:hover {
-    background: rgba(74, 144, 226, 0.2);
-    border-color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
-/* Modal Links */
-.modal-links {
-    margin-top: 2rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.close {
-    color: var(--text-secondary);
-    position: absolute;
-    right: 2rem;
-    top: 1.5rem;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.close:hover {
-    color: var(--primary-color);
-}
-
 /* ===== Animations ===== */
 @keyframes fadeInUp {
     from {
@@ -2263,4 +2076,236 @@ a:focus-visible {
     border-top: 1px solid rgba(74, 144, 226, 0.2);
     border-radius: 12px;
     padding: 25px 40px;
+}
+
+/* ===== New Modal (Center Animation) ===== */
+.modal {
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.is-opening {
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--bg-secondary);
+    position: relative;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    width: 80%;
+    max-width: 900px;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal.is-opening .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+.modal-content-inner {
+    max-height: calc(80vh - 5rem);
+    overflow-y: auto;
+    margin-top: 2.5rem;
+    padding-right: 0.75rem;
+    margin-right: -0.75rem;
+
+    /* Firefox 스크롤바 스타일 */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.5s ease;
+}
+
+/* 스크롤 중이거나 호버 시 스크롤바 표시 (Firefox) */
+.modal-content-inner:hover,
+.modal-content-inner:active {
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* Webkit 브라우저 (Chrome, Safari, Edge) 스크롤바 스타일 */
+.modal-content-inner::-webkit-scrollbar {
+    width: 4px;
+}
+
+.modal-content-inner::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content-inner::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 2px;
+    transition: background 0.5s ease, opacity 0.5s ease;
+}
+
+/* 스크롤 중이거나 호버 시 스크롤바 표시 (Webkit) */
+.modal-content-inner:hover::-webkit-scrollbar-thumb,
+.modal-content-inner:active::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.modal-content-inner:hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+
+.modal-content h2 {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.modal-section {
+    margin-bottom: 2rem;
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.modal-section h4 {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1.2rem 0;
+}
+
+.modal-tech-stack span {
+    padding: 0.4rem 1rem;
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.12) 0%, rgba(74, 144, 226, 0.08) 100%);
+    border: 1px solid rgba(74, 144, 226, 0.25);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-tech-stack span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(74, 144, 226, 0.15), transparent);
+    transition: left 0.5s ease;
+}
+
+.modal-tech-stack span:hover {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.18) 0%, rgba(74, 144, 226, 0.12) 100%);
+    border-color: rgba(74, 144, 226, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+}
+
+.modal-tech-stack span:hover::before {
+    left: 100%;
+}
+
+.modal-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ===== 모달 반응형 디자인 ===== */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .modal-content-inner {
+        max-height: calc(85vh - 4rem);
+        margin-top: 2rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .modal-section h4 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .modal-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .modal-details-content.visible {
+        padding: 20px 25px;
+    }
+
+    .modal-links {
+        flex-direction: column;
+    }
+
+    .modal-links .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 98%;
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .modal-content-inner {
+        max-height: calc(90vh - 3rem);
+        margin-top: 1.5rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .modal-section h4 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .modal-section {
+        margin-bottom: 1rem;
+    }
+
+    .modal-details-content.visible {
+        padding: 15px 20px;
+    }
+
+    .modal-tech-stack span {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.6rem;
+    }
 }
