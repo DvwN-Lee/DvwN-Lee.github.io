@@ -46,20 +46,20 @@ export const projectsData = [
         githubUrl: 'https://github.com/DvwN-Lee/Monitoring-v2',
         modalDetails: [
             {
-                title: 'Situation (문제 상황)',
+                title: 'Problem',
                 content: cloudNativeV2Content.situation
             },
             {
-                title: 'Task (과업 목표)',
+                title: 'Task',
                 listType: 'ol',
                 items: cloudNativeV2Content.tasks
             },
             {
-                title: 'Action (구체적인 해결 과정)',
+                title: 'Action',
                 items: cloudNativeV2Content.actions
             },
             {
-                title: 'Result (결과 및 성과)',
+                title: 'Result',
                 items: cloudNativeV2Content.results
             }
         ]
@@ -83,11 +83,11 @@ export const projectsData = [
         githubUrl: 'https://github.com/kimyeonhong00/dorazy.git',
         modalDetails: [
             {
-                title: '프로젝트 개요',
+                title: 'Overview',
                 content: '단국대학교 도산라운지 활성화를 위한 좌석 예약 및 관리 안드로이드 애플리케이션입니다. 경소톤(SW융합대학 X 경영경제대학 연합 해커톤)에서 <strong>동상을 수상</strong>했습니다.'
             },
             {
-                title: '주요 기능',
+                title: 'Key Features',
                 items: [
                     '도산라운지 위치 및 이용 안내',
                     '실시간 좌석 현황 확인 및 회의실 예약',
@@ -96,7 +96,7 @@ export const projectsData = [
                 ]
             },
             {
-                title: '기술적 구현',
+                title: 'Technical Implementation',
                 isArchitecture: true,
                 items: [
                     'Firebase Realtime Database로 실시간 좌석 정보 동기화',
@@ -106,7 +106,7 @@ export const projectsData = [
                 ]
             },
             {
-                title: '팀 구성 및 역할',
+                title: 'Team & Role',
                 isArchitecture: true,
                 items: [
                     'Android 앱 개발 담당',
@@ -135,11 +135,11 @@ export const projectsData = [
         githubUrl: 'https://github.com/DvwN-Lee/Monitoring',
         modalDetails: [
             {
-                title: '프로젝트 개요',
+                title: 'Overview',
                 content: 'Go와 Python FastAPI를 사용한 마이크로서비스 아키텍처 기반 실시간 모니터링 플랫폼입니다. 커스텀 로드밸런서와 통계 집계 시스템을 구축하여 100 RPS 이상의 트래픽을 안정적으로 처리합니다.'
             },
             {
-                title: '핵심 성과',
+                title: 'Key Achievements',
                 items: [
                     '<strong>고성능 로드밸런서</strong>: Go 고루틴 기반 비동기 처리로 100 RPS 이상 안정적 처리',
                     '<strong>장애 격리</strong>: 타임아웃 2초 설정으로 서비스 간 장애 전파 차단',
@@ -148,12 +148,12 @@ export const projectsData = [
                 ]
             },
             {
-                title: '기술 스택',
+                title: 'Tech Stack',
                 type: 'techStack',
                 items: ['Go (Golang)', 'Python FastAPI', 'Kubernetes', 'Kustomize', 'JavaScript', 'WebSocket', 'Redis']
             },
             {
-                title: '아키텍처',
+                title: 'Architecture',
                 isArchitecture: true,
                 items: [
                     'Go 기반 커스텀 로드밸런서 및 Stats Aggregator',
@@ -184,11 +184,11 @@ export const projectsData = [
         githubUrl: 'https://github.com/DvwN-Lee/onlineexam',
         modalDetails: [
             {
-                title: '프로젝트 개요',
+                title: 'Overview',
                 content: 'Django 프레임워크를 기반으로 구축한 온라인 시험 출제 및 채점 시스템입니다.'
             },
             {
-                title: '주요 기능',
+                title: 'Key Features',
                 items: [
                     '시험 문제 출제 및 관리 (문제 은행)',
                     '역할 기반 사용자 관리 (학생, 교사, 관리자)',
@@ -197,7 +197,7 @@ export const projectsData = [
                 ]
             },
             {
-                title: '기술적 구현',
+                title: 'Technical Implementation',
                 isArchitecture: true,
                 items: [
                     'Django MTV 패턴 이해 및 적용',
@@ -208,7 +208,7 @@ export const projectsData = [
                 ]
             },
             {
-                title: '학습 포인트',
+                title: 'Learning Points',
                 isArchitecture: true,
                 items: [
                     'Django MTV 패턴 이해 및 적용',
@@ -237,11 +237,11 @@ export const projectsData = [
         githubUrl: 'https://github.com/DvwN-Lee/demochat',
         modalDetails: [
             {
-                title: '프로젝트 개요',
+                title: 'Overview',
                 content: 'Spring Boot, Thymeleaf, WebSocket(STOMP)을 사용하여 구축한 간단한 실시간 채팅 애플리케이션입니다.'
             },
             {
-                title: '주요 기능',
+                title: 'Key Features',
                 items: [
                     'WebSocket/STOMP 기반 실시간 메시지 전송 및 수신',
                     '사용자 이름 입력으로 채팅방 접속',
@@ -251,12 +251,12 @@ export const projectsData = [
                 ]
             },
             {
-                title: '기술 스택',
+                title: 'Tech Stack',
                 type: 'techStack',
                 items: ['Spring Boot', 'Spring WebSocket', 'JPA', 'Thymeleaf', 'JavaScript', 'STOMP', 'MySQL', 'Gradle']
             },
             {
-                title: '학습 포인트',
+                title: 'Learning Points',
                 isArchitecture: true,
                 items: [
                     'Spring Boot 환경에서 WebSocket 연동 및 STOMP 메시지 브로커 설정',
