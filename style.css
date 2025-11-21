@@ -445,6 +445,10 @@ h3 { font-size: 1.8rem; }
     object-fit: contain;
 }
 
+.skill-item img.icon-inverted {
+    filter: invert(0.2);
+}
+
 .skill-item span {
     display: block;
     color: var(--text-secondary);
@@ -1668,6 +1672,16 @@ h3 { font-size: 1.8rem; }
     transform: translateY(-50%) rotate(90deg);
 }
 
+.problem-item details {
+    display: grid;
+    grid-template-rows: auto 0fr;
+    transition: grid-template-rows 0.4s ease;
+}
+
+.problem-item details.is-open {
+    grid-template-rows: auto 1fr;
+}
+
 .problem-details {
     margin-top: 0;
     padding: 0 30px;
@@ -1679,17 +1693,21 @@ h3 { font-size: 1.8rem; }
     border-bottom-right-radius: 12px;
     color: var(--text-secondary);
     overflow: hidden;
-    /* height 기반 애니메이션으로 변경 */
-    height: 0;
-    opacity: 0;
-    transition: height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
 }
 
-.problem-item details[open] .problem-details {
-    /* JavaScript에서 동적으로 height 설정 */
-    opacity: 1;
+.problem-item details .problem-details > * {
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.problem-item details.is-open .problem-details {
     padding-top: 25px;
     padding-bottom: 25px;
+}
+
+.problem-item details.is-open .problem-details > * {
+    opacity: 1;
 }
 
 @keyframes fadeIn {

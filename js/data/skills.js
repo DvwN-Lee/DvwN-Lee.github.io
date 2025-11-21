@@ -8,7 +8,7 @@
  * @property {string} name - 스킬 이름
  * @property {string} iconUrl - 아이콘 이미지 URL
  * @property {number} level - 숙련도 (0-100)
- * @property {string} [iconStyle] - 선택적 아이콘 스타일
+ * @property {string} [iconClass] - 선택적 아이콘 CSS 클래스
  */
 
 /**
@@ -30,7 +30,7 @@ export const skillsData = [
     skills: [
       { name: 'Kubernetes', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', level: 90 },
       { name: 'Docker', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', level: 90 },
-      { name: 'Helm', iconUrl: 'https://www.vectorlogo.zone/logos/helmsh/helmsh-icon.svg', level: 85, iconStyle: 'filter: invert(0.2);' },
+      { name: 'Helm', iconUrl: 'https://www.vectorlogo.zone/logos/helmsh/helmsh-icon.svg', level: 85, iconClass: 'icon-inverted' },
       { name: 'Kustomize', iconUrl: 'images/kustomize.webp', level: 80 },
       { name: 'Skaffold', iconUrl: 'images/skaffold.svg', level: 75 }
     ]

@@ -78,65 +78,46 @@ function renderProblemSolvingSection() {
 
 /**
  * Details/Summary 아코디언 애니메이션 설정
- * padding 애니메이션을 포함하여 더 부드러운 전환 효과 제공
+ * CSS Grid를 활용한 고성능 애니메이션 구현
  */
 function setupDetailsAccordion() {
-    // DOM 쿼리를 한 번만 수행하여 캐싱 (성능 최적화)
     const allDetails = document.querySelectorAll('.problem-item details');
 
     allDetails.forEach(detail => {
         const summary = detail.querySelector('summary');
-        const content = detail.querySelector('.problem-details');
 
         summary.addEventListener('click', (event) => {
             event.preventDefault();
 
-            // 캐싱된 배열을 사용하여 다른 열린 details 닫기 (아코디언 효과)
+            // 다른 열린 details 닫기 (아코디언 효과)
             allDetails.forEach(openDetail => {
                 if (openDetail !== detail && openDetail.open) {
-                    const openContent = openDetail.querySelector('.problem-details');
-                    openContent.style.height = `${openContent.scrollHeight}px`;
-                    requestAnimationFrame(() => {
-                        openContent.style.height = '0px';
-                        openContent.style.paddingTop = '0';
-                        openContent.style.paddingBottom = '0';
-                    });
-                    openContent.addEventListener('transitionend', () => {
+                    openDetail.classList.remove('is-open');
+                    // transitionend 이벤트 후 open 속성 제거
+                    const handleTransitionEnd = () => {
                         openDetail.removeAttribute('open');
-                    }, { once: true });
+                        openDetail.removeEventListener('transitionend', handleTransitionEnd);
+                    };
+                    openDetail.addEventListener('transitionend', handleTransitionEnd);
                 }
             });
 
             // 현재 details 토글
             if (detail.open) {
                 // 닫기 애니메이션
-                content.style.height = `${content.scrollHeight}px`;
-                requestAnimationFrame(() => {
-                    content.style.height = '0px';
-                    content.style.paddingTop = '0';
-                    content.style.paddingBottom = '0';
-                });
-                content.addEventListener('transitionend', () => {
+                detail.classList.remove('is-open');
+                const handleTransitionEnd = () => {
                     detail.removeAttribute('open');
-                }, { once: true });
-
+                    detail.removeEventListener('transitionend', handleTransitionEnd);
+                };
+                detail.addEventListener('transitionend', handleTransitionEnd);
             } else {
                 // 열기 애니메이션
                 detail.setAttribute('open', '');
-                content.style.height = '0px';
-                content.style.paddingTop = '0';
-                content.style.paddingBottom = '0';
-
+                // 다음 프레임에서 is-open 클래스 추가 (CSS transition 트리거)
                 requestAnimationFrame(() => {
-                    content.style.height = `${content.scrollHeight}px`;
-                    content.style.paddingTop = '25px';
-                    content.style.paddingBottom = '25px';
+                    detail.classList.add('is-open');
                 });
-
-                // 애니메이션 완료 후 height를 auto로 설정 (반응형 대응)
-                content.addEventListener('transitionend', () => {
-                    content.style.height = 'auto';
-                }, { once: true });
             }
         });
     });

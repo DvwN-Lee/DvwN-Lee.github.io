@@ -18,10 +18,10 @@ function renderSkills() {
 
         // 스킬 아이템 HTML 생성
         const skillItemsHTML = category.skills.map(skill => {
-            const styleAttr = skill.iconStyle ? `style="${skill.iconStyle}"` : '';
+            const classAttr = skill.iconClass ? `class="${skill.iconClass}"` : '';
             return `
                 <div class="skill-item" data-level="${skill.level}">
-                    <img src="${skill.iconUrl}" alt="${skill.name}" loading="lazy" decoding="async" ${styleAttr}>
+                    <img src="${skill.iconUrl}" alt="${skill.name}" loading="lazy" decoding="async" ${classAttr}>
                     <span>${skill.name}</span>
                     <div class="skill-level"></div>
                 </div>
