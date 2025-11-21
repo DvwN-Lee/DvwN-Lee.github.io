@@ -17,10 +17,11 @@ function initAOS() {
 
 /**
  * Counter 애니메이션 설정
+ * requestAnimationFrame을 사용하여 부드러운 카운팅 효과 구현
  */
 function setupCounterAnimation() {
     const counters = document.querySelectorAll('.stat-number');
-    const speed = 200;
+    const ANIMATION_DURATION = 2000; // 2초 동안 애니메이션
 
     const counterObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -29,19 +30,26 @@ function setupCounterAnimation() {
                 const target = +counter.getAttribute('data-target');
 
                 if (target) {
-                    const updateCount = () => {
-                        const count = +counter.innerText;
-                        const increment = target / speed;
+                    const startTime = performance.now();
 
-                        if (count < target) {
-                            counter.innerText = Math.ceil(count + increment);
-                            setTimeout(updateCount, 10);
+                    const updateCount = (currentTime) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / ANIMATION_DURATION, 1);
+
+                        // easeOutQuad 이징 함수 적용 (가속도가 점점 줄어드는 효과)
+                        const easedProgress = 1 - (1 - progress) * (1 - progress);
+                        const currentValue = Math.floor(target * easedProgress);
+
+                        counter.innerText = currentValue;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCount);
                         } else {
                             counter.innerText = target;
                         }
                     };
 
-                    updateCount();
+                    requestAnimationFrame(updateCount);
                     observer.unobserve(counter);
                 }
             }
@@ -112,14 +120,32 @@ class TypeWriter {
     }
 }
 
+// TypeWriter 인스턴스를 전역적으로 관리 (메모리 누수 방지)
+let typeWriterInstance = null;
+
 /**
  * TypeWriter 초기화
  */
 function initTypeWriter() {
     const typeElement = document.querySelector('.type-writer');
     if (typeElement) {
+        // 기존 인스턴스가 있다면 정리
+        if (typeWriterInstance) {
+            typeWriterInstance.cleanup();
+        }
+
         const words = ['Cloud Engineer', 'DevOps Engineer', 'Backend Developer'];
-        new TypeWriter(typeElement, words);
+        typeWriterInstance = new TypeWriter(typeElement, words);
+    }
+}
+
+/**
+ * TypeWriter 정리 (페이지 언로드 시 호출)
+ */
+function cleanupTypeWriter() {
+    if (typeWriterInstance) {
+        typeWriterInstance.cleanup();
+        typeWriterInstance = null;
     }
 }
 
@@ -181,6 +207,9 @@ export function initAnimations() {
     initTypeWriter();
     setupLazyLoading();
     animateHero();
+
+    // 페이지 언로드 시 TypeWriter 정리
+    window.addEventListener('beforeunload', cleanupTypeWriter);
 
     console.log('✅ Animations module initialized');
 }

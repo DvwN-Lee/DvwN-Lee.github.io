@@ -191,72 +191,6 @@ function setupScrollToTop() {
 }
 
 /**
- * Details/Summary 아코디언 애니메이션 설정
- * padding 애니메이션을 포함하여 더 부드러운 전환 효과 제공
- */
-export function setupDetailsAccordion() {
-    // DOM 쿼리를 한 번만 수행하여 캐싱 (성능 최적화)
-    const allDetails = document.querySelectorAll('.problem-item details');
-
-    allDetails.forEach(detail => {
-        const summary = detail.querySelector('summary');
-        const content = detail.querySelector('.problem-details');
-
-        summary.addEventListener('click', (event) => {
-            event.preventDefault();
-
-            // 캐싱된 배열을 사용하여 다른 열린 details 닫기 (아코디언 효과)
-            allDetails.forEach(openDetail => {
-                if (openDetail !== detail && openDetail.open) {
-                    const openContent = openDetail.querySelector('.problem-details');
-                    openContent.style.height = `${openContent.scrollHeight}px`;
-                    requestAnimationFrame(() => {
-                        openContent.style.height = '0px';
-                        openContent.style.paddingTop = '0';
-                        openContent.style.paddingBottom = '0';
-                    });
-                    openContent.addEventListener('transitionend', () => {
-                        openDetail.removeAttribute('open');
-                    }, { once: true });
-                }
-            });
-
-            // 현재 details 토글
-            if (detail.open) {
-                // 닫기 애니메이션
-                content.style.height = `${content.scrollHeight}px`;
-                requestAnimationFrame(() => {
-                    content.style.height = '0px';
-                    content.style.paddingTop = '0';
-                    content.style.paddingBottom = '0';
-                });
-                content.addEventListener('transitionend', () => {
-                    detail.removeAttribute('open');
-                }, { once: true });
-
-            } else {
-                // 열기 애니메이션
-                detail.setAttribute('open', '');
-                content.style.height = '0px';
-                content.style.paddingTop = '0';
-                content.style.paddingBottom = '0';
-
-                requestAnimationFrame(() => {
-                    content.style.height = `${content.scrollHeight}px`;
-                    content.style.paddingTop = '25px';
-                    content.style.paddingBottom = '25px';
-                });
-
-                // 애니메이션 완료 후 height를 auto로 설정 (반응형 대응)
-                content.addEventListener('transitionend', () => {
-                    content.style.height = 'auto';
-                }, { once: true });
-            }
-        });
-    });
-}
-
-/**
  * 이메일 복사 이벤트 리스너 설정
  */
 export function setupEmailCopy() {
@@ -283,7 +217,6 @@ export function setupEmailCopy() {
 export function initUtils() {
     setupScrollToTop();
     // setupEmailCopy는 site-info-ui.js에서 contact 렌더링 후 호출됨
-    // setupDetailsAccordion은 각 모듈에서 동적 콘텐츠 렌더링 후 호출됨
 
     console.log('✅ Utils module initialized');
 }
