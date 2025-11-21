@@ -3,7 +3,7 @@
 // ========================================
 
 import { config } from '../data/config.js';
-import { getRequiredElement } from './utils.js';
+import { getRequiredElement, setupEmailCopy } from './utils.js';
 
 /**
  * Contact 섹션의 정보를 동적으로 렌더링합니다.
@@ -19,8 +19,7 @@ function renderContactInfo() {
             <p>
                 <a href="mailto:${config.email}"
                 class="email-copy"
-                data-email="${config.email}"
-                title="클릭하여 복사">
+                data-email="${config.email}">
                     ${config.email}
                 </a>
             </p>
@@ -75,5 +74,9 @@ function renderFooter() {
 export function initSiteInfoUI() {
     renderContactInfo();
     renderFooter();
+
+    // Contact 정보 렌더링 후 이메일 복사 이벤트 리스너 설정
+    setupEmailCopy();
+
     console.log('✅ Site Info UI module initialized');
 }

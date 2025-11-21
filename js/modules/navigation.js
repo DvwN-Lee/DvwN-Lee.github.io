@@ -40,18 +40,30 @@ function handleScroll() {
 
     // Active navigation link (최적화 - 변경된 경우에만 DOM 조작)
     let currentSectionId = '';
-    for (const section of sections) {
-        if (scrollY >= section.offsetTop - 100) {
-            currentSectionId = section.getAttribute('id');
+
+    // 페이지 맨 하단에 도달했는지 확인
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const isAtBottom = scrollY + windowHeight >= documentHeight - 10; // 10px 여유
+
+    if (isAtBottom && sections.length > 0) {
+        // 맨 하단에 도달했으면 마지막 섹션(Contact) 활성화
+        currentSectionId = sections[sections.length - 1].getAttribute('id');
+    } else {
+        // 일반적인 스크롤 위치에서는 기존 로직 사용
+        for (const section of sections) {
+            if (scrollY >= section.offsetTop - 100) {
+                currentSectionId = section.getAttribute('id');
+            }
         }
     }
 
     const newActiveLink = document.querySelector(`.nav-link[href="#${currentSectionId}"]`);
 
     if (newActiveLink !== currentActiveLink) {
-        if (currentActiveLink) {
-            currentActiveLink.classList.remove('active');
-        }
+        // 모든 링크에서 active 클래스 제거 (HTML 초기 설정 포함)
+        navLinks.forEach(link => link.classList.remove('active'));
+
         if (newActiveLink) {
             newActiveLink.classList.add('active');
         }
@@ -100,6 +112,12 @@ function setupSmoothScroll() {
                     block: 'start'
                 });
 
+                // 클릭한 링크를 즉시 활성화 (특히 마지막 섹션의 경우)
+                const allLinks = document.querySelectorAll('.nav-link');
+                allLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                currentActiveLink = link;
+
                 // Close mobile menu if open
                 if (navMenu.classList.contains('active') && navToggle) {
                     navMenu.classList.remove('active');
@@ -116,6 +134,8 @@ function setupSmoothScroll() {
  */
 function setupScrollListener() {
     let isScrolling = false;
+
+    // 스크롤 이벤트
     window.addEventListener('scroll', function() {
         if (!isScrolling) {
             window.requestAnimationFrame(function() {
@@ -124,6 +144,16 @@ function setupScrollListener() {
             });
             isScrolling = true;
         }
+    });
+
+    // 페이지 로드 완료 후 스크롤 상태 재확인
+    window.addEventListener('load', function() {
+        handleScroll();
+    });
+
+    // 리사이즈 시에도 스크롤 상태 확인
+    window.addEventListener('resize', function() {
+        handleScroll();
     });
 }
 
@@ -147,6 +177,14 @@ export function initNavigation() {
     setupSmoothScroll();
     setupScrollListener();
     setupLogoScrollToTop();
+
+    // 페이지 로드 시 초기 스크롤 상태 확인
+    handleScroll();
+
+    // DOM 렌더링이 완전히 완료된 후 재확인 (레이아웃 안정화 후)
+    setTimeout(() => {
+        handleScroll();
+    }, 100);
 
     console.log('✅ Navigation module initialized');
 }
