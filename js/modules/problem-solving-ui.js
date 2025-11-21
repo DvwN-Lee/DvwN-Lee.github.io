@@ -11,7 +11,6 @@ import { getRequiredElement } from './utils.js';
  * @returns {string} - 생성된 HTML 문자열
  */
 function createProblemItemHTML(item) {
-    const tagsHTML = item.tags.map(tag => `<span>${tag}</span>`).join('');
     const tasksHTML = item.tasks.map(task => `<li>${task}</li>`).join('');
     const actionsHTML = item.actions.map(action => `<li>${action}</li>`).join('');
     const resultsHTML = item.results.map(result => `<li>${result}</li>`).join('');
@@ -19,25 +18,22 @@ function createProblemItemHTML(item) {
     return `
         <div class="problem-item" data-aos="fade-up">
             <h3>${item.title}</h3>
-            <div class="problem-tags">
-                ${tagsHTML}
-            </div>
 
             <details>
                 <summary>
-                    <span class="summary-text">문제에 대한 해결 과정 (클릭하여 자세히 보기)</span>
+                    <span class="summary-text">MSA 환경의 성능, 관측 가능성, 보안 최적화 과정</span>
                 </summary>
                 <div class="problem-details">
-                    <h4>Situation (문제 상황)</h4>
+                    <h4>Problem</h4>
                     <p>${item.situation}</p>
 
-                    <h4>Task (과업 목표)</h4>
+                    <h4>Task</h4>
                     <ol>${tasksHTML}</ol>
 
-                    <h4>Action (구체적인 해결 과정)</h4>
+                    <h4>Action</h4>
                     <ul>${actionsHTML}</ul>
 
-                    <h4>Result (결과 및 성과)</h4>
+                    <h4>Result</h4>
                     <ul>${resultsHTML}</ul>
                 </div>
             </details>
@@ -128,5 +124,5 @@ function setupDetailsAccordion() {
  */
 export function initProblemSolvingUI() {
     renderProblemSolvingSection();
-    console.log('✅ Problem Solving UI module initialized');
+    console.log('Problem Solving UI module initialized');
 }

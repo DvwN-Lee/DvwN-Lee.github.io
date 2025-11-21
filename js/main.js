@@ -14,12 +14,12 @@ import { initProblemSolvingUI } from './modules/problem-solving-ui.js';
 import { initSiteInfoUI } from './modules/site-info-ui.js';
 import { initIntroUI } from './modules/intro-ui.js';
 
-console.log('✅ ES6 Module System Loaded!');
+console.log('ES6 Module System Loaded!');
 
 // DOM이 완전히 로드된 후 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('✅ DOM Content Loaded!');
-    console.log('🚀 Portfolio initialization started...');
+    console.log('DOM Content Loaded!');
+    console.log('Portfolio initialization started...');
 
     // Initialize all modules in order
     initTheme();         // 테마 시스템 (가장 먼저 초기화)
@@ -38,5 +38,5 @@ document.addEventListener('DOMContentLoaded', () => {
         AOS.refresh();
     }
 
-    console.log('🎉 All modules initialized successfully!');
+    console.log('All modules initialized successfully!');
 });

@@ -35,32 +35,31 @@ export const projectsData = [
         summary: 'Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 완전 자동화된 마이크로서비스 플랫폼 구축',
         imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v2/raw/main/docs/04-operations/screenshots/grafana-golden-signals.png',
         imageAlt: 'Kubernetes 기반 Cloud-Native 마이크로서비스 플랫폼 v2.0 아키텍처',
-        tech: ['Kubernetes', 'Terraform', 'Istio', 'Prometheus', 'ArgoCD', 'GitHub Actions'],
+        tech: ['Kubernetes', 'Terraform', 'Istio', 'ArgoCD', 'GitHub Actions', 'Prometheus', 'Grafana', 'Loki', 'Trivy', 'Go', 'Python (FastAPI)'],
         highlights: [
-            'Terraform으로 Solid Cloud 인프라를 코드 기반 관리, Kustomize로 환경별(local/cloud) 설정 분리하여 재현 가능한 개발/운영 환경 구축',
-            'GitHub Actions + Argo CD 기반 GitOps 파이프라인 구축으로 Git Push 후 5분 내 Kubernetes 클러스터 자동 배포 달성',
-            'Istio Service Mesh 도입 및 mTLS STRICT 모드 적용으로 Zero Trust Network 기반 보안 환경 구축',
-            'Prometheus/Grafana 기반 관측성 시스템 구축, Golden Signals 대시보드로 정량적 분석 (P95 Latency 19.2ms, Error Rate 0%)',
-            'k6 부하 테스트 기반 성능 분석 및 Kubernetes HPA 최적화로 응답 시간 11.6% 개선, 안정적인 트래픽 처리 역량 확보'
+            'Terraform(IaC)으로 Solid Cloud 인프라를 코드화하고, Kustomize로 환경별 설정을 분리하여 재현 가능한 운영 환경 구축',
+            'GitHub Actions, Argo CD 기반 GitOps 파이프라인으로 <strong>Git Push 후 5분 내 자동 배포</strong> 달성',
+            'CI 파이프라인에 <strong>Trivy 보안 스캔을 통합</strong>하여 빌드 단계에서 컨테이너 취약점을 자동으로 탐지 및 차단',
+            'Istio Service Mesh의 <strong>mTLS STRICT 모드</strong>와 <strong>NetworkPolicy</strong>를 적용하여 Zero Trust Network 보안 아키텍처 구현',
+            'Prometheus, Grafana, Loki 기반 통합 관측성 시스템을 구축하고, Golden Signals 대시보드로 <strong>P95 Latency 19.2ms, 에러율 0%</strong> 달성'
         ],
         githubUrl: 'https://github.com/DvwN-Lee/Monitoring-v2',
         modalDetails: [
             {
-                title: 'Problem',
-                content: cloudNativeV2Content.situation
+                title: 'Overview',
+                content: cloudNativeV2Content.modal.overview
             },
             {
-                title: 'Task',
-                listType: 'ol',
-                items: cloudNativeV2Content.tasks
+                title: 'Key Features',
+                items: cloudNativeV2Content.modal.keyFeatures
             },
             {
-                title: 'Action',
-                items: cloudNativeV2Content.actions
+                title: 'Technical Implementation',
+                items: cloudNativeV2Content.modal.technicalImplementation
             },
             {
-                title: 'Result',
-                items: cloudNativeV2Content.results
+                title: 'Learning Points',
+                items: cloudNativeV2Content.modal.learningPoints
             }
         ]
     },
@@ -97,7 +96,6 @@ export const projectsData = [
             },
             {
                 title: 'Technical Implementation',
-                isArchitecture: true,
                 items: [
                     'Firebase Realtime Database로 실시간 좌석 정보 동기화',
                     'Firebase Authentication으로 사용자 인증',
@@ -107,7 +105,6 @@ export const projectsData = [
             },
             {
                 title: 'Team & Role',
-                isArchitecture: true,
                 items: [
                     'Android 앱 개발 담당',
                     'Firebase, 백엔드 구축'
@@ -149,12 +146,10 @@ export const projectsData = [
             },
             {
                 title: 'Tech Stack',
-                type: 'techStack',
                 items: ['Go (Golang)', 'Python FastAPI', 'Kubernetes', 'Kustomize', 'JavaScript', 'WebSocket', 'Redis']
             },
             {
                 title: 'Architecture',
-                isArchitecture: true,
                 items: [
                     'Go 기반 커스텀 로드밸런서 및 Stats Aggregator',
                     'Python FastAPI 마이크로서비스 (여러 백엔드 서비스)',
@@ -198,7 +193,6 @@ export const projectsData = [
             },
             {
                 title: 'Technical Implementation',
-                isArchitecture: true,
                 items: [
                     'Django MTV 패턴 이해 및 적용',
                     'Django ORM을 활용한 데이터베이스 설계',
@@ -209,7 +203,6 @@ export const projectsData = [
             },
             {
                 title: 'Learning Points',
-                isArchitecture: true,
                 items: [
                     'Django MTV 패턴 이해 및 적용',
                     '관계형 데이터베이스(MySQL) 모델링',
@@ -252,12 +245,10 @@ export const projectsData = [
             },
             {
                 title: 'Tech Stack',
-                type: 'techStack',
                 items: ['Spring Boot', 'Spring WebSocket', 'JPA', 'Thymeleaf', 'JavaScript', 'STOMP', 'MySQL', 'Gradle']
             },
             {
                 title: 'Learning Points',
-                isArchitecture: true,
                 items: [
                     'Spring Boot 환경에서 WebSocket 연동 및 STOMP 메시지 브로커 설정',
                     'JPA를 활용한 엔티티(User, Message) 설계 및 리포지토리 구현',

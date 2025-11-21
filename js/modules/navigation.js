@@ -186,5 +186,5 @@ export function initNavigation() {
         handleScroll();
     }, 100);
 
-    console.log('✅ Navigation module initialized');
+    console.log(' Navigation module initialized');
 }

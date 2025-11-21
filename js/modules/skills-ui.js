@@ -92,5 +92,5 @@ function initSkillsAnimation() {
 export function initSkillsUI() {
     renderSkills();
 
-    console.log('✅ Skills UI module initialized');
+    console.log(' Skills UI module initialized');
 }

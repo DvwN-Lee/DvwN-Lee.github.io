@@ -21,8 +21,7 @@ import { cloudNativeV2Content } from './shared-content.js';
 export const problemSolvingData = [
     {
         id: 'msa-observability',
-        title: 'MSA 환경에서의 자동화된 성능 최적화 및 관측 가능성 확보',
-        tags: ['GitOps', 'Kubernetes', 'Istio', 'Prometheus', 'Grafana', 'k6', 'HPA', 'Terraform'],
+        title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
         ...cloudNativeV2Content
     }
 ];

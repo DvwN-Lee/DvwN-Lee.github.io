@@ -78,5 +78,5 @@ export function initSiteInfoUI() {
     // Contact 정보 렌더링 후 이메일 복사 이벤트 리스너 설정
     setupEmailCopy();
 
-    console.log('✅ Site Info UI module initialized');
+    console.log(' Site Info UI module initialized');
 }

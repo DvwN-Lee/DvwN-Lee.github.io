@@ -44,5 +44,5 @@ function renderExperiences() {
 export function initTimelineUI() {
     renderExperiences();
 
-    console.log('✅ Timeline UI module initialized');
+    console.log(' Timeline UI module initialized');
 }

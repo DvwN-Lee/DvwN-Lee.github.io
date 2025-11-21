@@ -45,5 +45,5 @@ function renderAbout() {
 export function initIntroUI() {
     renderHero();
     renderAbout();
-    console.log('✅ Intro UI module initialized');
+    console.log(' Intro UI module initialized');
 }

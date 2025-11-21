@@ -211,5 +211,5 @@ export function initAnimations() {
     // 페이지 언로드 시 TypeWriter 정리
     window.addEventListener('beforeunload', cleanupTypeWriter);
 
-    console.log('✅ Animations module initialized');
+    console.log(' Animations module initialized');
 }

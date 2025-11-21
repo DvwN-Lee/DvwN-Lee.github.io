@@ -218,5 +218,5 @@ export function initUtils() {
     setupScrollToTop();
     // setupEmailCopy는 site-info-ui.js에서 contact 렌더링 후 호출됨
 
-    console.log('✅ Utils module initialized');
+    console.log(' Utils module initialized');
 }

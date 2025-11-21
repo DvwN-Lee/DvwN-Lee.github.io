@@ -387,5 +387,5 @@ export function initProjectsUI() {
     // 모달 이벤트 리스너는 초기화 시 한 번만 등록
     setupModalListeners();
 
-    console.log('✅ Projects UI module initialized');
+    console.log(' Projects UI module initialized');
 }
