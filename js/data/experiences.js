@@ -19,7 +19,7 @@ export const experiencesData = [
   {
     date: '2025.11',
     title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
-    subtitle: '5주 단독 개발 프로젝트 - Solid Cloud 환경 (v1.0 고도화)',
+    subtitle: '개인 프로젝트 - Solid Cloud 환경 (v1.0 고도화)',
     achievements: [
       'Terraform으로 Solid Cloud 인프라 코드 기반 관리, Kustomize로 환경별 설정 분리',
       'GitHub Actions + Argo CD 기반 GitOps 파이프라인 (Git Push 후 5분 내 자동 배포)',

@@ -37,10 +37,10 @@ export const cloudNativeV2Content = {
 
     // 모달용 구조화된 콘텐츠
     modal: {
-        overview: '로컬 환경의 블로그 플랫폼을 단국대학교 Solid Cloud(OpenStack) 환경으로 이전하며, <strong>Terraform 기반 인프라 자동화(IaC)</strong>, <strong>GitOps 배포 파이프라인</strong>, <strong>Istio Service Mesh 기반 보안 강화</strong>, <strong>통합 관측성 시스템</strong>을 구축한 Cloud-Native 프로젝트입니다. 5주간의 개인 프로젝트로 진행하여 모든 핵심 목표를 달성했습니다.',
+        overview: '로컬 환경의 블로그 플랫폼을 단국대학교 Solid Cloud(OpenStack) 환경으로 이전하며, <strong>Terraform 기반 인프라 자동화(IaC)</strong>, <strong>GitOps 배포 파이프라인</strong>, <strong>Istio Service Mesh 기반 보안 강화</strong>, <strong>통합 관측성 시스템</strong>을 구축한 Cloud-Native 프로젝트입니다. 단독으로 진행한 개인 프로젝트로 모든 핵심 목표를 달성했습니다.',
 
         keyFeatures: [
-            '<strong>Terraform 기반 인프라 자동화</strong>: Solid Cloud 인프라(VM, 네트워크, 스토리지)를 코드로 완벽히 관리',
+            '<strong>Terraform 기반 인프라 자동화</strong>: Solid Cloud 인프라(VM, 네트워크, 스토리지)를 코드로 관리',
             '<strong>GitOps 기반 완전 자동화 CI/CD</strong>: GitHub Actions, Argo CD, Kustomize를 연동하여 Git Push 후 5분 내 자동 배포',
             '<strong>컨테이너 보안 자동화</strong>: CI 파이프라인에 <strong>Trivy</strong>를 통합하여 이미지 빌드 시 취약점을 자동 탐지 및 차단',
             '<strong>Zero Trust Network 보안</strong>: Istio mTLS STRICT 모드 및 NetworkPolicy를 적용하여 서비스 간 통신 보안 강화',
