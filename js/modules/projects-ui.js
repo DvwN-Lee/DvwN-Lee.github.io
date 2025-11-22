@@ -183,6 +183,24 @@ function openProjectModal(projectId, clickedCard) {
         const modalContent = modal.querySelector('.modal-content');
         const modalContentInner = modal.querySelector('.modal-content-inner');
 
+        // 기존 헤더 제거 (있다면)
+        const existingHeader = modalContent.querySelector('.modal-header');
+        if (existingHeader) {
+            existingHeader.remove();
+        }
+
+        // 헤더 생성 (제목 + GitHub 버튼)
+        const headerHTML = `
+            <div class="modal-header">
+                <h2 id="modalTitle">${project.title}</h2>
+                <div class="modal-links">
+                    <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-github"></i> GitHub Repository
+                    </a>
+                </div>
+            </div>`;
+
+        // 콘텐츠 생성
         let contentHTML = '';
         if (project.modalDetails) {
             const sectionsHTML = project.modalDetails.map(section => {
@@ -198,16 +216,14 @@ function openProjectModal(projectId, clickedCard) {
             }).join('');
 
             contentHTML = `
-                <h2 id="modalTitle">${project.title}</h2>
                 <div class="modal-details-content visible">
                     ${sectionsHTML}
-                    <div class="modal-links">
-                        <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
-                            <i class="fab fa-github"></i> GitHub Repository
-                        </a>
-                    </div>
                 </div>`;
         }
+
+        // 헤더를 modal-content의 첫 번째 자식으로 추가
+        modalContent.insertAdjacentHTML('afterbegin', headerHTML);
+        // 콘텐츠를 modal-content-inner에 추가
         modalContentInner.innerHTML = contentHTML;
 
         focusedElementBeforeModal = document.activeElement;

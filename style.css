@@ -2027,7 +2027,7 @@ a:focus-visible {
     opacity: 1;
     border-top: 1px solid rgba(74, 144, 226, 0.2);
     border-radius: 12px;
-    padding: 25px 40px;
+    padding: 24px 40px;
 }
 
 /* ===== New Modal (Center Animation) ===== */
@@ -2073,7 +2073,7 @@ a:focus-visible {
 .modal-content-inner {
     max-height: calc(80vh - 5rem);
     overflow-y: auto;
-    margin-top: 2.5rem;
+    margin-top: 0;
     padding-right: 0.75rem;
     margin-right: -0.75rem;
 
@@ -2115,9 +2115,14 @@ a:focus-visible {
 }
 
 
-.modal-content h2 {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+.modal-header {
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .modal-section {
@@ -2178,7 +2183,8 @@ a:focus-visible {
 }
 
 .modal-links {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
@@ -2194,13 +2200,22 @@ a:focus-visible {
 
     .modal-content-inner {
         max-height: calc(85vh - 4rem);
-        margin-top: 2rem;
+        margin-top: 0;
     }
 
-    .modal-content h2 {
+    .modal-header {
+        padding: 0;
+        margin-bottom: 1.25rem;
+    }
+
+    .modal-header h2 {
         font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.75rem;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .modal-links {
+        margin-top: 1.25rem;
     }
 
     .modal-section h4 {
@@ -2214,6 +2229,7 @@ a:focus-visible {
 
     .modal-details-content.visible {
         padding: 20px 25px;
+        padding-top: 20px;
     }
 
     .modal-links {
@@ -2235,12 +2251,21 @@ a:focus-visible {
 
     .modal-content-inner {
         max-height: calc(90vh - 3rem);
-        margin-top: 1.5rem;
+        margin-top: 0;
     }
 
-    .modal-content h2 {
-        font-size: 1.25rem;
+    .modal-header {
+        padding: 0;
         margin-bottom: 1rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0;
+    }
+
+    .modal-links {
+        margin-top: 1rem;
     }
 
     .modal-section h4 {
@@ -2254,6 +2279,7 @@ a:focus-visible {
 
     .modal-details-content.visible {
         padding: 15px 20px;
+        padding-top: 16px;
     }
 
     .modal-tech-stack span {
