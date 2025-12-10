@@ -6,72 +6,169 @@ import { projectsData } from '../data/projects.js';
 import { getRequiredElement } from './utils.js';
 import { AnimationQueue } from './animation-utils.js';
 
-// 필터 애니메이션 상태 관리
+// ========================================
+// Constants
+// ========================================
+
+// Animation timing (ms)
+const ANIMATION = {
+    FADE_DURATION: 200,           // fade-out/in 시간 단축
+    LAYOUT_SETTLE_DELAY: 50,      // Masonry layout 안정화 대기
+    MODAL_FALLBACK_TIMEOUT: 400
+};
+
+// Filter values
+const FILTER = {
+    ALL: 'all'
+};
+
+// State classes
+const STATE_CLASS = {
+    MODAL_OPENING: 'is-opening',
+    HIGHLIGHTED: 'highlighted',
+    HIDDEN: 'is-hidden'
+};
+
+// 애니메이션 상태 관리
 const filterAnimationQueue = new AnimationQueue();
 const modalAnimationQueue = new AnimationQueue();
 
+// DOM 캐싱
+let cachedProjectsGrid = null;
+let cachedModal = null;
+let masonryInstance = null;
+
 /**
- * 프로젝트 카드 애니메이션 적용
+ * Masonry 레이아웃 초기화
+ * @param {Function} callback - 초기화 완료 후 실행할 콜백
+ */
+function initMasonry(callback) {
+    const grid = document.querySelector('.projects-grid');
+    if (!grid) return null;
+
+    cachedProjectsGrid = grid;
+
+    // imagesLoaded와 함께 초기화
+    if (typeof imagesLoaded !== 'undefined') {
+        imagesLoaded(grid, function () {
+            masonryInstance = new Masonry(grid, {
+                itemSelector: '.project-card',
+                columnWidth: '.projects-grid-sizer',
+                gutter: '.projects-gutter-sizer',
+                percentPosition: true,
+                transitionDuration: 0  // 초기 layout 시 애니메이션 제거
+            });
+
+            // Masonry 초기화 완료 표시
+            grid.classList.add('masonry-ready');
+
+            // 이후 layout에는 transition 활성화
+            requestAnimationFrame(() => {
+                masonryInstance.options.transitionDuration = '0.3s';
+            });
+
+            // 초기화 완료 후 콜백 실행
+            if (callback) callback();
+        });
+    } else {
+        // Fallback if imagesLoaded is missing
+        masonryInstance = new Masonry(grid, {
+            itemSelector: '.project-card',
+            columnWidth: '.projects-grid-sizer',
+            gutter: '.projects-gutter-sizer',
+            percentPosition: true,
+            transitionDuration: 0
+        });
+
+        grid.classList.add('masonry-ready');
+        requestAnimationFrame(() => {
+            masonryInstance.options.transitionDuration = '0.3s';
+        });
+
+        if (callback) callback();
+    }
+
+    return masonryInstance;
+}
+
+/**
+ * 프로젝트 카드 필터링 애니메이션
  * @param {string} filterValue - 필터 값 ('all', 'cloud', 'backend', 'fullstack')
  */
-function animateProjectCards(filterValue = 'all') {
+function animateProjectCards(filterValue = FILTER.ALL) {
     filterAnimationQueue.start((queue) => {
         const projectCards = document.querySelectorAll('.project-card');
 
-        // 1단계: 모든 카드 fade-out
+        if (!cachedProjectsGrid) {
+            cachedProjectsGrid = document.querySelector('.projects-grid');
+        }
+
+        // 현재 보여질 카드와 숨겨질 카드 분류
+        const cardsToShow = [];
+        const cardsToHide = [];
+
         projectCards.forEach(card => {
-            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.8)';
+            const category = card.getAttribute('data-category');
+            const shouldShow = filterValue === FILTER.ALL || category === filterValue;
+
+            if (shouldShow) {
+                cardsToShow.push(card);
+            } else {
+                cardsToHide.push(card);
+            }
         });
 
-        // 2단계: fade-out 애니메이션 완료 후 레이아웃 변경 및 fade-in
-        queue.addTimeout(() => {
-            const cardsToShow = [];
-            const cardsToHide = [];
+        // 1단계: 숨겨질 카드만 fade-out
+        cardsToHide.forEach(card => {
+            card.classList.add('is-fading-out');
+        });
 
-            projectCards.forEach(card => {
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                    cardsToShow.push(card);
+        // 2단계: fade-out 완료 후 visibility 변경 및 layout
+        queue.addTimeout(() => {
+            // 숨김 처리
+            cardsToHide.forEach(card => {
+                card.classList.add(STATE_CLASS.HIDDEN);
+                card.classList.remove('is-fading-out');
+            });
+
+            // 보여질 카드 준비 (hidden 해제, fading-out 상태로 시작)
+            cardsToShow.forEach((card, index) => {
+                card.classList.remove(STATE_CLASS.HIDDEN);
+                card.classList.add('is-fading-out');
+
+                // 첫 번째 카드 하이라이트
+                if (index === 0) {
+                    card.classList.add(STATE_CLASS.HIGHLIGHTED);
                 } else {
-                    cardsToHide.push(card);
+                    card.classList.remove(STATE_CLASS.HIGHLIGHTED);
                 }
             });
 
-            // 레이아웃 변경 전에 숨길 카드들을 먼저 처리
-            cardsToHide.forEach(card => {
-                card.style.display = 'none';
-            });
+            // Masonry 레이아웃 재계산
+            if (masonryInstance) {
+                masonryInstance.reloadItems();
+                masonryInstance.layout();
+            }
 
-            // 표시할 카드들 스타일 설정 및 fade-in 준비
-            cardsToShow.forEach(card => {
-                card.style.display = 'block';
-                card.style.opacity = '0';
-                card.style.transform = 'scale(0.8)';
-            });
-
-            // 3단계: 레이아웃 변경 후 fade-in 애니메이션 시작
-            requestAnimationFrame(() => {
-                cardsToShow.forEach((card, index) => {
-                    card.style.transitionDelay = `${index * 50}ms`;
-                    card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                });
-            });
-
-            // 애니메이션이 끝난 후 스타일 초기화 및 AOS 새로고침
+            // 3단계: layout 완료 후 fade-in
             queue.addTimeout(() => {
                 cardsToShow.forEach(card => {
-                    card.style.transitionDelay = '';
-                    card.style.transform = '';
-                    card.style.opacity = '';
+                    card.classList.remove('is-fading-out');
+                    card.classList.add('is-fading-in');
                 });
-                // AOS 라이브러리가 있으면 새로고침하여 스크롤 애니메이션 위치 재계산
-                if (typeof AOS !== 'undefined') {
-                    AOS.refresh();
-                }
-            }, 400 + cardsToShow.length * 50);
-        }, 300);
+
+                // 4단계: class 정리
+                queue.addTimeout(() => {
+                    cardsToShow.forEach(card => {
+                        card.classList.remove('is-fading-in');
+                    });
+
+                    if (typeof AOS !== 'undefined') {
+                        AOS.refresh();
+                    }
+                }, ANIMATION.FADE_DURATION);
+            }, ANIMATION.LAYOUT_SETTLE_DELAY);
+        }, ANIMATION.FADE_DURATION);
     });
 }
 
@@ -83,9 +180,6 @@ function renderProjects() {
     if (!projectsGrid) return;
 
     const projectCardsHTML = projectsData.map(project => {
-        // Featured 클래스 처리
-        const featuredClass = project.featured ? 'featured' : '';
-
         // 배지 HTML 처리 (배지가 있을 때만 표시)
         const badgeHTML = project.badge ? `<span class="project-badge ${project.badge.includes('경소톤') || project.badge.includes('동상') ? 'award' : ''}">${project.badge}</span>` : '';
 
@@ -96,7 +190,7 @@ function renderProjects() {
         const highlightsHTML = project.highlights.map(highlight => `<li>${highlight}</li>`).join('');
 
         return `
-            <div class="project-card ${featuredClass}" data-category="${project.category}">
+            <div class="project-card" data-category="${project.category}">
                 <div class="project-image">
                     <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="lazy" decoding="async">
                     <div class="project-overlay">
@@ -125,13 +219,19 @@ function renderProjects() {
         `;
     }).join('');
 
-    projectsGrid.innerHTML = projectCardsHTML;
+    // Masonry용 sizer 요소 추가
+    const sizerHTML = `
+        <div class="projects-grid-sizer"></div>
+        <div class="projects-gutter-sizer"></div>
+    `;
 
-    // 초기 로드 애니메이션
-    animateProjectCards('all');
+    projectsGrid.innerHTML = sizerHTML + projectCardsHTML;
 
     // 프로젝트 카드 클릭 이벤트 리스너만 추가 (모달 이벤트는 initProjectsUI에서 한 번만 등록)
     setupProjectCardListeners();
+
+    // Masonry 초기화 (CSS에서 초기 로딩 처리)
+    initMasonry();
 }
 
 // 필터 버튼 DOM 캐싱 (성능 최적화 - 정적 요소이므로 한 번만 쿼리)
@@ -168,9 +268,8 @@ let lastFocusableElement = null;
 /**
  * Opens a project modal with a center fade-in/scale animation.
  * @param {string} projectId - The ID of the project to display.
- * @param {HTMLElement} clickedCard - The clicked project card element.
  */
-function openProjectModal(projectId, clickedCard) {
+function openProjectModal(projectId) {
     if (modalAnimationQueue.inProgress) return;
 
     const project = projectsData.find(p => p.id === projectId);
@@ -235,17 +334,10 @@ function openProjectModal(projectId, clickedCard) {
 
         modal.style.display = 'flex';
 
-        // 스크롤을 항상 맨 위로 설정 (display 설정 후 DOM이 레이아웃된 다음에 실행)
+        // 스크롤을 항상 맨 위로 설정 및 애니메이션 시작
         requestAnimationFrame(() => {
             modalContentInner.scrollTop = 0;
-            requestAnimationFrame(() => {
-                modalContentInner.scrollTop = 0;
-                modal.classList.add('is-opening');
-                // 애니메이션 시작 후에도 한번 더 스크롤 위치 강제
-                requestAnimationFrame(() => {
-                    modalContentInner.scrollTop = 0;
-                });
-            });
+            modal.classList.add(STATE_CLASS.MODAL_OPENING);
         });
 
         const handleTransitionEnd = (e) => {
@@ -263,7 +355,10 @@ function openProjectModal(projectId, clickedCard) {
  * 모달 내부 포커스 트랩 설정
  */
 function setupFocusTrap() {
-    const modal = getRequiredElement('#projectModal', 'Projects UI');
+    if (!cachedModal) {
+        cachedModal = getRequiredElement('#projectModal', 'Projects UI');
+    }
+    const modal = cachedModal;
     if (!modal) return;
 
     const modalContentInner = modal.querySelector('.modal-content-inner');
@@ -291,12 +386,15 @@ function setupFocusTrap() {
 function closeProjectModal() {
     // 진행 중인 애니메이션이 있으면 취소하고 새로 시작
     modalAnimationQueue.start(() => {
-        const modal = getRequiredElement('#projectModal', 'Projects UI');
+        if (!cachedModal) {
+            cachedModal = getRequiredElement('#projectModal', 'Projects UI');
+        }
+        const modal = cachedModal;
         if (!modal) return;
 
         const modalContent = modal.querySelector('.modal-content');
 
-        modal.classList.remove('is-opening');
+        modal.classList.remove(STATE_CLASS.MODAL_OPENING);
 
         // 클린업이 이미 실행되었는지 추적하는 플래그
         let cleanupExecuted = false;
@@ -328,12 +426,12 @@ function closeProjectModal() {
         // transitionend 이벤트 리스너 등록
         modalContent.addEventListener('transitionend', handleTransitionEnd, { once: true });
 
-        // Fallback: transitionend가 발생하지 않을 경우를 대비한 타이머 (400ms)
-        // CSS transition은 300ms이므로 여유있게 400ms 후 강제 정리
+        // Fallback: transitionend가 발생하지 않을 경우를 대비한 타이머
+        // CSS transition은 300ms이므로 여유있게 후 강제 정리
         const fallbackTimeout = setTimeout(() => {
             modalContent.removeEventListener('transitionend', handleTransitionEnd);
             cleanupModal();
-        }, 400);
+        }, ANIMATION.MODAL_FALLBACK_TIMEOUT);
     });
 }
 
@@ -345,8 +443,7 @@ function setupProjectCardListeners() {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const projectId = e.currentTarget.getAttribute('data-project-id');
-            const clickedCard = e.currentTarget.closest('.project-card');
-            openProjectModal(projectId, clickedCard);
+            openProjectModal(projectId);
         });
     });
 }
@@ -367,10 +464,7 @@ function setupModalListeners() {
 
     // Closing with the Escape key and focus trap management - 한 번만 등록
     document.addEventListener('keydown', (e) => {
-        const modal = getRequiredElement('#projectModal', 'Projects UI');
-        if (!modal) return;
-
-        const isModalOpen = modal.classList.contains('is-opening');
+        const isModalOpen = modal.classList.contains(STATE_CLASS.MODAL_OPENING);
 
         if (e.key === 'Escape' && isModalOpen) {
             closeProjectModal();
@@ -403,5 +497,5 @@ export function initProjectsUI() {
     // 모달 이벤트 리스너는 초기화 시 한 번만 등록
     setupModalListeners();
 
-    console.log(' Projects UI module initialized');
+    console.log('✅ Projects UI module initialized');
 }

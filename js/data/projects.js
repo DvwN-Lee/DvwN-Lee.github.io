@@ -29,7 +29,7 @@ export const projectsData = [
     {
         id: 'cloudnative_v2',
         category: 'cloud',
-        featured: true,
+        featured: false,
         badge: 'Featured',
         title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
         summary: 'Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 완전 자동화된 마이크로서비스 플랫폼 구축',
@@ -108,6 +108,66 @@ export const projectsData = [
                 items: [
                     'Android 앱 개발 담당',
                     'Firebase, 백엔드 구축'
+                ]
+            }
+        ]
+    },
+    {
+        id: 'k8s_cicd',
+        category: 'cloud',
+        featured: false,
+        badge: 'Featured',
+        title: 'Kubernetes CI/CD Infrastructure',
+        summary: 'CloudStack 환경에서 Terraform/Ansible 기반 Kubernetes 클러스터를 구축하고, Jenkins, GitLab, Docker Registry를 배포하여 완전한 CI/CD 파이프라인을 구현한 IaC 프로젝트',
+        imageUrl: 'https://raw.githubusercontent.com/DvwN-Lee/k8s-cicd-automation/main/screenshots/testapp.png',
+        imageAlt: 'Kubernetes CI/CD Infrastructure - Terraform과 Ansible 기반 자동화된 클러스터 구축',
+        tech: ['Terraform', 'Ansible', 'Kubernetes', 'CloudStack', 'containerd', 'Cilium', 'MetalLB', 'Jenkins', 'GitLab', 'Docker Registry'],
+        highlights: [
+            'Terraform으로 CloudStack 인프라(VM 3대, Network, Port Forwarding)를 코드화하고 Ansible Inventory 자동 생성',
+            'Ansible Playbook으로 <strong>containerd, Kubernetes v1.28.15, Cilium CNI, MetalLB</strong> 구성 자동화',
+            'Jenkins + GitLab + Docker Registry 기반 <strong>Git Push to Deploy</strong> CI/CD 파이프라인 구축',
+            'DevOps Node(GitLab/Jenkins/Registry)와 App Node를 분리하여 워크로드 격리 및 리소스 최적화'
+        ],
+        githubUrl: 'https://github.com/DvwN-Lee/k8s-cicd-automation',
+        modalDetails: [
+            {
+                title: 'Overview',
+                content: 'CloudStack 환경에서 Kubernetes 클러스터를 구축하고, Jenkins, GitLab, Docker Registry를 배포하여 완전한 CI/CD 파이프라인을 구현한 Infrastructure as Code 프로젝트입니다. Terraform으로 인프라를 프로비저닝하고, Ansible로 Kubernetes 클러스터 및 DevOps 도구를 자동 구성합니다.'
+            },
+            {
+                title: 'Key Features',
+                items: [
+                    '<strong>Infrastructure as Code</strong>: Terraform으로 CloudStack VM, Network, Port Forwarding 규칙을 선언적으로 관리',
+                    '<strong>Configuration Automation</strong>: Ansible Roles로 containerd, Kubernetes, CNI, Load Balancer 설치 자동화',
+                    '<strong>Complete CI/CD Stack</strong>: Jenkins Pipeline + GitLab SCM + Docker Registry로 빌드/푸시/배포 자동화',
+                    '<strong>Production-Ready Networking</strong>: Cilium CNI(kube-proxy 대체 모드) + MetalLB L2 모드로 클러스터 네트워킹 구성'
+                ]
+            },
+            {
+                title: 'Infrastructure Architecture',
+                items: [
+                    '<strong>k8s-m (Control Plane)</strong>: 2 CPU, 4GB RAM - Kubernetes API Server, etcd, Scheduler',
+                    '<strong>k8s-w1 (DevOps Node)</strong>: 4 CPU, 8GB RAM - GitLab, Jenkins, Docker Registry 배치',
+                    '<strong>k8s-w2 (App Node)</strong>: 2 CPU, 4GB RAM - Application 워크로드 전용'
+                ]
+            },
+            {
+                title: 'Technical Stack',
+                items: [
+                    'Terraform (CloudStack Provider) - 인프라 프로비저닝',
+                    'Ansible (Roles 기반) - 구성 관리 자동화',
+                    'Kubernetes v1.28.15 + containerd v1.7.2',
+                    'Cilium v1.14.5 (CNI) + MetalLB v0.13.12 (LB)',
+                    'Jenkins + GitLab CE + Docker Registry'
+                ]
+            },
+            {
+                title: 'Learning Points',
+                items: [
+                    'Terraform과 Ansible을 연계한 Infrastructure as Code 파이프라인 설계',
+                    'kubeadm 기반 Kubernetes 클러스터 수동 구축 및 트러블슈팅',
+                    'Cilium eBPF 기반 CNI와 MetalLB LoadBalancer 구성',
+                    'Jenkins Pipeline을 통한 컨테이너 빌드/배포 자동화'
                 ]
             }
         ]

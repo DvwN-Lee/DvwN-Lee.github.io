@@ -31,8 +31,8 @@ export const skillsData = [
       { name: 'Kubernetes', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', level: 90 },
       { name: 'Docker', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', level: 90 },
       { name: 'Helm', iconUrl: 'https://www.vectorlogo.zone/logos/helmsh/helmsh-icon.svg', level: 85, iconClass: 'icon-inverted' },
-      { name: 'Kustomize', iconUrl: 'images/kustomize.webp', level: 80 },
-      { name: 'Skaffold', iconUrl: 'images/skaffold.svg', level: 75 }
+      { name: 'Cilium', iconUrl: 'https://www.vectorlogo.zone/logos/ciliumio/ciliumio-icon.svg', level: 75 },
+      { name: 'MetalLB', iconUrl: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/metallb.svg', level: 75 }
     ]
   },
   {
@@ -40,8 +40,11 @@ export const skillsData = [
     title: 'IaC & GitOps',
     skills: [
       { name: 'Terraform', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg', level: 85 },
+      { name: 'Ansible', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg', level: 80 },
       { name: 'ArgoCD', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg', level: 85 },
-      { name: 'GitHub Actions', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', level: 90 }
+      { name: 'GitHub Actions', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', level: 90 },
+      { name: 'Jenkins', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg', level: 80 },
+      { name: 'GitLab', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg', level: 80 }
     ]
   },
   {
@@ -49,7 +52,6 @@ export const skillsData = [
     title: 'Service Mesh & Security',
     skills: [
       { name: 'Istio', iconUrl: 'https://www.vectorlogo.zone/logos/istioio/istioio-icon.svg', level: 75 },
-      { name: 'Kiali', iconUrl: 'images/kiali.webp', level: 70 },
       { name: 'Trivy', iconUrl: 'https://raw.githubusercontent.com/aquasecurity/trivy/main/docs/imgs/logo.png', level: 80 }
     ]
   },
@@ -59,8 +61,7 @@ export const skillsData = [
     skills: [
       { name: 'Prometheus', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg', level: 85 },
       { name: 'Grafana', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg', level: 85 },
-      { name: 'Loki', iconUrl: 'https://raw.githubusercontent.com/grafana/loki/main/docs/sources/logo.png', level: 80 },
-      { name: 'k6', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/ef/K6-logo.svg', level: 75 }
+      { name: 'Loki', iconUrl: 'https://raw.githubusercontent.com/grafana/loki/main/docs/sources/logo.png', level: 80 }
     ]
   },
   {

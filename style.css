@@ -65,19 +65,40 @@ body {
 }
 
 /* ===== Typography ===== */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
     line-height: 1.2;
 }
 
-h1 { font-size: 3.5rem; }
-h2 { font-size: 2.5rem; }
-h3 { font-size: 1.8rem; }
+h1 {
+    font-size: 3.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
 
 @media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    h2 { font-size: 2rem; }
-    h3 { font-size: 1.5rem; }
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
 }
 
 .gradient-text {
@@ -514,24 +535,63 @@ h3 { font-size: 1.8rem; }
     border-color: var(--primary-color);
 }
 
+/* Masonry Grid */
 .projects-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.projects-grid-sizer,
+.project-card {
+    width: calc(33.333% - 1.34rem);
+}
+
+.projects-gutter-sizer {
+    width: 2rem;
 }
 
 .project-card {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 20px;
     overflow: hidden;
+    transform-origin: center;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid var(--border-color);
-    width: 350px;
-    flex-shrink: 0;
+    margin-bottom: 2rem;
+}
+
+/* 초기 로딩 시 카드 즉시 표시 (JS transition 방지) */
+.projects-grid:not(.masonry-ready) .project-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Masonry 초기화 완료 후 transition 활성화 */
+.projects-grid.masonry-ready .project-card {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 필터 전환 애니메이션 상태 */
+.project-card.is-fading-out {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.project-card.is-fading-in {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.project-card.is-hidden {
+    display: none !important;
 }
 
 .project-card:hover {
@@ -540,24 +600,29 @@ h3 { font-size: 1.8rem; }
     border-color: var(--primary-color);
 }
 
-.project-card.featured {
-    /* On larger screens, featured card is twice as wide as a normal card plus the gap */
-    width: calc(350px * 2 + 2rem);
-}
-
-/* 1124px 이하에서 featured 카드 너비 조정 (350*2 + 32 = 732) */
-@media (max-width: 1124px) {
-    .project-card.featured {
-        width: 350px;
+/* Responsive */
+@media (max-width: 992px) {
+    .projects-grid-sizer,
+    .project-card {
+        width: calc(50% - 1rem);
     }
 }
 
-@media (max-width: 400px) {
-    .project-card,
-    .project-card.featured {
+@media (max-width: 576px) {
+    .projects-grid-sizer,
+    .project-card {
         width: 100%;
     }
+
+    .projects-gutter-sizer {
+        width: 0;
+    }
+
+    .project-card {
+        margin-bottom: 1.5rem;
+    }
 }
+
 
 .project-image {
     position: relative;
@@ -565,9 +630,6 @@ h3 { font-size: 1.8rem; }
     overflow: hidden;
 }
 
-.project-card.featured .project-image {
-    height: 350px;
-}
 
 .project-image img {
     width: 100%;
@@ -1259,9 +1321,11 @@ h3 { font-size: 1.8rem; }
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(0.95);
     }
+
     100% {
         transform: scale(1);
     }
@@ -1276,7 +1340,7 @@ h3 { font-size: 1.8rem; }
     position: relative;
     cursor: pointer;
     transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 호버 상태 - copied가 아닐 때만 흰색 */
@@ -1306,15 +1370,19 @@ h3 { font-size: 1.8rem; }
     0% {
         transform: scale(1);
     }
+
     25% {
         transform: scale(1.3);
     }
+
     50% {
         transform: scale(0.9);
     }
+
     75% {
         transform: scale(1.1);
     }
+
     100% {
         transform: scale(1);
     }
@@ -1370,6 +1438,7 @@ h3 { font-size: 1.8rem; }
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1377,12 +1446,19 @@ h3 { font-size: 1.8rem; }
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
         transform: translateX(-50%) translateY(0);
     }
+
     40% {
         transform: translateX(-50%) translateY(-10px);
     }
+
     60% {
         transform: translateX(-50%) translateY(-5px);
     }
@@ -1393,6 +1469,7 @@ h3 { font-size: 1.8rem; }
         opacity: 1;
         transform: translateY(0);
     }
+
     100% {
         opacity: 0;
         transform: translateY(10px);
@@ -1404,14 +1481,6 @@ h3 { font-size: 1.8rem; }
 /* ===== Responsive Design ===== */
 /* 태블릿 (768px - 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .project-card.featured {
-        grid-column: span 2;
-    }
-
     .about-content {
         gap: 2rem;
     }
@@ -1455,7 +1524,7 @@ h3 { font-size: 1.8rem; }
     .contact-content {
         grid-template-columns: 1fr;
     }
-    
+
     .timeline::before {
         left: 20px;
     }
@@ -1469,21 +1538,21 @@ h3 { font-size: 1.8rem; }
     .timeline-item::before {
         left: 20px;
     }
-    
+
     .timeline-date {
         text-align: left !important;
         padding: 0 !important;
         margin-bottom: 0.5rem;
     }
-    
+
     .timeline-content {
         width: 100%;
     }
-    
+
     .about-highlights {
         grid-template-columns: 1fr;
     }
-    
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
@@ -1497,18 +1566,8 @@ h3 { font-size: 1.8rem; }
         justify-content: center;
     }
 
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
 
-    .projects-grid.single-item {
-        grid-template-columns: 1fr;
-        max-width: 100%;
-    }
 
-    .project-card.featured {
-        grid-column: span 1;
-    }
 
     .scroll-to-top {
         bottom: 75px;
@@ -1523,11 +1582,11 @@ h3 { font-size: 1.8rem; }
     .skill-items {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .about-stats {
         grid-template-columns: 1fr;
     }
-    
+
     .project-filter {
         flex-wrap: wrap;
     }
@@ -1641,10 +1700,12 @@ h3 { font-size: 1.8rem; }
 }
 
 .problem-item details summary:hover {
-    background: rgba(74, 144, 226, 0.08);  /* 0.15 → 0.08로 감소 */
+    background: rgba(74, 144, 226, 0.08);
+    /* 0.15 → 0.08로 감소 */
     border-color: var(--primary-color);
     color: var(--text-primary);
-    transform: translateY(-1px);  /* 미묘한 상승 효과 추가 */
+    transform: translateY(-1px);
+    /* 미묘한 상승 효과 추가 */
 }
 
 .problem-item details summary::-webkit-details-marker {
@@ -1695,7 +1756,7 @@ h3 { font-size: 1.8rem; }
     overflow: hidden;
 }
 
-.problem-item details .problem-details > * {
+.problem-item details .problem-details>* {
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -1706,7 +1767,7 @@ h3 { font-size: 1.8rem; }
     padding-bottom: 25px;
 }
 
-.problem-item details.is-open .problem-details > * {
+.problem-item details.is-open .problem-details>* {
     opacity: 1;
 }
 
@@ -1715,6 +1776,7 @@ h3 { font-size: 1.8rem; }
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1959,6 +2021,7 @@ a:focus-visible {
 .nav-toggle.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
 }
+
 /* ===== Theme Toggle Button ===== */
 .theme-toggle {
     position: fixed;
@@ -2016,7 +2079,7 @@ a:focus-visible {
         bottom: 20px;
         right: 20px;
     }
-    
+
     .theme-toggle i {
         font-size: 1.1rem;
     }
