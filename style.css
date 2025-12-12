@@ -48,6 +48,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-y: scroll; /* 스크롤바로 인한 뷰포트 너비 변경 방지 */
 }
 
 body {
@@ -540,15 +541,48 @@ h3 {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    /* Masonry 로딩 전 레이아웃 시프트 방지 */
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    position: relative;
+}
+
+/* Masonry 활성화 후 block으로 복귀 */
+.projects-grid.masonry-ready {
+    display: block;
 }
 
 .projects-grid-sizer,
 .project-card {
-    width: calc(33.333% - 1.34rem);
+    width: calc((100% - 4rem) / 3);
 }
 
 .projects-gutter-sizer {
     width: 2rem;
+}
+
+/* Sizers should not interfere with initial Flexbox layout */
+.projects-grid-sizer,
+.projects-gutter-sizer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    z-index: -1;
+}
+
+/* Masonry 초기화 전 레이아웃 점프 방지 */
+.projects-grid:not(.masonry-ready) .project-card {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Masonry 초기화 완료 후 부드럽게 등장 */
+.projects-grid.masonry-ready .project-card {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .project-card {
@@ -564,34 +598,29 @@ h3 {
     margin-bottom: 2rem;
 }
 
-/* 초기 로딩 시 카드 즉시 표시 (JS transition 방지) */
-.projects-grid:not(.masonry-ready) .project-card {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-}
-
-/* Masonry 초기화 완료 후 transition 활성화 */
-.projects-grid.masonry-ready .project-card {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 /* 필터 전환 애니메이션 상태 */
 .project-card.is-fading-out {
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-delay: 0s !important; /* AOS delay 초기화 */
 }
 
 .project-card.is-fading-in {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-delay: 0s !important; /* AOS delay 초기화 */
 }
 
 .project-card.is-hidden {
     display: none !important;
+}
+
+/* 위치 재계산 시 애니메이션 방지용 */
+.project-card.no-transition {
+    transition: none !important;
 }
 
 .project-card:hover {
@@ -609,6 +638,10 @@ h3 {
 }
 
 @media (max-width: 576px) {
+    .projects-grid {
+        column-gap: 0;
+    }
+
     .projects-grid-sizer,
     .project-card {
         width: 100%;
@@ -637,6 +670,7 @@ h3 {
     object-fit: cover;
     transition: transform 0.5s;
     background: var(--bg-secondary);
+    aspect-ratio: 16 / 9;
 }
 
 .project-card:hover .project-image img {

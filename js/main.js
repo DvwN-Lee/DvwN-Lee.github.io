@@ -21,9 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded!');
     console.log('Portfolio initialization started...');
 
+    // /#projects 직접 접근 시 body에 클래스 추가 (프로젝트 카드 렌더링 전에 CSS 적용)
+    console.log('🔍 Hash check:', window.location.hash, window.location.hash === '#projects');
+    if (window.location.hash === '#projects') {
+        document.body.classList.add('direct-projects-access');
+        console.log('✅ direct-projects-access 클래스 추가됨');
+    }
+
     // Initialize all modules in order
     initTheme();         // 테마 시스템 (가장 먼저 초기화)
-    initAnimations();    // 애니메이션 효과 (AOS 먼저 초기화)
     initNavigation();    // 네비게이션
     initUtils();         // 유틸리티 함수
     initIntroUI();       // Hero & About UI 렌더링
@@ -33,8 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initProblemSolvingUI(); // Problem Solving UI 렌더링
     initSiteInfoUI();    // Contact & Footer UI 렌더링
 
+    initAnimations();    // 애니메이션 효과 (모든 UI 렌더링 후 초기화)
+
     // 모든 UI 렌더링 후 AOS refresh
-    if (typeof AOS !== 'undefined') {
+    // /#projects 직접 접근 시에는 animations.js에서 수동으로 처리
+    if (typeof AOS !== 'undefined' && !document.body.classList.contains('direct-projects-access')) {
         AOS.refresh();
     }
 

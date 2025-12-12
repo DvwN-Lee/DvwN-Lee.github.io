@@ -7,8 +7,24 @@
  */
 function initAOS() {
     if (typeof AOS !== 'undefined') {
+        // /#projects 직접 접근 또는 페이지 reload 시: 이미 viewport에 있는 카드의 AOS 애니메이션 비활성화
+        // Scroll restoration으로 카드가 이미 보이는 상태에서 fade-up 애니메이션이 발생하면
+        // 카드가 30px 아래에서 시작하여 위로 올라오는 시각적 "벌어짐" 현상 발생
+        if (document.body.classList.contains('direct-projects-access')) {
+            const projectCards = document.querySelectorAll('.project-card[data-aos]');
+            projectCards.forEach(card => {
+                // aos-init, aos-animate 클래스를 사전에 추가하여
+                // AOS가 이 카드들을 이미 애니메이션된 것으로 간주하도록 함
+                card.classList.add('aos-init', 'aos-animate');
+
+                // data-aos 속성 제거로 AOS가 이 요소를 추적하지 않도록 함
+                card.removeAttribute('data-aos');
+            });
+        }
+
         AOS.init({
             duration: 1000,
+            easing: 'ease-out-cubic',
             once: true,
             offset: 100
         });
@@ -197,6 +213,7 @@ function refreshAOS() {
         AOS.refresh();
     }
 }
+
 
 /**
  * 애니메이션 모듈 초기화
