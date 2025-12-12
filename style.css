@@ -586,44 +586,50 @@ h3 {
 }
 
 .project-card {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
-    overflow: hidden;
-    transform-origin: center;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid var(--border-color);
+    /* Masonry 위치 제어 전용 컨테이너 - 시각적 스타일 없음 */
     margin-bottom: 2rem;
 }
 
-/* 필터 전환 애니메이션 상태 */
-.project-card.is-fading-out {
+/* Inner wrapper: 애니메이션 + 시각적 스타일 컨테이너 */
+.project-card-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transform-origin: center;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 필터 전환 애니메이션 상태 (inner 요소에 적용) */
+.project-card.is-fading-out .project-card-inner {
     opacity: 0;
     transform: translateY(20px);
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    transition-delay: 0s !important; /* AOS delay 초기화 */
 }
 
-.project-card.is-fading-in {
+.project-card.is-fading-in .project-card-inner {
     opacity: 1;
     transform: translateY(0);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    transition-delay: 0s !important; /* AOS delay 초기화 */
 }
 
 .project-card.is-hidden {
     display: none !important;
 }
 
-/* 위치 재계산 시 애니메이션 방지용 */
-.project-card.no-transition {
+/* 위치 재계산 시 애니메이션 방지용 (inner 요소) */
+.project-card-inner.no-transition {
     transition: none !important;
 }
 
-.project-card:hover {
+/* Hover 효과 - inner 요소에 적용 */
+.project-card:hover .project-card-inner {
     transform: translateY(-10px);
     box-shadow: 0 20px 50px rgba(74, 144, 226, 0.3);
     border-color: var(--primary-color);
@@ -2383,4 +2389,11 @@ a:focus-visible {
         font-size: 0.75rem;
         padding: 0.25rem 0.6rem;
     }
+}
+
+/* ===== AOS 애니메이션 오버라이드 ===== */
+/* Projects 섹션: Masonry inline style 오버라이드로 AOS 초기 숨김 보장 */
+.project-card[data-aos]:not(.aos-animate) {
+    opacity: 0 !important;
+    transform: translateY(30px) !important;
 }

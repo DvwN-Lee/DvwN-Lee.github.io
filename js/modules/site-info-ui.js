@@ -13,7 +13,7 @@ function renderContactInfo() {
     if (!contactContainer) return;
 
     const emailHTML = `
-        <div class="contact-item">
+        <div class="contact-item" data-aos="fade-up" data-aos-delay="200">
             <i class="fas fa-envelope"></i>
             <h4>Email</h4>
             <p>
@@ -26,13 +26,13 @@ function renderContactInfo() {
         </div>
     `;
 
-    const socialsHTML = config.socials.map(social => `
-        <div class="contact-item">
+    const socialsHTML = config.socials.map((social, index) => `
+        <div class="contact-item" data-aos="fade-up" data-aos-delay="${(index + 3) * 100}">
             <i class="${social.iconClass}"></i>
             <h4>${social.name}</h4>
             <p>
-                <a href="${social.url}" 
-                target="_blank" 
+                <a href="${social.url}"
+                target="_blank"
                 rel="noopener noreferrer"
                 onclick="this.classList.add('clicking'); setTimeout(() => this.classList.remove('clicking'), 300);">
                     ${social.handle}

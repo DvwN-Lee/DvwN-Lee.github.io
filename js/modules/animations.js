@@ -26,7 +26,7 @@ function initAOS() {
             duration: 1000,
             easing: 'ease-out-cubic',
             once: true,
-            offset: 100
+            offset: 200
         });
     }
 }

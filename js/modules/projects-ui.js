@@ -174,16 +174,19 @@ function animateProjectCards(filterValue = FILTER.ALL) {
             }
         });
 
-        // 3. 현재 보이는 모든 카드를 Fade Out
+        // 3. 현재 보이는 모든 카드를 Fade Out (inner 요소 애니메이션)
         currentlyVisible.forEach(card => {
+            const inner = card.querySelector('.project-card-inner');
+            if (!inner) return;
+
             // 강제 리플로우로 트랜지션 준비
-            void card.offsetHeight;
+            void inner.offsetHeight;
 
             card.classList.add('is-fading-out');
 
-            // 인라인 스타일로 목표값 명시적 설정 (CSS 충돌 방지 및 확실한 애니메이션)
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
+            // 인라인 스타일로 목표값 명시적 설정 (Masonry transform과 분리)
+            inner.style.opacity = '0';
+            inner.style.transform = 'translateY(20px)';
         });
 
         // 4. Fade Out 완료 후 레이아웃 변경 및 새 카드 준비
@@ -192,6 +195,13 @@ function animateProjectCards(filterValue = FILTER.ALL) {
             cardsToHide.forEach(card => {
                 card.classList.add(STATE_CLASS.HIDDEN);
                 card.classList.remove('is-fading-out');
+
+                // 숨겨지는 카드의 inner 요소 inline 스타일 정리
+                const inner = card.querySelector('.project-card-inner');
+                if (inner) {
+                    inner.style.opacity = '';
+                    inner.style.transform = '';
+                }
             });
 
             cardsToShow.forEach(card => {
@@ -203,10 +213,13 @@ function animateProjectCards(filterValue = FILTER.ALL) {
                 card.removeAttribute('data-aos');
                 card.removeAttribute('data-aos-delay');
 
-                // Fade In을 위한 초기 상태 설정 (투명, 아래로 이동)
-                card.classList.add('no-transition');
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
+                // Fade In을 위한 초기 상태 설정 (inner 요소에 투명, 아래로 이동)
+                const inner = card.querySelector('.project-card-inner');
+                if (inner) {
+                    inner.classList.add('no-transition');
+                    inner.style.opacity = '0';
+                    inner.style.transform = 'translateY(20px)';
+                }
             });
 
             // Masonry 레이아웃 재계산
@@ -215,31 +228,43 @@ function animateProjectCards(filterValue = FILTER.ALL) {
                 masonryInstance.layout();
             }
 
-            // 강제 리플로우
-            if (cardsToShow.length > 0) {
-                cardsToShow[0].offsetHeight;
-            }
+            // 강제 리플로우 - inner 요소에 적용하여 transform 애니메이션 보장
+            cardsToShow.forEach(card => {
+                const inner = card.querySelector('.project-card-inner');
+                if (inner) {
+                    void inner.offsetHeight;
+                }
+            });
 
             // 5. 레이아웃 안정화 후 Fade In 시작
             queue.addTimeout(() => {
-                // 트랜지션 다시 활성화
+                // 트랜지션 다시 활성화 (inner 요소)
                 cardsToShow.forEach(card => {
-                    card.classList.remove('no-transition');
+                    const inner = card.querySelector('.project-card-inner');
+                    if (inner) {
+                        inner.classList.remove('no-transition');
+                    }
                 });
 
-                // 애니메이션 실행 (투명도 복구, 위치 원복)
+                // 애니메이션 실행 (inner 요소: 투명도 복구, 위치 원복)
                 requestAnimationFrame(() => {
                     cardsToShow.forEach(card => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
+                        const inner = card.querySelector('.project-card-inner');
+                        if (inner) {
+                            inner.style.opacity = '1';
+                            inner.style.transform = 'translateY(0)';
+                        }
                     });
                 });
 
-                // 6. 애니메이션 종료 후 스타일 정리
+                // 6. 애니메이션 종료 후 스타일 정리 (inner 요소)
                 queue.addTimeout(() => {
                     cardsToShow.forEach(card => {
-                        card.style.opacity = '';
-                        card.style.transform = '';
+                        const inner = card.querySelector('.project-card-inner');
+                        if (inner) {
+                            inner.style.opacity = '';
+                            inner.style.transform = '';
+                        }
                     });
                 }, ANIMATION.FADE_DURATION);
 
@@ -247,6 +272,78 @@ function animateProjectCards(filterValue = FILTER.ALL) {
 
         }, ANIMATION.FADE_DURATION);
     });
+}
+
+/**
+ * 초기 페이지 로드 시 순차 애니메이션 적용
+ * 제목 → 필터 버튼 → 프로젝트 카드 순서로 fade-up
+ * IntersectionObserver로 viewport 진입 시에만 실행
+ */
+function applyInitialLoadAnimation() {
+    // direct-projects-access가 있으면 애니메이션 건너뛰기 (reload 시)
+    if (document.body.classList.contains('direct-projects-access')) {
+        return;
+    }
+
+    // prefers-reduced-motion 체크
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        return;
+    }
+
+    const projectsSection = document.querySelector('#projects');
+    if (!projectsSection) return;
+
+    const projectsTitle = document.querySelector('#projects h2');
+    const filterButtons = document.querySelector('.filter-buttons');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    // 1. 초기 상태: 모든 요소에 invisible-init 클래스 추가
+    if (projectsTitle) projectsTitle.classList.add('invisible-init');
+    if (filterButtons) filterButtons.classList.add('invisible-init');
+    projectCards.forEach(card => card.classList.add('invisible-init'));
+
+    // 2. IntersectionObserver로 viewport 진입 감지
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 순차적으로 visible-animate 클래스 추가
+                // 제목: 150ms 후
+                setTimeout(() => {
+                    if (projectsTitle) {
+                        projectsTitle.classList.add('visible-animate');
+                        projectsTitle.classList.remove('invisible-init');
+                    }
+                }, 150);
+
+                // 필터 버튼: 450ms 후 (제목 애니메이션 절반 진행 후)
+                setTimeout(() => {
+                    if (filterButtons) {
+                        filterButtons.classList.add('visible-animate');
+                        filterButtons.classList.remove('invisible-init');
+                    }
+                }, 450);
+
+                // 프로젝트 카드: 800ms 후 시작, 각 카드는 120ms 간격 (현대적인 순차 효과)
+                projectCards.forEach((card, index) => {
+                    // 최대 6개까지만 순차 애니메이션, 나머지는 동시에
+                    const staggerDelay = index < 6 ? index * 120 : 6 * 120;
+                    setTimeout(() => {
+                        card.classList.add('visible-animate');
+                        card.classList.remove('invisible-init');
+                    }, 800 + staggerDelay);
+                });
+
+                // 애니메이션 실행 후 observer 해제 (메모리 누수 방지)
+                observer.disconnect();
+            }
+        });
+    }, {
+        threshold: 0.1,  // 섹션이 10% 보이면 트리거
+        rootMargin: '0px'
+    });
+
+    observer.observe(projectsSection);
 }
 
 /**
@@ -269,31 +366,36 @@ function renderProjects() {
         // 첫 6개 이미지는 eager 로딩 (초기 화면), 나머지는 lazy 로딩
         const loadingAttr = index < 6 ? 'eager' : 'lazy';
 
+        // AOS 순차 애니메이션: 제목(0ms) → 필터(100ms) → 카드(200ms+)
+        const aosDelay = (index + 2) * 100;
+
         return `
-            <div class="project-card" data-category="${project.category}" data-project-id="${project.id}" data-aos="fade-up">
-                <div class="project-image">
-                    <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="${loadingAttr}" decoding="async">
-                    <div class="project-overlay">
-                        <div class="project-links">
-                            <a href="${project.githubUrl}" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="#" class="project-link" data-project-id="${project.id}">
-                                <i class="fas fa-expand"></i>
-                            </a>
+            <div class="project-card" data-category="${project.category}" data-project-id="${project.id}" data-aos="fade-up" data-aos-delay="${aosDelay}">
+                <div class="project-card-inner">
+                    <div class="project-image">
+                        <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="${loadingAttr}" decoding="async">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="${project.githubUrl}" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="project-link" data-project-id="${project.id}">
+                                    <i class="fas fa-expand"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="project-content">
-                    ${badgeHTML}
-                    <h3>${project.title}</h3>
-                    <p>${project.summary}</p>
-                    <div class="project-tech">
-                        ${techStackHTML}
+                    <div class="project-content">
+                        ${badgeHTML}
+                        <h3>${project.title}</h3>
+                        <p>${project.summary}</p>
+                        <div class="project-tech">
+                            ${techStackHTML}
+                        </div>
+                        <ul class="project-highlights">
+                            ${highlightsHTML}
+                        </ul>
                     </div>
-                    <ul class="project-highlights">
-                        ${highlightsHTML}
-                    </ul>
                 </div>
             </div>
         `;
@@ -319,6 +421,9 @@ function renderProjects() {
 
     // Masonry 초기화 (CSS에서 초기 로딩 처리)
     initMasonry();
+
+    // AOS 기반 순차 애니메이션 사용 (data-aos-delay로 제어)
+    // applyInitialLoadAnimation() 함수는 더 이상 호출하지 않음
 }
 
 // 필터 버튼 DOM 캐싱 (성능 최적화 - 정적 요소이므로 한 번만 쿼리)
