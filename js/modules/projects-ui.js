@@ -179,14 +179,15 @@ function animateProjectCards(filterValue = FILTER.ALL) {
             const inner = card.querySelector('.project-card-inner');
             if (!inner) return;
 
+            // 인라인 스타일 정리 (CSS Cascade 우선순위 확보)
+            inner.style.opacity = '';
+            inner.style.transform = '';
+
             // 강제 리플로우로 트랜지션 준비
             void inner.offsetHeight;
 
+            // 상태 클래스 추가 (CSS 규칙이 적용되어 fade-out 애니메이션 실행)
             card.classList.add('is-fading-out');
-
-            // 인라인 스타일로 목표값 명시적 설정 (Masonry transform과 분리)
-            inner.style.opacity = '0';
-            inner.style.transform = 'translateY(20px)';
         });
 
         // 4. Fade Out 완료 후 레이아웃 변경 및 새 카드 준비
@@ -246,25 +247,24 @@ function animateProjectCards(filterValue = FILTER.ALL) {
                     }
                 });
 
-                // 애니메이션 실행 (inner 요소: 투명도 복구, 위치 원복)
+                // 애니메이션 실행: 인라인 스타일 정리 후 is-fading-in 클래스 추가
                 requestAnimationFrame(() => {
                     cardsToShow.forEach(card => {
                         const inner = card.querySelector('.project-card-inner');
                         if (inner) {
-                            inner.style.opacity = '1';
-                            inner.style.transform = 'translateY(0)';
-                        }
-                    });
-                });
-
-                // 6. 애니메이션 종료 후 스타일 정리 (inner 요소)
-                queue.addTimeout(() => {
-                    cardsToShow.forEach(card => {
-                        const inner = card.querySelector('.project-card-inner');
-                        if (inner) {
+                            // 인라인 스타일 정리 (CSS Cascade 우선순위 확보)
                             inner.style.opacity = '';
                             inner.style.transform = '';
                         }
+                        // 상태 클래스 추가 (CSS 규칙이 적용되어 fade-in 애니메이션 실행)
+                        card.classList.add('is-fading-in');
+                    });
+                });
+
+                // 6. 애니메이션 종료 후 상태 클래스 정리
+                queue.addTimeout(() => {
+                    cardsToShow.forEach(card => {
+                        card.classList.remove('is-fading-in');
                     });
                 }, ANIMATION.FADE_DURATION);
 
