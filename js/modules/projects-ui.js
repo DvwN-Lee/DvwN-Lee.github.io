@@ -3,7 +3,7 @@
 // ========================================
 
 import { projectsData } from '../data/projects.js';
-import { getRequiredElement, debugLog } from './utils.js';
+import { getRequiredElement, debugLog, prefersReducedMotion } from './utils.js';
 import { AnimationQueue } from './animation-utils.js';
 
 // ========================================
@@ -298,8 +298,7 @@ function applyInitialLoadAnimation() {
     }
 
     // prefers-reduced-motion 체크
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion()) {
         return;
     }
 

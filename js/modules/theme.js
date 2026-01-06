@@ -2,7 +2,7 @@
 // Theme Module (Dark/Light Mode)
 // ========================================
 
-import { debugLog } from './utils.js';
+import { debugLog, prefersReducedMotion } from './utils.js';
 
 /**
  * Particles.js 설정을 반환하는 함수
@@ -93,8 +93,13 @@ function particlesConfig(particleColor, lineColor) {
  * 현재 테마에 맞춰 Particles.js를 로드하거나 업데이트합니다.
  */
 function loadParticlesTheme() {
-    // 모바일이거나 particles-js 요소가 없으면 실행하지 않음
-    if (window.innerWidth <= 768 || !document.getElementById('particles-js')) {
+    // reduced motion, 모바일, particles-js 요소 없음 시 실행하지 않음
+    if (prefersReducedMotion() || window.innerWidth <= 768 || !document.getElementById('particles-js')) {
+        // 기존 인스턴스가 있다면 제거
+        if (window.pJSDom && window.pJSDom.length > 0) {
+            window.pJSDom[0].pJS.fn.vendors.destroypJS();
+            window.pJSDom = [];
+        }
         return;
     }
 

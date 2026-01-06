@@ -2,6 +2,10 @@
 // Utility Functions Module
 // ========================================
 
+// ========================================
+// Debug Utilities
+// ========================================
+
 // 개발 환경 체크 (localhost 또는 127.0.0.1에서만 true)
 const isDev = window.location.hostname === 'localhost'
            || window.location.hostname === '127.0.0.1';
@@ -13,6 +17,30 @@ const isDev = window.location.hostname === 'localhost'
 export const debugLog = (...args) => {
     if (isDev) console.log('[DEBUG]', ...args);
 };
+
+// ========================================
+// Accessibility Utilities
+// ========================================
+
+/**
+ * prefers-reduced-motion 미디어 쿼리 결과를 반환
+ * @returns {boolean} 모션 감소 선호 여부
+ */
+export function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/**
+ * 조건부 scroll behavior 반환
+ * @returns {'smooth' | 'auto'} 스크롤 동작 방식
+ */
+export function getScrollBehavior() {
+    return prefersReducedMotion() ? 'auto' : 'smooth';
+}
+
+// ========================================
+// DOM Utilities
+// ========================================
 
 /**
  * DOM 요소를 안전하게 선택하고 null 체크를 수행하는 유틸리티 함수
@@ -182,12 +210,12 @@ function setupEmailHoverState(emailLink) {
 }
 
 /**
- * 페이지 최상단으로 부드럽게 스크롤
+ * 페이지 최상단으로 스크롤 (reduced motion 설정 존중)
  */
 export function scrollToTop() {
     window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: getScrollBehavior()
     });
 }
 

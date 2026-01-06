@@ -2,7 +2,7 @@
 // Navigation Module
 // ========================================
 
-import { scrollToTop, debugLog } from './utils.js';
+import { scrollToTop, debugLog, getScrollBehavior } from './utils.js';
 
 // DOM 요소 캐싱 (모듈 스코프 - 한 번만 조회)
 const navbar = document.querySelector('.navbar');
@@ -108,7 +108,7 @@ function setupSmoothScroll() {
 
             if (targetSection) {
                 targetSection.scrollIntoView({
-                    behavior: 'smooth',
+                    behavior: getScrollBehavior(),
                     block: 'start'
                 });
 
