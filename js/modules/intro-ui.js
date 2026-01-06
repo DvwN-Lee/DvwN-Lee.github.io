@@ -3,7 +3,6 @@
 // ========================================
 
 import { config } from '../data/config.js';
-import { projectsData } from '../data/projects.js';
 import { getRequiredElement } from './utils.js';
 
 /**
@@ -30,28 +29,14 @@ function renderAbout() {
 
     const titleHTML = `<h3>${config.about.title}</h3>`;
     const paragraphsHTML = config.about.paragraphs.map(p => `<p>${p}</p>`).join('');
-
+    
     // 기존 highlights는 유지하고 텍스트만 교체
     const highlightsContainer = aboutTextContainer.querySelector('.about-highlights');
-
+    
     aboutTextContainer.innerHTML = titleHTML + paragraphsHTML;
     if (highlightsContainer) {
         aboutTextContainer.appendChild(highlightsContainer);
     }
-}
-
-/**
- * 프로젝트 통계를 동적으로 업데이트합니다.
- */
-function updateProjectStats() {
-    const projectCountElement = document.querySelector('.stat-number[data-target]');
-    if (!projectCountElement) return;
-
-    // 전체 프로젝트 개수를 계산
-    const projectCount = projectsData.length;
-
-    // data-target 속성을 동적으로 업데이트
-    projectCountElement.setAttribute('data-target', projectCount);
 }
 
 /**
@@ -60,6 +45,5 @@ function updateProjectStats() {
 export function initIntroUI() {
     renderHero();
     renderAbout();
-    updateProjectStats();
     console.log(' Intro UI module initialized');
 }
