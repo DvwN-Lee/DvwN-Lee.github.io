@@ -14,7 +14,8 @@ import { AnimationQueue } from './animation-utils.js';
 const ANIMATION = {
     FADE_DURATION: 300,           // CSS transition 시간과 일치 (0.3s)
     LAYOUT_SETTLE_DELAY: 100,     // Masonry layout 안정화 대기 (증가)
-    MODAL_FALLBACK_TIMEOUT: 400
+    MODAL_FALLBACK_TIMEOUT: 400,
+    IMAGES_LOADED_TIMEOUT: 5000   // imagesLoaded fallback timeout (Firefox/Webkit 호환)
 };
 
 // Filter values
@@ -83,7 +84,13 @@ function initMasonry(callback) {
     // 이미지 로딩 완료 후 레이아웃 미세 조정 (transition 없이)
     if (typeof imagesLoaded !== 'undefined') {
         const imgLoad = imagesLoaded(grid, { background: true });
-        imgLoad.on('done', () => {
+
+        // Firefox/Webkit 호환: done 이벤트 미발생 시 fallback timeout 사용
+        let isLayoutDone = false;
+        const handleLayoutUpdate = () => {
+            if (isLayoutDone) return;  // 중복 실행 방지
+            isLayoutDone = true;
+
             if (masonryInstance) {
                 // transition 일시 중지
                 grid.style.transition = 'none';
@@ -103,7 +110,12 @@ function initMasonry(callback) {
                     });
                 });
             }
-        });
+        };
+
+        imgLoad.on('done', handleLayoutUpdate);
+
+        // Firefox/Webkit fallback: done 이벤트 미발생 시 timeout 후 강제 실행
+        setTimeout(handleLayoutUpdate, ANIMATION.IMAGES_LOADED_TIMEOUT);
     }
 
     return masonryInstance;
