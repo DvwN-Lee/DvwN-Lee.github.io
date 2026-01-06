@@ -2,6 +2,18 @@
 // Utility Functions Module
 // ========================================
 
+// 개발 환경 체크 (localhost 또는 127.0.0.1에서만 true)
+const isDev = window.location.hostname === 'localhost'
+           || window.location.hostname === '127.0.0.1';
+
+/**
+ * 조건부 로깅 함수 - 개발 환경에서만 콘솔 로그 출력
+ * @param {...any} args - 로그에 출력할 인자들
+ */
+export const debugLog = (...args) => {
+    if (isDev) console.log('[DEBUG]', ...args);
+};
+
 /**
  * DOM 요소를 안전하게 선택하고 null 체크를 수행하는 유틸리티 함수
  * @param {string} selector - CSS 선택자
@@ -218,5 +230,5 @@ export function initUtils() {
     setupScrollToTop();
     // setupEmailCopy는 site-info-ui.js에서 contact 렌더링 후 호출됨
 
-    console.log(' Utils module initialized');
+    debugLog('Utils module initialized');
 }

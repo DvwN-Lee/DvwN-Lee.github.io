@@ -2,7 +2,7 @@
 // Navigation Module
 // ========================================
 
-import { scrollToTop } from './utils.js';
+import { scrollToTop, debugLog } from './utils.js';
 
 // DOM 요소 캐싱 (모듈 스코프 - 한 번만 조회)
 const navbar = document.querySelector('.navbar');
@@ -186,5 +186,5 @@ export function initNavigation() {
         handleScroll();
     }, 100);
 
-    console.log(' Navigation module initialized');
+    debugLog('Navigation module initialized');
 }

@@ -3,7 +3,7 @@
 // ========================================
 
 import { problemSolvingData } from '../data/problem-solving.js';
-import { getRequiredElement } from './utils.js';
+import { getRequiredElement, debugLog } from './utils.js';
 
 /**
  * 각 Problem Solving 아이템의 HTML을 생성합니다.
@@ -124,5 +124,5 @@ function setupDetailsAccordion() {
  */
 export function initProblemSolvingUI() {
     renderProblemSolvingSection();
-    console.log('Problem Solving UI module initialized');
+    debugLog('Problem Solving UI module initialized');
 }

@@ -5,7 +5,7 @@
 // Import all modules
 import { initTheme } from './modules/theme.js';
 import { initNavigation } from './modules/navigation.js';
-import { initUtils } from './modules/utils.js';
+import { initUtils, debugLog } from './modules/utils.js';
 import { initProjectsUI } from './modules/projects-ui.js';
 import { initSkillsUI } from './modules/skills-ui.js';
 import { initTimelineUI } from './modules/timeline-ui.js';
@@ -14,18 +14,18 @@ import { initProblemSolvingUI } from './modules/problem-solving-ui.js';
 import { initSiteInfoUI } from './modules/site-info-ui.js';
 import { initIntroUI } from './modules/intro-ui.js';
 
-console.log('ES6 Module System Loaded!');
+debugLog('ES6 Module System Loaded!');
 
 // DOM이 완전히 로드된 후 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded!');
-    console.log('Portfolio initialization started...');
+    debugLog('DOM Content Loaded!');
+    debugLog('Portfolio initialization started...');
 
     // /#projects 직접 접근 시 body에 클래스 추가 (프로젝트 카드 렌더링 전에 CSS 적용)
-    console.log('🔍 Hash check:', window.location.hash, window.location.hash === '#projects');
+    debugLog('Hash check:', window.location.hash, window.location.hash === '#projects');
     if (window.location.hash === '#projects') {
         document.body.classList.add('direct-projects-access');
-        console.log('✅ direct-projects-access 클래스 추가됨');
+        debugLog('direct-projects-access 클래스 추가됨');
     }
 
     // Initialize all modules in order
@@ -47,5 +47,5 @@ document.addEventListener('DOMContentLoaded', () => {
         AOS.refresh();
     }
 
-    console.log('All modules initialized successfully!');
+    debugLog('All modules initialized successfully!');
 });

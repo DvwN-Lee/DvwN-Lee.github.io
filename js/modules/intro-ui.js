@@ -4,7 +4,7 @@
 
 import { config } from '../data/config.js';
 import { projectsData } from '../data/projects.js';
-import { getRequiredElement } from './utils.js';
+import { getRequiredElement, debugLog } from './utils.js';
 
 /**
  * Hero 섹션의 텍스트를 동적으로 렌더링합니다.
@@ -61,5 +61,5 @@ export function initIntroUI() {
     renderHero();
     renderAbout();
     updateProjectStats();
-    console.log(' Intro UI module initialized');
+    debugLog('Intro UI module initialized');
 }

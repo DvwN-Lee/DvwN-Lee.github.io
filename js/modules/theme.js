@@ -2,6 +2,8 @@
 // Theme Module (Dark/Light Mode)
 // ========================================
 
+import { debugLog } from './utils.js';
+
 /**
  * Particles.js 설정을 반환하는 함수
  * @param {string} particleColor 파티클 색상
@@ -162,7 +164,7 @@ export function initTheme() {
         themeToggle.addEventListener('click', toggleTheme);
     }
 
-    console.log(' Theme module initialized');
+    debugLog('Theme module initialized');
 }
 
 // 페이지 로드 전에 테마 적용 (깜빡임 방지) - 모듈 로드 시 즉시 실행
