@@ -2397,3 +2397,54 @@ a:focus-visible {
     opacity: 0 !important;
     transform: translateY(30px) !important;
 }
+
+/* ===== Reduced Motion Accessibility ===== */
+/* WCAG 2.3.3 Animation from Interactions 준수 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* AOS 애니메이션 즉시 표시 */
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    /* Hero 섹션 즉시 표시 */
+    .hero-content > * {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Scroll down 버튼 애니메이션 비활성화 */
+    .scroll-down-btn,
+    .scroll-indicator {
+        animation: none !important;
+    }
+
+    /* 스킬 레벨 바 즉시 표시 */
+    .skills.is-visible .skill-level {
+        transition: none !important;
+        transform: scaleX(var(--skill-level-decimal)) !important;
+    }
+
+    /* 프로젝트 카드 필터 애니메이션 비활성화 */
+    .project-card.is-fading-in .project-card-inner,
+    .project-card.is-fading-out .project-card-inner {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    /* Particles.js 배경 숨김 */
+    #particles-js {
+        display: none !important;
+    }
+}

@@ -2,13 +2,15 @@
 // Animations Module
 // ========================================
 
-import { debugLog } from './utils.js';
+import { debugLog, prefersReducedMotion } from './utils.js';
 
 /**
  * AOS (Animate On Scroll) 초기화
  */
 function initAOS() {
     if (typeof AOS !== 'undefined') {
+        const shouldDisable = prefersReducedMotion();
+
         // /#projects 직접 접근 또는 페이지 reload 시: 이미 viewport에 있는 카드의 AOS 애니메이션 비활성화
         // Scroll restoration으로 카드가 이미 보이는 상태에서 fade-up 애니메이션이 발생하면
         // 카드가 30px 아래에서 시작하여 위로 올라오는 시각적 "벌어짐" 현상 발생
@@ -25,10 +27,11 @@ function initAOS() {
         }
 
         AOS.init({
-            duration: 1000,
+            duration: shouldDisable ? 0 : 1000,
             easing: 'ease-out-cubic',
             once: true,
-            offset: 200
+            offset: 200,
+            disable: shouldDisable
         });
     }
 }
@@ -40,6 +43,17 @@ function initAOS() {
 function setupCounterAnimation() {
     const counters = document.querySelectorAll('.stat-number');
     const ANIMATION_DURATION = 2000; // 2초 동안 애니메이션
+
+    // reduced motion 시 즉시 최종값 표시
+    if (prefersReducedMotion()) {
+        counters.forEach(counter => {
+            const target = counter.getAttribute('data-target');
+            if (target) {
+                counter.innerText = target;
+            }
+        });
+        return;
+    }
 
     const counterObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -147,6 +161,13 @@ let typeWriterInstance = null;
 function initTypeWriter() {
     const typeElement = document.querySelector('.type-writer');
     if (typeElement) {
+        // reduced motion 시 정적 텍스트 표시
+        if (prefersReducedMotion()) {
+            const words = ['Cloud Engineer', 'DevOps Engineer', 'Backend Developer'];
+            typeElement.innerHTML = `<span class="txt">${words[0]}</span>`;
+            return;
+        }
+
         // 기존 인스턴스가 있다면 정리
         if (typeWriterInstance) {
             typeWriterInstance.cleanup();
@@ -172,6 +193,16 @@ function cleanupTypeWriter() {
  */
 function animateHero() {
     const heroElements = document.querySelectorAll('.hero-content > *');
+
+    // reduced motion 시 즉시 표시
+    if (prefersReducedMotion()) {
+        heroElements.forEach(element => {
+            element.style.opacity = '1';
+            element.style.transform = 'none';
+        });
+        return;
+    }
+
     heroElements.forEach((element, index) => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(20px)';

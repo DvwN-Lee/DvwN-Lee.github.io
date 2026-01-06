@@ -3,7 +3,7 @@
 // ========================================
 
 import { skillsData } from '../data/skills.js';
-import { getRequiredElement, debugLog } from './utils.js';
+import { getRequiredElement, debugLog, prefersReducedMotion } from './utils.js';
 
 /**
  * 스킬 섹션을 동적으로 렌더링하는 함수
@@ -62,6 +62,12 @@ function initSkillsAnimation() {
             item.style.setProperty('--skill-level-decimal', levelDecimal);
         }
     });
+
+    // reduced motion 시 즉시 스킬 레벨 표시
+    if (prefersReducedMotion()) {
+        skillsSection.classList.add('is-visible');
+        return;
+    }
 
     // IntersectionObserver 설정
     const observerOptions = {
