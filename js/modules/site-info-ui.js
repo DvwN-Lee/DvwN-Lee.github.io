@@ -3,7 +3,7 @@
 // ========================================
 
 import { config } from '../data/config.js';
-import { getRequiredElement, setupEmailCopy } from './utils.js';
+import { getRequiredElement, setupEmailCopy, debugLog } from './utils.js';
 
 /**
  * Contact 섹션의 정보를 동적으로 렌더링합니다.
@@ -78,5 +78,5 @@ export function initSiteInfoUI() {
     // Contact 정보 렌더링 후 이메일 복사 이벤트 리스너 설정
     setupEmailCopy();
 
-    console.log(' Site Info UI module initialized');
+    debugLog('Site Info UI module initialized');
 }

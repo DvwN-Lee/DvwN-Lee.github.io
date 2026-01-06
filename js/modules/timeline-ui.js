@@ -3,7 +3,7 @@
 // ========================================
 
 import { experiencesData } from '../data/experiences.js';
-import { getRequiredElement } from './utils.js';
+import { getRequiredElement, debugLog } from './utils.js';
 
 /**
  * 경력/타임라인 섹션을 동적으로 렌더링하는 함수
@@ -44,5 +44,5 @@ function renderExperiences() {
 export function initTimelineUI() {
     renderExperiences();
 
-    console.log(' Timeline UI module initialized');
+    debugLog('Timeline UI module initialized');
 }

@@ -3,7 +3,7 @@
 // ========================================
 
 import { projectsData } from '../data/projects.js';
-import { getRequiredElement } from './utils.js';
+import { getRequiredElement, debugLog } from './utils.js';
 import { AnimationQueue } from './animation-utils.js';
 
 // ========================================
@@ -705,5 +705,5 @@ export function initProjectsUI() {
 
 
 
-    console.log('✅ Projects UI module initialized');
+    debugLog('Projects UI module initialized');
 }

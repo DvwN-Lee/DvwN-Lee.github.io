@@ -3,7 +3,7 @@
 // ========================================
 
 import { skillsData } from '../data/skills.js';
-import { getRequiredElement } from './utils.js';
+import { getRequiredElement, debugLog } from './utils.js';
 
 /**
  * 스킬 섹션을 동적으로 렌더링하는 함수
@@ -92,5 +92,5 @@ function initSkillsAnimation() {
 export function initSkillsUI() {
     renderSkills();
 
-    console.log(' Skills UI module initialized');
+    debugLog('Skills UI module initialized');
 }
