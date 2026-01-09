@@ -103,12 +103,10 @@ function loadParticlesTheme() {
         return;
     }
 
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-    const isLightTheme = currentTheme === 'light';
-
-    // 테마별 색상 정의
-    const particleColor = isLightTheme ? '#2563eb' : '#4A90E2';
-    const lineColor = isLightTheme ? '#2563eb' : '#4A90E2';
+    // CSS 변수에서 primary color 읽어오기 (테마 자동 반영)
+    const computedStyle = getComputedStyle(document.documentElement);
+    const particleColor = computedStyle.getPropertyValue('--primary-color').trim();
+    const lineColor = particleColor;
 
     // 기존 particlesJS 인스턴스가 있다면 제거
     if (window.pJSDom && window.pJSDom.length > 0) {
