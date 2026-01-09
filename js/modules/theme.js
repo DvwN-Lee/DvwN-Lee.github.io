@@ -3,6 +3,9 @@
 // ========================================
 
 import { debugLog, prefersReducedMotion } from './utils.js';
+import { config } from '../data/config.js';
+
+const { particles: particlesConfig } = config.constants;
 
 /**
  * Particles.js 설정을 반환하는 함수
@@ -10,11 +13,11 @@ import { debugLog, prefersReducedMotion } from './utils.js';
  * @param {string} lineColor 라인 색상
  * @returns {object} Particles.js 설정 객체
  */
-function particlesConfig(particleColor, lineColor) {
+function getParticlesSettings(particleColor, lineColor) {
     return {
         particles: {
             number: {
-                value: 80,
+                value: particlesConfig.count,
                 density: {
                     enable: true,
                     value_area: 800
@@ -42,14 +45,14 @@ function particlesConfig(particleColor, lineColor) {
             },
             line_linked: {
                 enable: true,
-                distance: 150,
+                distance: particlesConfig.lineDistance,
                 color: lineColor,
                 opacity: 0.2,
                 width: 1
             },
             move: {
                 enable: true,
-                speed: 2,
+                speed: particlesConfig.speed,
                 direction: 'none',
                 random: false,
                 straight: false,
@@ -94,7 +97,7 @@ function particlesConfig(particleColor, lineColor) {
  */
 function loadParticlesTheme() {
     // reduced motion, 모바일, particles-js 요소 없음 시 실행하지 않음
-    if (prefersReducedMotion() || window.innerWidth <= 768 || !document.getElementById('particles-js')) {
+    if (prefersReducedMotion() || window.innerWidth <= particlesConfig.mobileBreakpoint || !document.getElementById('particles-js')) {
         // 기존 인스턴스가 있다면 제거
         if (window.pJSDom && window.pJSDom.length > 0) {
             window.pJSDom[0].pJS.fn.vendors.destroypJS();
@@ -117,7 +120,7 @@ function loadParticlesTheme() {
     }
 
     // 새로운 설정으로 particlesJS 초기화
-    particlesJS('particles-js', particlesConfig(particleColor, lineColor));
+    particlesJS('particles-js', getParticlesSettings(particleColor, lineColor));
 }
 
 /**

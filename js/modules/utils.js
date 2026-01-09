@@ -2,6 +2,10 @@
 // Utility Functions Module
 // ========================================
 
+import { config } from '../data/config.js';
+
+const { animations: animConfig } = config.constants;
+
 // ========================================
 // Debug Utilities
 // ========================================
@@ -106,9 +110,9 @@ function fallbackCopyEmail(email, evt) {
     document.body.removeChild(tempInput);
 }
 
-// 이메일 복사 피드백 타이밍 상수
-const ICON_TRANSITION_DURATION = 100;
-const FEEDBACK_RESET_DELAY = 2000;
+// 이메일 복사 피드백 타이밍 상수 (config에서 가져옴)
+const ICON_TRANSITION_DURATION = animConfig.iconTransition;
+const FEEDBACK_RESET_DELAY = animConfig.feedbackReset;
 
 /**
  * 이메일 복사 완료 피드백 표시 (아이콘 + 텍스트 색상 변경 방식)
