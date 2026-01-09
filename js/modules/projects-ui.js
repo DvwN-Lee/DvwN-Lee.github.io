@@ -4,8 +4,8 @@
 
 import { projectsData } from '../data/projects.js';
 import { config } from '../data/config.js';
-import { getRequiredElement, debugLog, prefersReducedMotion } from './utils.js';
-import { AnimationQueue } from './animation-utils.js';
+import { getRequiredElement, debugLog, prefersReducedMotion, resetInlineStyles } from './utils.js';
+import { AnimationQueue, removeAOSAttributes } from './animation-utils.js';
 
 // ========================================
 // Constants
@@ -147,10 +147,7 @@ function animateProjectCards(filterValue = FILTER.ALL) {
                 card.style.transform = currentTransform === 'none' ? '' : currentTransform;
 
                 // 3. AOS 속성 및 클래스 완전 제거 (간섭 원천 차단)
-                card.removeAttribute('data-aos');
-                card.removeAttribute('data-aos-delay');
-                card.classList.remove('aos-init');
-                card.classList.remove('aos-animate');
+                removeAOSAttributes(card);
             }
         });
 
@@ -194,8 +191,7 @@ function animateProjectCards(filterValue = FILTER.ALL) {
             if (!inner) return;
 
             // 인라인 스타일 정리 (CSS Cascade 우선순위 확보)
-            inner.style.opacity = '';
-            inner.style.transform = '';
+            resetInlineStyles(inner);
 
             // 강제 리플로우로 트랜지션 준비
             void inner.offsetHeight;
@@ -214,8 +210,7 @@ function animateProjectCards(filterValue = FILTER.ALL) {
                 // 숨겨지는 카드의 inner 요소 inline 스타일 정리
                 const inner = card.querySelector('.project-card-inner');
                 if (inner) {
-                    inner.style.opacity = '';
-                    inner.style.transform = '';
+                    resetInlineStyles(inner);
                 }
             });
 
@@ -224,9 +219,7 @@ function animateProjectCards(filterValue = FILTER.ALL) {
                 card.classList.remove('is-fading-out');
 
                 // 이미 위에서 제거했지만, 숨겨져 있던 카드들도 확실하게 처리
-                card.classList.remove('aos-init', 'aos-animate');
-                card.removeAttribute('data-aos');
-                card.removeAttribute('data-aos-delay');
+                removeAOSAttributes(card);
 
                 // Fade In을 위한 초기 상태 설정 (inner 요소에 투명, 아래로 이동)
                 const inner = card.querySelector('.project-card-inner');
@@ -267,8 +260,7 @@ function animateProjectCards(filterValue = FILTER.ALL) {
                         const inner = card.querySelector('.project-card-inner');
                         if (inner) {
                             // 인라인 스타일 정리 (CSS Cascade 우선순위 확보)
-                            inner.style.opacity = '';
-                            inner.style.transform = '';
+                            resetInlineStyles(inner);
                         }
                         // 상태 클래스 추가 (CSS 규칙이 적용되어 fade-in 애니메이션 실행)
                         card.classList.add('is-fading-in');

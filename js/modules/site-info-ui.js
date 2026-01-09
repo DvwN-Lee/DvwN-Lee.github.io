@@ -3,7 +3,7 @@
 // ========================================
 
 import { config } from '../data/config.js';
-import { getRequiredElement, setupEmailCopy, debugLog } from './utils.js';
+import { getRequiredElement, setupEmailCopy, debugLog, registerCleanup } from './utils.js';
 
 // 클릭 애니메이션 타이밍 상수 (config에서 가져옴)
 const CLICK_ANIMATION_DURATION = config.constants.animations.clickAnimation;
@@ -128,8 +128,8 @@ export function initSiteInfoUI() {
     setupEmailCopy();
     setupSocialLinkClickAnimation();
 
-    // 페이지 언로드 시 타이머 정리
-    window.addEventListener('beforeunload', cleanupSocialLinkTimers);
+    // 페이지 언로드 시 타이머 정리 (중앙화된 cleanup 시스템 사용)
+    registerCleanup(cleanupSocialLinkTimers);
 
     debugLog('Site Info UI module initialized');
 }

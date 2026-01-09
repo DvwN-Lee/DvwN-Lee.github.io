@@ -255,6 +255,44 @@ export function setupEmailCopy() {
     }
 }
 
+// ========================================
+// Cleanup 시스템 (중앙화된 정리)
+// ========================================
+
+/** @type {Function[]} 페이지 언로드 시 실행할 정리 함수 목록 */
+const cleanupFunctions = [];
+
+/**
+ * 페이지 언로드 시 실행할 정리 함수를 등록합니다.
+ * 여러 모듈에서 개별적으로 beforeunload 리스너를 등록하는 대신
+ * 이 함수를 사용하여 중앙에서 관리합니다.
+ * @param {Function} fn - 정리 함수
+ */
+export function registerCleanup(fn) {
+    cleanupFunctions.push(fn);
+}
+
+// 단일 beforeunload 리스너로 모든 정리 함수 실행
+window.addEventListener('beforeunload', () => {
+    cleanupFunctions.forEach(fn => fn());
+});
+
+// ========================================
+// 스타일 헬퍼 함수
+// ========================================
+
+/**
+ * 요소의 인라인 스타일을 초기화합니다.
+ * 애니메이션 후 CSS로 제어를 돌려줄 때 사용합니다.
+ * @param {HTMLElement} element - 대상 요소
+ * @param {string[]} [properties=['opacity', 'transform']] - 초기화할 CSS 속성 목록
+ */
+export function resetInlineStyles(element, properties = ['opacity', 'transform']) {
+    properties.forEach(prop => {
+        element.style[prop] = '';
+    });
+}
+
 /**
  * 유틸리티 모듈 초기화
  */

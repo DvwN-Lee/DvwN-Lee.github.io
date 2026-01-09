@@ -2,6 +2,51 @@
 // Animation Utilities Module
 // ========================================
 
+// ========================================
+// AOS 헬퍼 함수
+// ========================================
+
+/**
+ * AOS 관련 속성 및 클래스를 요소에서 제거합니다.
+ * 필터링이나 동적 콘텐츠에서 AOS 간섭을 방지할 때 사용합니다.
+ * @param {HTMLElement} element - 대상 요소
+ */
+export function removeAOSAttributes(element) {
+    element.removeAttribute('data-aos');
+    element.removeAttribute('data-aos-delay');
+    element.classList.remove('aos-init', 'aos-animate');
+}
+
+// ========================================
+// IntersectionObserver 헬퍼 함수
+// ========================================
+
+/**
+ * 요소가 뷰포트에 한 번 진입했을 때 콜백을 실행하는 Observer를 생성합니다.
+ * 콜백 실행 후 자동으로 관찰을 중단하여 메모리 누수를 방지합니다.
+ * @param {HTMLElement} element - 관찰할 요소
+ * @param {Function} callback - 요소가 보일 때 실행할 콜백 (IntersectionObserverEntry를 인자로 받음)
+ * @param {number} [threshold=0.5] - 요소가 보여야 하는 비율 (0-1)
+ * @returns {IntersectionObserver} - 생성된 Observer 인스턴스
+ */
+export function observeOnce(element, callback, threshold = 0.5) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                callback(entry);
+                observer.unobserve(element);
+            }
+        });
+    }, { threshold });
+
+    observer.observe(element);
+    return observer;
+}
+
+// ========================================
+// AnimationQueue 클래스
+// ========================================
+
 /**
  * 애니메이션 큐 관리 클래스
  * 중첩된 애니메이션을 안전하게 관리하고 충돌을 방지합니다.
