@@ -53,5 +53,63 @@ export const config = {
             iconClass: 'fab fa-linkedin',
             handle: 'linkedin.com/in/dongju-lee'
         }
-    ]
+    ],
+
+    /**
+     * 애플리케이션 전역 상수값
+     * 각 모듈에서 하드코딩된 값들을 중앙화하여 관리
+     */
+    constants: {
+        animations: {
+            /** Fade In/Out 지속 시간 (ms) */
+            fadeIn: 300,
+            fadeOut: 300,
+            /** Masonry Layout 안정화 지연 (ms) */
+            layoutSettle: 100,
+            /** Modal transitionend fallback (ms) */
+            modalFallback: 400,
+            /** imagesLoaded timeout (ms) */
+            imagesLoadedTimeout: 5000,
+            /** 순차 애니메이션 간격 (ms) */
+            sequentialInterval: 120,
+            /** 초기 로드 애니메이션 시작 지연 (ms) */
+            initialLoadDelay: 800,
+            /** 카운터 애니메이션 지속 시간 (ms) */
+            counterDuration: 2000,
+            /** TypeWriter 단어 대기 시간 (ms) */
+            typeWriterWait: 3000,
+            /** 아이콘 전환 지속 시간 (ms) */
+            iconTransition: 100,
+            /** 복사 피드백 리셋 지연 (ms) */
+            feedbackReset: 2000,
+            /** 클릭 애니메이션 지속 시간 (ms) */
+            clickAnimation: 300,
+        },
+        navigation: {
+            /** Navbar scrolled 상태 임계값 (px) */
+            scrolledThreshold: 50,
+            /** Scroll to Top 버튼 표시 임계값 (px) */
+            scrollTopThreshold: 300,
+            /** 섹션 offset 조정값 (px) */
+            sectionOffset: 100,
+        },
+        particles: {
+            /** Particle 개수 */
+            count: 80,
+            /** Particle 연결 거리 (px) */
+            lineDistance: 150,
+            /** Particle 이동 속도 */
+            speed: 2,
+            /** Mobile breakpoint (px) */
+            mobileBreakpoint: 768,
+        },
+        projects: {
+            /** Eager loading 적용 개수 (첫 N개) */
+            eagerLoadCount: 6,
+            /** 순차 애니메이션 최대 개수 */
+            maxSequentialAnimation: 6,
+        },
+        /** TypeWriter 표시 단어 목록 */
+        typeWriterWords: ['Cloud Engineer', 'DevOps Engineer', 'Backend Developer'],
+    },
 };

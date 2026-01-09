@@ -3,6 +3,7 @@
 // ========================================
 
 import { projectsData } from '../data/projects.js';
+import { config } from '../data/config.js';
 import { getRequiredElement, debugLog, prefersReducedMotion } from './utils.js';
 import { AnimationQueue } from './animation-utils.js';
 
@@ -10,12 +11,13 @@ import { AnimationQueue } from './animation-utils.js';
 // Constants
 // ========================================
 
-// Animation timing (ms)
+// Animation timing (ms) - config에서 가져옴
+const { animations, projects: projectsConfig } = config.constants;
 const ANIMATION = {
-    FADE_DURATION: 300,           // CSS transition 시간과 일치 (0.3s)
-    LAYOUT_SETTLE_DELAY: 100,     // Masonry layout 안정화 대기 (증가)
-    MODAL_FALLBACK_TIMEOUT: 400,
-    IMAGES_LOADED_TIMEOUT: 5000   // imagesLoaded fallback timeout (Firefox/Webkit 호환)
+    FADE_DURATION: animations.fadeIn,
+    LAYOUT_SETTLE_DELAY: animations.layoutSettle,
+    MODAL_FALLBACK_TIMEOUT: animations.modalFallback,
+    IMAGES_LOADED_TIMEOUT: animations.imagesLoadedTimeout
 };
 
 // Filter values
@@ -335,14 +337,18 @@ function applyInitialLoadAnimation() {
                     }
                 }, 450);
 
-                // 프로젝트 카드: 800ms 후 시작, 각 카드는 120ms 간격 (현대적인 순차 효과)
+                // 프로젝트 카드: initialLoadDelay 후 시작, 각 카드는 sequentialInterval 간격
+                const { maxSequentialAnimation } = projectsConfig;
+                const { sequentialInterval, initialLoadDelay } = animations;
                 projectCards.forEach((card, index) => {
-                    // 최대 6개까지만 순차 애니메이션, 나머지는 동시에
-                    const staggerDelay = index < 6 ? index * 120 : 6 * 120;
+                    // 최대 maxSequentialAnimation개까지만 순차 애니메이션, 나머지는 동시에
+                    const staggerDelay = index < maxSequentialAnimation
+                        ? index * sequentialInterval
+                        : maxSequentialAnimation * sequentialInterval;
                     setTimeout(() => {
                         card.classList.add('visible-animate');
                         card.classList.remove('invisible-init');
-                    }, 800 + staggerDelay);
+                    }, initialLoadDelay + staggerDelay);
                 });
 
                 // 애니메이션 실행 후 observer 해제 (메모리 누수 방지)
@@ -374,8 +380,8 @@ function renderProjects() {
         // 하이라이트 HTML 생성
         const highlightsHTML = project.highlights.map(highlight => `<li>${highlight}</li>`).join('');
 
-        // 첫 6개 이미지는 eager 로딩 (초기 화면), 나머지는 lazy 로딩
-        const loadingAttr = index < 6 ? 'eager' : 'lazy';
+        // 첫 eagerLoadCount개 이미지는 eager 로딩 (초기 화면), 나머지는 lazy 로딩
+        const loadingAttr = index < projectsConfig.eagerLoadCount ? 'eager' : 'lazy';
 
         // AOS 순차 애니메이션: 제목(0ms) → 필터(100ms) → 카드(200ms+)
         const aosDelay = (index + 2) * 100;

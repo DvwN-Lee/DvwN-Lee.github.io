@@ -3,6 +3,9 @@
 // ========================================
 
 import { debugLog, prefersReducedMotion } from './utils.js';
+import { config } from '../data/config.js';
+
+const { animations: animConfig } = config.constants;
 
 /**
  * AOS (Animate On Scroll) 초기화
@@ -42,7 +45,7 @@ function initAOS() {
  */
 function setupCounterAnimation() {
     const counters = document.querySelectorAll('.stat-number');
-    const ANIMATION_DURATION = 2000; // 2초 동안 애니메이션
+    const ANIMATION_DURATION = animConfig.counterDuration;
 
     // reduced motion 시 즉시 최종값 표시
     if (prefersReducedMotion()) {
@@ -161,10 +164,14 @@ let typeWriterInstance = null;
 function initTypeWriter() {
     const typeElement = document.querySelector('.type-writer');
     if (typeElement) {
+        const words = config.constants.typeWriterWords;
+
         // reduced motion 시 정적 텍스트 표시
         if (prefersReducedMotion()) {
-            const words = ['Cloud Engineer', 'DevOps Engineer', 'Backend Developer'];
-            typeElement.innerHTML = `<span class="txt">${words[0]}</span>`;
+            const txtSpan = document.createElement('span');
+            txtSpan.className = 'txt';
+            txtSpan.textContent = words[0];
+            typeElement.replaceChildren(txtSpan);
             return;
         }
 
@@ -173,7 +180,6 @@ function initTypeWriter() {
             typeWriterInstance.cleanup();
         }
 
-        const words = ['Cloud Engineer', 'DevOps Engineer', 'Backend Developer'];
         typeWriterInstance = new TypeWriter(typeElement, words);
     }
 }

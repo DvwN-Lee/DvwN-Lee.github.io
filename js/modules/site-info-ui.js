@@ -5,8 +5,8 @@
 import { config } from '../data/config.js';
 import { getRequiredElement, setupEmailCopy, debugLog } from './utils.js';
 
-// 클릭 애니메이션 타이밍 상수
-const CLICK_ANIMATION_DURATION = 300;
+// 클릭 애니메이션 타이밍 상수 (config에서 가져옴)
+const CLICK_ANIMATION_DURATION = config.constants.animations.clickAnimation;
 
 // 소셜 링크별 타이머를 저장하는 WeakMap (메모리 누수 방지)
 const socialLinkTimers = new WeakMap();

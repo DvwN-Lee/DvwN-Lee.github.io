@@ -3,6 +3,9 @@
 // ========================================
 
 import { scrollToTop, debugLog, getScrollBehavior } from './utils.js';
+import { config } from '../data/config.js';
+
+const { navigation: navConfig } = config.constants;
 
 // DOM 요소 캐싱 (모듈 스코프 - 한 번만 조회)
 const navbar = document.querySelector('.navbar');
@@ -22,7 +25,7 @@ function handleScroll() {
 
     // Navbar scroll effect
     if (navbar) {
-        navbar.classList.toggle('scrolled', scrollY > 50);
+        navbar.classList.toggle('scrolled', scrollY > navConfig.scrolledThreshold);
     }
 
     // Scroll progress bar
@@ -35,7 +38,7 @@ function handleScroll() {
 
     // Scroll to top button
     if (scrollToTopBtn) {
-        scrollToTopBtn.classList.toggle('visible', scrollY > 300);
+        scrollToTopBtn.classList.toggle('visible', scrollY > navConfig.scrollTopThreshold);
     }
 
     // Active navigation link (최적화 - 변경된 경우에만 DOM 조작)
@@ -52,7 +55,7 @@ function handleScroll() {
     } else {
         // 일반적인 스크롤 위치에서는 기존 로직 사용
         for (const section of sections) {
-            if (scrollY >= section.offsetTop - 100) {
+            if (scrollY >= section.offsetTop - navConfig.sectionOffset) {
                 currentSectionId = section.getAttribute('id');
             }
         }
