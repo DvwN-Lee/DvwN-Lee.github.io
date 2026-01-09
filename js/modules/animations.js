@@ -2,8 +2,9 @@
 // Animations Module
 // ========================================
 
-import { debugLog, prefersReducedMotion } from './utils.js';
+import { debugLog, prefersReducedMotion, registerCleanup } from './utils.js';
 import { config } from '../data/config.js';
+import { removeAOSAttributes } from './animation-utils.js';
 
 const { animations: animConfig } = config.constants;
 
@@ -264,8 +265,8 @@ export function initAnimations() {
     setupLazyLoading();
     animateHero();
 
-    // 페이지 언로드 시 TypeWriter 정리
-    window.addEventListener('beforeunload', cleanupTypeWriter);
+    // 페이지 언로드 시 TypeWriter 정리 (중앙화된 cleanup 시스템 사용)
+    registerCleanup(cleanupTypeWriter);
 
     debugLog('Animations module initialized');
 }
