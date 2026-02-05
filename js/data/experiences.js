@@ -17,6 +17,18 @@
  */
 export const experiencesData = [
   {
+    date: '2026.02',
+    title: 'GCP 기반 Cloud-Native 모니터링 플랫폼',
+    subtitle: '개인 프로젝트 - GCP 환경 (v2.0 고도화)',
+    achievements: [
+      'Terraform으로 GCP 리소스 전체(VPC, Firewall, VM, Secret Manager) 코드화',
+      'ArgoCD App of Apps 패턴으로 Infrastructure/Application Apps 계층적 관리',
+      'External Secrets Operator + GCP Secret Manager 연동으로 Secret 자동 동기화',
+      'Istio mTLS + GCP Firewall + NetworkPolicy 조합한 Zero Trust Network 구현',
+      'K3s v1.31 경량 Kubernetes 환경에서 Prometheus/Grafana/Loki 관측성 스택 구축'
+    ]
+  },
+  {
     date: '2025.11',
     title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
     subtitle: '개인 프로젝트 - Solid Cloud 환경 (v1.0 고도화)',

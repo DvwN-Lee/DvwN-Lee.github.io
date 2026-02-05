@@ -10,6 +10,68 @@
 /**
  * Cloud-Native 마이크로서비스 플랫폼 v2.0 공유 콘텐츠
  */
+/**
+ * Cloud-Native 모니터링 플랫폼 v3.0 (GCP) 공유 콘텐츠
+ */
+export const cloudNativeV3Content = {
+    situation: `'Monitoring-v3' 프로젝트는 기존 v2의 Solid Cloud 환경에서 GCP(Google Cloud Platform)로 전환하며, 클라우드 네이티브 인프라 자동화 수준을 한 단계 끌어올리는 과제가 있었습니다. 기존에는 IaC 범위가 일부 인프라에 한정되어 있었고, Secret 관리가 수동적이었으며, GitOps 구조가 단순하여 대규모 확장에 한계가 있었습니다.`,
+
+    tasks: [
+        '<strong>GCP 리소스 전체 IaC 자동화</strong>: VPC, Firewall, VM, Secret Manager 등 모든 GCP 리소스를 Terraform으로 코드화.',
+        '<strong>대규모 GitOps 구조 설계</strong>: ArgoCD App of Apps 패턴으로 Infrastructure/Application Apps를 계층적으로 관리.',
+        '<strong>Secret 관리 자동화</strong>: External Secrets Operator와 GCP Secret Manager를 연동하여 민감 정보의 안전한 주입 및 자동 동기화.',
+        '<strong>Zero Trust Network 보안 강화</strong>: Istio mTLS, GCP Firewall, NetworkPolicy를 조합한 다층 보안 아키텍처 구축.'
+    ],
+
+    actions: [
+        '<strong>Terraform으로 GCP 리소스 전체 코드화</strong>: VPC, Subnet, Firewall Rules, Compute Engine VM, Secret Manager 등 전체 인프라를 Terraform으로 정의하여, <strong>명령어 하나로 전체 인프라 프로비저닝</strong>이 가능한 환경을 구축했습니다.',
+        '<strong>ArgoCD App of Apps 패턴 도입</strong>: Root Application이 하위 Application들을 관리하는 계층 구조로 GitOps를 구현하여, Infrastructure Apps(Istio, Prometheus 등)와 Application Apps(Backend Services)를 분리 관리했습니다.',
+        '<strong>External Secrets Operator 연동</strong>: GCP Secret Manager에 저장된 민감 정보를 Kubernetes Secret으로 자동 동기화하여, Secret 변경 시 애플리케이션에 자동 반영되는 체계를 구축했습니다.',
+        '<strong>다층 보안 아키텍처 적용</strong>: Istio mTLS STRICT 모드로 서비스 간 통신을 암호화하고, GCP Firewall로 외부 접근을 제어하며, NetworkPolicy로 Pod 간 트래픽을 제한하는 Zero Trust Network를 구현했습니다.',
+        '<strong>K3s 경량 Kubernetes 환경 구축</strong>: GCP Compute Engine에서 K3s v1.31 클러스터를 구성하여, 리소스 효율성과 운영 편의성을 확보했습니다.'
+    ],
+
+    results: [
+        '<strong>End-to-End 인프라 자동화 달성</strong>: Terraform으로 GCP 리소스 전체를 관리하여, 인프라 재현성과 일관성을 확보하고 휴먼 에러를 원천 차단했습니다.',
+        '<strong>확장 가능한 GitOps 구조 확립</strong>: App of Apps 패턴으로 수십 개의 Application을 체계적으로 관리할 수 있는 구조를 구축했습니다.',
+        '<strong>보안 Secret 관리 자동화</strong>: External Secrets를 통해 Secret 갱신 시 수동 개입 없이 자동 동기화되어 운영 효율성이 향상되었습니다.',
+        '<strong>다층 보안 체계 구현</strong>: Network, Transport, Application 레이어에서 각각 보안을 적용하여 Defense in Depth 전략을 실현했습니다.'
+    ],
+
+    modal: {
+        overview: 'GCP 환경에서 K3s Kubernetes Cluster를 운영하는 Microservice Monitoring Platform입니다. <strong>Terraform으로 GCP 리소스 전체를 자동화</strong>하고, <strong>ArgoCD App of Apps 패턴</strong>으로 GitOps를 구현하여 End-to-End 자동화를 달성했습니다.',
+
+        keyFeatures: [
+            '<strong>Full IaC</strong>: Terraform으로 GCP VPC, Firewall, VM, Secret Manager 등 전체 인프라 코드화',
+            '<strong>App of Apps GitOps</strong>: ArgoCD로 Infrastructure/Application Apps를 계층적 관리',
+            '<strong>Secret 자동화</strong>: External Secrets Operator + GCP Secret Manager 연동',
+            '<strong>Zero Trust Network</strong>: Istio mTLS + GCP Firewall + NetworkPolicy 조합',
+            '<strong>통합 Observability</strong>: Prometheus, Loki, Grafana, Kiali 스택'
+        ],
+
+        technicalImplementation: [
+            '<strong>Cloud</strong>: Google Cloud Platform (VPC, Compute Engine, Secret Manager)',
+            '<strong>Kubernetes</strong>: K3s v1.31',
+            '<strong>IaC</strong>: Terraform',
+            '<strong>GitOps</strong>: ArgoCD (App of Apps)',
+            '<strong>Service Mesh</strong>: Istio v1.24',
+            '<strong>Observability</strong>: Prometheus, Loki, Grafana, Kiali',
+            '<strong>Secret</strong>: External Secrets Operator',
+            '<strong>Backend</strong>: Go (API Gateway), Python/FastAPI (Services)'
+        ],
+
+        learningPoints: [
+            'GCP 환경에서 Terraform을 활용한 전체 인프라 자동화 경험',
+            'ArgoCD App of Apps 패턴을 통한 대규모 GitOps 구조 설계',
+            'External Secrets와 Cloud Secret Manager를 연동한 보안 Secret 관리',
+            'K3s 경량 Kubernetes 환경에서의 Production 운영 경험'
+        ]
+    }
+};
+
+/**
+ * Cloud-Native 마이크로서비스 플랫폼 v2.0 공유 콘텐츠
+ */
 export const cloudNativeV2Content = {
     situation: `단독으로 진행한 'Monitoring-v2' 프로젝트는 기존 시스템(v1)의 수동적이고 비효율적인 운영 방식을 개선해야 하는 과제가 있었습니다. 인프라 변경은 수작업으로 이루어져 휴먼 에러 가능성이 높았고, 배포 프로세스는 복잡하고 느렸습니다. 또한, 서비스 간 통신 보안이 확보되지 않았으며, 시스템 장애나 성능 저하 발생 시 원인을 빠르게 파악할 수 있는 관측 가능성이 부재한 상태였습니다.`,
 

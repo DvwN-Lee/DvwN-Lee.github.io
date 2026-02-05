@@ -2,7 +2,7 @@
 // Problem Solving Data Module
 // ========================================
 
-import { cloudNativeV2Content } from './shared-content.js';
+import { cloudNativeV3Content, cloudNativeV2Content } from './shared-content.js';
 
 /**
  * @typedef {Object} ProblemSolvingItem
@@ -19,6 +19,12 @@ import { cloudNativeV2Content } from './shared-content.js';
  * @type {ProblemSolvingItem[]}
  */
 export const problemSolvingData = [
+    {
+        id: 'gcp-cloudnative-v3',
+        title: 'GCP 기반 Cloud-Native 모니터링 플랫폼',
+        tags: ['GCP', 'K3s', 'Terraform', 'ArgoCD', 'External Secrets', 'Istio'],
+        ...cloudNativeV3Content
+    },
     {
         id: 'msa-observability',
         title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
