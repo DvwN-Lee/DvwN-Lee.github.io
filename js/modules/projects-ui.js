@@ -39,89 +39,7 @@ const modalAnimationQueue = new AnimationQueue();
 // DOM 캐싱
 let cachedProjectsGrid = null;
 let cachedModal = null;
-let masonryInstance = null;
-
-/**
- * Masonry 레이아웃 초기화
- * @param {Function} callback - 초기화 완료 후 실행할 콜백
- */
-function initMasonry(callback) {
-    const grid = document.querySelector('.projects-grid');
-    if (!grid) return null;
-
-    // 기존 Masonry 인스턴스가 있으면 제거
-    if (masonryInstance) {
-        masonryInstance.destroy();
-        masonryInstance = null;
-    }
-
-    cachedProjectsGrid = grid;
-
-    // Masonry 초기화 및 클래스 추가를 수행하는 내부 함수
-    const setupMasonry = () => {
-        // 이미 초기화 완료된 경우 중복 실행 방지
-        if (grid.classList.contains('masonry-ready')) return;
-
-        masonryInstance = new Masonry(grid, {
-            itemSelector: '.project-card:not(.is-fading-out)',
-            columnWidth: '.projects-grid-sizer',
-            gutter: '.projects-gutter-sizer',
-            percentPosition: true,
-            transitionDuration: 0  // 초기 layout 시 애니메이션 제거
-        });
-
-        // Masonry 초기화 완료 표시 (테스트에서 감지하는 핵심 클래스)
-        grid.classList.add('masonry-ready');
-
-        // AOS 위치 재계산은 하지 않음 (레이아웃 변화 방지)
-        // Masonry 초기화 시점에 이미 올바른 위치에 있으므로 AOS.refresh() 불필요
-
-        // 초기화 완료 후 콜백 실행
-        if (callback) callback();
-    };
-
-    // 즉시 Masonry 초기화 (이미지 로딩 전에도 aspect-ratio로 공간 확보되어 있음)
-    setupMasonry();
-
-    // 이미지 로딩 완료 후 레이아웃 미세 조정 (transition 없이)
-    if (typeof imagesLoaded !== 'undefined') {
-        const imgLoad = imagesLoaded(grid, { background: true });
-
-        // Firefox/Webkit 호환: done 이벤트 미발생 시 fallback timeout 사용
-        let isLayoutDone = false;
-        const handleLayoutUpdate = () => {
-            if (isLayoutDone) return;  // 중복 실행 방지
-            isLayoutDone = true;
-
-            if (masonryInstance) {
-                // transition 일시 중지
-                grid.style.transition = 'none';
-                const cards = grid.querySelectorAll('.project-card');
-                cards.forEach(card => {
-                    card.style.transition = 'none';
-                });
-
-                // 레이아웃 재계산
-                masonryInstance.layout();
-
-                // 다음 프레임에서 transition 복원
-                requestAnimationFrame(() => {
-                    grid.style.transition = '';
-                    cards.forEach(card => {
-                        card.style.transition = '';
-                    });
-                });
-            }
-        };
-
-        imgLoad.on('done', handleLayoutUpdate);
-
-        // Firefox/Webkit fallback: done 이벤트 미발생 시 timeout 후 강제 실행
-        setTimeout(handleLayoutUpdate, ANIMATION.IMAGES_LOADED_TIMEOUT);
-    }
-
-    return masonryInstance;
-}
+// Masonry 제거됨 - CSS Grid 레이아웃으로 대체
 
 /**
  * 프로젝트 카드 필터링 애니메이션 (전체 Fade Out -> Layout -> Fade In 방식)
@@ -230,11 +148,7 @@ function animateProjectCards(filterValue = FILTER.ALL) {
                 }
             });
 
-            // Masonry 레이아웃 재계산
-            if (masonryInstance) {
-                masonryInstance.reloadItems();
-                masonryInstance.layout();
-            }
+            // CSS Grid는 자동으로 레이아웃 재계산 (Masonry 제거됨)
 
             // 강제 리플로우 - inner 요소에 적용하여 transform 애니메이션 보장
             cardsToShow.forEach(card => {
@@ -410,14 +324,8 @@ function renderProjects() {
         `;
     }).join('');
 
-    // Masonry용 sizer 요소 추가
-    const sizerHTML = `
-        <div class="projects-grid-sizer"></div>
-        <div class="projects-gutter-sizer"></div>
-    `;
-
-    // Sizer를 먼저 추가 (Masonry가 column width 계산에 사용)
-    projectsGrid.innerHTML = sizerHTML + projectCardsHTML;
+    // CSS Grid 레이아웃 사용 (Masonry sizer 제거됨)
+    projectsGrid.innerHTML = projectCardsHTML;
 
     // 프로젝트 카드 추가 직후 AOS 새로고침 (초기 애니메이션 적용)
     // /#projects 직접 접근 시에는 animations.js에서 수동으로 처리
@@ -428,11 +336,7 @@ function renderProjects() {
     // 프로젝트 카드 클릭 이벤트 리스너만 추가 (모달 이벤트는 initProjectsUI에서 한 번만 등록)
     setupProjectCardListeners();
 
-    // Masonry 초기화 (CSS에서 초기 로딩 처리)
-    initMasonry();
-
-    // AOS 기반 순차 애니메이션 사용 (data-aos-delay로 제어)
-    // applyInitialLoadAnimation() 함수는 더 이상 호출하지 않음
+    // CSS Grid 레이아웃은 자동 처리됨 (Masonry 제거됨)
 }
 
 // 필터 버튼 DOM 캐싱 (성능 최적화 - 정적 요소이므로 한 번만 쿼리)

@@ -158,11 +158,47 @@ function loadTheme() {
 }
 
 /**
+ * Particles.js 일시정지/재개 (viewport 밖에서 성능 최적화)
+ */
+function setupParticlesVisibilityObserver() {
+    const heroSection = document.getElementById('home');
+    if (!heroSection) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (window.pJSDom && window.pJSDom.length > 0) {
+                const pJS = window.pJSDom[0].pJS;
+                if (entry.isIntersecting) {
+                    // Hero 섹션이 보이면 particles 재개
+                    if (pJS.particles && pJS.particles.move) {
+                        pJS.particles.move.enable = true;
+                        pJS.fn.particlesRefresh();
+                    }
+                } else {
+                    // Hero 섹션이 보이지 않으면 particles 일시정지
+                    if (pJS.particles && pJS.particles.move) {
+                        pJS.particles.move.enable = false;
+                    }
+                }
+            }
+        });
+    }, {
+        threshold: 0,
+        rootMargin: '50px'
+    });
+
+    observer.observe(heroSection);
+}
+
+/**
  * 테마 모듈 초기화
  */
 export function initTheme() {
     // 페이지 로드 시 현재 테마에 맞는 파티클 로드
     loadParticlesTheme();
+
+    // Particles viewport 최적화 (보이지 않을 때 일시정지)
+    setupParticlesVisibilityObserver();
 
     // 테마 토글 버튼 이벤트 리스너 설정
     const themeToggle = document.getElementById('themeToggle');

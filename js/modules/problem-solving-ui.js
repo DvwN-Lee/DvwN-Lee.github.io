@@ -85,26 +85,16 @@ function setupDetailsAccordion() {
         summary.addEventListener('click', (event) => {
             event.preventDefault();
 
-            // 다른 열린 details 닫기 (아코디언 효과)
-            allDetails.forEach(openDetail => {
-                if (openDetail !== detail && openDetail.open) {
-                    openDetail.classList.remove('is-open');
-                    // transitionend 이벤트 후 open 속성 제거
-                    const handleTransitionEnd = () => {
-                        openDetail.removeAttribute('open');
-                        openDetail.removeEventListener('transitionend', handleTransitionEnd);
-                    };
-                    openDetail.addEventListener('transitionend', handleTransitionEnd);
-                }
-            });
-
-            // 현재 details 토글
+            // 현재 details 토글 (독립적으로 동작)
             if (detail.open) {
                 // 닫기 애니메이션
                 detail.classList.remove('is-open');
-                const handleTransitionEnd = () => {
-                    detail.removeAttribute('open');
-                    detail.removeEventListener('transitionend', handleTransitionEnd);
+                const handleTransitionEnd = (e) => {
+                    // grid-template-rows 애니메이션 완료 시에만 open 속성 제거
+                    if (e.propertyName === 'grid-template-rows') {
+                        detail.removeAttribute('open');
+                        detail.removeEventListener('transitionend', handleTransitionEnd);
+                    }
                 };
                 detail.addEventListener('transitionend', handleTransitionEnd);
             } else {
