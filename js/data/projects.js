@@ -27,6 +27,63 @@ import { cloudNativeV2Content } from './shared-content.js';
  */
 export const projectsData = [
     {
+        id: 'cloudnative_v3',
+        category: 'cloud',
+        featured: false,
+        badge: 'Featured',
+        title: 'GCP 기반 Cloud-Native 모니터링 플랫폼',
+        summary: 'GCP 환경에서 Terraform으로 K3s Cluster를 완전 자동화하고, ArgoCD App of Apps 패턴과 External Secrets를 활용한 End-to-End GitOps 플랫폼 구축',
+        imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v3/raw/main/docs/demo/19-grafana-k8s-cluster.png',
+        imageAlt: 'GCP 기반 K3s Kubernetes Cluster 모니터링 플랫폼',
+        tech: ['GCP', 'K3s', 'Terraform', 'ArgoCD', 'Istio', 'Prometheus', 'Grafana', 'Loki', 'External Secrets', 'Go', 'Python (FastAPI)'],
+        highlights: [
+            'Terraform으로 GCP 리소스 전체(VPC, Firewall, VM, Secret Manager)를 코드화하여 <strong>명령어 하나로 전체 인프라 프로비저닝</strong>',
+            'ArgoCD <strong>App of Apps 패턴</strong>으로 Infrastructure Apps와 Application Apps를 계층적으로 관리하는 선언적 GitOps 구현',
+            '<strong>External Secrets Operator + GCP Secret Manager</strong> 연동으로 민감 정보의 안전한 주입 및 자동 동기화',
+            'Istio mTLS STRICT 모드와 GCP Firewall, NetworkPolicy를 조합한 <strong>Zero Trust Network</strong> 보안 아키텍처',
+            'Prometheus, Loki, Grafana 기반 통합 관측성 시스템과 <strong>Kiali Service Mesh 시각화</strong> 대시보드 구축'
+        ],
+        githubUrl: 'https://github.com/DvwN-Lee/Monitoring-v3',
+        modalDetails: [
+            {
+                title: 'Overview',
+                content: 'GCP 환경에서 K3s Kubernetes Cluster를 운영하는 Microservice Monitoring Platform입니다. <strong>Terraform으로 GCP 리소스 전체를 자동화</strong>하고, <strong>ArgoCD App of Apps 패턴</strong>으로 GitOps를 구현하여 End-to-End 자동화를 달성했습니다.'
+            },
+            {
+                title: 'Key Features',
+                items: [
+                    '<strong>Full IaC</strong>: Terraform으로 GCP VPC, Firewall, VM, Secret Manager 등 전체 인프라 코드화',
+                    '<strong>App of Apps GitOps</strong>: ArgoCD로 Infrastructure/Application Apps를 계층적 관리',
+                    '<strong>Secret 자동화</strong>: External Secrets Operator + GCP Secret Manager 연동',
+                    '<strong>Zero Trust Network</strong>: Istio mTLS + GCP Firewall + NetworkPolicy 조합',
+                    '<strong>통합 Observability</strong>: Prometheus, Loki, Grafana, Kiali 스택'
+                ]
+            },
+            {
+                title: 'Technical Stack',
+                items: [
+                    '<strong>Cloud</strong>: Google Cloud Platform (VPC, Compute Engine, Secret Manager)',
+                    '<strong>Kubernetes</strong>: K3s v1.31',
+                    '<strong>IaC</strong>: Terraform',
+                    '<strong>GitOps</strong>: ArgoCD (App of Apps)',
+                    '<strong>Service Mesh</strong>: Istio v1.24',
+                    '<strong>Observability</strong>: Prometheus, Loki, Grafana, Kiali',
+                    '<strong>Secret</strong>: External Secrets Operator',
+                    '<strong>Backend</strong>: Go (API Gateway), Python/FastAPI (Services)'
+                ]
+            },
+            {
+                title: 'Learning Points',
+                items: [
+                    'GCP 환경에서 Terraform을 활용한 전체 인프라 자동화 경험',
+                    'ArgoCD App of Apps 패턴을 통한 대규모 GitOps 구조 설계',
+                    'External Secrets와 Cloud Secret Manager를 연동한 보안 Secret 관리',
+                    'K3s 경량 Kubernetes 환경에서의 Production 운영 경험'
+                ]
+            }
+        ]
+    },
+    {
         id: 'cloudnative_v2',
         category: 'cloud',
         featured: false,
