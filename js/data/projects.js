@@ -2,7 +2,7 @@
 // Projects Data Module
 // ========================================
 
-import { cloudNativeV2Content } from './shared-content.js';
+import { cloudNativeV2Content, examPlatformV2Content } from './shared-content.js';
 
 /**
  * 프로젝트 데이터 스키마
@@ -117,6 +117,43 @@ export const projectsData = [
             {
                 title: 'Learning Points',
                 items: cloudNativeV2Content.modal.learningPoints
+            }
+        ]
+    },
+    {
+        id: 'exam_platform_v2',
+        category: 'fullstack',
+        featured: false,
+        badge: 'Featured',
+        title: 'OnlineExam v2 - 온라인 시험 플랫폼',
+        summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 957개 테스트(95% 커버리지)를 달성한 프로젝트',
+        imageUrl: 'images/projects/exam-platform-v2-placeholder.png',
+        imageAlt: 'OnlineExam v2 - Django 5.2 LTS + React 19 온라인 시험 플랫폼',
+        tech: ['Django 5.2 LTS', 'DRF', 'React 19', 'TypeScript', 'TanStack Query', 'TanStack Router', 'PostgreSQL', 'MongoDB', 'Redis', 'pytest', 'Playwright', 'Docker Compose', 'GitHub Actions'],
+        highlights: [
+            'Legacy Django 2.1/Python 3.6/jQuery를 <strong>Django 5.2 LTS/React 19 Full-Stack으로 완전 재작성</strong>',
+            '<strong>TDD 957개 테스트, 95% 커버리지</strong> - pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략',
+            '<strong>Service Layer Pattern</strong> 도입으로 비즈니스 로직과 View 분리, 단일 책임 원칙 적용',
+            '<strong>N+1 쿼리 최적화</strong>로 시험 목록 조회 시 Database 접근 70% 감소 (10→3회)',
+            'JWT <strong>HttpOnly Cookie + RBAC</strong> Frontend/Backend 이중 검증으로 보안 강화'
+        ],
+        githubUrl: 'https://github.com/DvwN-Lee/exam-platform',
+        modalDetails: [
+            {
+                title: 'Overview',
+                content: examPlatformV2Content.modal.overview
+            },
+            {
+                title: 'Key Features',
+                items: examPlatformV2Content.modal.keyFeatures
+            },
+            {
+                title: 'Technical Implementation',
+                items: examPlatformV2Content.modal.technicalImplementation
+            },
+            {
+                title: 'Learning Points',
+                items: examPlatformV2Content.modal.learningPoints
             }
         ]
     },
@@ -282,7 +319,7 @@ export const projectsData = [
         category: 'backend',
         featured: false,
         badge: '',
-        title: '온라인 시험 관리 시스템',
+        title: '온라인 시험 관리 시스템 (Legacy)',
         summary: 'Django 기반 온라인 시험 출제 및 채점 시스템',
         imageUrl: 'https://github.com/DvwN-Lee/OnlineExam/raw/main/images/Main.png',
         imageAlt: 'Django 기반 온라인 시험 출제 및 채점 관리 시스템',

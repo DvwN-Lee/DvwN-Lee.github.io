@@ -131,3 +131,65 @@ export const cloudNativeV2Content = {
         ]
     }
 };
+
+/**
+ * OnlineExam v2 - 온라인 시험 플랫폼 공유 콘텐츠
+ */
+export const examPlatformV2Content = {
+    situation: `Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)은 보안 패치가 중단된 프레임워크를 사용하고 있었고, 테스트 코드가 전무하여 코드 변경 시 사이드 이펙트 파악이 불가능했습니다. Template 기반 렌더링으로 SPA 수준의 UX를 제공할 수 없었으며, View에 비즈니스 로직이 혼재되어 유지보수성이 낮은 상태였습니다.`,
+
+    tasks: [
+        '<strong>Legacy 시스템 Full-Stack 마이그레이션</strong>: Django 2.1 → Django 5.2 LTS, jQuery → React 19로 완전 재작성.',
+        '<strong>TDD 기반 품질 보증 체계 구축</strong>: pytest + Playwright 기반 957개 테스트, 95% 커버리지 달성.',
+        '<strong>Service Layer Pattern 도입</strong>: View에 혼재된 비즈니스 로직을 Service Layer로 분리하여 유지보수성 향상.',
+        '<strong>N+1 쿼리 최적화</strong>: ORM 쿼리 분석을 통해 Database 접근 횟수를 10회에서 3회로 70% 감소.'
+    ],
+
+    actions: [
+        '<strong>Full-Stack 재작성</strong>: Backend를 Django 5.2 LTS + DRF로 전환하고, Frontend를 React 19 + TypeScript SPA로 완전 재작성하여 Modern Stack 기반의 확장 가능한 아키텍처를 구축했습니다.',
+        '<strong>TDD Workflow 확립</strong>: Red-Green-Refactor 사이클을 적용하여 pytest 기반 957개 테스트를 작성하고, Unit/Integration/E2E 3계층 테스트 전략으로 95% 커버리지를 달성했습니다.',
+        '<strong>Service Layer 분리</strong>: View에 혼재되어 있던 비즈니스 로직을 Service Layer로 분리하여 단일 책임 원칙을 적용하고, 테스트 용이성과 코드 재사용성을 향상시켰습니다.',
+        '<strong>N+1 쿼리 최적화</strong>: Django Debug Toolbar로 ORM 쿼리를 분석하고, select_related/prefetch_related를 적용하여 시험 목록 조회 시 Database 접근을 10회에서 3회로 70% 감소시켰습니다.',
+        '<strong>JWT HttpOnly Cookie 인증</strong>: Access/Refresh Token을 HttpOnly Cookie로 관리하고, Frontend/Backend 양측에서 RBAC 이중 검증을 적용하여 보안을 강화했습니다.',
+        '<strong>Modern Frontend 구축</strong>: TanStack Query로 Server State를 관리하고, TanStack Router로 Type-Safe 라우팅을 구현하여 SPA 수준의 UX를 제공했습니다.',
+        '<strong>Dual Grading + Auto-Save</strong>: 자동 채점과 수동 채점을 지원하는 이중 채점 시스템을 구현하고, 시험 응시 중 Auto-Save 기능으로 답안 유실을 방지했습니다.'
+    ],
+
+    results: [
+        '<strong>95% 테스트 커버리지 달성</strong>: 957개 테스트(Unit 800+ / Integration 100+ / E2E 50+)로 코드 변경 시 안전망을 확보하고, 리팩토링 자신감을 확보했습니다.',
+        '<strong>유지보수성 향상</strong>: Service Layer Pattern 도입으로 비즈니스 로직이 View에서 분리되어 코드 재사용성과 테스트 용이성이 향상되었습니다.',
+        '<strong>Database 접근 70% 감소</strong>: N+1 쿼리 최적화로 시험 목록 조회 시 10회에서 3회로 Database 접근이 감소하여 응답 속도가 개선되었습니다.',
+        '<strong>Modern Stack 경험 확보</strong>: Django 5.2 LTS + React 19 + TypeScript 기반의 Full-Stack 개발 역량을 확보했습니다.',
+        '<strong>DevOps 자동화</strong>: Docker Compose로 개발 환경을 표준화하고, GitHub Actions CI Pipeline으로 테스트 자동화를 구축했습니다.'
+    ],
+
+    modal: {
+        overview: 'Legacy Django 2.1 온라인 시험 시스템을 <strong>Django 5.2 LTS + React 19</strong> Full-Stack으로 완전 재작성한 프로젝트입니다. <strong>TDD 방법론</strong>으로 957개 테스트(95% 커버리지)를 달성하고, Service Layer Pattern과 N+1 쿼리 최적화로 코드 품질과 성능을 개선했습니다.',
+
+        keyFeatures: [
+            '<strong>TDD 957개 테스트</strong>: pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략 (95% 커버리지)',
+            '<strong>Service Layer Pattern</strong>: 비즈니스 로직과 View 분리로 단일 책임 원칙 적용',
+            '<strong>N+1 쿼리 최적화</strong>: select_related/prefetch_related로 Database 접근 70% 감소 (10→3회)',
+            '<strong>JWT HttpOnly Cookie</strong>: Access/Refresh Token + RBAC Frontend/Backend 이중 검증',
+            '<strong>Dual Grading System</strong>: 자동 채점 + 수동 채점 지원, 시험 중 Auto-Save',
+            '<strong>Modern Frontend</strong>: TanStack Query/Router 기반 Type-Safe SPA'
+        ],
+
+        technicalImplementation: [
+            '<strong>Backend</strong>: Django 5.2 LTS, Django REST Framework, pytest',
+            '<strong>Frontend</strong>: React 19, TypeScript, TanStack Query/Router',
+            '<strong>Database</strong>: PostgreSQL (관계형), MongoDB (비정형), Redis (캐싱/세션)',
+            '<strong>Testing</strong>: pytest (Unit/Integration), Playwright (E2E), Factory Boy',
+            '<strong>DevOps</strong>: Docker Compose, GitHub Actions CI',
+            '<strong>Authentication</strong>: JWT (HttpOnly Cookie), RBAC'
+        ],
+
+        learningPoints: [
+            'TDD Red-Green-Refactor 사이클을 통한 테스트 주도 개발 방법론 체득',
+            'Service Layer Pattern 도입으로 관심사 분리 및 아키텍처 설계 역량 강화',
+            'Django ORM N+1 문제 분석 및 최적화 경험',
+            'JWT HttpOnly Cookie 기반 인증 시스템 설계 및 보안 강화',
+            'Legacy 시스템 마이그레이션 전략 수립 및 실행 경험'
+        ]
+    }
+};

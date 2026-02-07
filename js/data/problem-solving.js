@@ -2,7 +2,7 @@
 // Problem Solving Data Module
 // ========================================
 
-import { cloudNativeV3Content, cloudNativeV2Content } from './shared-content.js';
+import { cloudNativeV3Content, cloudNativeV2Content, examPlatformV2Content } from './shared-content.js';
 
 /**
  * @typedef {Object} ProblemSolvingItem
@@ -19,6 +19,12 @@ import { cloudNativeV3Content, cloudNativeV2Content } from './shared-content.js'
  * @type {ProblemSolvingItem[]}
  */
 export const problemSolvingData = [
+    {
+        id: 'exam-platform-v2',
+        title: 'Legacy 시스템 TDD 기반 Full-Stack 마이그레이션',
+        tags: ['Django 5.2', 'React 19', 'TDD', 'pytest', 'Service Layer', 'TypeScript'],
+        ...examPlatformV2Content
+    },
     {
         id: 'gcp-cloudnative-v3',
         title: 'GCP 기반 Cloud-Native 모니터링 플랫폼',

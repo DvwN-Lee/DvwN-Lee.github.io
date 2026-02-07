@@ -41,6 +41,19 @@ export const experiencesData = [
     ]
   },
   {
+    date: '2025.12 ~ 2026.01',
+    title: 'OnlineExam v2 - 온라인 시험 플랫폼',
+    subtitle: '개인 프로젝트 - Legacy 시스템 Full-Stack 재작성',
+    achievements: [
+      'Legacy Django 2.1/Python 3.6/jQuery를 Django 5.2 LTS/Python 3.14/React 19로 완전 재작성',
+      'TDD 방법론 적용 - pytest + Playwright 기반 957개 테스트 (95% 커버리지)',
+      'Service Layer Pattern 도입으로 비즈니스 로직과 View 분리',
+      'N+1 쿼리 최적화로 Database 접근 70% 감소 (10→3회)',
+      'JWT HttpOnly Cookie + RBAC Frontend/Backend 이중 검증으로 보안 강화',
+      'PostgreSQL, MongoDB, Redis Multi-Database 아키텍처 구성'
+    ]
+  },
+  {
     date: '2025.08',
     title: 'Cloud-Native 마이크로서비스 모니터링 플랫폼',
     subtitle: 'Go, FastAPI, K8s 기반 MSA 프로젝트',
