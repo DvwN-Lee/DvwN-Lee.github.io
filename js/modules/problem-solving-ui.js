@@ -11,6 +11,9 @@ import { getRequiredElement, debugLog } from './utils.js';
  * @returns {string} - 생성된 HTML 문자열
  */
 function createProblemItemHTML(item) {
+    const tagsHTML = item.tags && item.tags.length > 0
+        ? `<div class="problem-tags">${item.tags.map(tag => `<span>${tag}</span>`).join('')}</div>`
+        : '';
     const tasksHTML = item.tasks.map(task => `<li>${task}</li>`).join('');
     const actionsHTML = item.actions.map(action => `<li>${action}</li>`).join('');
     const resultsHTML = item.results.map(result => `<li>${result}</li>`).join('');
@@ -18,10 +21,11 @@ function createProblemItemHTML(item) {
     return `
         <div class="problem-item" data-aos="fade-up">
             <h3>${item.title}</h3>
+            ${tagsHTML}
 
             <details>
                 <summary>
-                    <span class="summary-text">MSA 환경의 성능, 관측 가능성, 보안 최적화 과정</span>
+                    <span class="summary-text">${item.subtitle}</span>
                 </summary>
                 <div class="problem-details">
                     <h4>Problem</h4>

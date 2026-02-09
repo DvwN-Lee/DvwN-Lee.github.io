@@ -25,6 +25,15 @@
  */
 export const skillsData = [
   {
+    icon: 'fas fa-cloud',
+    title: 'Cloud',
+    skills: [
+      { name: 'GCP', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg', level: 85 },
+      { name: 'AWS', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', level: 75 },
+      { name: 'CloudStack', iconUrl: 'https://www.svgrepo.com/show/353402/apache-cloudstack.svg', level: 80 }
+    ]
+  },
+  {
     icon: 'fas fa-ship',
     title: 'Container & Orchestration',
     skills: [
@@ -65,6 +74,23 @@ export const skillsData = [
     ]
   },
   {
+    icon: 'fas fa-vial',
+    title: 'Testing',
+    skills: [
+      { name: 'pytest', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg', level: 90 },
+      { name: 'Playwright', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg', level: 80 },
+      { name: 'Terratest', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg', level: 75 }
+    ]
+  },
+  {
+    icon: 'fas fa-laptop-code',
+    title: 'Frontend Development',
+    skills: [
+      { name: 'React', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', level: 85 },
+      { name: 'TypeScript', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', level: 80 }
+    ]
+  },
+  {
     icon: 'fas fa-server',
     title: 'Backend Development',
     skills: [
@@ -83,7 +109,8 @@ export const skillsData = [
       { name: 'PostgreSQL', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', level: 85 },
       { name: 'Redis', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg', level: 80 },
       { name: 'MySQL', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', level: 75 },
-      { name: 'SQLite', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg', level: 75 }
+      { name: 'SQLite', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg', level: 75 },
+      { name: 'MongoDB', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', level: 75 }
     ]
   },
   {

@@ -124,7 +124,7 @@ export const cloudNativeV2Content = {
 
         learningPoints: [
             '<strong>IaC 설계 및 운영</strong>: Terraform으로 재현 가능하고 일관된 클라우드 인프라 환경을 구축하고 운영하는 역량을 확보했습니다.',
-            '<strong>GitOps 기반 CI/CD 파इ프라인 완전 자동화</strong>: 개발부터 배포까지의 전체 프로세스를 자동화하며 MSA 환경의 복잡성을 관리하는 경험을 쌓았습니다.',
+            '<strong>GitOps 기반 CI/CD 파이프라인 완전 자동화</strong>: 개발부터 배포까지의 전체 프로세스를 자동화하며 MSA 환경의 복잡성을 관리하는 경험을 쌓았습니다.',
             '<strong>Service Mesh를 활용한 고급 보안 및 트래픽 관리</strong>: Istio를 통해 코드 수정 없이 mTLS 암호화, 접근 제어 등 높은 수준의 보안을 적용하고, Kiali로 복잡한 서비스 관계를 시각화하며 디버깅 효율을 높였습니다.',
             '<strong>DevSecOps</strong>: CI 과정에 Trivy 취약점 스캔을 통합하여 개발 초기 단계부터 보안을 고려하는 DevSecOps를 실천했습니다.',
             '<strong>데이터 기반 성능 최적화</strong>: k6 부하 테스트로 시스템의 병목을 정량적으로 분석하고, HPA 튜닝을 통해 실제 성능 개선(응답시간 11.6% 단축)을 이끌어냈습니다.'
@@ -133,7 +133,7 @@ export const cloudNativeV2Content = {
 };
 
 /**
- * OnlineExam v2 - 온라인 시험 플랫폼 공유 콘텐츠
+ * exam-platform - 온라인 시험 플랫폼 공유 콘텐츠
  */
 export const examPlatformV2Content = {
     situation: `Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)은 보안 패치가 중단된 프레임워크를 사용하고 있었고, 테스트 코드가 전무하여 코드 변경 시 사이드 이펙트 파악이 불가능했습니다. Template 기반 렌더링으로 SPA 수준의 UX를 제공할 수 없었으며, View에 비즈니스 로직이 혼재되어 유지보수성이 낮은 상태였습니다.`,

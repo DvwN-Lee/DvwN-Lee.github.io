@@ -18,6 +18,19 @@
 export const experiencesData = [
   {
     date: '2026.02',
+    title: 'exam-platform - 온라인 시험 플랫폼',
+    subtitle: '개인 프로젝트 - Legacy 시스템 Full-Stack 재작성',
+    achievements: [
+      'Legacy Django 2.1/Python 3.6/jQuery를 Django 5.2 LTS/Python 3.14/React 19로 완전 재작성',
+      'TDD 방법론 적용 - pytest + Playwright 기반 957개 테스트 (95% 커버리지)',
+      'Service Layer Pattern 도입으로 비즈니스 로직과 View 분리',
+      'N+1 쿼리 최적화로 Database 접근 70% 감소 (10→3회)',
+      'JWT HttpOnly Cookie + RBAC Frontend/Backend 이중 검증으로 보안 강화',
+      'PostgreSQL, MongoDB, Redis Multi-Database 아키텍처 구성'
+    ]
+  },
+  {
+    date: '2026.02',
     title: 'GCP 기반 Cloud-Native 모니터링 플랫폼',
     subtitle: '개인 프로젝트 - GCP 환경 (v2.0 고도화)',
     achievements: [
@@ -38,19 +51,6 @@ export const experiencesData = [
       'Istio Service Mesh 도입 및 mTLS STRICT 모드 적용 (Zero Trust Network)',
       'Prometheus/Grafana/Loki 관측성 시스템 구축 (P95 19.2ms, Error Rate 0%)',
       'k6 부하 테스트 기반 Kubernetes HPA 최적화 (응답 시간 11.6% 개선)'
-    ]
-  },
-  {
-    date: '2025.12 ~ 2026.01',
-    title: 'OnlineExam v2 - 온라인 시험 플랫폼',
-    subtitle: '개인 프로젝트 - Legacy 시스템 Full-Stack 재작성',
-    achievements: [
-      'Legacy Django 2.1/Python 3.6/jQuery를 Django 5.2 LTS/Python 3.14/React 19로 완전 재작성',
-      'TDD 방법론 적용 - pytest + Playwright 기반 957개 테스트 (95% 커버리지)',
-      'Service Layer Pattern 도입으로 비즈니스 로직과 View 분리',
-      'N+1 쿼리 최적화로 Database 접근 70% 감소 (10→3회)',
-      'JWT HttpOnly Cookie + RBAC Frontend/Backend 이중 검증으로 보안 강화',
-      'PostgreSQL, MongoDB, Redis Multi-Database 아키텍처 구성'
     ]
   },
   {

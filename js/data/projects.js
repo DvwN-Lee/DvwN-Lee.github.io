@@ -9,7 +9,6 @@ import { cloudNativeV2Content, examPlatformV2Content } from './shared-content.js
  * @typedef {Object} Project
  * @property {string} id - 프로젝트 고유 ID
  * @property {string} category - 카테고리 ('all', 'cloud', 'backend', 'fullstack')
- * @property {boolean} featured - Featured 프로젝트 여부
  * @property {string} badge - 뱃지 텍스트
  * @property {string} title - 프로젝트 제목
  * @property {string} summary - 프로젝트 요약
@@ -29,7 +28,6 @@ export const projectsData = [
     {
         id: 'cloudnative_v3',
         category: 'cloud',
-        featured: false,
         badge: 'Featured',
         title: 'GCP 기반 Cloud-Native 모니터링 플랫폼',
         summary: 'GCP 환경에서 Terraform으로 K3s Cluster를 완전 자동화하고, ArgoCD App of Apps 패턴과 External Secrets를 활용한 End-to-End GitOps 플랫폼 구축',
@@ -86,7 +84,6 @@ export const projectsData = [
     {
         id: 'cloudnative_v2',
         category: 'cloud',
-        featured: false,
         badge: 'Featured',
         title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
         summary: 'Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 완전 자동화된 마이크로서비스 플랫폼 구축',
@@ -123,13 +120,14 @@ export const projectsData = [
     {
         id: 'exam_platform_v2',
         category: 'fullstack',
-        featured: false,
         badge: 'Featured',
-        title: 'OnlineExam v2 - 온라인 시험 플랫폼',
+        title: 'exam-platform - 온라인 시험 플랫폼',
         summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 957개 테스트(95% 커버리지)를 달성한 프로젝트',
+        // TODO: exam-platform Repository public 전환 후 GitHub Raw URL로 교체
+        // 교체 대상: https://github.com/DvwN-Lee/exam-platform/raw/main/docs/demo/screenshots/01-teacher-dashboard.png
         imageUrl: 'images/projects/exam-platform-v2-placeholder.png',
-        imageAlt: 'OnlineExam v2 - Django 5.2 LTS + React 19 온라인 시험 플랫폼',
-        tech: ['Django 5.2 LTS', 'DRF', 'React 19', 'TypeScript', 'TanStack Query', 'TanStack Router', 'PostgreSQL', 'MongoDB', 'Redis', 'pytest', 'Playwright', 'Docker Compose', 'GitHub Actions'],
+        imageAlt: 'exam-platform - Django 5.2 LTS + React 19 온라인 시험 플랫폼',
+        tech: ['Django 5.2 LTS', 'DRF', 'React 19', 'TypeScript', 'TanStack Query', 'TanStack Router', 'PostgreSQL', 'MongoDB', 'Redis', 'pytest', 'Playwright', 'Docker Compose', 'GitHub Actions', 'GCP'],
         highlights: [
             'Legacy Django 2.1/Python 3.6/jQuery를 <strong>Django 5.2 LTS/React 19 Full-Stack으로 완전 재작성</strong>',
             '<strong>TDD 957개 테스트, 95% 커버리지</strong> - pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략',
@@ -160,8 +158,7 @@ export const projectsData = [
     {
         id: 'dorazy',
         category: 'fullstack',
-        featured: false,
-        badge: '🥉 경소톤 동상',
+        badge: '경소톤 동상',
         title: 'Dorazy - 도서관 예약 시스템',
         summary: '단국대학교 도산라운지 좌석 예약 및 관리 앱',
         imageUrl: 'https://user-images.githubusercontent.com/87077859/215061094-6b72ec52-0713-4ebf-81a5-744469bb7fd1.jpg',
@@ -209,7 +206,6 @@ export const projectsData = [
     {
         id: 'k8s_cicd',
         category: 'cloud',
-        featured: false,
         badge: 'Featured',
         title: 'Kubernetes CI/CD Infrastructure',
         summary: 'CloudStack 환경에서 Terraform/Ansible 기반 Kubernetes 클러스터를 구축하고, Jenkins, GitLab, Docker Registry를 배포하여 완전한 CI/CD 파이프라인을 구현한 IaC 프로젝트',
@@ -269,7 +265,6 @@ export const projectsData = [
     {
         id: 'cloudnative_v1',
         category: 'cloud',
-        featured: false,
         badge: '',
         title: '실시간 마이크로서비스 모니터링 플랫폼',
         summary: 'Go, FastAPI, K8s 기반 실시간 모니터링 대시보드',
@@ -317,7 +312,6 @@ export const projectsData = [
     {
         id: 'exam',
         category: 'backend',
-        featured: false,
         badge: '',
         title: '온라인 시험 관리 시스템 (Legacy)',
         summary: 'Django 기반 온라인 시험 출제 및 채점 시스템',
@@ -330,7 +324,7 @@ export const projectsData = [
             '사용자, 문제, 시험지, 시험 관리 등 4가지 핵심 모듈로 구성된 복잡한 도메인 로직 처리',
             'Django Admin 커스터마이징으로 시스템 운영 및 데이터 관리 효율성 증대'
         ],
-        githubUrl: 'https://github.com/DvwN-Lee/onlineexam',
+        githubUrl: 'https://github.com/DvwN-Lee/OnlineExam',
         modalDetails: [
             {
                 title: 'Overview',
@@ -368,7 +362,6 @@ export const projectsData = [
     {
         id: 'demochat',
         category: 'backend',
-        featured: false,
         badge: '',
         title: 'SimpleChat - 실시간 채팅 앱',
         summary: 'Spring Boot와 WebSocket 기반 실시간 채팅 프로젝트',
@@ -381,7 +374,7 @@ export const projectsData = [
             'Thymeleaf 템플릿 엔진과 JavaScript를 연동하여 동적인 실시간 채팅 UI 구현',
             '사용자 이름 및 메시지 내용 유효성 검사 등 서버 측 예외 처리로 시스템 안정성 확보'
         ],
-        githubUrl: 'https://github.com/DvwN-Lee/demochat',
+        githubUrl: 'https://github.com/DvwN-Lee/DemoChat',
         modalDetails: [
             {
                 title: 'Overview',
