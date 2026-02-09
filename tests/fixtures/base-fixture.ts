@@ -15,13 +15,13 @@ export const test = base.extend<{
       timeout: 30000
     });
 
-    // 이미지 로딩 대기 (timeout 증가, 실패 시 무시)
+    // 이미지 로딩 대기 (CI 환경에서 외부 이미지 지연 가능, 짧은 timeout 후 skip)
     await page.waitForFunction(() => {
       const images = document.querySelectorAll('.project-card img');
       return Array.from(images).every(img =>
         (img as HTMLImageElement).complete
       );
-    }, { timeout: 20000 }).catch(() => {
+    }, { timeout: 5000 }).catch(() => {
       console.log('Image loading timeout - proceeding anyway');
     });
 
