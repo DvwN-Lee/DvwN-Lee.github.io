@@ -296,7 +296,7 @@ function renderProjects() {
             <div class="project-card" data-category="${project.category}" data-project-id="${project.id}" data-aos="fade-up" data-aos-delay="${aosDelay}">
                 <div class="project-card-inner">
                     <div class="project-image">
-                        <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="${loadingAttr}" decoding="async">
+                        <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="${loadingAttr}" decoding="async"${project.imagePosition ? ` style="object-position: ${project.imagePosition}"` : ''}>
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="${project.githubUrl}" target="_blank" class="project-link">

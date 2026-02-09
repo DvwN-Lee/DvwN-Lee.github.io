@@ -14,6 +14,7 @@ import { cloudNativeV2Content, examPlatformV2Content } from './shared-content.js
  * @property {string} summary - 프로젝트 요약
  * @property {string} imageUrl - 프로젝트 이미지 URL
  * @property {string} imageAlt - 이미지 alt 텍스트
+ * @property {string} [imagePosition] - CSS object-position 값 (기본값: 'center top')
  * @property {string[]} tech - 사용 기술 스택 배열
  * @property {string[]} highlights - 프로젝트 하이라이트 목록
  * @property {string} githubUrl - GitHub 저장소 URL
@@ -220,8 +221,9 @@ export const projectsData = [
         badge: '',
         title: '실시간 마이크로서비스 모니터링 플랫폼',
         summary: 'Go, FastAPI, K8s 기반 실시간 모니터링 대시보드',
-        imageUrl: 'https://github.com/user-attachments/assets/9a7b890b-1d7c-4c96-826f-e019df475dfb',
+        imageUrl: 'https://github.com/user-attachments/assets/d1e28d4e-fb21-4b1d-ab67-0014ced7a269',
         imageAlt: 'Go와 FastAPI 기반 실시간 마이크로서비스 모니터링 대시보드',
+        imagePosition: 'center 30%',
         tech: ['Go (Golang)', 'Python (FastAPI)', 'Kubernetes', 'Kustomize', 'JavaScript', 'Redis'],
         highlights: [
             'Go 언어와 고루틴을 활용한 커스텀 로드밸런서 및 Stats Aggregator 개발 (타임아웃 2초로 장애 전파 차단)',
@@ -269,6 +271,7 @@ export const projectsData = [
         summary: 'Django 기반 온라인 시험 출제 및 채점 시스템',
         imageUrl: 'https://github.com/DvwN-Lee/OnlineExam/raw/main/images/Main.png',
         imageAlt: 'Django 기반 온라인 시험 출제 및 채점 관리 시스템',
+        imagePosition: 'center 20%',
         tech: ['Django', 'MySQL', 'jQuery', 'Bootstrap'],
         highlights: [
             'Django 프레임워크를 활용한 풀스택 웹 애플리케이션 개발 및 MySQL 데이터베이스 연동',
