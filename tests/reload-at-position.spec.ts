@@ -4,9 +4,9 @@ test.describe('특정 카드 위치에서 새로고침 시 레이아웃 변화 �
     test('실시간 마이크로서비스 모니터링 플랫폼 카드 위치에서 새로고침', async ({ page }) => {
         console.log('\n=== 테스트 시작: 실시간 마이크로서비스 모니터링 플랫폼 위치에서 새로고침 ===');
 
-        // 1. 페이지 로드 및 Masonry 초기화 대기
+        // 1. 페이지 로드 및 CSS Grid 레이아웃 준비 대기
         await page.goto('http://localhost:8080/#projects', { waitUntil: 'networkidle' });
-        await page.waitForSelector('.masonry-ready', { timeout: 5000 });
+        await page.waitForSelector('.projects-grid .project-card', { timeout: 5000 });
 
         console.log('\n=== 초기 로딩 완료 ===');
 
@@ -117,7 +117,7 @@ test.describe('특정 카드 위치에서 새로고침 시 레이아웃 변화 �
         console.log('\n=== 새로고침 후 레이아웃 변화 타임라인 ===');
 
         for (const snapshot of afterReload) {
-            console.log(`\n${snapshot.time}ms - ScrollY: ${snapshot.scrollY}, Grid: ${snapshot.gridClass.includes('masonry-ready') ? 'READY' : 'NOT-READY'}`);
+            console.log(`\n${snapshot.time}ms - ScrollY: ${snapshot.scrollY}, Grid: ${snapshot.gridClass.includes('projects-grid') ? 'READY' : 'NOT-READY'}`);
 
             // 모든 카드 출력
             snapshot.cards.forEach(card => {

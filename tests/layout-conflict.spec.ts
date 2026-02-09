@@ -82,7 +82,7 @@ test.describe('페이지 새로고침 시 정렬 충돌 분석', () => {
         // 각 시점의 카드 위치 출력
         for (let i = 0; i < tracking.length; i++) {
             const snapshot = tracking[i];
-            console.log(`\n${snapshot.time}ms - ScrollY: ${snapshot.scrollY.toFixed(1)}, Grid: ${snapshot.gridClass.includes('masonry-ready') ? 'READY' : 'NOT-READY'}`);
+            console.log(`\n${snapshot.time}ms - ScrollY: ${snapshot.scrollY.toFixed(1)}, Grid: ${snapshot.gridClass.includes('projects-grid') ? 'READY' : 'NOT-READY'}`);
 
             // 처음 3개 카드만 출력 (Featured 카드들)
             for (let j = 0; j < Math.min(3, snapshot.cards.length); j++) {
@@ -139,12 +139,12 @@ test.describe('페이지 새로고침 시 정렬 충돌 분석', () => {
             }
         }
 
-        // masonry-ready 클래스가 추가되는 시점 확인
-        const masonryReadyTime = tracking.findIndex(s => s.gridClass.includes('masonry-ready'));
-        if (masonryReadyTime !== -1) {
-            console.log(`\n✅ masonry-ready 클래스 추가 시점: ${tracking[masonryReadyTime].time}ms`);
+        // CSS Grid 레이아웃은 DOM 렌더링 시 즉시 적용됨
+        const gridReadyTime = tracking.findIndex(s => s.gridClass.includes('projects-grid'));
+        if (gridReadyTime !== -1) {
+            console.log(`\n✅ CSS Grid 레이아웃 감지 시점: ${tracking[gridReadyTime].time}ms`);
         } else {
-            console.log(`\n⚠️  masonry-ready 클래스가 추가되지 않음`);
+            console.log(`\n⚠️  projects-grid 클래스가 감지되지 않음`);
         }
 
         // 문제 진단
@@ -156,15 +156,15 @@ test.describe('페이지 새로고침 시 정렬 충돌 분석', () => {
                 if (!prevCard) return false;
                 const xDiff = Math.abs(card.x - prevCard.x);
                 const yDiff = Math.abs(card.y - prevCard.y);
-                return (xDiff > 5 || yDiff > 5) && snapshot.gridClass.includes('masonry-ready');
+                return (xDiff > 5 || yDiff > 5) && snapshot.gridClass.includes('projects-grid');
             });
         });
 
         console.log('\n=== 문제 진단 ===');
         if (hasLayoutShift) {
-            console.log('⚠️  문제 발견: Masonry 초기화 후에도 레이아웃이 변경됨');
+            console.log('⚠️  문제 발견: Grid 레이아웃 렌더링 후에도 레이아웃이 변경됨');
         } else {
-            console.log('✅ 레이아웃 안정적: Masonry 초기화 후 위치 변화 없음');
+            console.log('✅ 레이아웃 안정적: Grid 레이아웃 렌더링 후 위치 변화 없음');
         }
     });
 });

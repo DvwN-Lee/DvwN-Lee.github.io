@@ -69,7 +69,7 @@ test.describe('Cmd+R vs 일반 새로고침 비교', () => {
                 const cards = Array.from(document.querySelectorAll('.project-card'));
                 const card3 = cards[3];
                 const card4 = cards[4];
-                const grid = document.getElementById('masonry-grid');
+                const grid = document.querySelector('.projects-grid');
 
                 if (!card3 || !card4) return;
 
@@ -92,7 +92,7 @@ test.describe('Cmd+R vs 일반 새로고침 비교', () => {
                     scrollY: Math.round(window.scrollY),
                     card3Y: Math.round(offsetTop3),
                     card4Y: Math.round(offsetTop4),
-                    gridReady: grid?.classList.contains('masonry-ready') || false
+                    gridReady: grid?.classList.contains('projects-grid') || false
                 });
             };
 

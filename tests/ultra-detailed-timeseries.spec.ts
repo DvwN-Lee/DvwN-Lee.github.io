@@ -10,7 +10,7 @@ test.describe('초정밀 시계열 레이아웃 변화 분석', () => {
             const snapshots: Array<{
                 time: number;
                 cards: Array<{ index: number; title: string; y: number; height: number }>;
-                masonryClass: string;
+                gridClass: string;
             }> = [];
 
             const domMutations: Array<{ time: number; type: string; detail: string }> = [];
@@ -31,7 +31,7 @@ test.describe('초정밀 시계열 레이아웃 변화 분석', () => {
                         }
                     } else if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                         const target = mutation.target as HTMLElement;
-                        if (target.id === 'masonry-grid') {
+                        if (target.classList.contains('projects-grid')) {
                             domMutations.push({
                                 time: Math.round(elapsed),
                                 type: 'grid-class',
@@ -42,7 +42,7 @@ test.describe('초정밀 시계열 레이아웃 변화 분석', () => {
                 });
             });
 
-            const grid = document.getElementById('masonry-grid');
+            const grid = document.querySelector('.projects-grid');
             if (grid) {
                 observer.observe(grid, {
                     attributes: true,
@@ -53,11 +53,11 @@ test.describe('초정밀 시계열 레이아웃 변화 분석', () => {
 
             const captureSnapshot = (elapsed: number) => {
                 const cards = Array.from(document.querySelectorAll('.project-card'));
-                const grid = document.getElementById('masonry-grid');
+                const grid = document.querySelector('.projects-grid');
 
                 snapshots.push({
                     time: elapsed,
-                    masonryClass: grid?.className || '',
+                    gridClass: grid?.className || '',
                     cards: cards.map((card, idx) => {
                         const el = card as HTMLElement;
                         const title = el.querySelector('h3')?.textContent || '';
@@ -121,7 +121,7 @@ test.describe('초정밀 시계열 레이아웃 변화 분석', () => {
             const snapshots: Array<{
                 time: number;
                 cards: Array<{ index: number; title: string; y: number; height: number }>;
-                masonryClass: string;
+                gridClass: string;
             }> = [];
 
             const domMutations: Array<{ time: number; type: string; detail: string }> = [];
@@ -141,7 +141,7 @@ test.describe('초정밀 시계열 레이아웃 변화 분석', () => {
                         }
                     } else if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                         const target = mutation.target as HTMLElement;
-                        if (target.id === 'masonry-grid') {
+                        if (target.classList.contains('projects-grid')) {
                             domMutations.push({
                                 time: Math.round(elapsed),
                                 type: 'grid-class',
@@ -152,7 +152,7 @@ test.describe('초정밀 시계열 레이아웃 변화 분석', () => {
                 });
             });
 
-            const grid = document.getElementById('masonry-grid');
+            const grid = document.querySelector('.projects-grid');
             if (grid) {
                 observer.observe(grid, {
                     attributes: true,
@@ -163,11 +163,11 @@ test.describe('초정밀 시계열 레이아웃 변화 분석', () => {
 
             const captureSnapshot = (elapsed: number) => {
                 const cards = Array.from(document.querySelectorAll('.project-card'));
-                const grid = document.getElementById('masonry-grid');
+                const grid = document.querySelector('.projects-grid');
 
                 snapshots.push({
                     time: elapsed,
-                    masonryClass: grid?.className || '',
+                    gridClass: grid?.className || '',
                     cards: cards.map((card, idx) => {
                         const el = card as HTMLElement;
                         const title = el.querySelector('h3')?.textContent || '';

@@ -7,10 +7,10 @@ test.describe('첫 페이지 로딩 시 카테고리 전환 애니메이션 분�
         // 새로운 페이지로 이동 (캐시 없이)
         await page.goto('http://localhost:8080/', { waitUntil: 'networkidle' });
 
-        // Masonry 초기화 대기
-        await page.waitForSelector('.masonry-ready', { timeout: 5000 });
+        // CSS Grid 레이아웃 준비 대기
+        await page.waitForSelector('.projects-grid .project-card', { timeout: 5000 });
 
-        console.log('\n=== Masonry 초기화 완료 ===');
+        console.log('\n=== Grid 레이아웃 초기화 완료 ===');
 
         // 모든 카드 위치 확인
         const allCards = await page.locator('.project-card').all();

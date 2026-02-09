@@ -81,7 +81,7 @@ test.describe('타겟 카드 레이아웃 점프 정밀 분석', () => {
                     scrollY: Math.round(window.scrollY),
                     monitoringY: getAbsoluteY(monitoringCard as HTMLElement),
                     examY: getAbsoluteY(examCard as HTMLElement),
-                    gridReady: grid?.classList.contains('masonry-ready') || false
+                    gridReady: grid?.classList.contains('projects-grid') || false
                 });
             };
 

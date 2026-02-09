@@ -10,8 +10,8 @@ export const test = base.extend<{
     // JavaScript 실행 시간 확보 (증가)
     await page.waitForTimeout(1000);
 
-    // Masonry layout 준비 대기 (timeout 증가)
-    await page.waitForSelector('.projects-grid.masonry-ready', {
+    // CSS Grid 레이아웃 준비 대기 (프로젝트 카드 렌더링 완료 확인)
+    await page.waitForSelector('.projects-grid .project-card', {
       timeout: 30000
     });
 

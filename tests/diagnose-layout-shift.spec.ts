@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures/base-fixture';
 
-test.describe('Masonry Layout Shift Diagnosis', () => {
+test.describe('Layout Shift Diagnosis', () => {
     test('Cmd+R 시 픽셀 단위 레이아웃 변화 추적', async ({ page }) => {
         // 1. 관찰자 스크립트를 페이지 로드 전에 주입 (가장 중요)
         await page.addInitScript(() => {

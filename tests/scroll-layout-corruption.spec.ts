@@ -160,7 +160,7 @@ test.describe('스크롤 후 레이아웃 변화 분석', () => {
 
         if (different) {
             console.log('\n🔴 문제 확인: 스크롤 후와 Cmd+R 후 레이아웃이 다름!');
-            console.log('   → 스크롤 시 Masonry 레이아웃이 손상되고 있음');
+            console.log('   → 스크롤 시 Grid 레이아웃이 손상되고 있음');
         } else {
             console.log('\n✅ 스크롤 후와 Cmd+R 후 레이아웃이 동일함');
         }
