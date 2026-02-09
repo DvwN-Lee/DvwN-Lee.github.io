@@ -156,54 +156,6 @@ export const projectsData = [
         ]
     },
     {
-        id: 'dorazy',
-        category: 'fullstack',
-        badge: '경소톤 동상',
-        title: 'Dorazy - 도서관 예약 시스템',
-        summary: '단국대학교 도산라운지 좌석 예약 및 관리 앱',
-        imageUrl: 'https://user-images.githubusercontent.com/87077859/215061094-6b72ec52-0713-4ebf-81a5-744469bb7fd1.jpg',
-        imageAlt: 'Dorazy 도서관 예약 시스템 모바일 앱 스크린샷',
-        tech: ['Android', 'Kotlin', 'Firebase', 'Figma'],
-        highlights: [
-            'Firebase(BaaS) 활용 서버리스 아키텍처 및 실시간 데이터 처리 구현',
-            'Android/Kotlin 개발 경험으로 모바일 애플리케이션 빌드 및 배포 파이프라인 이해',
-            '해커톤 환경에서 빠른 프로토타이핑 및 팀 협업 역량 검증',
-            'Figma 기반 UI/UX 설계를 통한 개발-디자인 협업 프로세스 경험'
-        ],
-        githubUrl: 'https://github.com/kimyeonhong00/dorazy.git',
-        modalDetails: [
-            {
-                title: 'Overview',
-                content: '단국대학교 도산라운지 활성화를 위한 좌석 예약 및 관리 안드로이드 애플리케이션입니다. 경소톤(SW융합대학 X 경영경제대학 연합 해커톤)에서 <strong>동상을 수상</strong>했습니다.'
-            },
-            {
-                title: 'Key Features',
-                items: [
-                    '도산라운지 위치 및 이용 안내',
-                    '실시간 좌석 현황 확인 및 회의실 예약',
-                    '공부 시간 측정 타이머 기능',
-                    '공부 시간 기반 랭킹 시스템'
-                ]
-            },
-            {
-                title: 'Technical Implementation',
-                items: [
-                    'Firebase Realtime Database로 실시간 좌석 정보 동기화',
-                    'Firebase Authentication으로 사용자 인증',
-                    'Material Design 가이드라인 적용',
-                    'Figma를 활용한 UI/UX 디자인'
-                ]
-            },
-            {
-                title: 'Team & Role',
-                items: [
-                    'Android 앱 개발 담당',
-                    'Firebase, 백엔드 구축'
-                ]
-            }
-        ]
-    },
-    {
         id: 'k8s_cicd',
         category: 'cloud',
         badge: 'Featured',
@@ -400,6 +352,54 @@ export const projectsData = [
                     'Spring Boot 환경에서 WebSocket 연동 및 STOMP 메시지 브로커 설정',
                     'JPA를 활용한 엔티티(User, Message) 설계 및 리포지토리 구현',
                     'Thymeleaf를 이용한 서버 사이드 렌더링과 JavaScript(SockJS, STOMP.js)를 통한 클라이언트-서버 비동기 통신'
+                ]
+            }
+        ]
+    },
+    {
+        id: 'dorazy',
+        category: 'fullstack',
+        badge: '경소톤 동상',
+        title: 'Dorazy - 도서관 예약 시스템',
+        summary: '단국대학교 도산라운지 좌석 예약 및 관리 앱',
+        imageUrl: 'https://user-images.githubusercontent.com/87077859/215061094-6b72ec52-0713-4ebf-81a5-744469bb7fd1.jpg',
+        imageAlt: 'Dorazy 도서관 예약 시스템 모바일 앱 스크린샷',
+        tech: ['Android', 'Kotlin', 'Firebase', 'Figma'],
+        highlights: [
+            'Firebase(BaaS) 활용 서버리스 아키텍처 및 실시간 데이터 처리 구현',
+            'Android/Kotlin 개발 경험으로 모바일 애플리케이션 빌드 및 배포 파이프라인 이해',
+            '해커톤 환경에서 빠른 프로토타이핑 및 팀 협업 역량 검증',
+            'Figma 기반 UI/UX 설계를 통한 개발-디자인 협업 프로세스 경험'
+        ],
+        githubUrl: 'https://github.com/kimyeonhong00/dorazy.git',
+        modalDetails: [
+            {
+                title: 'Overview',
+                content: '단국대학교 도산라운지 활성화를 위한 좌석 예약 및 관리 안드로이드 애플리케이션입니다. 경소톤(SW융합대학 X 경영경제대학 연합 해커톤)에서 <strong>동상을 수상</strong>했습니다.'
+            },
+            {
+                title: 'Key Features',
+                items: [
+                    '도산라운지 위치 및 이용 안내',
+                    '실시간 좌석 현황 확인 및 회의실 예약',
+                    '공부 시간 측정 타이머 기능',
+                    '공부 시간 기반 랭킹 시스템'
+                ]
+            },
+            {
+                title: 'Technical Implementation',
+                items: [
+                    'Firebase Realtime Database로 실시간 좌석 정보 동기화',
+                    'Firebase Authentication으로 사용자 인증',
+                    'Material Design 가이드라인 적용',
+                    'Figma를 활용한 UI/UX 디자인'
+                ]
+            },
+            {
+                title: 'Team & Role',
+                items: [
+                    'Android 앱 개발 담당',
+                    'Firebase, 백엔드 구축'
                 ]
             }
         ]
