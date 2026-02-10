@@ -404,6 +404,30 @@ function openProjectModal(projectId) {
                 </div>
             </div>`;
 
+        // Architecture Section 생성 (architectureUrl이 있는 경우만)
+        let architectureHTML = '';
+        if (project.architectureUrl) {
+            const altText = project.architectureAlt || `${project.title} Architecture Diagram`;
+            architectureHTML = `
+                <div class="modal-architecture">
+                    <h4>Architecture</h4>
+                    <div class="architecture-diagram-container"
+                         role="button" tabindex="0"
+                         aria-label="Click to enlarge architecture diagram"
+                         data-arch-url="${project.architectureUrl}"
+                         data-arch-alt="${altText}">
+                        <img src="${project.architectureUrl}"
+                             alt="${altText}"
+                             class="architecture-diagram"
+                             loading="lazy"
+                             onerror="this.closest('.modal-architecture').style.display='none'">
+                        <span class="architecture-zoom-hint">
+                            <i class="fas fa-search-plus"></i> Click to enlarge
+                        </span>
+                    </div>
+                </div>`;
+        }
+
         // 콘텐츠 생성
         let contentHTML = '';
         if (project.modalDetails) {
@@ -421,6 +445,7 @@ function openProjectModal(projectId) {
 
             contentHTML = `
                 <div class="modal-details-content visible">
+                    ${architectureHTML}
                     ${sectionsHTML}
                 </div>`;
         }
@@ -438,6 +463,26 @@ function openProjectModal(projectId) {
         document.body.style.paddingRight = `${scrollbarWidth}px`;
 
         modal.style.display = 'flex';
+
+        // Architecture Diagram 클릭 이벤트 바인딩
+        if (project.architectureUrl) {
+            const archContainer = modalContentInner.querySelector('.architecture-diagram-container');
+            if (archContainer) {
+                const handleArchClick = () => {
+                    openArchitectureLightbox(
+                        archContainer.dataset.archUrl,
+                        archContainer.dataset.archAlt
+                    );
+                };
+                archContainer.addEventListener('click', handleArchClick);
+                archContainer.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleArchClick();
+                    }
+                });
+            }
+        }
 
         // 스크롤을 항상 맨 위로 설정 및 애니메이션 시작
         requestAnimationFrame(() => {
@@ -538,6 +583,85 @@ function closeProjectModal() {
             cleanupModal();
         }, ANIMATION.MODAL_FALLBACK_TIMEOUT);
     });
+}
+
+// ========================================
+// Architecture Lightbox
+// ========================================
+
+/**
+ * Architecture Lightbox 열기
+ * @param {string} imageUrl - 이미지 URL
+ * @param {string} altText - 이미지 alt text
+ */
+function openArchitectureLightbox(imageUrl, altText) {
+    const lightbox = document.getElementById('architectureLightbox');
+    if (!lightbox) return;
+
+    const img = lightbox.querySelector('.arch-lightbox-img');
+    img.src = imageUrl;
+    img.alt = altText;
+
+    lightbox.setAttribute('aria-hidden', 'false');
+    lightbox.style.display = 'flex';
+
+    requestAnimationFrame(() => {
+        lightbox.classList.add('is-opening');
+    });
+
+    // ESC key - capture phase로 Modal ESC와 분리
+    const handleEsc = (e) => {
+        if (e.key === 'Escape') {
+            e.stopPropagation();
+            closeArchitectureLightbox();
+            document.removeEventListener('keydown', handleEsc, true);
+        }
+    };
+    document.addEventListener('keydown', handleEsc, true);
+
+    // Close 버튼
+    const closeBtn = lightbox.querySelector('.arch-lightbox-close');
+    const handleClose = () => {
+        closeArchitectureLightbox();
+        closeBtn.removeEventListener('click', handleClose);
+    };
+    closeBtn.addEventListener('click', handleClose);
+
+    // Backdrop 클릭 (이미지 외부)
+    const handleBackdrop = (e) => {
+        if (e.target === lightbox || e.target.classList.contains('arch-lightbox-content')) {
+            closeArchitectureLightbox();
+            lightbox.removeEventListener('click', handleBackdrop);
+        }
+    };
+    lightbox.addEventListener('click', handleBackdrop);
+}
+
+/**
+ * Architecture Lightbox 닫기
+ */
+function closeArchitectureLightbox() {
+    const lightbox = document.getElementById('architectureLightbox');
+    if (!lightbox) return;
+
+    lightbox.classList.remove('is-opening');
+
+    const handleTransitionEnd = () => {
+        lightbox.style.display = 'none';
+        lightbox.setAttribute('aria-hidden', 'true');
+        const img = lightbox.querySelector('.arch-lightbox-img');
+        img.src = '';
+        img.alt = '';
+    };
+
+    lightbox.addEventListener('transitionend', handleTransitionEnd, { once: true });
+
+    // Fallback: transition이 발생하지 않을 경우
+    setTimeout(() => {
+        if (lightbox.style.display !== 'none') {
+            handleTransitionEnd();
+        }
+    }, 400);
 }
 
 /**

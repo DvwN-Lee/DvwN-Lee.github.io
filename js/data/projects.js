@@ -15,6 +15,8 @@ import { cloudNativeV2Content, examPlatformV2Content } from './shared-content.js
  * @property {string} imageUrl - 프로젝트 이미지 URL
  * @property {string} imageAlt - 이미지 alt 텍스트
  * @property {string} [imagePosition] - CSS object-position 값 (기본값: 'center top')
+ * @property {string} [architectureUrl] - Architecture Diagram 이미지 URL
+ * @property {string} [architectureAlt] - Architecture Diagram alt text
  * @property {string[]} tech - 사용 기술 스택 배열
  * @property {string[]} highlights - 프로젝트 하이라이트 목록
  * @property {string} githubUrl - GitHub 저장소 URL
@@ -31,6 +33,8 @@ export const projectsData = [
         category: 'cloud',
         badge: 'Featured',
         title: 'GCP 기반 Cloud-Native 모니터링 플랫폼',
+        architectureUrl: 'images/architecture/cloudnative_v3.png',
+        architectureAlt: 'GCP 기반 K3s Cloud-Native 플랫폼 System Architecture',
         summary: 'GCP 환경에서 Terraform으로 K3s Cluster를 완전 자동화하고, ArgoCD App of Apps 패턴과 External Secrets를 활용한 End-to-End GitOps 플랫폼 구축',
         imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v3/raw/main/docs/demo/22-kiali-traffic-graph.png',
         imageAlt: 'GCP 기반 K3s Kubernetes Cluster 모니터링 플랫폼',
@@ -83,47 +87,11 @@ export const projectsData = [
         ]
     },
     {
-        id: 'cloudnative_v2',
-        category: 'cloud',
-        badge: 'Featured',
-        title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
-        summary: 'Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 완전 자동화된 마이크로서비스 플랫폼 구축',
-        imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v2/raw/main/docs/04-operations/screenshots/grafana-golden-signals.png',
-        imageAlt: 'Kubernetes 기반 Cloud-Native 마이크로서비스 플랫폼 v2.0 아키텍처',
-        tech: ['Kubernetes', 'Terraform', 'Istio', 'ArgoCD', 'GitHub Actions', 'Prometheus', 'Grafana', 'Loki', 'Trivy', 'Go', 'Python (FastAPI)'],
-        highlights: [
-            'Terraform(IaC)으로 Solid Cloud 인프라를 코드화하고, Kustomize로 환경별 설정을 분리하여 재현 가능한 운영 환경 구축',
-            'GitHub Actions, Argo CD 기반 GitOps 파이프라인으로 <strong>Git Push 후 5분 내 자동 배포</strong> 달성',
-            'CI 파이프라인에 <strong>Trivy 보안 스캔을 통합</strong>하여 빌드 단계에서 컨테이너 취약점을 자동으로 탐지 및 차단',
-            'Istio Service Mesh의 <strong>mTLS STRICT 모드</strong>와 <strong>NetworkPolicy</strong>를 적용하여 Zero Trust Network 보안 아키텍처 구현',
-            'Prometheus, Grafana, Loki 기반 통합 관측성 시스템을 구축하고, Golden Signals 대시보드로 <strong>P95 Latency 19.2ms, 에러율 0%</strong> 달성'
-        ],
-        githubUrl: 'https://github.com/DvwN-Lee/Monitoring-v2',
-        modalDetails: [
-            {
-                title: 'Overview',
-                content: cloudNativeV2Content.modal.overview
-            },
-            {
-                title: 'Key Features',
-                items: cloudNativeV2Content.modal.keyFeatures
-            },
-            {
-                title: 'Technical Implementation',
-                items: cloudNativeV2Content.modal.technicalImplementation
-            },
-            {
-                title: 'Learning Points',
-                items: cloudNativeV2Content.modal.learningPoints
-            }
-        ]
-    },
-    {
         id: 'exam_platform_v2',
         category: 'fullstack',
         badge: 'Featured',
         title: 'exam-platform - 온라인 시험 플랫폼',
-        summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 957개 테스트(95% 커버리지)를 달성한 프로젝트',
+        summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 기반 Backend 303개 테스트(92% 커버리지)를 달성한 프로젝트',
         // TODO: exam-platform Repository public 전환 후 GitHub Raw URL로 교체
         // 교체 대상: https://github.com/DvwN-Lee/exam-platform/raw/main/docs/demo/screenshots/01-teacher-dashboard.png
         imageUrl: 'images/projects/exam-platform-v2-placeholder.png',
@@ -131,7 +99,7 @@ export const projectsData = [
         tech: ['Django 5.2 LTS', 'DRF', 'React 19', 'TypeScript', 'TanStack Query', 'TanStack Router', 'PostgreSQL', 'MongoDB', 'Redis', 'pytest', 'Playwright', 'Docker Compose', 'GitHub Actions', 'GCP'],
         highlights: [
             'Legacy Django 2.1/Python 3.6/jQuery를 <strong>Django 5.2 LTS/React 19 Full-Stack으로 완전 재작성</strong>',
-            '<strong>TDD 957개 테스트, 95% 커버리지</strong> - pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략',
+            '<strong>TDD Backend 303개 테스트, 92% 커버리지</strong> - pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략',
             '<strong>Service Layer Pattern</strong> 도입으로 비즈니스 로직과 View 분리, 단일 책임 원칙 적용',
             '<strong>N+1 쿼리 최적화</strong>로 시험 목록 조회 시 Database 접근 70% 감소 (10→3회)',
             'JWT <strong>HttpOnly Cookie + RBAC</strong> Frontend/Backend 이중 검증으로 보안 강화'
@@ -157,10 +125,50 @@ export const projectsData = [
         ]
     },
     {
+        id: 'cloudnative_v2',
+        category: 'cloud',
+        badge: 'Featured',
+        title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
+        architectureUrl: 'images/architecture/cloudnative_v2.png',
+        architectureAlt: 'Solid Cloud Kubernetes Cluster 기반 GitOps CI/CD 전체 System Architecture',
+        summary: 'Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 완전 자동화된 마이크로서비스 플랫폼 구축',
+        imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v2/raw/main/docs/04-operations/screenshots/grafana-golden-signals.png',
+        imageAlt: 'Kubernetes 기반 Cloud-Native 마이크로서비스 플랫폼 v2.0 아키텍처',
+        tech: ['Kubernetes', 'Terraform', 'Istio', 'ArgoCD', 'GitHub Actions', 'Prometheus', 'Grafana', 'Loki', 'Trivy', 'Go', 'Python (FastAPI)'],
+        highlights: [
+            'Terraform(IaC)으로 Solid Cloud 인프라를 코드화하고, Kustomize로 환경별 설정을 분리하여 재현 가능한 운영 환경 구축',
+            'GitHub Actions, Argo CD 기반 GitOps 파이프라인으로 <strong>Git Push 후 5분 내 자동 배포</strong> 달성',
+            'CI 파이프라인에 <strong>Trivy 보안 스캔을 통합</strong>하여 빌드 단계에서 컨테이너 취약점을 자동으로 탐지 및 차단',
+            'Istio Service Mesh의 <strong>mTLS STRICT 모드</strong>와 <strong>NetworkPolicy</strong>를 적용하여 Zero Trust Network 보안 아키텍처 구현',
+            'Prometheus, Grafana, Loki 기반 통합 관측성 시스템을 구축하고, Golden Signals 대시보드로 Grafana 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 부하 테스트(100 VU) <strong>P95 74.76ms / 에러율 0.01%</strong> 달성'
+        ],
+        githubUrl: 'https://github.com/DvwN-Lee/Monitoring-v2',
+        modalDetails: [
+            {
+                title: 'Overview',
+                content: cloudNativeV2Content.modal.overview
+            },
+            {
+                title: 'Key Features',
+                items: cloudNativeV2Content.modal.keyFeatures
+            },
+            {
+                title: 'Technical Implementation',
+                items: cloudNativeV2Content.modal.technicalImplementation
+            },
+            {
+                title: 'Learning Points',
+                items: cloudNativeV2Content.modal.learningPoints
+            }
+        ]
+    },
+    {
         id: 'k8s_cicd',
         category: 'cloud',
         badge: 'Featured',
         title: 'Kubernetes CI/CD Infrastructure',
+        architectureUrl: 'images/architecture/k8s_cicd.png',
+        architectureAlt: 'CloudStack 기반 Kubernetes CI/CD Infrastructure Architecture',
         summary: 'CloudStack 환경에서 Terraform/Ansible 기반 Kubernetes 클러스터를 구축하고, Jenkins, GitLab, Docker Registry를 배포하여 완전한 CI/CD 파이프라인을 구현한 IaC 프로젝트',
         imageUrl: 'https://raw.githubusercontent.com/DvwN-Lee/k8s-cicd-automation/main/screenshots/testapp.png',
         imageAlt: 'Kubernetes CI/CD Infrastructure - Terraform과 Ansible 기반 자동화된 클러스터 구축',

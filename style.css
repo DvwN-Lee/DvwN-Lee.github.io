@@ -2364,6 +2364,131 @@ a:focus-visible {
     flex-wrap: wrap;
 }
 
+/* ===== Modal Architecture Section ===== */
+.modal-architecture {
+    margin-bottom: 2rem;
+}
+
+.modal-architecture h4 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.architecture-diagram-container {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.architecture-diagram-container:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 20px var(--primary-rgba-20);
+}
+
+.architecture-diagram-container:hover .architecture-diagram {
+    transform: scale(1.02);
+}
+
+.architecture-diagram-container:hover .architecture-zoom-hint {
+    opacity: 1;
+}
+
+.architecture-diagram {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+    background: var(--bg-primary);
+}
+
+.architecture-zoom-hint {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.architecture-zoom-hint i {
+    font-size: 0.75rem;
+}
+
+/* ===== Architecture Lightbox ===== */
+.arch-lightbox {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.arch-lightbox.is-opening {
+    opacity: 1;
+}
+
+.arch-lightbox-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+}
+
+.arch-lightbox-close {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.arch-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.arch-lightbox-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 60px 20px 20px;
+}
+
+.arch-lightbox-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
 /* ===== 모달 반응형 디자인 ===== */
 @media (max-width: 768px) {
     .modal-content {
@@ -2414,6 +2539,21 @@ a:focus-visible {
         width: 100%;
         text-align: center;
     }
+
+    /* Architecture Section - Mobile */
+    .architecture-zoom-hint {
+        opacity: 1;
+    }
+
+    /* Lightbox - Mobile */
+    .arch-lightbox-img {
+        max-width: 95vw;
+        max-height: 80vh;
+    }
+
+    .arch-lightbox-content {
+        padding: 50px 10px 10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2459,6 +2599,12 @@ a:focus-visible {
     .modal-tech-stack span {
         font-size: 0.75rem;
         padding: 0.25rem 0.6rem;
+    }
+
+    /* Lightbox - Small Mobile */
+    .arch-lightbox-img {
+        max-width: 98vw;
+        border-radius: 4px;
     }
 }
 

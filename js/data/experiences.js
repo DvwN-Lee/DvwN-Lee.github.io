@@ -22,7 +22,7 @@ export const experiencesData = [
     subtitle: '개인 프로젝트 - Legacy 시스템 Full-Stack 재작성',
     achievements: [
       'Legacy Django 2.1/Python 3.6/jQuery를 Django 5.2 LTS/Python 3.14/React 19로 완전 재작성',
-      'TDD 방법론 적용 - pytest + Playwright 기반 957개 테스트 (95% 커버리지)',
+      'TDD 방법론 적용 - pytest + Playwright 기반 Backend 303개 테스트 (92% 커버리지)',
       'Service Layer Pattern 도입으로 비즈니스 로직과 View 분리',
       'N+1 쿼리 최적화로 Database 접근 70% 감소 (10→3회)',
       'JWT HttpOnly Cookie + RBAC Frontend/Backend 이중 검증으로 보안 강화',
@@ -42,19 +42,19 @@ export const experiencesData = [
     ]
   },
   {
-    date: '2025.11',
+    date: '2025.12',
     title: 'Cloud-Native 마이크로서비스 플랫폼 v2.0',
     subtitle: '개인 프로젝트 - Solid Cloud 환경 (v1.0 고도화)',
     achievements: [
       'Terraform으로 Solid Cloud 인프라 코드 기반 관리, Kustomize로 환경별 설정 분리',
       'GitHub Actions + Argo CD 기반 GitOps 파이프라인 (Git Push 후 5분 내 자동 배포)',
       'Istio Service Mesh 도입 및 mTLS STRICT 모드 적용 (Zero Trust Network)',
-      'Prometheus/Grafana/Loki 관측성 시스템 구축 (P95 19.2ms, Error Rate 0%)',
-      'k6 부하 테스트 기반 Kubernetes HPA 최적화 (응답 시간 11.6% 개선)'
+      'Prometheus/Grafana/Loki 관측성 시스템 구축 (Grafana 실측 P95 9.77ms / P99 19.8ms, k6 P95 74.76ms / 에러율 0.01%)',
+      'k6 부하 테스트 기반 Kubernetes HPA 최적화 (P99 Latency 94% 감소: 3.71s → 238ms, 5xx 에러 완전 제거)'
     ]
   },
   {
-    date: '2025.08',
+    date: '2025.09',
     title: 'Cloud-Native 마이크로서비스 모니터링 플랫폼',
     subtitle: 'Go, FastAPI, K8s 기반 MSA 프로젝트',
     achievements: [

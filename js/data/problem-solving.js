@@ -23,7 +23,7 @@ export const problemSolvingData = [
     {
         id: 'exam-platform-v2',
         title: 'Legacy 시스템 TDD 기반 Full-Stack 마이그레이션',
-        subtitle: 'exam-platform: Django 2.1 → 5.2 LTS + React 19 재작성 및 TDD 957개 테스트 달성',
+        subtitle: 'exam-platform: Django 2.1 → 5.2 LTS + React 19 재작성 및 TDD Backend 303개 테스트 달성',
         tags: ['Django 5.2', 'React 19', 'TDD', 'pytest', 'Service Layer', 'TypeScript'],
         ...examPlatformV2Content
     },
