@@ -7,6 +7,18 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: 1,
   timeout: 60000,
+  // CI 환경에서 diagnostic 테스트 제외 (assertion 없는 console.log 기반 진단 도구)
+  testIgnore: process.env.CI ? [
+    '**/diagnose-*.spec.ts',
+    '**/detailed-timeseries.spec.ts',
+    '**/ultra-detailed-timeseries.spec.ts',
+    '**/reload-at-position.spec.ts',
+    '**/target-cards-layout-jump.spec.ts',
+    '**/cmd-r-vs-reload.spec.ts',
+    '**/category-filter-animation.spec.ts',
+    '**/layout-conflict.spec.ts',
+    '**/scroll-layout-corruption.spec.ts',
+  ] : [],
   reporter: [
     ['html'],
     ['list'],
