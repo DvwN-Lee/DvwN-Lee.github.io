@@ -102,15 +102,15 @@ function renderFooter() {
 
     const currentYear = new Date().getFullYear();
 
-    // GitHub만 필터링하여 표시
+    // Footer 소셜 링크 (config.socials는 내부 설정값으로 사용자 입력이 아닌 정적 데이터)
     const footerLinksHTML = config.socials
-        .filter(social => social.name === 'GitHub')
         .map(social => `
-            <a href="${social.url}" target="_blank" aria-label="${social.name}"><i class="${social.iconClass}"></i></a>
+            <a href="${social.url}" target="_blank" rel="noopener noreferrer" aria-label="${social.name}"><i class="${social.iconClass}"></i></a>
         `).join('');
 
     footerContainer.innerHTML = `
-        <p>© ${currentYear} 이동주. All rights reserved.</p>
+        <p class="footer-tagline">Cloud/DevOps Engineer</p>
+        <p>&copy; ${currentYear} 이동주. All rights reserved.</p>
         <div class="footer-links">
             ${footerLinksHTML}
         </div>

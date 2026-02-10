@@ -63,7 +63,7 @@ export const projectsData = [
                 ]
             },
             {
-                title: 'Technical Stack',
+                title: 'Technical Details',
                 items: [
                     '<strong>Cloud</strong>: Google Cloud Platform (VPC, Compute Engine, Secret Manager)',
                     '<strong>Kubernetes</strong>: K3s v1.31',
@@ -115,7 +115,7 @@ export const projectsData = [
                 items: examPlatformV2Content.modal.keyFeatures
             },
             {
-                title: 'Technical Implementation',
+                title: 'Technical Details',
                 items: examPlatformV2Content.modal.technicalImplementation
             },
             {
@@ -153,7 +153,7 @@ export const projectsData = [
                 items: cloudNativeV2Content.modal.keyFeatures
             },
             {
-                title: 'Technical Implementation',
+                title: 'Technical Details',
                 items: cloudNativeV2Content.modal.technicalImplementation
             },
             {
@@ -195,21 +195,14 @@ export const projectsData = [
                 ]
             },
             {
-                title: 'Infrastructure Architecture',
+                title: 'Technical Details',
                 items: [
-                    '<strong>k8s-m (Control Plane)</strong>: 2 CPU, 4GB RAM - Kubernetes API Server, etcd, Scheduler',
-                    '<strong>k8s-w1 (DevOps Node)</strong>: 4 CPU, 8GB RAM - GitLab, Jenkins, Docker Registry 배치',
-                    '<strong>k8s-w2 (App Node)</strong>: 2 CPU, 4GB RAM - Application 워크로드 전용'
-                ]
-            },
-            {
-                title: 'Technical Stack',
-                items: [
-                    'Terraform (CloudStack Provider) - 인프라 프로비저닝',
-                    'Ansible (Roles 기반) - 구성 관리 자동화',
-                    'Kubernetes v1.28.15 + containerd v1.7.2',
-                    'Cilium v1.14.5 (CNI) + MetalLB v0.13.12 (LB)',
-                    'Jenkins + GitLab CE + Docker Registry'
+                    '<strong>Infrastructure</strong>: Control Plane(2 CPU, 4GB), DevOps Node(4 CPU, 8GB), App Node(2 CPU, 4GB) 3-Node 구성',
+                    '<strong>IaC</strong>: Terraform (CloudStack Provider) - 인프라 프로비저닝',
+                    '<strong>Configuration</strong>: Ansible (Roles 기반) - 구성 관리 자동화',
+                    '<strong>Container & Orchestration</strong>: Kubernetes v1.28.15 + containerd v1.7.2',
+                    '<strong>Networking</strong>: Cilium v1.14.5 (CNI) + MetalLB v0.13.12 (LB)',
+                    '<strong>CI/CD</strong>: Jenkins + GitLab CE + Docker Registry'
                 ]
             },
             {
@@ -247,7 +240,7 @@ export const projectsData = [
                 content: 'Go와 Python FastAPI를 사용한 마이크로서비스 아키텍처 기반 실시간 모니터링 플랫폼입니다. 커스텀 로드밸런서와 통계 집계 시스템을 구축하여 100 RPS 이상의 트래픽을 안정적으로 처리합니다.'
             },
             {
-                title: 'Key Achievements',
+                title: 'Key Features',
                 items: [
                     '<strong>고성능 로드밸런서</strong>: Go 고루틴 기반 비동기 처리로 100 RPS 이상 안정적 처리',
                     '<strong>장애 격리</strong>: 타임아웃 2초 설정으로 서비스 간 장애 전파 차단',
@@ -256,17 +249,21 @@ export const projectsData = [
                 ]
             },
             {
-                title: 'Tech Stack',
-                items: ['Go (Golang)', 'Python FastAPI', 'Kubernetes', 'Kustomize', 'JavaScript', 'WebSocket', 'Redis']
+                title: 'Technical Details',
+                items: [
+                    '<strong>Backend</strong>: Go (API Gateway, Load Balancer, Stats Aggregator), Python FastAPI (Microservices)',
+                    '<strong>Frontend</strong>: Vanilla JavaScript + WebSocket 실시간 모니터링 대시보드',
+                    '<strong>Orchestration</strong>: Kubernetes + Kustomize base/overlay 패턴',
+                    '<strong>Cache</strong>: Redis 기반 통계 데이터 캐싱'
+                ]
             },
             {
-                title: 'Architecture',
+                title: 'Learning Points',
                 items: [
-                    'Go 기반 커스텀 로드밸런서 및 Stats Aggregator',
-                    'Python FastAPI 마이크로서비스 (여러 백엔드 서비스)',
-                    'Vanilla JavaScript + WebSocket 실시간 대시보드',
-                    'Redis 기반 통계 데이터 캐싱',
-                    'Kubernetes 오케스트레이션 및 Kustomize 기반 배포 관리'
+                    'Go 고루틴 기반 비동기 프로그래밍 및 커스텀 로드밸런서 설계 경험',
+                    'Kustomize를 활용한 환경별 Kubernetes 매니페스트 관리',
+                    '마이크로서비스 아키텍처에서 프록시/집계 패턴을 통한 관측 가능성 확보',
+                    'WebSocket 기반 실시간 데이터 시각화 구현'
                 ]
             }
         ]
@@ -303,7 +300,7 @@ export const projectsData = [
                 ]
             },
             {
-                title: 'Technical Implementation',
+                title: 'Technical Details',
                 items: [
                     'Django MTV 패턴 이해 및 적용',
                     'Django ORM을 활용한 데이터베이스 설계',
@@ -354,7 +351,7 @@ export const projectsData = [
                 ]
             },
             {
-                title: 'Tech Stack',
+                title: 'Technical Details',
                 items: ['Spring Boot', 'Spring WebSocket', 'JPA', 'Thymeleaf', 'JavaScript', 'STOMP', 'MySQL', 'Gradle']
             },
             {
@@ -398,7 +395,7 @@ export const projectsData = [
                 ]
             },
             {
-                title: 'Technical Implementation',
+                title: 'Technical Details',
                 items: [
                     'Firebase Realtime Database로 실시간 좌석 정보 동기화',
                     'Firebase Authentication으로 사용자 인증',
@@ -407,10 +404,11 @@ export const projectsData = [
                 ]
             },
             {
-                title: 'Team & Role',
+                title: 'Learning Points',
                 items: [
-                    'Android 앱 개발 담당',
-                    'Firebase, 백엔드 구축'
+                    'Firebase(BaaS) 기반 서버리스 아키텍처 설계 및 실시간 데이터 동기화 경험',
+                    'Android/Kotlin 모바일 애플리케이션 개발 및 팀 내 앱 개발/백엔드 담당 역할 수행',
+                    '해커톤 환경에서 빠른 프로토타이핑 및 Figma 기반 UI/UX 디자인 협업'
                 ]
             }
         ]

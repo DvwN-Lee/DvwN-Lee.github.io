@@ -93,16 +93,6 @@ export const config = {
             /** 섹션 offset 조정값 (px) */
             sectionOffset: 100,
         },
-        particles: {
-            /** Particle 개수 */
-            count: 80,
-            /** Particle 연결 거리 (px) */
-            lineDistance: 150,
-            /** Particle 이동 속도 */
-            speed: 2,
-            /** Mobile breakpoint (px) */
-            mobileBreakpoint: 768,
-        },
         projects: {
             /** Eager loading 적용 개수 (첫 N개) */
             eagerLoadCount: 6,
