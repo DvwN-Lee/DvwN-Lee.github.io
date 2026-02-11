@@ -12,7 +12,7 @@ import { getRequiredElement, debugLog } from './utils.js';
  */
 function createProblemItemHTML(item) {
     const tagsHTML = item.tags && item.tags.length > 0
-        ? `<div class="problem-tags">${item.tags.map(tag => `<span>${tag}</span>`).join('')}</div>`
+        ? `<div class="problem-tags">${item.tags.map(tag => `<span class="tag tag--subtle">${tag}</span>`).join('')}</div>`
         : '';
     const tasksHTML = item.tasks.map(task => `<li>${task}</li>`).join('');
     const actionsHTML = item.actions.map(action => `<li>${action}</li>`).join('');
@@ -24,7 +24,7 @@ function createProblemItemHTML(item) {
             ${tagsHTML}
 
             <details>
-                <summary>
+                <summary class="accordion-summary">
                     <span class="summary-text">${item.subtitle}</span>
                 </summary>
                 <div class="problem-details">

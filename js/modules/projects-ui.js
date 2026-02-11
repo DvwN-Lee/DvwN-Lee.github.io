@@ -278,10 +278,11 @@ function renderProjects() {
 
     const projectCardsHTML = projectsData.map((project, index) => {
         // 배지 HTML 처리 (배지가 있을 때만 표시)
-        const badgeHTML = project.badge ? `<span class="project-badge ${project.badge.includes('경소톤') || project.badge.includes('동상') ? 'award' : ''}">${project.badge}</span>` : '';
+        const isAward = project.badge && (project.badge.includes('경소톤') || project.badge.includes('동상'));
+        const badgeHTML = project.badge ? `<span class="tag ${isAward ? 'tag--award' : 'tag--accent'} project-badge ${isAward ? 'award' : ''}">${project.badge}</span>` : '';
 
         // 기술 스택 HTML 생성
-        const techStackHTML = project.tech.map(tech => `<span>${tech}</span>`).join('');
+        const techStackHTML = project.tech.map(tech => `<span class="tag tag--subtle">${tech}</span>`).join('');
 
         // 하이라이트 HTML 생성
         const highlightsHTML = project.highlights.map(highlight => `<li>${highlight}</li>`).join('');
