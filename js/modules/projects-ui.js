@@ -394,48 +394,58 @@ function openProjectModal(projectId) {
             existingHeader.remove();
         }
 
-        // 헤더 생성 (제목 + GitHub 버튼)
-        const headerHTML = `
-            <div class="modal-header">
-                <h2 id="modalTitle">${project.title}</h2>
-                <div class="modal-links">
-                    <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-github"></i> GitHub Repository
-                    </a>
-                </div>
-            </div>`;
-
-        // Architecture Section 생성 (architectureUrl이 있는 경우만)
+        // Architecture 버튼 생성 (architectureUrl이 있는 경우만)
         let architectureHTML = '';
         if (project.architectureUrl) {
             const altText = project.architectureAlt || `${project.title} Architecture Diagram`;
             architectureHTML = `
                 <div class="modal-architecture">
-                    <h4>Architecture</h4>
-                    <div class="architecture-diagram-container"
-                         role="button" tabindex="0"
-                         aria-label="Click to enlarge architecture diagram"
-                         data-arch-url="${project.architectureUrl}"
-                         data-arch-alt="${altText}">
-                        <img src="${project.architectureUrl}"
-                             alt="${altText}"
-                             class="architecture-diagram"
-                             loading="lazy"
-                             onerror="this.closest('.modal-architecture').style.display='none'">
-                        <span class="architecture-zoom-hint">
-                            <i class="fas fa-search-plus"></i> Click to enlarge
-                        </span>
-                    </div>
+                    <button class="architecture-view-btn"
+                            type="button"
+                            data-arch-url="${project.architectureUrl}"
+                            data-arch-alt="${altText}">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>View Architecture</span>
+                    </button>
                 </div>`;
         }
+
+        // Tech Stack 생성
+        let techStackHTML = '';
+        if (project.tech && project.tech.length > 0) {
+            const tagsHTML = project.tech.map(t => `<span>${t}</span>`).join('');
+            techStackHTML = `<div class="modal-tech-stack">${tagsHTML}</div>`;
+        }
+
+        // 헤더 생성
+        const headerHTML = `
+            <div class="modal-header">
+                <div class="modal-header-top">
+                    <h2 id="modalTitle">${project.title}</h2>
+                    <button class="modal-close-btn" type="button" aria-label="Close modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-header-actions">
+                    <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-github"></i> GitHub Repository
+                    </a>
+                    ${architectureHTML}
+                </div>
+                ${techStackHTML}
+            </div>`;
 
         // 콘텐츠 생성
         let contentHTML = '';
         if (project.modalDetails) {
-            const sectionsHTML = project.modalDetails.map(section => {
+            const sectionsHTML = project.modalDetails.map((section, index) => {
                 let sectionContent = '';
                 if (section.content) {
                     sectionContent = `<p>${section.content}</p>`;
+                    // 첫 번째 content Section(Overview)은 카드 스타일 적용
+                    if (index === 0) {
+                        return `<div class="modal-section modal-overview"><h4>${section.title}</h4>${sectionContent}</div>`;
+                    }
                 } else if (section.items) {
                     const listTag = section.listType === 'ol' ? 'ol' : 'ul';
                     const itemsHTML = section.items.map(item => `<li>${item}</li>`).join('');
@@ -446,7 +456,6 @@ function openProjectModal(projectId) {
 
             contentHTML = `
                 <div class="modal-details-content visible">
-                    ${architectureHTML}
                     ${sectionsHTML}
                 </div>`;
         }
@@ -465,22 +474,21 @@ function openProjectModal(projectId) {
 
         modal.style.display = 'flex';
 
-        // Architecture Diagram 클릭 이벤트 바인딩
+        // Close 버튼 이벤트 바인딩
+        const closeBtn = modalContent.querySelector('.modal-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeProjectModal);
+        }
+
+        // Architecture 버튼 클릭 이벤트 바인딩
         if (project.architectureUrl) {
-            const archContainer = modalContentInner.querySelector('.architecture-diagram-container');
-            if (archContainer) {
-                const handleArchClick = () => {
+            const archBtn = modalContent.querySelector('.architecture-view-btn');
+            if (archBtn) {
+                archBtn.addEventListener('click', () => {
                     openArchitectureLightbox(
-                        archContainer.dataset.archUrl,
-                        archContainer.dataset.archAlt
+                        archBtn.dataset.archUrl,
+                        archBtn.dataset.archAlt
                     );
-                };
-                archContainer.addEventListener('click', handleArchClick);
-                archContainer.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleArchClick();
-                    }
                 });
             }
         }

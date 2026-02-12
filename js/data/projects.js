@@ -36,7 +36,7 @@ export const projectsData = [
         architectureUrl: 'images/architecture/cloudnative_v3.png',
         architectureAlt: 'GCP 기반 K3s Cloud-Native 플랫폼 System Architecture',
         summary: 'GCP 환경에서 Terraform으로 K3s Cluster를 완전 자동화하고, ArgoCD App of Apps 패턴과 External Secrets를 활용한 End-to-End GitOps 플랫폼 구축',
-        imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v3/raw/main/docs/demo/22-kiali-traffic-graph.png',
+        imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v3/raw/main/docs/demo/20-kiali-overview.png',
         imageAlt: 'GCP 기반 K3s Kubernetes Cluster 모니터링 플랫폼',
         tech: ['GCP', 'K3s', 'Terraform', 'ArgoCD', 'Istio', 'Prometheus', 'Grafana', 'Loki', 'External Secrets', 'Go', 'Python (FastAPI)'],
         highlights: [
@@ -94,6 +94,8 @@ export const projectsData = [
         summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 기반 Backend 303개 테스트(92% 커버리지)를 달성한 프로젝트',
         imageUrl: 'https://github.com/DvwN-Lee/exam-platform/raw/main/docs/demo/screenshots/01-teacher-dashboard.png',
         imageAlt: 'exam-platform - Django 5.2 LTS + React 19 온라인 시험 플랫폼',
+        architectureUrl: 'images/architecture/exam_platform_v2.png',
+        architectureAlt: 'exam-platform GKE 기반 Django 5.2 + React 19 Full-Stack Architecture',
         tech: ['Django 5.2 LTS', 'DRF', 'React 19', 'TypeScript', 'TanStack Query', 'TanStack Router', 'PostgreSQL', 'MongoDB', 'Redis', 'pytest', 'Playwright', 'Docker Compose', 'GitHub Actions', 'GCP'],
         highlights: [
             'Legacy Django 2.1/Python 3.6/jQuery를 <strong>Django 5.2 LTS/React 19 Full-Stack으로 완전 재작성</strong>',
