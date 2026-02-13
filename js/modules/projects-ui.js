@@ -553,6 +553,11 @@ function closeProjectModal() {
 // Architecture Lightbox
 // ========================================
 
+// Lightbox Focus 관리 상태
+let focusedElementBeforeLightbox = null;
+// Lightbox Event Listener 정리 함수 (닫을 때 일괄 해제)
+let lightboxCleanupListeners = null;
+
 /**
  * Architecture Lightbox 열기
  * @param {string} imageUrl - 이미지 URL
@@ -561,6 +566,9 @@ function closeProjectModal() {
 function openArchitectureLightbox(imageUrl, altText) {
     const lightbox = document.getElementById('architectureLightbox');
     if (!lightbox) return;
+
+    // Focus 복귀용 요소 저장
+    focusedElementBeforeLightbox = document.activeElement;
 
     const img = lightbox.querySelector('.arch-lightbox-img');
     img.alt = altText;
@@ -575,36 +583,47 @@ function openArchitectureLightbox(imageUrl, altText) {
     lightbox.setAttribute('aria-hidden', 'false');
     lightbox.style.display = 'flex';
 
+    const closeBtn = lightbox.querySelector('.arch-lightbox-close');
+
     requestAnimationFrame(() => {
         lightbox.classList.add('is-opening');
+        // Close 버튼으로 Focus 이동
+        if (closeBtn) closeBtn.focus();
     });
 
-    // ESC key - capture phase로 Modal ESC와 분리
-    const handleEsc = (e) => {
+    // Keydown Handler: ESC(닫기) + Tab(Focus Trap) 통합 처리
+    // Capture phase로 Modal ESC와 분리
+    const handleKeydown = (e) => {
         if (e.key === 'Escape') {
             e.stopPropagation();
             closeArchitectureLightbox();
-            document.removeEventListener('keydown', handleEsc, true);
+        } else if (e.key === 'Tab') {
+            // Close 버튼만 Focusable하므로 Tab 이동을 차단
+            e.preventDefault();
+            if (closeBtn) closeBtn.focus();
         }
     };
-    document.addEventListener('keydown', handleEsc, true);
+    document.addEventListener('keydown', handleKeydown, true);
 
-    // Close 버튼
-    const closeBtn = lightbox.querySelector('.arch-lightbox-close');
-    const handleClose = () => {
-        closeArchitectureLightbox();
-        closeBtn.removeEventListener('click', handleClose);
-    };
+    // Close 버튼 클릭
+    const handleClose = () => closeArchitectureLightbox();
     closeBtn.addEventListener('click', handleClose);
 
     // Backdrop 클릭 (이미지 외부)
     const handleBackdrop = (e) => {
         if (e.target === lightbox || e.target.classList.contains('arch-lightbox-content')) {
             closeArchitectureLightbox();
-            lightbox.removeEventListener('click', handleBackdrop);
         }
     };
     lightbox.addEventListener('click', handleBackdrop);
+
+    // 정리 함수 등록 (closeArchitectureLightbox에서 일괄 호출)
+    lightboxCleanupListeners = () => {
+        document.removeEventListener('keydown', handleKeydown, true);
+        closeBtn.removeEventListener('click', handleClose);
+        lightbox.removeEventListener('click', handleBackdrop);
+        lightboxCleanupListeners = null;
+    };
 }
 
 /**
@@ -614,6 +633,9 @@ function closeArchitectureLightbox() {
     const lightbox = document.getElementById('architectureLightbox');
     if (!lightbox) return;
 
+    // Event Listener 일괄 정리
+    if (lightboxCleanupListeners) lightboxCleanupListeners();
+
     lightbox.classList.remove('is-opening');
 
     const handleTransitionEnd = () => {
@@ -622,6 +644,12 @@ function closeArchitectureLightbox() {
         const img = lightbox.querySelector('.arch-lightbox-img');
         img.src = '';
         img.alt = '';
+
+        // Focus를 Lightbox 열기 전 요소로 복귀
+        if (focusedElementBeforeLightbox) {
+            focusedElementBeforeLightbox.focus();
+            focusedElementBeforeLightbox = null;
+        }
     };
 
     lightbox.addEventListener('transitionend', handleTransitionEnd, { once: true });

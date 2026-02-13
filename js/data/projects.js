@@ -37,7 +37,7 @@ export const projectsData = [
         architectureAlt: 'GCP 기반 K3s Cloud-Native 플랫폼 System Architecture',
         summary: 'GCP 환경에서 Terraform으로 K3s Cluster를 완전 자동화하고, ArgoCD App of Apps 패턴과 External Secrets를 활용한 End-to-End GitOps 플랫폼 구축',
         imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v3/raw/main/docs/demo/22-kiali-traffic-graph.png',
-        imageAlt: 'GCP 기반 K3s Kubernetes Cluster 모니터링 플랫폼',
+        imageAlt: 'Kiali Service Mesh Traffic Graph - Microservice 간 HTTP 트래픽 흐름과 연결 상태를 시각화한 네트워크 토폴로지 대시보드',
         tech: ['GCP', 'K3s', 'Terraform', 'ArgoCD', 'Istio', 'Prometheus', 'Grafana', 'Loki', 'External Secrets', 'Go', 'Python (FastAPI)'],
         highlights: [
             'Terraform으로 GCP 리소스 전체(VPC, Firewall, VM, Secret Manager)를 코드화하여 <strong>명령어 하나로 전체 인프라 프로비저닝</strong>',
@@ -93,7 +93,7 @@ export const projectsData = [
         title: 'exam-platform - 온라인 시험 플랫폼',
         summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 기반 Backend 303개 테스트(92% 커버리지)를 달성한 프로젝트',
         imageUrl: 'https://github.com/DvwN-Lee/exam-platform/raw/main/docs/demo/screenshots/01-teacher-dashboard.png',
-        imageAlt: 'exam-platform - Django 5.2 LTS + React 19 온라인 시험 플랫폼',
+        imageAlt: 'exam-platform Teacher Dashboard - 시험 목록과 관리 기능이 표시된 교사용 메인 화면',
         architectureUrl: 'images/architecture/exam_platform_v2.png',
         architectureAlt: 'exam-platform GKE 기반 Django 5.2 + React 19 Full-Stack Architecture',
         tech: ['Django 5.2 LTS', 'DRF', 'React 19', 'TypeScript', 'TanStack Query', 'TanStack Router', 'PostgreSQL', 'MongoDB', 'Redis', 'pytest', 'Playwright', 'Docker Compose', 'GitHub Actions', 'GCP'],
@@ -133,7 +133,7 @@ export const projectsData = [
         architectureAlt: 'Solid Cloud Kubernetes Cluster 기반 GitOps CI/CD 전체 System Architecture',
         summary: 'Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 완전 자동화된 마이크로서비스 플랫폼 구축',
         imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v2/raw/main/docs/04-operations/screenshots/grafana-golden-signals.png',
-        imageAlt: 'Kubernetes 기반 Cloud-Native 마이크로서비스 플랫폼 v2.0 아키텍처',
+        imageAlt: 'Grafana Golden Signals Dashboard - Latency, Traffic, Errors, Saturation Metric 패널이 표시된 모니터링 화면',
         tech: ['Kubernetes', 'Terraform', 'Istio', 'ArgoCD', 'GitHub Actions', 'Prometheus', 'Grafana', 'Loki', 'Trivy', 'Go', 'Python (FastAPI)'],
         highlights: [
             'Terraform(IaC)으로 Solid Cloud 인프라를 코드화하고, Kustomize로 환경별 설정을 분리하여 재현 가능한 운영 환경 구축',
@@ -171,7 +171,7 @@ export const projectsData = [
         architectureAlt: 'CloudStack 기반 Kubernetes CI/CD Infrastructure Architecture',
         summary: 'CloudStack 환경에서 Terraform/Ansible 기반 Kubernetes 클러스터를 구축하고, Jenkins, GitLab, Docker Registry를 배포하여 완전한 CI/CD 파이프라인을 구현한 IaC 프로젝트',
         imageUrl: 'https://raw.githubusercontent.com/DvwN-Lee/k8s-cicd-automation/main/screenshots/testapp.png',
-        imageAlt: 'Kubernetes CI/CD Infrastructure - Terraform과 Ansible 기반 자동화된 클러스터 구축',
+        imageAlt: 'Kubernetes Cluster에 배포된 Test Application의 웹 브라우저 실행 화면',
         tech: ['Terraform', 'Ansible', 'Kubernetes', 'CloudStack', 'containerd', 'Cilium', 'MetalLB', 'Jenkins', 'GitLab', 'Docker Registry'],
         highlights: [
             'Terraform으로 CloudStack 인프라(VM 3대, Network, Port Forwarding)를 코드화하고 Ansible Inventory 자동 생성',
@@ -223,7 +223,7 @@ export const projectsData = [
         title: '실시간 마이크로서비스 모니터링 플랫폼',
         summary: 'Go, FastAPI, K8s 기반 실시간 모니터링 대시보드',
         imageUrl: 'https://github.com/user-attachments/assets/d1e28d4e-fb21-4b1d-ab67-0014ced7a269',
-        imageAlt: 'Go와 FastAPI 기반 실시간 마이크로서비스 모니터링 대시보드',
+        imageAlt: '실시간 모니터링 대시보드 웹 UI - RPS, 응답 시간, 서비스 상태 지표가 표시된 화면',
         imagePosition: 'center 30%',
         tech: ['Go (Golang)', 'Python (FastAPI)', 'Kubernetes', 'Kustomize', 'JavaScript', 'Redis'],
         highlights: [
@@ -275,7 +275,7 @@ export const projectsData = [
         title: '온라인 시험 관리 시스템 (Legacy)',
         summary: 'Django 기반 온라인 시험 출제 및 채점 시스템',
         imageUrl: 'https://github.com/DvwN-Lee/OnlineExam/raw/main/images/Main.png',
-        imageAlt: 'Django 기반 온라인 시험 출제 및 채점 관리 시스템',
+        imageAlt: '온라인 시험 관리 시스템 메인 페이지 - 시험 목록과 관리 인터페이스가 표시된 화면',
         imagePosition: 'center 20%',
         tech: ['Django', 'MySQL', 'jQuery', 'Bootstrap'],
         highlights: [
@@ -326,7 +326,7 @@ export const projectsData = [
         title: 'SimpleChat - 실시간 채팅 앱',
         summary: 'Spring Boot와 WebSocket 기반 실시간 채팅 프로젝트',
         imageUrl: 'https://github.com/DvwN-Lee/DemoChat/raw/main/images/chat_2.png',
-        imageAlt: 'Spring Boot와 WebSocket 기반 실시간 채팅 애플리케이션',
+        imageAlt: 'SimpleChat 채팅 인터페이스 - 사용자 간 실시간 메시지가 표시된 채팅방 화면',
         tech: ['Spring Boot', 'WebSocket', 'JPA', 'Thymeleaf', 'MySQL'],
         highlights: [
             'Spring Boot 환경에서 WebSocket 프로토콜을 활용한 실시간 양방향 메시징 시스템 구축',
@@ -371,7 +371,7 @@ export const projectsData = [
         title: 'Dorazy - 도서관 예약 시스템',
         summary: '단국대학교 도산라운지 좌석 예약 및 관리 앱',
         imageUrl: 'https://user-images.githubusercontent.com/87077859/215061094-6b72ec52-0713-4ebf-81a5-744469bb7fd1.jpg',
-        imageAlt: 'Dorazy 도서관 예약 시스템 모바일 앱 스크린샷',
+        imageAlt: 'Dorazy 좌석 예약 앱 - 도산라운지 좌석 현황과 예약 기능이 표시된 모바일 화면',
         tech: ['Android', 'Kotlin', 'Firebase', 'Figma'],
         highlights: [
             'Firebase(BaaS) 활용 서버리스 아키텍처 및 실시간 데이터 처리 구현',
