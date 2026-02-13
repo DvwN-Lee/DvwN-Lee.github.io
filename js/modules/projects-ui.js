@@ -281,9 +281,13 @@ function renderProjects() {
         const isAward = project.badge && (project.badge.includes('경소톤') || project.badge.includes('동상'));
         const badgeHTML = project.badge ? `<span class="tag ${isAward ? 'tag--award' : 'tag--accent'} project-badge ${isAward ? 'award' : ''}">${project.badge}</span>` : '';
 
+        // Full-width 카드 판별 (CSS :first-child/:last-child:nth-child(even)와 동기화)
+        const totalCards = projectsData.length;
+        const isLastEven = index === totalCards - 1 && totalCards % 2 === 0;
+        const isFullWidth = index === 0 || isLastEven;
+
         // 기술 스택 HTML 생성 (첫 primaryTechCount개는 핵심 기술로 강조)
         const primaryCount = project.primaryTechCount || 3;
-        const isFullWidth = index === 0;
         const maxVisible = isFullWidth ? project.tech.length : 6;
         const visibleTech = project.tech.slice(0, maxVisible);
         const hiddenCount = project.tech.length - maxVisible;
@@ -352,11 +356,10 @@ function renderProjects() {
     // Skeleton Loading: 이미지 로드 완료 시 skeleton 제거
     projectsGrid.querySelectorAll('.project-image-clip img').forEach(img => {
         const markLoaded = () => img.classList.add('loaded');
-        if (img.complete) {
+        img.addEventListener('load', markLoaded, { once: true });
+        img.addEventListener('error', markLoaded, { once: true });
+        if (img.complete && img.naturalHeight !== 0) {
             markLoaded();
-        } else {
-            img.addEventListener('load', markLoaded, { once: true });
-            img.addEventListener('error', markLoaded, { once: true });
         }
     });
 

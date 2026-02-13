@@ -1009,6 +1009,7 @@ h3 {
     width: 44px;
     height: 44px;
     background: var(--link-bg);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     border: 1px solid var(--link-border);
     border-radius: 50%;
@@ -1095,11 +1096,10 @@ h3 {
 .project-badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.35rem 0.9rem;
+    position: relative;
+    padding: 0.35rem 0.9rem 0.35rem calc(0.9rem + 3px);
     margin-bottom: 0.75rem;
     background: var(--primary-rgba-08);
-    border-left: 3px solid;
-    border-image: var(--gradient-2) 1;
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     font-size: 0.8rem;
     font-weight: 600;
@@ -1107,10 +1107,24 @@ h3 {
     letter-spacing: 0.03em;
 }
 
+.project-badge::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gradient-2);
+    border-radius: 3px 0 0 3px;
+}
+
 .project-badge.award {
     background: rgba(255, 215, 0, 0.08);
-    border-image: linear-gradient(135deg, var(--award-gold) 0%, var(--award-orange) 100%) 1;
     color: var(--award-gold);
+}
+
+.project-badge.award::before {
+    background: linear-gradient(135deg, var(--award-gold) 0%, var(--award-orange) 100%);
 }
 
 .project-content h3 {

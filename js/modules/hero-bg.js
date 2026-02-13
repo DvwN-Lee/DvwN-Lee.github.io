@@ -236,7 +236,7 @@ function updateEdges() {
             edge.holdCounter++;
             // Particle 생성
             edge.particleTimer++;
-            if (edge.particleTimer >= CONFIG.particleSpawnInterval) {
+            if (edge.particleTimer >= CONFIG.particleSpawnInterval && edge.particles.length < 3) {
                 edge.particleTimer = 0;
                 edge.particles.push({
                     t: 0,
@@ -569,26 +569,42 @@ function stopAnimation() {
 /**
  * Hero 배경 Network Topology 애니메이션을 초기화합니다.
  */
+let resizeTimer;
+
+function handleResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resizeCanvas, 200);
+}
+
+function handleVisibility() {
+    if (document.hidden) {
+        stopAnimation();
+    } else if (!animationId) {
+        animationId = requestAnimationFrame(loop);
+    }
+}
+
+/**
+ * Hero 배경 Network Topology 애니메이션을 초기화합니다.
+ */
 export function initHeroBg() {
     canvas = document.getElementById('heroCanvas');
     if (!canvas) return;
 
     ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
     resizeCanvas();
 
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            stopAnimation();
-        } else if (!animationId) {
-            animationId = requestAnimationFrame(loop);
-        }
-    });
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(resizeCanvas, 200);
-    });
+    document.addEventListener('visibilitychange', handleVisibility);
+    window.addEventListener('resize', handleResize);
 
     animationId = requestAnimationFrame(loop);
+}
+
+export function cleanupHeroBg() {
+    stopAnimation();
+    document.removeEventListener('visibilitychange', handleVisibility);
+    window.removeEventListener('resize', handleResize);
+    clearTimeout(resizeTimer);
 }
