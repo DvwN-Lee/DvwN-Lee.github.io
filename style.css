@@ -1820,10 +1820,6 @@ details[open] > .accordion-summary::before {
     color: var(--text-primary);
 }
 
-/* Hide Blog */
-.contact-info .contact-item:nth-child(3) {
-    display: none;
-}
 
 /* 클릭 애니메이션 - 이메일 제외 */
 @keyframes linkClick {

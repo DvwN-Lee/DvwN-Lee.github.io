@@ -40,12 +40,6 @@ export const config = {
             url: 'https://github.com/DvwN-Lee',
             iconClass: 'fab fa-github',
             handle: 'github.com/DvwN-Lee'
-        },
-        {
-            name: 'Blog',
-            url: 'https://velog.io/@dongju101',
-            iconClass: 'fas fa-blog',
-            handle: 'velog.io/@dongju101'
         }
     ],
 
