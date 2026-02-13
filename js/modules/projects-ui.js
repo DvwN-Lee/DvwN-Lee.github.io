@@ -281,8 +281,17 @@ function renderProjects() {
         const isAward = project.badge && (project.badge.includes('경소톤') || project.badge.includes('동상'));
         const badgeHTML = project.badge ? `<span class="tag ${isAward ? 'tag--award' : 'tag--accent'} project-badge ${isAward ? 'award' : ''}">${project.badge}</span>` : '';
 
-        // 기술 스택 HTML 생성
-        const techStackHTML = project.tech.map(tech => `<span class="tag tag--subtle">${tech}</span>`).join('');
+        // 기술 스택 HTML 생성 (첫 primaryTechCount개는 핵심 기술로 강조)
+        const primaryCount = project.primaryTechCount || 3;
+        const isFullWidth = index === 0;
+        const maxVisible = isFullWidth ? project.tech.length : 6;
+        const visibleTech = project.tech.slice(0, maxVisible);
+        const hiddenCount = project.tech.length - maxVisible;
+        const techStackHTML = visibleTech.map((tech, i) =>
+            i < primaryCount
+                ? `<span class="tag tag--primary">${tech}</span>`
+                : `<span class="tag tag--subtle">${tech}</span>`
+        ).join('') + (hiddenCount > 0 ? `<span class="tag tag--more">+${hiddenCount}</span>` : '');
 
         // 하이라이트 HTML 생성
         const highlightsHTML = project.highlights.map(highlight => `<li>${highlight}</li>`).join('');
@@ -297,7 +306,10 @@ function renderProjects() {
             <div class="project-card" data-category="${project.category}" data-project-id="${project.id}" data-aos="fade-up" data-aos-delay="${aosDelay}">
                 <div class="project-card-inner">
                     <div class="project-image">
-                        <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="${loadingAttr}" decoding="async"${project.imagePosition ? ` style="object-position: ${project.imagePosition}"` : ''}>
+                        <div class="project-image-clip">
+                            <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="${loadingAttr}" decoding="async"${project.imagePosition ? ` style="object-position: ${project.imagePosition}"` : ''}>
+                            <div class="skeleton"></div>
+                        </div>
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="${project.githubUrl}" target="_blank" class="project-link">
@@ -336,6 +348,17 @@ function renderProjects() {
 
     // 프로젝트 카드 클릭 이벤트 리스너만 추가 (모달 이벤트는 initProjectsUI에서 한 번만 등록)
     setupProjectCardListeners();
+
+    // Skeleton Loading: 이미지 로드 완료 시 skeleton 제거
+    projectsGrid.querySelectorAll('.project-image-clip img').forEach(img => {
+        const markLoaded = () => img.classList.add('loaded');
+        if (img.complete) {
+            markLoaded();
+        } else {
+            img.addEventListener('load', markLoaded, { once: true });
+            img.addEventListener('error', markLoaded, { once: true });
+        }
+    });
 
     // CSS Grid 레이아웃은 자동 처리됨 (Masonry 제거됨)
 }

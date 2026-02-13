@@ -36,7 +36,7 @@ export const projectsData = [
         architectureUrl: 'images/architecture/cloudnative_v3.png',
         architectureAlt: 'GCP 기반 K3s Cloud-Native 플랫폼 System Architecture',
         summary: 'GCP 환경에서 Terraform으로 K3s Cluster를 완전 자동화하고, ArgoCD App of Apps 패턴과 External Secrets를 활용한 End-to-End GitOps 플랫폼 구축',
-        imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v3/raw/main/docs/demo/20-kiali-overview.png',
+        imageUrl: 'https://github.com/DvwN-Lee/Monitoring-v3/raw/main/docs/demo/22-kiali-traffic-graph.png',
         imageAlt: 'GCP 기반 K3s Kubernetes Cluster 모니터링 플랫폼',
         tech: ['GCP', 'K3s', 'Terraform', 'ArgoCD', 'Istio', 'Prometheus', 'Grafana', 'Loki', 'External Secrets', 'Go', 'Python (FastAPI)'],
         highlights: [
