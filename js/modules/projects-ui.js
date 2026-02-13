@@ -4,7 +4,7 @@
 
 import { projectsData } from '../data/projects.js';
 import { config } from '../data/config.js';
-import { getRequiredElement, debugLog, prefersReducedMotion, resetInlineStyles } from './utils.js';
+import { getRequiredElement, debugLog, resetInlineStyles } from './utils.js';
 import { AnimationQueue, removeAOSAttributes } from './animation-utils.js';
 
 // ========================================
@@ -195,81 +195,6 @@ function animateProjectCards(filterValue = FILTER.ALL) {
 }
 
 /**
- * 초기 페이지 로드 시 순차 애니메이션 적용
- * 제목 → 필터 버튼 → 프로젝트 카드 순서로 fade-up
- * IntersectionObserver로 viewport 진입 시에만 실행
- */
-function applyInitialLoadAnimation() {
-    // direct-projects-access가 있으면 애니메이션 건너뛰기 (reload 시)
-    if (document.body.classList.contains('direct-projects-access')) {
-        return;
-    }
-
-    // prefers-reduced-motion 체크
-    if (prefersReducedMotion()) {
-        return;
-    }
-
-    const projectsSection = document.querySelector('#projects');
-    if (!projectsSection) return;
-
-    const projectsTitle = document.querySelector('#projects h2');
-    const filterButtons = document.querySelector('.filter-buttons');
-    const projectCards = document.querySelectorAll('.project-card');
-
-    // 1. 초기 상태: 모든 요소에 invisible-init 클래스 추가
-    if (projectsTitle) projectsTitle.classList.add('invisible-init');
-    if (filterButtons) filterButtons.classList.add('invisible-init');
-    projectCards.forEach(card => card.classList.add('invisible-init'));
-
-    // 2. IntersectionObserver로 viewport 진입 감지
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // 순차적으로 visible-animate 클래스 추가
-                // 제목: 150ms 후
-                setTimeout(() => {
-                    if (projectsTitle) {
-                        projectsTitle.classList.add('visible-animate');
-                        projectsTitle.classList.remove('invisible-init');
-                    }
-                }, 150);
-
-                // 필터 버튼: 450ms 후 (제목 애니메이션 절반 진행 후)
-                setTimeout(() => {
-                    if (filterButtons) {
-                        filterButtons.classList.add('visible-animate');
-                        filterButtons.classList.remove('invisible-init');
-                    }
-                }, 450);
-
-                // 프로젝트 카드: initialLoadDelay 후 시작, 각 카드는 sequentialInterval 간격
-                const { maxSequentialAnimation } = projectsConfig;
-                const { sequentialInterval, initialLoadDelay } = animations;
-                projectCards.forEach((card, index) => {
-                    // 최대 maxSequentialAnimation개까지만 순차 애니메이션, 나머지는 동시에
-                    const staggerDelay = index < maxSequentialAnimation
-                        ? index * sequentialInterval
-                        : maxSequentialAnimation * sequentialInterval;
-                    setTimeout(() => {
-                        card.classList.add('visible-animate');
-                        card.classList.remove('invisible-init');
-                    }, initialLoadDelay + staggerDelay);
-                });
-
-                // 애니메이션 실행 후 observer 해제 (메모리 누수 방지)
-                observer.disconnect();
-            }
-        });
-    }, {
-        threshold: 0.1,  // 섹션이 10% 보이면 트리거
-        rootMargin: '0px'
-    });
-
-    observer.observe(projectsSection);
-}
-
-/**
  * 프로젝트 카드를 동적으로 렌더링하는 함수
  */
 function renderProjects() {
@@ -281,8 +206,21 @@ function renderProjects() {
         const isAward = project.badge && (project.badge.includes('경소톤') || project.badge.includes('동상'));
         const badgeHTML = project.badge ? `<span class="tag ${isAward ? 'tag--award' : 'tag--accent'} project-badge ${isAward ? 'award' : ''}">${project.badge}</span>` : '';
 
-        // 기술 스택 HTML 생성
-        const techStackHTML = project.tech.map(tech => `<span class="tag tag--subtle">${tech}</span>`).join('');
+        // Full-width 카드 판별 (CSS :first-child/:last-child:nth-child(even)와 동기화)
+        const totalCards = projectsData.length;
+        const isLastEven = index === totalCards - 1 && totalCards % 2 === 0;
+        const isFullWidth = index === 0 || isLastEven;
+
+        // 기술 스택 HTML 생성 (첫 primaryTechCount개는 핵심 기술로 강조)
+        const primaryCount = project.primaryTechCount || 3;
+        const maxVisible = isFullWidth ? project.tech.length : 6;
+        const visibleTech = project.tech.slice(0, maxVisible);
+        const hiddenCount = project.tech.length - maxVisible;
+        const techStackHTML = visibleTech.map((tech, i) =>
+            i < primaryCount
+                ? `<span class="tag tag--primary">${tech}</span>`
+                : `<span class="tag tag--subtle">${tech}</span>`
+        ).join('') + (hiddenCount > 0 ? `<span class="tag tag--more">+${hiddenCount}</span>` : '');
 
         // 하이라이트 HTML 생성
         const highlightsHTML = project.highlights.map(highlight => `<li>${highlight}</li>`).join('');
@@ -297,7 +235,10 @@ function renderProjects() {
             <div class="project-card" data-category="${project.category}" data-project-id="${project.id}" data-aos="fade-up" data-aos-delay="${aosDelay}">
                 <div class="project-card-inner">
                     <div class="project-image">
-                        <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="${loadingAttr}" decoding="async"${project.imagePosition ? ` style="object-position: ${project.imagePosition}"` : ''}>
+                        <div class="project-image-clip">
+                            <img src="${project.imageUrl}" alt="${project.imageAlt}" loading="${loadingAttr}" decoding="async"${project.imagePosition ? ` style="object-position: ${project.imagePosition}"` : ''}>
+                            <div class="skeleton"></div>
+                        </div>
                         <div class="project-overlay">
                             <div class="project-links">
                                 <a href="${project.githubUrl}" target="_blank" class="project-link">
@@ -336,6 +277,16 @@ function renderProjects() {
 
     // 프로젝트 카드 클릭 이벤트 리스너만 추가 (모달 이벤트는 initProjectsUI에서 한 번만 등록)
     setupProjectCardListeners();
+
+    // Skeleton Loading: 이미지 로드 완료 시 skeleton 제거
+    projectsGrid.querySelectorAll('.project-image-clip img').forEach(img => {
+        const markLoaded = () => img.classList.add('loaded');
+        img.addEventListener('load', markLoaded, { once: true });
+        img.addEventListener('error', markLoaded, { once: true });
+        if (img.complete && img.naturalHeight !== 0) {
+            markLoaded();
+        }
+    });
 
     // CSS Grid 레이아웃은 자동 처리됨 (Masonry 제거됨)
 }
@@ -394,48 +345,58 @@ function openProjectModal(projectId) {
             existingHeader.remove();
         }
 
-        // 헤더 생성 (제목 + GitHub 버튼)
-        const headerHTML = `
-            <div class="modal-header">
-                <h2 id="modalTitle">${project.title}</h2>
-                <div class="modal-links">
-                    <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-github"></i> GitHub Repository
-                    </a>
-                </div>
-            </div>`;
-
-        // Architecture Section 생성 (architectureUrl이 있는 경우만)
+        // Architecture 버튼 생성 (architectureUrl이 있는 경우만)
         let architectureHTML = '';
         if (project.architectureUrl) {
             const altText = project.architectureAlt || `${project.title} Architecture Diagram`;
             architectureHTML = `
                 <div class="modal-architecture">
-                    <h4>Architecture</h4>
-                    <div class="architecture-diagram-container"
-                         role="button" tabindex="0"
-                         aria-label="Click to enlarge architecture diagram"
-                         data-arch-url="${project.architectureUrl}"
-                         data-arch-alt="${altText}">
-                        <img src="${project.architectureUrl}"
-                             alt="${altText}"
-                             class="architecture-diagram"
-                             loading="lazy"
-                             onerror="this.closest('.modal-architecture').style.display='none'">
-                        <span class="architecture-zoom-hint">
-                            <i class="fas fa-search-plus"></i> Click to enlarge
-                        </span>
-                    </div>
+                    <button class="architecture-view-btn"
+                            type="button"
+                            data-arch-url="${project.architectureUrl}"
+                            data-arch-alt="${altText}">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>View Architecture</span>
+                    </button>
                 </div>`;
         }
+
+        // Tech Stack 생성
+        let techStackHTML = '';
+        if (project.tech && project.tech.length > 0) {
+            const tagsHTML = project.tech.map(t => `<span>${t}</span>`).join('');
+            techStackHTML = `<div class="modal-tech-stack">${tagsHTML}</div>`;
+        }
+
+        // 헤더 생성
+        const headerHTML = `
+            <div class="modal-header">
+                <div class="modal-header-top">
+                    <h2 id="modalTitle">${project.title}</h2>
+                    <button class="modal-close-btn" type="button" aria-label="Close modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-header-actions">
+                    <a href="${project.githubUrl}" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-github"></i> GitHub Repository
+                    </a>
+                    ${architectureHTML}
+                </div>
+                ${techStackHTML}
+            </div>`;
 
         // 콘텐츠 생성
         let contentHTML = '';
         if (project.modalDetails) {
-            const sectionsHTML = project.modalDetails.map(section => {
+            const sectionsHTML = project.modalDetails.map((section, index) => {
                 let sectionContent = '';
                 if (section.content) {
                     sectionContent = `<p>${section.content}</p>`;
+                    // 첫 번째 content Section(Overview)은 카드 스타일 적용
+                    if (index === 0) {
+                        return `<div class="modal-section modal-overview"><h4>${section.title}</h4>${sectionContent}</div>`;
+                    }
                 } else if (section.items) {
                     const listTag = section.listType === 'ol' ? 'ol' : 'ul';
                     const itemsHTML = section.items.map(item => `<li>${item}</li>`).join('');
@@ -446,7 +407,6 @@ function openProjectModal(projectId) {
 
             contentHTML = `
                 <div class="modal-details-content visible">
-                    ${architectureHTML}
                     ${sectionsHTML}
                 </div>`;
         }
@@ -465,22 +425,21 @@ function openProjectModal(projectId) {
 
         modal.style.display = 'flex';
 
-        // Architecture Diagram 클릭 이벤트 바인딩
+        // Close 버튼 이벤트 바인딩
+        const closeBtn = modalContent.querySelector('.modal-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeProjectModal);
+        }
+
+        // Architecture 버튼 클릭 이벤트 바인딩
         if (project.architectureUrl) {
-            const archContainer = modalContentInner.querySelector('.architecture-diagram-container');
-            if (archContainer) {
-                const handleArchClick = () => {
+            const archBtn = modalContent.querySelector('.architecture-view-btn');
+            if (archBtn) {
+                archBtn.addEventListener('click', () => {
                     openArchitectureLightbox(
-                        archContainer.dataset.archUrl,
-                        archContainer.dataset.archAlt
+                        archBtn.dataset.archUrl,
+                        archBtn.dataset.archAlt
                     );
-                };
-                archContainer.addEventListener('click', handleArchClick);
-                archContainer.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleArchClick();
-                    }
                 });
             }
         }
@@ -600,8 +559,14 @@ function openArchitectureLightbox(imageUrl, altText) {
     if (!lightbox) return;
 
     const img = lightbox.querySelector('.arch-lightbox-img');
-    img.src = imageUrl;
     img.alt = altText;
+
+    // 이미지 로드 실패 시 Lightbox 닫기
+    img.addEventListener('error', () => {
+        closeArchitectureLightbox();
+    }, { once: true });
+
+    img.src = imageUrl;
 
     lightbox.setAttribute('aria-hidden', 'false');
     lightbox.style.display = 'flex';
@@ -728,8 +693,6 @@ export function initProjectsUI() {
 
     // 모달 이벤트 리스너는 초기화 시 한 번만 등록
     setupModalListeners();
-
-
 
     debugLog('Projects UI module initialized');
 }

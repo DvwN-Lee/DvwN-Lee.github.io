@@ -13,6 +13,7 @@ import { initAnimations } from './modules/animations.js';
 import { initProblemSolvingUI } from './modules/problem-solving-ui.js';
 import { initSiteInfoUI } from './modules/site-info-ui.js';
 import { initIntroUI } from './modules/intro-ui.js';
+import { initHeroBg } from './modules/hero-bg.js';
 
 debugLog('ES6 Module System Loaded!');
 
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProblemSolvingUI(); // Problem Solving UI 렌더링
     initSiteInfoUI();    // Contact & Footer UI 렌더링
 
+    initHeroBg();        // Hero 배경 Network Topology 애니메이션
     initAnimations();    // 애니메이션 효과 (모든 UI 렌더링 후 초기화)
 
     // 모든 UI 렌더링 후 AOS refresh

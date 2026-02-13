@@ -94,6 +94,8 @@ export const projectsData = [
         summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 기반 Backend 303개 테스트(92% 커버리지)를 달성한 프로젝트',
         imageUrl: 'https://github.com/DvwN-Lee/exam-platform/raw/main/docs/demo/screenshots/01-teacher-dashboard.png',
         imageAlt: 'exam-platform - Django 5.2 LTS + React 19 온라인 시험 플랫폼',
+        architectureUrl: 'images/architecture/exam_platform_v2.png',
+        architectureAlt: 'exam-platform GKE 기반 Django 5.2 + React 19 Full-Stack Architecture',
         tech: ['Django 5.2 LTS', 'DRF', 'React 19', 'TypeScript', 'TanStack Query', 'TanStack Router', 'PostgreSQL', 'MongoDB', 'Redis', 'pytest', 'Playwright', 'Docker Compose', 'GitHub Actions', 'GCP'],
         highlights: [
             'Legacy Django 2.1/Python 3.6/jQuery를 <strong>Django 5.2 LTS/React 19 Full-Stack으로 완전 재작성</strong>',
