@@ -602,7 +602,7 @@ export function initHeroBg() {
     animationId = requestAnimationFrame(loop);
 }
 
-export function cleanupHeroBg() {
+function cleanupHeroBg() {
     stopAnimation();
     document.removeEventListener('visibilitychange', handleVisibility);
     window.removeEventListener('resize', handleResize);

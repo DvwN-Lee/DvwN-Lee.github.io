@@ -634,8 +634,14 @@ function openArchitectureLightbox(imageUrl, altText) {
     if (!lightbox) return;
 
     const img = lightbox.querySelector('.arch-lightbox-img');
-    img.src = imageUrl;
     img.alt = altText;
+
+    // 이미지 로드 실패 시 Lightbox 닫기
+    img.addEventListener('error', () => {
+        closeArchitectureLightbox();
+    }, { once: true });
+
+    img.src = imageUrl;
 
     lightbox.setAttribute('aria-hidden', 'false');
     lightbox.style.display = 'flex';
