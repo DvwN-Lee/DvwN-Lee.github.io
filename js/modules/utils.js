@@ -43,6 +43,24 @@ export function getScrollBehavior() {
 }
 
 // ========================================
+// ARIA Live Region Utilities
+// ========================================
+
+/**
+ * Screen Reader에 메시지를 전달합니다 (ARIA Live Region 사용).
+ * @param {string} message - 전달할 메시지
+ */
+export function announceToScreenReader(message) {
+    const liveRegion = document.getElementById('ariaLiveRegion');
+    if (!liveRegion) return;
+    liveRegion.textContent = '';
+    // 비워진 후 다시 채워야 Screen Reader가 변경을 감지
+    requestAnimationFrame(() => {
+        liveRegion.textContent = message;
+    });
+}
+
+// ========================================
 // DOM Utilities
 // ========================================
 
@@ -134,6 +152,7 @@ function showCopyFeedback(evt) {
 
     // 복사 완료 상태로 변경
     emailLink.classList.add('copied');
+    announceToScreenReader('이메일 주소가 클립보드에 복사되었습니다');
     const originalIconClass = icon.className;
 
     // 아이콘 페이드 아웃 후 변경

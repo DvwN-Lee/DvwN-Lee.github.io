@@ -588,6 +588,9 @@ function handleVisibility() {
  * Hero 배경 Network Topology 애니메이션을 초기화합니다.
  */
 export function initHeroBg() {
+    // prefers-reduced-motion 시 Canvas Animation 초기화 생략 (CSS에서 display:none 처리됨)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     canvas = document.getElementById('heroCanvas');
     if (!canvas) return;
 

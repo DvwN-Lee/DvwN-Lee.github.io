@@ -63,6 +63,7 @@
         </div>
     </nav>
 
+    <main>
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-bg">
@@ -153,11 +154,11 @@
             <h2 class="section-title" data-aos="fade-up">Featured Projects</h2>
 
             <!-- Project Filter -->
-            <div class="project-filter" data-aos="fade-up" data-aos-delay="100">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="cloud">Cloud/DevOps</button>
-                <button class="filter-btn" data-filter="backend">Backend</button>
-                <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+            <div class="project-filter" role="group" aria-label="프로젝트 필터" data-aos="fade-up" data-aos-delay="100">
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+                <button class="filter-btn" data-filter="cloud" aria-pressed="false">Cloud/DevOps</button>
+                <button class="filter-btn" data-filter="backend" aria-pressed="false">Backend</button>
+                <button class="filter-btn" data-filter="fullstack" aria-pressed="false">Full Stack</button>
             </div>
 
             <div class="projects-grid">
@@ -204,6 +205,11 @@
             </div>
         </div>
     </section>
+
+    </main>
+
+    <!-- ARIA Live Region (복사 피드백 등 동적 알림) -->
+    <div id="ariaLiveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Scroll to Top Button -->
     <button id="scrollToTop" class="scroll-to-top" aria-label="맨 위로 가기">

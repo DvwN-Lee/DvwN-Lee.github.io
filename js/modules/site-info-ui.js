@@ -111,9 +111,9 @@ function renderFooter() {
     footerContainer.innerHTML = `
         <p class="footer-tagline">Cloud/DevOps Engineer</p>
         <p>&copy; ${currentYear} 이동주. All rights reserved.</p>
-        <div class="footer-links">
+        <nav class="footer-links" aria-label="Footer">
             ${footerLinksHTML}
-        </div>
+        </nav>
     `;
 }
 

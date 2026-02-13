@@ -305,9 +305,13 @@ function initializeProjectFilter() {
 
     cachedFilterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Update active button
-            cachedFilterButtons.forEach(btn => btn.classList.remove('active'));
+            // Update active button + aria-pressed
+            cachedFilterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
             button.classList.add('active');
+            button.setAttribute('aria-pressed', 'true');
 
             const filterValue = button.getAttribute('data-filter');
 
