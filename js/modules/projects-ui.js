@@ -4,7 +4,7 @@
 
 import { projectsData } from '../data/projects.js';
 import { config } from '../data/config.js';
-import { getRequiredElement, debugLog, prefersReducedMotion, resetInlineStyles } from './utils.js';
+import { getRequiredElement, debugLog, resetInlineStyles } from './utils.js';
 import { AnimationQueue, removeAOSAttributes } from './animation-utils.js';
 
 // ========================================
@@ -192,81 +192,6 @@ function animateProjectCards(filterValue = FILTER.ALL) {
 
         }, ANIMATION.FADE_DURATION);
     });
-}
-
-/**
- * 초기 페이지 로드 시 순차 애니메이션 적용
- * 제목 → 필터 버튼 → 프로젝트 카드 순서로 fade-up
- * IntersectionObserver로 viewport 진입 시에만 실행
- */
-function applyInitialLoadAnimation() {
-    // direct-projects-access가 있으면 애니메이션 건너뛰기 (reload 시)
-    if (document.body.classList.contains('direct-projects-access')) {
-        return;
-    }
-
-    // prefers-reduced-motion 체크
-    if (prefersReducedMotion()) {
-        return;
-    }
-
-    const projectsSection = document.querySelector('#projects');
-    if (!projectsSection) return;
-
-    const projectsTitle = document.querySelector('#projects h2');
-    const filterButtons = document.querySelector('.filter-buttons');
-    const projectCards = document.querySelectorAll('.project-card');
-
-    // 1. 초기 상태: 모든 요소에 invisible-init 클래스 추가
-    if (projectsTitle) projectsTitle.classList.add('invisible-init');
-    if (filterButtons) filterButtons.classList.add('invisible-init');
-    projectCards.forEach(card => card.classList.add('invisible-init'));
-
-    // 2. IntersectionObserver로 viewport 진입 감지
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // 순차적으로 visible-animate 클래스 추가
-                // 제목: 150ms 후
-                setTimeout(() => {
-                    if (projectsTitle) {
-                        projectsTitle.classList.add('visible-animate');
-                        projectsTitle.classList.remove('invisible-init');
-                    }
-                }, 150);
-
-                // 필터 버튼: 450ms 후 (제목 애니메이션 절반 진행 후)
-                setTimeout(() => {
-                    if (filterButtons) {
-                        filterButtons.classList.add('visible-animate');
-                        filterButtons.classList.remove('invisible-init');
-                    }
-                }, 450);
-
-                // 프로젝트 카드: initialLoadDelay 후 시작, 각 카드는 sequentialInterval 간격
-                const { maxSequentialAnimation } = projectsConfig;
-                const { sequentialInterval, initialLoadDelay } = animations;
-                projectCards.forEach((card, index) => {
-                    // 최대 maxSequentialAnimation개까지만 순차 애니메이션, 나머지는 동시에
-                    const staggerDelay = index < maxSequentialAnimation
-                        ? index * sequentialInterval
-                        : maxSequentialAnimation * sequentialInterval;
-                    setTimeout(() => {
-                        card.classList.add('visible-animate');
-                        card.classList.remove('invisible-init');
-                    }, initialLoadDelay + staggerDelay);
-                });
-
-                // 애니메이션 실행 후 observer 해제 (메모리 누수 방지)
-                observer.disconnect();
-            }
-        });
-    }, {
-        threshold: 0.1,  // 섹션이 10% 보이면 트리거
-        rootMargin: '0px'
-    });
-
-    observer.observe(projectsSection);
 }
 
 /**
@@ -768,8 +693,6 @@ export function initProjectsUI() {
 
     // 모달 이벤트 리스너는 초기화 시 한 번만 등록
     setupModalListeners();
-
-
 
     debugLog('Projects UI module initialized');
 }
