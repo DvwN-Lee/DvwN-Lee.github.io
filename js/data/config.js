@@ -46,12 +46,6 @@ export const config = {
             url: 'https://velog.io/@dongju101',
             iconClass: 'fas fa-blog',
             handle: 'velog.io/@dongju101'
-        },
-        {
-            name: 'LinkedIn',
-            url: 'https://www.linkedin.com/in/dongju-lee',
-            iconClass: 'fab fa-linkedin',
-            handle: 'linkedin.com/in/dongju-lee'
         }
     ],
 

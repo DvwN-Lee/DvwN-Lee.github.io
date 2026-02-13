@@ -1820,9 +1820,8 @@ details[open] > .accordion-summary::before {
     color: var(--text-primary);
 }
 
-/* Hide Blog and LinkedIn */
-.contact-info .contact-item:nth-child(3),
-.contact-info .contact-item:nth-child(4) {
+/* Hide Blog */
+.contact-info .contact-item:nth-child(3) {
     display: none;
 }
 
