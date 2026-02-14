@@ -7,7 +7,7 @@ Cloud/DevOps 엔지니어 및 백엔드 개발자 이동주의 개인 포트폴�
 - **모던 UI/UX**: 다크/라이트 테마를 지원하는 인터랙티브 디자인
 - **100% 반응형**: 모바일, 태블릿, 데스크톱 등 모든 디바이스에 최적화된 레이아웃
 - **동적 콘텐츠 렌더링**: JavaScript 모듈을 통해 모든 콘텐츠(프로젝트, 스킬, 경력 등)를 동적으로 관리
-- **인터랙티브 요소**: 스크롤 기반 애니메이션, 동적 파티클 효과, 프로젝트 필터링 및 상세 정보 모달
+- **인터랙티브 요소**: 스크롤 기반 애니메이션, Canvas Network Topology Animation, 프로젝트 필터링 및 상세 정보 모달
 
 ## 기술 스택
 
@@ -18,16 +18,13 @@ Cloud/DevOps 엔지니어 및 백엔드 개발자 이동주의 개인 포트폴�
 
 ### Libraries
 - **AOS**: 스크롤 애니메이션
-- **Particles.js**: 배경 인터랙션 효과
 - **Font Awesome**: 아이콘
 
 ### Testing
 - **Playwright**: E2E 테스트 프레임워크
-- **TypeScript**: 테스트 코드 작성
 - **serve**: 로컬 개발 서버
 
 ### Development
-- **Python (Pillow)** 및 **uv**: 이미지 포맷 최적화 (WebP)
 - **Git** & **GitHub**: 버전 관리 및 배포
 
 ## 주요 개선 사항
@@ -65,7 +62,6 @@ Cloud/DevOps 엔지니어 및 백엔드 개발자 이동주의 개인 포트폴�
 ### 성능 최적화
 
 - **이미지 최적화**
-  - WebP 포맷 전환으로 로딩 속도 개선
   - `loading="lazy"` 속성으로 이미지 지연 로딩 구현
   - SVG 이미지 배경 제거로 시각적 품질 개선
 
@@ -95,10 +91,11 @@ DvwN-Lee.github.io/
 ├── README.md                       # 프로젝트 문서
 ├── package.json                    # Node.js 의존성 및 스크립트
 ├── playwright.config.ts            # Playwright 테스트 설정
-├── images/                         # 이미지 리소스 (WebP)
-│   ├── kiali.webp
-│   ├── kustomize.webp
-│   └── ...
+├── images/
+│   └── architecture/               # Architecture Diagram (PNG)
+│       ├── cloudnative_v3.png
+│       ├── exam_platform_v2.png
+│       └── ...
 ├── js/
 │   ├── main.js                     # 애플리케이션 진입점
 │   ├── data/                       # 데이터 모듈
@@ -110,7 +107,8 @@ DvwN-Lee.github.io/
 │   │   └── shared-content.js       # 공유 콘텐츠 데이터
 │   └── modules/                    # UI 모듈
 │       ├── animation-utils.js      # 애니메이션 유틸리티
-│       ├── animations.js           # AOS 및 Particles 초기화
+│       ├── animations.js           # AOS 초기화
+│       ├── hero-bg.js              # Canvas Network Topology Animation
 │       ├── intro-ui.js             # Intro 섹션 렌더링
 │       ├── navigation.js           # 네비게이션 로직
 │       ├── problem-solving-ui.js   # Problem Solving 섹션 렌더링
@@ -150,9 +148,6 @@ npm run test:headed
 # 디버그 모드
 npm run test:debug
 
-# Visual Regression 테스트
-npm run test:visual
-
 # Snapshot 업데이트
 npm run test:update-snapshots
 ```
@@ -179,4 +174,4 @@ GitHub Pages를 통해 자동 배포됩니다. `main` branch에 push하면 자�
 
 ---
 
-**Last Updated**: 2025.12
+**Last Updated**: 2026.02

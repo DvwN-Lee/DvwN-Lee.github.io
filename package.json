@@ -8,7 +8,6 @@
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
-    "test:visual": "playwright test tests/visual/",
     "test:update-snapshots": "playwright test --update-snapshots",
     "serve": "npx serve -l 8080"
   },
