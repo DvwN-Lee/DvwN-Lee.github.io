@@ -500,13 +500,13 @@ function drawParticles(rgb) {
 
         const M = CONFIG.particleMargin;
         for (const particle of edge.particles) {
-            // 이동 범위를 margin 내로 제한 (M ~ 1-M)
+            // Bezier 곡선 전체를 이동 (Edge 좌표가 이미 Node 경계 offset 적용됨)
             const rawT = particle.direction === 1 ? particle.t : 1 - particle.t;
-            const t = M + rawT * (1 - 2 * M);
+            const t = rawT;
             const pt = bezierPoint(eAx, eAy, eCx, eCy, eBx, eBy, t);
 
-            // margin 경계 기준 fade
-            const edgeFade = Math.min(particle.t / M, (1 - particle.t) / M, 1);
+            // 출발 시 fade-in만 적용 (도착 시에는 Node에 도달하며 자연스럽게 제거)
+            const edgeFade = Math.min(particle.t / M, 1);
             const lifeFade = particle.fading ? particle.fadeLife : 1;
             const pAlpha = 0.7 * edgeFade * lifeFade;
 
@@ -515,7 +515,7 @@ function drawParticles(rgb) {
             // Trail
             if (!particle.fading) {
                 const trailT = t - CONFIG.particleTrailLength * particle.direction;
-                if (trailT >= M && trailT <= 1 - M) {
+                if (trailT >= 0 && trailT <= 1) {
                     const tp = bezierPoint(eAx, eAy, eCx, eCy, eBx, eBy, trailT);
                     ctx.beginPath();
                     ctx.arc(tp.x, tp.y, CONFIG.particleRadius * 0.6, 0, Math.PI * 2);
