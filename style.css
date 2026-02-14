@@ -1204,7 +1204,7 @@ h3 {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--accent-color);
+    background: var(--primary-color);
 }
 
 /* Highlights 내 strong 태그 강조 */
@@ -1411,7 +1411,7 @@ details[open] > .accordion-summary::before {
     position: absolute;
     left: 0;
     top: 0;
-    color: var(--accent-color);
+    color: var(--primary-color);
     font-size: var(--font-size-xs);
 }
 
@@ -1734,7 +1734,7 @@ details[open] > .accordion-summary::before {
     content: '•';
     position: absolute;
     left: 0;
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 /* ===== Contact Section ===== */
@@ -2765,6 +2765,9 @@ a:focus-visible {
     border-radius: var(--radius-lg);
     width: 80%;
     max-width: 900px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
     transform: scale(0.8);
     opacity: 0;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2777,8 +2780,10 @@ a:focus-visible {
 
 
 .modal-content-inner {
-    max-height: calc(80vh - 5rem);
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    overscroll-behavior: contain;
     margin-top: 0;
     padding-right: 0.75rem;
     margin-right: -0.75rem;
@@ -3051,12 +3056,12 @@ a:focus-visible {
 @media (max-width: 768px) {
     .modal-content {
         width: 95%;
+        max-height: 92vh;
         padding: 1.5rem;
         border-radius: 16px;
     }
 
     .modal-content-inner {
-        max-height: calc(85vh - 4rem);
         margin-top: 0;
     }
 
@@ -3112,12 +3117,12 @@ a:focus-visible {
 @media (max-width: 480px) {
     .modal-content {
         width: 98%;
+        max-height: 95vh;
         padding: 1rem;
         border-radius: 12px;
     }
 
     .modal-content-inner {
-        max-height: calc(90vh - 3rem);
         margin-top: 0;
     }
 
