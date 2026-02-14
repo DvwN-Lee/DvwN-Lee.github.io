@@ -47,6 +47,7 @@
     --space-sm: 0.75rem;
     --space-md: 1.25rem;
     --space-lg: 2rem;
+    --space-section: 100px;
 
     /* Elevation (Hover Lift) */
     --lift-sm: -2px;
@@ -54,6 +55,7 @@
     --lift-lg: -8px;
 
     /* Border Radius Scale */
+    --radius-xs: 4px;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 20px;
@@ -449,7 +451,7 @@ h3 {
     width: 30px;
     height: 50px;
     border: 2px solid var(--text-secondary);
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     display: flex;
     justify-content: center;
     padding-top: 10px;
@@ -465,7 +467,7 @@ h3 {
 
 /* ===== About Section ===== */
 .about {
-    padding: 100px 0;
+    padding: var(--space-section) 0;
     background: var(--bg-secondary);
     position: relative;
     overflow: hidden;
@@ -596,7 +598,7 @@ h3 {
 
 /* ===== Skills Section ===== */
 .skills {
-    padding: 100px 0;
+    padding: var(--space-section) 0;
     background: var(--bg-primary);
     position: relative;
     overflow: hidden;
@@ -697,7 +699,7 @@ h3 {
     width: 100%;
     height: 3px;
     background: var(--overlay-white-15);
-    border-radius: 0 0 15px 15px;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
 }
 
 .skill-level::after {
@@ -720,7 +722,7 @@ h3 {
 
 /* ===== Projects Section ===== */
 .projects {
-    padding: 100px 0;
+    padding: var(--space-section) 0;
     background: var(--bg-secondary);
     position: relative;
 }
@@ -791,7 +793,7 @@ h3 {
 .project-card:last-child:nth-child(even) .project-image {
     height: 100%;
     min-height: 280px;
-    border-radius: 20px 0 0 20px;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
     padding: 1.5rem;
     display: flex;
     align-items: center;
@@ -804,7 +806,7 @@ h3 {
     content: '';
     position: absolute;
     inset: 1rem;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     box-shadow: var(--inset-strong);
     pointer-events: none;
     z-index: 1;
@@ -813,7 +815,7 @@ h3 {
 
 .project-card:first-child .project-image-clip,
 .project-card:last-child:nth-child(even) .project-image-clip {
-    border-radius: 12px;
+    border-radius: var(--radius-md);
 }
 
 .project-card:first-child .project-image img,
@@ -942,12 +944,12 @@ h3 {
     .project-card:last-child:nth-child(even) .project-image {
         height: 200px;
         min-height: unset;
-        border-radius: 20px 20px 0 0;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
 
     .project-card:first-child .project-image-clip,
     .project-card:last-child:nth-child(even) .project-image-clip {
-        border-radius: 12px;
+        border-radius: var(--radius-md);
     }
 
     .project-card:first-child .project-content,
@@ -969,7 +971,7 @@ h3 {
     content: '';
     position: absolute;
     inset: 0.5rem;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     box-shadow: var(--inset-weak);
     pointer-events: none;
     z-index: 1;
@@ -1277,7 +1279,7 @@ details[open] > .accordion-summary::before {
     outline: none;
     background: var(--primary-rgba-05);
     border: 1px solid var(--primary-rgba-20);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     position: relative;
     transition: all 0.3s ease;
@@ -1324,7 +1326,7 @@ details[open] > .accordion-summary::before {
     background: var(--primary-rgba-03);
     border: 1px solid var(--primary-rgba-20);
     border-top: none;
-    border-radius: 0 0 12px 12px;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
     overflow: hidden;
     height: 0;
     opacity: 0;
@@ -1439,7 +1441,7 @@ details[open] > .accordion-summary::before {
     outline: none;
     background: var(--primary-rgba-05);
     border: 1px solid var(--primary-rgba-20);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     position: relative;
     transition: all 0.3s ease;
@@ -1486,7 +1488,7 @@ details[open] > .accordion-summary::before {
     background: var(--primary-rgba-03);
     border: 1px solid var(--primary-rgba-20);
     border-top: none;
-    border-radius: 0 0 12px 12px;
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
     overflow: hidden;
     height: 0;
     opacity: 0;
@@ -1611,7 +1613,7 @@ details[open] > .accordion-summary::before {
 
 /* ===== Timeline ===== */
 .experience {
-    padding: 100px 0;
+    padding: var(--space-section) 0;
     background: var(--bg-primary);
     position: relative;
     overflow: hidden;
@@ -1739,7 +1741,7 @@ details[open] > .accordion-summary::before {
 
 /* ===== Contact Section ===== */
 .contact {
-    padding: 100px 0;
+    padding: var(--space-section) 0;
     background: var(--bg-primary);
 }
 
@@ -2008,6 +2010,71 @@ details[open] > .accordion-summary::before {
     pointer-events: none;
 }
 
+/* Section Skeleton Loader */
+.skeleton-block {
+    background: linear-gradient(90deg,
+        var(--overlay-white-05) 25%,
+        var(--overlay-white-15) 50%,
+        var(--overlay-white-05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--radius-md);
+}
+
+.skeleton-line {
+    height: 1rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(90deg,
+        var(--overlay-white-05) 25%,
+        var(--overlay-white-15) 50%,
+        var(--overlay-white-05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--radius-xs);
+}
+
+.skeleton-line:last-child {
+    width: 60%;
+}
+
+/* Skills Skeleton */
+.skeleton-skill-card {
+    padding: 1.5rem;
+    min-height: 180px;
+}
+
+.skeleton-skill-title {
+    height: 1.25rem;
+    width: 40%;
+    margin-bottom: 1.25rem;
+}
+
+.skeleton-skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.skeleton-skill-item {
+    width: 70px;
+    height: 70px;
+    border-radius: var(--radius-sm);
+}
+
+/* Timeline Skeleton */
+.skeleton-timeline-item {
+    padding: 1.5rem;
+    min-height: 120px;
+    margin-bottom: 1.5rem;
+}
+
+/* Problem Solving Skeleton */
+.skeleton-problem-item {
+    padding: 1.25rem;
+    min-height: 60px;
+    margin-bottom: 1rem;
+}
+
 /* ===== Animations ===== */
 @keyframes fadeInUp {
     from {
@@ -2192,7 +2259,7 @@ details[open] > .accordion-summary::before {
    Problem Solving Section
    ==================================================================== */
 .problem-solving {
-    padding: 100px 0;
+    padding: var(--space-section) 0;
     background: var(--bg-primary);
     position: relative;
 }
@@ -2291,7 +2358,7 @@ details[open] > .accordion-summary::before {
     padding-left: 50px;
     transition: all 0.3s ease;
     background: var(--primary-rgba-05);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     border: 1px solid var(--primary-rgba-20);
 }
 
@@ -2536,7 +2603,7 @@ details[open] > .accordion-summary::before {
     background: var(--primary-color);
     color: white;
     padding: 0.8rem 1.5rem;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     text-decoration: none;
     font-weight: 600;
     z-index: var(--z-overlay);
@@ -2852,7 +2919,7 @@ a:focus-visible {
     width: 36px;
     height: 36px;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     background: transparent;
     color: var(--text-secondary);
     font-size: 1rem;
@@ -2890,7 +2957,7 @@ a:focus-visible {
     padding: 0.3rem 0.75rem;
     background: var(--primary-rgba-05);
     border: 1px solid var(--primary-rgba-20);
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     font-size: var(--font-size-xs);
     font-weight: 500;
     color: var(--primary-color);
@@ -2972,7 +3039,7 @@ a:focus-visible {
     gap: 0.5rem;
     padding: 12px 30px;
     border: 2px dashed var(--primary-color);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     background: transparent;
     color: var(--primary-color);
     font-size: 1rem;
@@ -3048,7 +3115,7 @@ a:focus-visible {
     max-width: 90vw;
     max-height: calc(100vh - 120px);
     object-fit: contain;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -3058,7 +3125,7 @@ a:focus-visible {
         width: 95%;
         max-height: 92vh;
         padding: 1.5rem;
-        border-radius: 16px;
+        border-radius: var(--radius-lg);
     }
 
     .modal-content-inner {
@@ -3119,7 +3186,7 @@ a:focus-visible {
         width: 98%;
         max-height: 95vh;
         padding: 1rem;
-        border-radius: 12px;
+        border-radius: var(--radius-md);
     }
 
     .modal-content-inner {
@@ -3161,7 +3228,7 @@ a:focus-visible {
     /* Lightbox - Small Mobile */
     .arch-lightbox-img {
         max-width: 98vw;
-        border-radius: 4px;
+        border-radius: var(--radius-xs);
     }
 }
 

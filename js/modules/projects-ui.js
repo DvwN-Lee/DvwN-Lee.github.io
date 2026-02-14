@@ -232,7 +232,7 @@ function renderProjects() {
         const aosDelay = (index + 2) * 100;
 
         return `
-            <div class="project-card" data-category="${project.category}" data-project-id="${project.id}" data-aos="fade-up" data-aos-delay="${aosDelay}">
+            <article class="project-card" data-category="${project.category}" data-project-id="${project.id}" data-aos="fade-up" data-aos-delay="${aosDelay}">
                 <div class="project-card-inner">
                     <div class="project-image">
                         <div class="project-image-clip">
@@ -262,7 +262,7 @@ function renderProjects() {
                         </ul>
                     </div>
                 </div>
-            </div>
+            </article>
         `;
     }).join('');
 
