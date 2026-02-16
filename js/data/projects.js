@@ -92,7 +92,7 @@ export const projectsData = [
         badge: 'Featured',
         title: 'exam-platform - 온라인 시험 플랫폼',
         summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 기반 Backend 303개 테스트(92% 커버리지)를 달성한 프로젝트',
-        imageUrl: 'https://github.com/DvwN-Lee/exam-platform/raw/main/docs/demo/screenshots/01-teacher-dashboard.png',
+        imageUrl: 'https://github.com/DvwN-Lee/exam-platform/blob/main/docs/demo/screenshots/08-teacher-dashboard-after.png',
         imageAlt: 'exam-platform Teacher Dashboard - 시험 목록과 관리 기능이 표시된 교사용 메인 화면',
         architectureUrl: 'images/architecture/exam_platform_v2.png',
         architectureAlt: 'exam-platform GKE 기반 Django 5.2 + React 19 Full-Stack Architecture',
