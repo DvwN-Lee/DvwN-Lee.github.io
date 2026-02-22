@@ -87,13 +87,13 @@ export const cloudNativeV2Content = {
         '<strong>GitOps 자동화 파이프라인 구축</strong>: GitHub Actions로 CI(Docker 빌드, Trivy 보안 스캔, 이미지 푸시)를 자동화하고, Argo CD를 이용해 Git Repository를 기준으로 클러스터 상태를 동기화하는 CD 파이프라인을 구축하여 <strong>5분 내 무중단 배포</strong>를 실현했습니다.',
         '<strong>Service Mesh 보안 체계 적용</strong>: Istio Service Mesh의 <strong>mTLS STRICT 모드</strong>로 서비스 간 통신을 상호 인증 및 암호화하여 서비스 간 보안 통신을 구현했습니다. 또한 CI 단계에 <strong>Trivy</strong>를 통합하여 이미지 취약점을 사전에 차단했습니다.',
         '<strong>통합 관측 가능성 시스템 구축</strong>: Prometheus로 실시간 메트릭을 수집하고, Loki로 로그를 중앙화했으며, Grafana를 통해 Golden Signals 대시보드를 구축했습니다. Kiali를 활용해 서비스 메시를 시각적으로 모니터링하여 복잡한 MSA 구조의 트래픽 흐름을 명확히 파악할 수 있게 되었습니다.',
-        '<strong>k6 부하 테스트 기반 성능 최적화</strong>: k6 스크립트로 실제와 유사한 트래픽 시나리오 기반의 부하 테스트를 진행했습니다. 테스트 결과 드러난 병목 현상을 기반으로 HPA의 임계값을 정밀하게 튜닝하여 HPA 임계값 튜닝으로 <strong>P99 Latency 99.5% 감소(3.71s → 19.8ms)</strong>, 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성하고 안정적인 트래픽 처리 용량을 확보했습니다.'
+        '<strong>k6 부하 테스트 기반 성능 최적화</strong>: k6 스크립트로 실제와 유사한 트래픽 시나리오 기반의 부하 테스트를 진행했습니다. 테스트 결과 드러난 병목 현상을 기반으로 HPA의 임계값을 정밀하게 튜닝하여 <strong>P99 Latency 94% 감소(3.71s → 238ms)</strong>, 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성하고 안정적인 트래픽 처리 용량을 확보했습니다.'
     ],
 
     results: [
         '<strong>배포 속도 및 안정성 향상</strong>: 수동으로 수십 분 걸리던 배포가 <strong>Git Push 후 평균 5분 내</strong>의 완전 자동화된 프로세스로 개선되었고, 휴먼 에러 가능성을 원천 차단했습니다.',
         '<strong>보안 자동화 및 강화</strong>: Istio mTLS STRICT 모드로 서비스 간 암호화 통신을 구현하고, 자동화된 Trivy 취약점 스캔을 통해 코드 변경 없이 <strong>높은 수준의 보안 체계</strong>를 구축했습니다.',
-        '<strong>정량적 성능 개선</strong>: HPA 최적화를 통해 <strong>P99 Latency 99.5% 감소(3.71s → 19.8ms)</strong>, 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성하고, Grafana 정상 트래픽 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 부하 테스트(100 VU) <strong>P95 83.73ms / 에러율 0.01%</strong>의 시스템 안정성을 확보했습니다.',
+        '<strong>정량적 성능 개선</strong>: HPA 최적화를 통해 <strong>P99 Latency 94% 감소(3.71s → 238ms)</strong>, 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성하고, Grafana 정상 트래픽 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 부하 테스트(100 VU) <strong>P95 74.76ms / 에러율 0.01%</strong>의 시스템 안정성을 확보했습니다.',
         '<strong>운영 효율성 증대</strong>: 인프라 및 배포 자동화, 중앙화된 관측성 시스템을 통해 복잡한 MSA 환경의 운영 부담을 크게 절감하고, 장애 발생 시 원인 분석 시간을 단축했습니다.'
     ],
 
@@ -108,7 +108,7 @@ export const cloudNativeV2Content = {
             '<strong>Service Mesh 보안</strong>: Istio mTLS STRICT 모드를 적용하여 서비스 간 상호 인증 및 암호화 통신 구현',
             '<strong>통합 관측성(Observability) 시스템</strong>: Prometheus/Grafana/Loki로 Golden Signals 모니터링, 중앙화된 로그 관리',
             '<strong>서비스 메시 시각화</strong>: Kiali 대시보드를 통해 MSA 트래픽 흐름과 서비스 의존성을 시각적으로 분석',
-            '<strong>성능 부하 테스트 및 최적화</strong>: k6 부하 테스트 기반 HPA 튜닝으로 P99 Latency 99.5% 감소(3.71s → 19.8ms), 5xx 에러율 99.1% 감소(0.460% → 0.004%)'
+            '<strong>성능 부하 테스트 및 최적화</strong>: k6 부하 테스트 기반 HPA 튜닝으로 P99 Latency 94% 감소(3.71s → 238ms), 5xx 에러율 99.1% 감소(0.460% → 0.004%)'
         ],
 
         technicalImplementation: [
@@ -127,7 +127,7 @@ export const cloudNativeV2Content = {
             '<strong>GitOps 기반 CI/CD 파이프라인 완전 자동화</strong>: 개발부터 배포까지의 전체 프로세스를 자동화하며 MSA 환경의 복잡성을 관리하는 경험을 쌓았습니다.',
             '<strong>Service Mesh를 활용한 고급 보안 및 트래픽 관리</strong>: Istio를 통해 코드 수정 없이 mTLS 암호화, 접근 제어 등 높은 수준의 보안을 적용하고, Kiali로 복잡한 서비스 관계를 시각화하며 디버깅 효율을 높였습니다.',
             '<strong>DevSecOps</strong>: CI 과정에 Trivy 취약점 스캔을 통합하여 개발 초기 단계부터 보안을 고려하는 DevSecOps를 실천했습니다.',
-            '<strong>데이터 기반 성능 최적화</strong>: k6 부하 테스트로 시스템의 병목을 정량적으로 분석하고, HPA 튜닝을 통해 P99 Latency 99.5% 감소(3.71s → 19.8ms) 및 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성했습니다.'
+            '<strong>데이터 기반 성능 최적화</strong>: k6 부하 테스트로 시스템의 병목을 정량적으로 분석하고, HPA 튜닝을 통해 P99 Latency 94% 감소(3.71s → 238ms) 및 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성했습니다.'
         ]
     }
 };

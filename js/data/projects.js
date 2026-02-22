@@ -280,7 +280,7 @@ export const projectsData = [
         tech: ['Django', 'MySQL', 'jQuery', 'Bootstrap'],
         highlights: [
             'Django 프레임워크를 활용한 풀스택 웹 애플리케이션 개발 및 MySQL 데이터베이스 연동',
-            '관리자, 교사, 학생 3가지 역할에 따른 역할 기반 접근 제어(RBAC) 시스템 설계 및 구현',
+            '관리자, 교사, 학생 3가지 역할을 가진 사용자 모델 설계 및 Django Admin 기반 운영 인터페이스 구현',
             '사용자, 문제, 시험지, 시험 관리 등 4가지 핵심 모듈로 구성된 복잡한 도메인 로직 처리',
             'Django Admin 커스터마이징으로 시스템 운영 및 데이터 관리 효율성 증대'
         ],
