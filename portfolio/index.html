@@ -129,9 +129,6 @@
       padding: 18px 44px;
     }
 
-    .section + .section {
-    }
-
     .section-label {
       font-family: var(--font-display);
       font-size: 0.68rem;
@@ -181,9 +178,6 @@
       align-items: baseline;
       padding: 5px 0;
       gap: 12px;
-    }
-
-    .skills-row + .skills-row {
     }
 
     .skills-label {
@@ -314,9 +308,6 @@
       padding: 8px 0;
     }
 
-    .other-project + .other-project {
-    }
-
     .other-project-head {
       display: flex;
       justify-content: space-between;
@@ -364,9 +355,6 @@
       align-items: baseline;
       padding: 6px 0;
       gap: 16px;
-    }
-
-    .edu-row + .edu-row {
     }
 
     .edu-main {
@@ -573,7 +561,7 @@
         <ul class="project-highlights">
           <li>GitHub Actions + Argo CD 기반 GitOps Pipeline으로 <strong>Git Push 후 5분 내 자동 배포</strong> 달성</li>
           <li>Istio mTLS STRICT 모드로 <strong>Zero Trust Network</strong> 보안 아키텍처 구현</li>
-          <li>Golden Signals 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 100VU <strong>에러율 0.01%</strong></li>
+          <li>Golden Signals 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 100VU <strong>P95 74.76ms / 에러율 0.01%</strong></li>
           <li>CI Pipeline에 <strong>Trivy 보안 스캔 통합</strong>하여 Container 취약점 자동 탐지</li>
         </ul>
         <div class="project-tech"><span class="project-tech-label">Tech</span> &ensp;Kubernetes &middot; Terraform &middot; Istio &middot; ArgoCD &middot; GitHub Actions &middot; Prometheus &middot; Grafana &middot; Loki &middot; Trivy &middot; Go &middot; Python (FastAPI)</div>
@@ -617,7 +605,7 @@
           <div class="other-project-title">온라인 시험 관리 시스템 (Legacy)</div>
           <div class="other-project-period">2023.06</div>
         </div>
-        <div class="other-project-desc">Django 기반 온라인 시험 출제 및 채점 시스템. 관리자/교사/학생 3종 RBAC 설계 및 4가지 핵심 모듈 구현</div>
+        <div class="other-project-desc">Django 기반 온라인 시험 출제 및 채점 시스템. 관리자/교사/학생 3종 사용자 모델 설계 및 Django Admin 기반 운영 인터페이스 구현</div>
         <div class="other-project-tech">Django &middot; MySQL &middot; jQuery &middot; Bootstrap</div>
       </div>
 

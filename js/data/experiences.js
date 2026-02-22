@@ -99,7 +99,7 @@ export const experiencesData = [
     ]
   },
   {
-    date: '2020.03 ~ 현재',
+    date: '2021.03 ~ 현재',
     title: '단국대학교 컴퓨터공학과',
     subtitle: '학부 재학 중',
     achievements: [
