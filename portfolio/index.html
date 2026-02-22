@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이동주 - Cloud/DevOps Engineer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #2563eb;
+      --secondary: #7c3aed;
+      --accent: #06b6d4;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --text: #0f172a;
+      --text-sub: #475569;
+      --border: #e2e8f0;
+      --gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+      --primary-08: rgba(37, 99, 235, 0.08);
+      --primary-40: rgba(37, 99, 235, 0.4);
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: #eef1f5;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 210mm;
+      margin: 0 auto;
+      background: var(--bg);
+    }
+
+    a { color: var(--primary); text-decoration: none; }
+
+    /* ===== Header ===== */
+    .header {
+      padding: 36px 44px 28px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-photo {
+      width: 100px;
+      height: 130px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .header-info {
+      flex: 1;
+    }
+
+    .header-name {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .header-role {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: 4px;
+    }
+
+    .header-about {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    .header-contact {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      line-height: 1.8;
+      flex-shrink: 0;
+    }
+
+    .header-contact a {
+      color: var(--text-sub);
+    }
+
+    .header-contact a:hover {
+      color: var(--primary);
+    }
+
+    /* ===== Portfolio Link ===== */
+    .portfolio-link {
+      padding: 12px 44px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-08);
+    }
+
+    .portfolio-link-sub {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    /* ===== Section ===== */
+    .section {
+      padding: 18px 44px;
+    }
+
+    .section + .section {
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .about-keywords {
+      margin-top: 10px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .keyword {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--primary);
+      padding: 3px 12px;
+      border: 1px solid var(--primary-40);
+      border-radius: 3px;
+      background: var(--primary-08);
+    }
+
+    /* ===== Skills ===== */
+    .skills-table {
+      width: 100%;
+      font-size: 0.82rem;
+    }
+
+    .skills-row {
+      display: flex;
+      align-items: baseline;
+      padding: 5px 0;
+      gap: 12px;
+    }
+
+    .skills-row + .skills-row {
+    }
+
+    .skills-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.74rem;
+      color: var(--text);
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+
+    .skills-values {
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .skills-values span {
+      white-space: nowrap;
+    }
+
+    .skills-values span + span::before {
+      content: '\00b7\00a0';
+      color: var(--border);
+      font-weight: 700;
+    }
+
+    .learning {
+      font-size: 0.62rem;
+      color: var(--text-sub);
+      font-weight: 400;
+      vertical-align: baseline;
+    }
+
+    /* ===== Projects ===== */
+    .project {
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .project-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 2px;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .project-period {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .project-meta {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+
+    .project-meta a {
+      font-weight: 500;
+    }
+
+    .project-summary {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .project-highlights {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    .project-highlights li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-bottom: 3px;
+    }
+
+    .project-highlights li::before {
+      content: '\25B8';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 0.68rem;
+    }
+
+    .project-highlights strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .project-tech {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+    }
+
+    .project-tech-label {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ===== Other Projects ===== */
+    .other-project {
+      padding: 8px 0;
+    }
+
+    .other-project + .other-project {
+    }
+
+    .other-project-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 2px;
+    }
+
+    .other-project-title {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .other-project-period {
+      font-size: 0.68rem;
+      color: var(--text-sub);
+      white-space: nowrap;
+    }
+
+    .other-project-desc {
+      font-size: 0.76rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .other-project-tech {
+      font-size: 0.7rem;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    .award-inline {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #b45309;
+      margin-left: 6px;
+    }
+
+    /* ===== Education ===== */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      gap: 16px;
+    }
+
+    .edu-row + .edu-row {
+    }
+
+    .edu-main {
+      font-size: 0.84rem;
+    }
+
+    .edu-main strong {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .edu-main span {
+      color: var(--text-sub);
+      margin-left: 6px;
+    }
+
+    .edu-date {
+      font-size: 0.74rem;
+      color: var(--text-sub);
+      white-space: nowrap;
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      padding: 16px 44px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-sub);
+    }
+
+    .footer a {
+      color: var(--text-sub);
+    }
+
+    .footer a + a::before {
+      content: '\00a0\00b7\00a0';
+      color: var(--border);
+    }
+
+    /* ===== Print ===== */
+    @media print {
+      @page { size: A4; margin: 14mm 18mm; }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body { background: #fff; }
+      .page { max-width: none; box-shadow: none; }
+      .section { padding-left: 0; padding-right: 0; }
+      .header { padding-left: 0; padding-right: 0; }
+      .footer { padding-left: 0; padding-right: 0; }
+      .project, .other-project, .edu-row { page-break-inside: avoid; break-inside: avoid; }
+      .section-label { page-break-after: avoid; break-after: avoid; }
+      a[href]::after { content: none !important; }
+    }
+
+    @media screen {
+      .page {
+        box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+        margin: 20px auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-top">
+        <!-- 사진: src를 실제 이미지 경로로 교체 -->
+        <img class="header-photo" src="photo.jpg" alt="증명사진">
+        <div class="header-info">
+          <div class="header-name">이동주</div>
+          <div class="header-role">Cloud/DevOps Engineer</div>
+        </div>
+        <div class="header-contact">
+          Tel. 010-8328-7743<br>
+          소재지: 경기도 안양시<br>
+          dongju101101@gmail.com<br>
+          GitHub: github.com/DvwN-Lee
+        </div>
+      </div>
+      <p class="header-about">
+        자동화를 통해 견고한 시스템을 구축하는 DevOps Engineer입니다. Kubernetes 환경에서 Terraform 기반 IaC, GitHub Actions/ArgoCD CI/CD Pipeline, Istio Service Mesh, Prometheus/Grafana Observability System을 설계하고 구현한 경험을 보유하고 있습니다.
+      </p>
+      <div class="about-keywords">
+        <span class="keyword">Cloud Native</span>
+        <span class="keyword">DevOps</span>
+        <span class="keyword">Backend</span>
+        <span class="keyword">Security</span>
+      </div>
+    </header>
+
+    <!-- Portfolio Link -->
+    <div class="portfolio-link">
+      ▸ 기술 포트폴리오: https://dvwn-lee.github.io
+      <div class="portfolio-link-sub">프로젝트 상세 내용, Architecture Diagram, 성과 데이터 확인 가능</div>
+    </div>
+
+    <!-- Skills -->
+    <section class="section">
+      <div class="section-label">Technical Skills</div>
+      <div class="skills-table">
+        <div class="skills-row">
+          <div class="skills-label">Cloud</div>
+          <div class="skills-values"><span>GCP</span> <span>AWS <sub class="learning">(학습)</sub></span> <span>CloudStack</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Container & Orchestration</div>
+          <div class="skills-values"><span>Kubernetes</span> <span>Docker</span> <span>Helm</span> <span>Cilium</span> <span>MetalLB</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">IaC & GitOps</div>
+          <div class="skills-values"><span>Terraform</span> <span>Ansible</span> <span>ArgoCD</span> <span>GitHub Actions</span> <span>Jenkins</span> <span>GitLab</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Service Mesh & Security</div>
+          <div class="skills-values"><span>Istio</span> <span>Trivy</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Monitoring</div>
+          <div class="skills-values"><span>Prometheus</span> <span>Grafana</span> <span>Loki</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Testing</div>
+          <div class="skills-values"><span>pytest</span> <span>Playwright</span> <span>Terratest</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Backend</div>
+          <div class="skills-values"><span>Go</span> <span>Python</span> <span>FastAPI</span> <span>Django</span> <span>Node.js</span> <span>JavaScript</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Frontend</div>
+          <div class="skills-values"><span>React</span> <span>TypeScript</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Database</div>
+          <div class="skills-values"><span>PostgreSQL</span> <span>Redis</span> <span>MySQL</span> <span>SQLite</span> <span>MongoDB</span></div>
+        </div>
+        <div class="skills-row">
+          <div class="skills-label">Tools</div>
+          <div class="skills-values"><span>Git</span> <span>Linux</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="section">
+      <div class="section-label">Projects</div>
+
+      <div class="project">
+        <div class="project-head">
+          <div class="project-title">GCP 기반 Cloud-Native 모니터링 플랫폼</div>
+          <div class="project-period">2025.12 ~ 2026.02</div>
+        </div>
+        <div class="project-meta">
+          1인 프로젝트 &middot; <a href="https://github.com/DvwN-Lee/Monitoring-v3">github.com/DvwN-Lee/Monitoring-v3</a>
+        </div>
+        <p class="project-summary">
+          GCP 환경에서 Terraform으로 K3s Cluster를 완전 자동화하고, ArgoCD App of Apps 패턴과 External Secrets를 활용한 End-to-End GitOps 플랫폼 구축
+        </p>
+        <ul class="project-highlights">
+          <li>Terraform으로 GCP 리소스 전체를 코드화하여 <strong>명령어 하나로 전체 인프라 프로비저닝</strong></li>
+          <li>ArgoCD <strong>App of Apps 패턴</strong>으로 Infrastructure/Application Apps 계층적 관리</li>
+          <li><strong>External Secrets Operator + GCP Secret Manager</strong> 연동으로 민감 정보 자동 동기화</li>
+          <li>Istio mTLS + GCP Firewall + NetworkPolicy 조합한 <strong>Zero Trust Network</strong> 구현</li>
+        </ul>
+        <div class="project-tech"><span class="project-tech-label">Tech</span> &ensp;GCP &middot; K3s &middot; Terraform &middot; ArgoCD &middot; Istio &middot; Prometheus &middot; Grafana &middot; Loki &middot; External Secrets &middot; Go &middot; Python (FastAPI)</div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <div class="project-title">exam-platform - 온라인 시험 플랫폼</div>
+          <div class="project-period">2025.12 ~ 2026.02</div>
+        </div>
+        <div class="project-meta">
+          1인 프로젝트 &middot; <a href="https://github.com/DvwN-Lee/exam-platform">github.com/DvwN-Lee/exam-platform</a>
+        </div>
+        <p class="project-summary">
+          Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성, TDD 기반 Backend 303개 테스트(92% 커버리지) 달성
+        </p>
+        <ul class="project-highlights">
+          <li>Legacy Django 2.1/jQuery를 <strong>Django 5.2 LTS/React 19 Full-Stack으로 완전 재작성</strong></li>
+          <li><strong>TDD Backend 303개 테스트, 92% 커버리지</strong> - pytest + Playwright 3계층 테스트 전략</li>
+          <li><strong>Service Layer Pattern</strong> 도입, N+1 쿼리 최적화로 DB 접근 70% 감소 (10 -> 3회)</li>
+          <li>JWT <strong>HttpOnly Cookie + RBAC</strong> Frontend/Backend 이중 검증으로 보안 강화</li>
+        </ul>
+        <div class="project-tech"><span class="project-tech-label">Tech</span> &ensp;Django 5.2 LTS &middot; DRF &middot; React 19 &middot; TypeScript &middot; PostgreSQL &middot; MongoDB &middot; Redis &middot; pytest &middot; Playwright &middot; Docker Compose &middot; GitHub Actions</div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <div class="project-title">Cloud-Native 마이크로서비스 플랫폼 v2.0</div>
+          <div class="project-period">2025.10 ~ 2025.12</div>
+        </div>
+        <div class="project-meta">
+          1인 프로젝트 &middot; <a href="https://github.com/DvwN-Lee/Monitoring-v2">github.com/DvwN-Lee/Monitoring-v2</a>
+        </div>
+        <p class="project-summary">
+          Solid Cloud(단국대학교) 환경에서 Terraform을 활용한 인프라 자동화 및 GitOps 기반 마이크로서비스 플랫폼 구축
+        </p>
+        <ul class="project-highlights">
+          <li>GitHub Actions + Argo CD 기반 GitOps Pipeline으로 <strong>Git Push 후 5분 내 자동 배포</strong> 달성</li>
+          <li>Istio mTLS STRICT 모드로 <strong>Zero Trust Network</strong> 보안 아키텍처 구현</li>
+          <li>Golden Signals 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 100VU <strong>에러율 0.01%</strong></li>
+          <li>CI Pipeline에 <strong>Trivy 보안 스캔 통합</strong>하여 Container 취약점 자동 탐지</li>
+        </ul>
+        <div class="project-tech"><span class="project-tech-label">Tech</span> &ensp;Kubernetes &middot; Terraform &middot; Istio &middot; ArgoCD &middot; GitHub Actions &middot; Prometheus &middot; Grafana &middot; Loki &middot; Trivy &middot; Go &middot; Python (FastAPI)</div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <div class="project-title">Kubernetes CI/CD Infrastructure</div>
+          <div class="project-period">2025.11</div>
+        </div>
+        <div class="project-meta">
+          1인 프로젝트 &middot; <a href="https://github.com/DvwN-Lee/k8s-cicd-automation">github.com/DvwN-Lee/k8s-cicd-automation</a>
+        </div>
+        <p class="project-summary">
+          CloudStack 환경에서 Terraform/Ansible 기반 Kubernetes Cluster를 구축하고, Jenkins/GitLab/Docker Registry CI/CD Pipeline 구현
+        </p>
+        <ul class="project-highlights">
+          <li>Terraform으로 CloudStack Infrastructure를 코드화하고 <strong>Ansible Inventory 자동 생성</strong></li>
+          <li>Ansible Playbook으로 <strong>containerd, Kubernetes v1.28, Cilium CNI, MetalLB</strong> 구성 자동화</li>
+          <li>Jenkins + GitLab + Docker Registry 기반 <strong>Git Push to Deploy</strong> Pipeline 구축</li>
+        </ul>
+        <div class="project-tech"><span class="project-tech-label">Tech</span> &ensp;Terraform &middot; Ansible &middot; Kubernetes &middot; CloudStack &middot; containerd &middot; Cilium &middot; MetalLB &middot; Jenkins &middot; GitLab</div>
+      </div>
+    </section>
+
+    <!-- Other Projects -->
+    <section class="section">
+      <div class="section-label">Other Projects</div>
+
+      <div class="other-project">
+        <div class="other-project-head">
+          <div class="other-project-title">실시간 마이크로서비스 모니터링 플랫폼</div>
+          <div class="other-project-period">2025.09</div>
+        </div>
+        <div class="other-project-desc">Go 고루틴 기반 커스텀 로드밸런서와 FastAPI 마이크로서비스로 구성한 실시간 Monitoring Dashboard. Kustomize base/overlay 패턴으로 환경별 K8s Manifest 관리</div>
+        <div class="other-project-tech">Go &middot; Python (FastAPI) &middot; Kubernetes &middot; Kustomize &middot; Redis</div>
+      </div>
+
+      <div class="other-project">
+        <div class="other-project-head">
+          <div class="other-project-title">온라인 시험 관리 시스템 (Legacy)</div>
+          <div class="other-project-period">2023.06</div>
+        </div>
+        <div class="other-project-desc">Django 기반 온라인 시험 출제 및 채점 시스템. 관리자/교사/학생 3종 RBAC 설계 및 4가지 핵심 모듈 구현</div>
+        <div class="other-project-tech">Django &middot; MySQL &middot; jQuery &middot; Bootstrap</div>
+      </div>
+
+      <div class="other-project">
+        <div class="other-project-head">
+          <div class="other-project-title">SimpleChat - 실시간 채팅 앱</div>
+          <div class="other-project-period">2023.05</div>
+        </div>
+        <div class="other-project-desc">Spring Boot + WebSocket(STOMP) 기반 실시간 양방향 Messaging System. JPA 메시지 영속화 및 동적 채팅 UI 구현</div>
+        <div class="other-project-tech">Spring Boot &middot; WebSocket &middot; JPA &middot; Thymeleaf &middot; MySQL</div>
+      </div>
+
+      <div class="other-project">
+        <div class="other-project-head">
+          <div class="other-project-title">Dorazy - 도서관 예약 시스템 <span class="award-inline">경소톤 동상</span></div>
+          <div class="other-project-period">2022.05 ~ 2022.08</div>
+        </div>
+        <div class="other-project-desc">Firebase(BaaS) 기반 Serverless Architecture 단국대학교 도산라운지 좌석 예약 앱. Hackathon Prototyping 및 팀 협업 수행</div>
+        <div class="other-project-tech">Android &middot; Kotlin &middot; Firebase &middot; Figma</div>
+      </div>
+    </section>
+
+    <!-- Education & Certifications -->
+    <section class="section">
+      <div class="section-label">Education & Certifications</div>
+      <div class="edu-row">
+        <div class="edu-main"><strong>정보처리기사</strong> <span>한국산업인력공단</span></div>
+        <div class="edu-date">2023.06</div>
+      </div>
+      <div class="edu-row">
+        <div class="edu-main"><strong>단국대 경소톤(Hackathon) 동상</strong> <span>SW융합대학 X 경영경제대학 연합 - Dorazy</span></div>
+        <div class="edu-date">2022.08</div>
+      </div>
+      <div class="edu-row">
+        <div class="edu-main"><strong>Microsoft Certified: Azure AI Fundamentals</strong> <span>Microsoft</span></div>
+        <div class="edu-date">2022.01</div>
+      </div>
+      <div class="edu-row">
+        <div class="edu-main"><strong>단국대학교 컴퓨터공학과</strong> <span>졸업 예정 / 2022년도 부회장</span></div>
+        <div class="edu-date">2021.03 ~ 2026.02</div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <a href="mailto:dongju101101@gmail.com">dongju101101@gmail.com</a>
+      <a href="https://github.com/DvwN-Lee">GitHub</a>
+    </footer>
+
+  </div>
+</body>
+</html>
