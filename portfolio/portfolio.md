@@ -12,26 +12,33 @@
 
 ## 핵심 역량
 
-### Platform Automation (IaC · GitOps · CI/CD)
+### Platform Automation
 
-- **Infrastructure as Code:** Terraform으로 GCP/CloudStack 리소스를 코드화하여 일관성 있는 인프라 환경 구축
-- **GitOps & Delivery:** Argo CD App of Apps 패턴과 Kustomize를 활용한 선언적 배포 및 환경별 구성 관리 체계화
-- **Pipeline Optimization:** GitHub Actions 기반 멀티 아키텍처 빌드 및 `paths-filter`를 활용한 CI 워크플로우 효율화
-- **Provisioning:** Ansible Playbook을 통한 서버 구성 관리 및 Kubernetes Cluster 구축 프로세스 자동화
+- **IaC:** Terraform으로 GCP·CloudStack 인프라 전체를 코드화, Ansible로 Kubernetes Cluster 구성 관리 자동화
+- **GitOps:** ArgoCD App of Apps 패턴으로 인프라/애플리케이션 앱을 계층적으로 선언적 관리, Kustomize base/overlay로 환경별 배포 분리
+- **CI/CD Pipeline:** GitHub Actions `paths-filter` 기반 변경 서비스 선택적 빌드, 멀티 아키텍처(amd64/arm64) 이미지 빌드, Jenkins Groovy DSL Pipeline
+- **Container Orchestration:** Kubernetes(k8s, k3s) Cluster 설계 및 운영, Helm·Kustomize 기반 배포 관리
+- **Service Mesh:** Istio VirtualService/DestinationRule 트래픽 제어, Cilium CNI(eBPF 기반 kube-proxy 대체), MetalLB L2 LoadBalancer
 
-### Platform Reliability (Testing · Observability · Performance)
+### Platform Reliability
 
-- **Infrastructure Testing:** Terratest 기반 6단계 검증 체계로 인프라 코드의 변경 사항을 사전에 검증하여 안정성 확보
-- **End-to-End Testing:** Playwright를 활용하여 플랫폼 배포 후 관측성 스택 및 주요 애플리케이션 흐름의 정상 동작 확인
-- **Integrated Observability:** Prometheus, Grafana, Loki, Kiali를 통합하여 Golden Signals 기반 통합 관측성 지표 수집
-- **Performance Engineering:** k6 부하 테스트 데이터를 분석하여 HPA 임계값 및 리소스 할당 최적화 추진
+- **Infrastructure Testing:** Terratest 6단계 검증 체계(Static → Plan → Network → Compute → Integration → Stack, 4,327줄)로 인프라 신뢰성 자동 검증
+- **E2E Testing:** Playwright로 Observability Stack(Grafana·Prometheus·Loki) 동작 자동 검증
+- **Observability:** Prometheus + ServiceMonitor/PodMonitor 자동 메트릭 수집, Grafana Golden Signals Dashboard(Latency·Traffic·Errors·Saturation), Loki+Promtail 중앙 로깅
+- **Performance:** k6 부하 테스트 시나리오 설계 및 HPA 임계값 튜닝, 성능 데이터 기반 의사결정
 
-### Software Engineering (Fullstack · API · Security)
+### Platform Security
 
-- **Fullstack Development:** React 19와 Go/Python 기반 마이크로서비스 설계 및 비즈니스 로직 구현
-- **API Design:** Go Goroutine 기반 API Gateway 및 Stats Aggregator 구현을 통한 동시성 요청 처리
-- **Zero Trust Security:** Istio mTLS STRICT, K8s NetworkPolicy, Trivy 스캔을 조합한 다층 보안 체계 적용
-- **Database Optimization:** N+1 쿼리 분석 및 인덱스 전략 수립을 통한 Database 접근 빈도 최적화 성과 도출
+- **Zero Trust Network:** Istio mTLS STRICT 서비스 간 상호 인증·암호화, NetworkPolicy 네임스페이스 수준 네트워크 격리, GCP Firewall 다층 방어
+- **Supply Chain Security:** Trivy 컨테이너 취약점 스캔 CI 통합, HIGH 이상 취약점 빌드 자동 차단
+- **Cloud Security:** GCP IAP 기반 Bastion 없는 보안 SSH, Shielded VM, External Secrets Operator + GCP Secret Manager 민감 정보 자동 동기화, Principle of Least Privilege Service Account 설정
+
+### Backend Development
+
+- **Languages:** Go, Python, Java, TypeScript
+- **Frameworks:** FastAPI, Django, Spring Boot, React 19
+- **Database:** PostgreSQL, MySQL, Redis, SQLite, MongoDB
+- **API & Protocols:** RESTful API, WebSocket(STOMP), gRPC
 
 ---
 
