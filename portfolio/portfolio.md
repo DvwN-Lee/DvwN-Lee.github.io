@@ -1,8 +1,8 @@
-# 이동주 - DevOps/Cloud Engineer 포트폴리오
+# 이동주 - Platform Engineer 포트폴리오
 
 ## 소개
 
-자동화를 통해 안정적이고 재현 가능한 시스템을 구축하는 DevOps Engineer입니다. Backend 개발(Django, Spring Boot, FastAPI, Go) 경험을 기반으로 DevOps 영역으로 진출하여, 개발자 관점에서 Infrastructure 자동화와 배포 파이프라인을 설계했습니다. Kubernetes 환경에서 IaC, CI/CD Pipeline, Service Mesh, Observability System을 직접 구현하고 운영한 경험을 보유하고 있습니다.
+코드로 표현된 인프라, 선언적 배포, 자동화된 검증을 통해 재현 가능하고 신뢰할 수 있는 플랫폼을 구축하는 Platform Engineer입니다. Go·Python 기반 Backend 개발 경험을 토대로 IaC, GitOps, Service Mesh, Observability 등 플랫폼 계층 전반을 직접 설계하고 구현했습니다. Kubernetes 환경에서 인프라부터 애플리케이션까지 코드로 정의하고, Terratest·Playwright·k6로 자동화된 방식으로 검증하는 방법론을 체계적으로 실천하고 있습니다.
 
 **Email:** dongju101101@gmail.com
 **GitHub:** https://github.com/DvwN-Lee
@@ -202,7 +202,7 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 
 #### 프로젝트 개요
 
-Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화와 GitOps 배포 파이프라인을 구축한 Cloud-Native 플랫폼입니다. Istio Service Mesh로 서비스 간 보안 통신을 구현하고, Prometheus/Grafana/Loki 통합 관측성 시스템을 구축했습니다. k6 부하 테스트 기반 HPA 튜닝으로 안정적인 트래픽 처리를 달성했습니다.
+단국대학교 CloudStack(Solid Cloud) 환경에서 Terraform 기반 Infrastructure 자동화와 GitOps 배포 파이프라인을 구축한 Cloud-Native 플랫폼입니다. Istio Service Mesh로 서비스 간 보안 통신을 구현하고, Prometheus/Grafana/Loki 통합 관측성 시스템을 구축했습니다. k6 부하 테스트 기반 HPA 튜닝으로 안정적인 트래픽 처리를 달성했습니다.
 
 #### 주요 구현 사항
 
@@ -330,7 +330,7 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 #### 프로젝트 개요
 
-Go와 Python(FastAPI)을 활용한 폴리글랏 마이크로서비스 기반 실시간 모니터링 대시보드입니다. Go로 API Gateway와 Stats Aggregator를 구현하여 100 RPS 이상의 트래픽을 안정적으로 처리하고, Kustomize로 Kubernetes 환경별 배포를 관리합니다. 이 프로젝트는 v2.0의 기반이 되었으며, v2.0에서 커스텀 컴포넌트를 Istio Service Mesh로 대체하고 GitOps 파이프라인을 추가했습니다.
+단국대학교 CloudStack(Solid Cloud) 환경에서 Go와 Python(FastAPI)을 활용한 폴리글랏 마이크로서비스 기반 실시간 모니터링 대시보드를 구축했습니다. Go로 API Gateway와 Stats Aggregator를 구현하여 100 RPS 이상의 트래픽을 안정적으로 처리하고, Kustomize로 Kubernetes 환경별 배포를 관리합니다. 이 프로젝트는 v2.0의 기반이 되었으며, v2.0에서 커스텀 컴포넌트를 Istio Service Mesh로 대체하고 GitOps 파이프라인을 추가했습니다.
 
 #### 주요 구현 사항
 
@@ -365,6 +365,7 @@ Go와 Python(FastAPI)을 활용한 폴리글랏 마이크로서비스 기반 실
 | Backend | Go (API Gateway, Stats Aggregator), Python 3.x FastAPI (Auth/Blog/User) |
 | Frontend | Vanilla JavaScript, Chart.js, WebSocket |
 | Orchestration | Kubernetes, Kustomize (base/overlay) |
+| Cloud | CloudStack (단국대학교 Solid Cloud) |
 | Database | SQLite (서비스별 독립), Redis (Cache-Aside) |
 
 #### 핵심 학습
