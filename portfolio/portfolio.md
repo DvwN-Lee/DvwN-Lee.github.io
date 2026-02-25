@@ -202,7 +202,7 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 
 #### 프로젝트 개요
 
-단국대학교 CloudStack(Solid Cloud) 환경에서 Terraform 기반 Infrastructure 자동화와 GitOps 배포 파이프라인을 구축한 Cloud-Native 플랫폼입니다. Istio Service Mesh로 서비스 간 보안 통신을 구현하고, Prometheus/Grafana/Loki 통합 관측성 시스템을 구축했습니다. k6 부하 테스트 기반 HPA 튜닝으로 안정적인 트래픽 처리를 달성했습니다.
+Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화와 GitOps 배포 파이프라인을 구축한 Cloud-Native 플랫폼입니다. Istio Service Mesh로 서비스 간 보안 통신을 구현하고, Prometheus/Grafana/Loki 통합 관측성 시스템을 구축했습니다. k6 부하 테스트 기반 HPA 튜닝으로 안정적인 트래픽 처리를 달성했습니다.
 
 #### 주요 구현 사항
 
