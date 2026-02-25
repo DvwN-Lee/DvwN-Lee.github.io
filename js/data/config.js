@@ -21,17 +21,17 @@
  */
 export const config = {
     hero: {
-        title: '안녕하세요,<br><span class="gradient-text">Cloud/DevOps Engineer</span><br>이동주입니다',
-        subtitle: '클라우드 네이티브 아키텍처와 DevOps 엔지니어링을 통해<br>안정적이고 확장 가능한 시스템을 구축합니다'
+        title: '안녕하세요,<br><span class="gradient-text">Platform Engineer</span><br>이동주입니다',
+        subtitle: '코드로 표현된 인프라와 선언적 배포를 통해<br>재현 가능하고 신뢰할 수 있는 플랫폼을 구축합니다'
     },
     about: {
-        title: '자동화로 견고한 시스템을 구축하는 DevOps 엔지니어, 이동주입니다.',
+        title: '코드로 표현된 인프라와 자동화된 검증으로 재현 가능한 플랫폼을 구축하는 Platform Engineer, 이동주입니다.',
         paragraphs: [
-            'DevOps의 핵심은 기술의 나열이 아닌, 자동화를 통해 <strong>안정적이고 효율적인 시스템을 구축</strong>하는 것이라 생각합니다. 저는 클라우드 네이티브 환경의 복잡성을 이해하고, 개발부터 운영까지의 전체 파이프라인을 최적화하여 팀의 생산성을 높이는 데 기여하고 싶습니다.',
-            'Kubernetes 환경에서 GitHub Actions, ArgoCD를 활용한 CI/CD 파이프라인을 설계하고, Terraform 기반의 IaC(Infrastructure as Code)로 인프라 관리를 자동화한 경험이 있습니다. 또한, Prometheus, Grafana를 이용한 모니터링 시스템과 Istio 기반의 Service Mesh를 구축하여 마이크로서비스 아키텍처의 관측성을 확보하고 장애에 선제적으로 대응하는 역량을 갖추었습니다.',
-            '현재의 경험에 만족하지 않고, 더 높은 수준의 시스템 신뢰성을 목표로 SRE(Site Reliability Engineering) 방법론에 깊은 관심을 두고 있습니다. 특히 Kubernetes 내부 동작 원리를 깊이 파고들어 복잡한 분산 시스템의 문제를 해결하고, Service Mesh 기술을 능숙하게 다루는 전문가로 성장해 나갈 것입니다.'
+            'Platform Engineering의 핵심은 인프라를 코드로 표현하고, 배포를 선언적으로 정의하며, 검증을 자동화하여 <strong>재현 가능하고 신뢰할 수 있는 플랫폼</strong>을 만드는 것이라 생각합니다. IaC, GitOps, Observability를 통해 복잡한 클라우드 네이티브 환경을 코드 수준에서 관리하고, 언제나 동일하게 재현되는 인프라를 구축하는 경험을 쌓아왔습니다.',
+            'Terraform으로 GCP와 Solid Cloud 인프라 전체를 코드화하고, ArgoCD App of Apps 패턴으로 선언적 GitOps를 구현했습니다. Prometheus, Grafana, Loki 기반 Observability 시스템과 Istio Service Mesh를 통해 관측성과 보안을 플랫폼 수준에서 내재화한 경험이 있으며, Terratest를 활용한 인프라 테스트 자동화로 플랫폼의 신뢰성을 검증했습니다.',
+            '현재의 경험에 그치지 않고, GCP 환경 End-to-End 자동화와 인프라 테스트 자동화를 통해 <strong>코드로 증명되는 플랫폼 엔지니어링</strong>을 실천하고 있습니다. 선언적 구성과 자동화된 검증으로 언제나 재현 가능한 인프라를 목표로 성장해 나갈 것입니다.'
         ],
-        highlights: ['Cloud Native', 'DevOps', 'Backend', 'Security']
+        highlights: ['Cloud Native', 'Platform', 'Backend', 'Security']
     },
     email: 'dongju101101@gmail.com',
     socials: [
@@ -88,6 +88,6 @@ export const config = {
             maxSequentialAnimation: 6,
         },
         /** TypeWriter 표시 단어 목록 */
-        typeWriterWords: ['Cloud Engineer', 'DevOps Engineer', 'Backend Developer'],
+        typeWriterWords: ['Platform Engineer', 'Cloud Native Engineer', 'Backend Developer'],
     },
 };

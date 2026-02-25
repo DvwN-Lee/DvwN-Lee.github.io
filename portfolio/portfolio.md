@@ -48,10 +48,6 @@
 
 본 프로젝트 시리즈는 수동 구성 기반의 아키텍처에서 IaC, GitOps, 자동화된 검증 체계를 갖춘 클라우드 네이티브 플랫폼으로 진화해 온 과정을 담고 있습니다.
 
-- **v1 (Foundational):** Microservice 구조 설계 및 Go 기반 커스텀 게이트웨이 구현 (플랫폼 기초 설계 역량)
-- **v2 (Automated):** Kubernetes 전환, Istio Service Mesh 및 GitOps 도입 (플랫폼 자동화 및 보안 강화)
-- **v3 (Reliable):** GCP 이관, IaC(Terraform) 및 Terratest 6단계 자동화 검증 (플랫폼 신뢰성 및 안정성 구현)
-
 ---
 
 ### Monitoring Platform 시리즈 (v1 → v2 → v3)
@@ -83,7 +79,7 @@ v2(Solid Cloud) 환경의 한계(수동 인프라 프로비저닝, 검증 부재
 
 - VPC, Subnet, Firewall Rules, Compute Engine VM, GCP Secret Manager 등 전체 인프라를 Terraform으로 코드화
 - IAP(Identity-Aware Proxy) 기반 Bastion 없는 보안 SSH 접속 환경 구성
-- **Resource Right-sizing:** Prometheus 메트릭 분석을 통해 실제 사용량 대비 과도하게 할당된 Pod의 `requests/limits` 설정을 재조정하여 클러스터 자원 집적도 향상
+- **Resource Right-sizing:** Prometheus 메트릭으로 CPU 사용량 10.8%, Istio 사이드카 실측 30~50 MiB/pod 데이터를 기반으로 과도하게 할당된 Pod의 `requests/limits`를 재조정하여 클러스터 자원 집적도 향상
 - **비용 최적화:** MIG(Managed Instance Group) + Spot VM을 활용하여 Worker Node를 구성하고, HPA와 연동하여 트래픽에 따른 탄력적 비용 관리 체계 구축
 
 **2. Terratest 기반 Infrastructure 검증 (6단계, 4,327줄)**
@@ -140,7 +136,9 @@ v2(Solid Cloud) 환경의 한계(수동 인프라 프로비저닝, 검증 부재
 - Terratest 6단계 파이프라인으로 인프라를 코드 수준에서 자동 검증하는 Platform Reliability 체계 구축
 - App of Apps 패턴으로 다수 ArgoCD Application을 계층적으로 관리하는 선언적 플랫폼 구조 설계
 - IAP·Shielded VM·Firewall·NetworkPolicy·mTLS 조합으로 코드로 표현된 다층 Zero Trust 보안 아키텍처 구현
-- MIG + Spot VM을 활용한 Worker Node 자동 확장 및 비용 최적화 경험
+- MIG + Spot VM 활용 Worker Node 자동 확장 및 비용 최적화 전략 코드화
+- `terraform apply` 한 번으로 전체 인프라를 약 10분 내 완성하는 재현 가능한 배포 체계 달성
+- 프로젝트 전반 Troubleshooting 19건 문서화: ArgoCD Sync Wave Race Condition, Helm–Terraform 설정 불일치 등 Platform 계층 장애 원인 분석 및 해결
 
 ---
 
@@ -152,7 +150,7 @@ v2(Solid Cloud) 환경의 한계(수동 인프라 프로비저닝, 검증 부재
 
 #### 프로젝트 개요
 
-Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LTS + React 19 Full-Stack으로 재구현한 프로젝트입니다. TDD 방법론을 적용하여 Backend 303개 테스트(92% 커버리지)를 달성하고, Service Layer Pattern 도입으로 비즈니스 로직과 View를 분리했습니다.
+Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LTS + React 19 Full-Stack으로 재구현한 프로젝트입니다. TDD 방법론을 적용하여 Backend 317개 테스트(95% 커버리지)를 달성하고, Service Layer Pattern 도입으로 비즈니스 로직과 View를 분리했습니다.
 
 #### 주요 구현 사항
 
@@ -162,7 +160,7 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 - Frontend: jQuery Template 렌더링 → React 19 + TypeScript SPA
 - REST API 기반 Backend/Frontend 분리 아키텍처로 전환
 
-**2. TDD 기반 테스트 전략 (303개 테스트, 92% 커버리지)**
+**2. TDD 기반 테스트 전략 (317개 테스트, 95% 커버리지)**
 
 - Unit Test: Service Layer / Repository 개별 로직 검증
 - Integration Test: API Endpoint → DB 연동 전체 흐름 검증
@@ -176,13 +174,13 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 
 **4. Database 성능 최적화 (Query & Schema)**
 
-- **복합 인덱스(Composite Index) 전략:** 응시 이력 및 성적 통계 쿼리 분석을 통해 `(student_id, exam_id, created_at)` 복합 인덱스를 설계하여 Full Table Scan 방지 및 조회 속도 개선
+- **복합 인덱스(Composite Index) 전략:** 응시 이력 및 성적 통계 쿼리 분석을 통해 `(exam, student)`, `(exam, user, is_submitted)` 등 복합 인덱스를 설계하여 Full Table Scan 방지 및 조회 속도 개선
 - **N+1 쿼리 최적화:** Django ORM의 `select_related` 및 `prefetch_related`를 전략적으로 활용하여 시험 목록 조회 시 Database 접근 횟수를 70% 감소(10회 → 3회)
-- **Database Connection Pool 튜닝:** 피크 타임 시 응답 지연을 방지하기 위해 서버 리소스에 최적화된 `pool_size` 및 `max_overflow` 파라미터 도출
+- **Database Connection Pool 튜닝:** 피크 타임 시 응답 지연을 방지하기 위해 `CONN_MAX_AGE: 600` 설정으로 Connection 재사용을 최적화하고 Connection 생성 오버헤드 절감
 
 **5. 보안 (JWT HttpOnly Cookie + RBAC)**
 
-- Access/Refresh Token을 HttpOnly Cookie로 관리하여 XSS 공격 노출 방지
+- Refresh Token을 HttpOnly Cookie로 관리, Access Token은 응답 body로 전달하여 XSS 공격 노출 방지
 - Frontend(React) + Backend(DRF) 양측에서 RBAC 이중 검증
 - 교사/학생/관리자 권한별 API Endpoint 접근 제어
 
@@ -202,7 +200,7 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 #### [Fullstack + Platform Synergy]
 
 - **데이터 중심 성능 최적화:** Django ORM의 N+1 쿼리 문제를 해결(Application)함과 동시에, DB 인덱스 전략 수립 및 리소스 할당 최적화(Platform)를 병행하여 시스템 전반의 처리 용량을 확보했습니다.
-- **테스트 주도 신뢰성 확보:** 백엔드 92% 커버리지의 TDD(Application)와 GitHub Actions CI 파이프라인(Platform)을 통합하여, 코드 변경이 인프라 배포까지 안전하게 이어지는 'Continuous Quality' 체계를 구축했습니다.
+- **테스트 주도 신뢰성 확보:** 백엔드 95% 커버리지의 TDD(Application)와 GitHub Actions CI 파이프라인(Platform)을 통합하여, 코드 변경이 인프라 배포까지 안전하게 이어지는 'Continuous Quality' 체계를 구축했습니다.
 
 #### 기술 스택
 
@@ -219,6 +217,7 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 - **Vertical Optimization:** 애플리케이션 코드 개선(Service Layer 분리)과 데이터베이스 최적화(Query 감소 70%)를 아우르는 수직적 성능 개선 역량 확보
 - **현대적 프론트엔드 아키텍처:** React 19와 Type-safe한 상태 관리/라우팅을 적용하여 유지보수성이 높은 대규모 SPA 개발 경험
 - **자동화된 품질 보증:** Unit, Integration, E2E 테스트가 통합된 CI 파이프라인을 통해 서비스의 안정성을 정량적으로 보장하는 방법론 체득
+- **IaC 기반 DB 운영 일관성:** Terraform으로 Cloud SQL 인스턴스와 GCP Secret Manager 자격증명을 코드화하여 수동 설정 불일치 없는 재현 가능한 데이터베이스 운영 환경 구축
 
 ---
 
@@ -244,14 +243,14 @@ Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화�
 
 **2. GitOps CI/CD Pipeline**
 
-- CI: GitHub Actions로 Docker 이미지 빌드 → Trivy 보안 스캔(HIGH 이상 빌드 차단) → 레지스트리 Push 자동화
+- CI: GitHub Actions로 Docker 이미지 빌드 → Trivy 보안 스캔(CRITICAL/HIGH 취약점 탐지, 결과 PR 코멘트 자동화) → 레지스트리 Push 자동화
 - CD: Argo CD가 Git Repository 변경을 감지하여 Kustomize Build → Kubernetes Apply 수행
 - Git Push 후 평균 5분 내 자동 배포 달성
 
 **3. Istio Service Mesh (Zero Trust Network)**
 
 - mTLS STRICT 모드 적용으로 모든 서비스 간 통신 상호 인증 및 암호화
-- NetworkPolicy로 네임스페이스 수준 네트워크 격리 (Backend 네임스페이스는 Frontend만 접근 허용)
+- Istio mTLS STRICT 모드로 모든 서비스 간 통신 상호 인증 및 암호화
 - Kiali 대시보드로 MSA 트래픽 흐름 및 서비스 의존성 시각화
 
 **4. Observability System**
@@ -263,8 +262,8 @@ Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화�
 **5. 성능 최적화 (Data-driven Tuning)**
 
 - **k6 기반 HPA 임계값 최적화:** k6 부하 테스트(100 VU) 중 발생하는 지연 시간 및 에러율 데이터를 분석하여, CPU 사용량 기반 HPA(`targetCPUUtilization: 70%`) 임계값의 유효성 검증 및 조정
-- **성능 개선 결과:** P99 Latency 94% 감소(3.71s → 238ms) 및 에러율 0.01% 미만 유지 확인
-- **Observability 오버헤드 관리:** Prometheus 저장소 부하를 줄이기 위해 High-cardinality 레이블을 정리하고 수집 주기를 튜닝하여 모니터링 스택의 리소스 점유율 약 15% 절감
+- **성능 개선 결과:** P99 Latency 99.5% 개선(3.71s → 20.4ms) 및 에러율 0.01% 미만 유지 확인
+- **Observability 오버헤드 관리:** Prometheus 저장소 부하를 줄이기 위해 High-cardinality 레이블을 정리하고 수집 주기를 튜닝하여 모니터링 스택 자원 점유 최소화
 
 **6. 아키텍처 결정 기록 (ADR)**
 
@@ -289,8 +288,8 @@ Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화�
 
 - IaC로 재현 가능한 인프라를 구축하고 Terraform State를 별도 Backend에 저장하여 State 일관성 확보
 - ArgoCD + Kustomize 기반 GitOps: 선언적 배포로 환경별 일관성을 코드로 보장
-- Istio mTLS STRICT와 NetworkPolicy로 네임스페이스 수준의 Zero Trust 네트워크 구현
-- k6 부하 테스트 → Golden Signals 실측 → HPA 튜닝으로 이어지는 데이터 기반 성능 최적화 사이클 경험
+- Istio mTLS STRICT로 서비스 간 Zero Trust 네트워크 구현
+- k6 부하 테스트(100 VU) → Grafana Golden Signals 실측(P95 83.73ms, Blog Pod 2→4 스케일업 확인) → HPA 임계값 튜닝으로 이어지는 데이터 기반 성능 최적화 사이클 경험
 
 ---
 
@@ -358,7 +357,7 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 #### 프로젝트 개요
 
-단국대학교 CloudStack(Solid Cloud) 환경에서 Go와 Python(FastAPI)을 활용한 폴리글랏 마이크로서비스 기반 실시간 모니터링 대시보드를 구축했습니다. Go로 API Gateway와 Stats Aggregator를 구현하여 100 RPS 이상의 트래픽을 안정적으로 처리하고, Kustomize로 Kubernetes 환경별 배포를 관리합니다.
+단국대학교 CloudStack(Solid Cloud) 환경에서 Go와 Python(FastAPI)을 활용한 폴리글랏 마이크로서비스 기반 실시간 모니터링 대시보드를 구축했습니다. Go로 API Gateway와 Stats Aggregator를 구현하여 부하 테스트(최대 80 RPS) 하에서 동시성 안정성을 검증하고, Kustomize로 Kubernetes 환경별 배포를 관리합니다.
 
 직접 구현한 Circuit Breaker, Stats Aggregator는 기능적으로 동작했으나, 이를 유지보수하는 비용과 프로덕션 수준의 Service Mesh 기능(세밀한 트래픽 제어, 서비스 간 가시성)을 커스텀으로 구현하는 것의 한계를 확인했습니다. 이 경험이 v2에서 Istio Service Mesh를 도입하고 커스텀 컴포넌트를 대체하는 결정의 근거가 되었습니다.
 
@@ -380,11 +379,11 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 - base: 공통 Kubernetes 리소스 정의 (Deployment, Service, ConfigMap)
 - overlay: 환경별 차이 (Replica 수, Resource Limits, 환경 변수)
-- local / staging / production 3개 환경 Manifest 선언적 관리
+- local 환경 Kubernetes Manifest 선언적 관리
 
 **4. 실시간 모니터링 대시보드**
 
-- Vanilla JavaScript + Chart.js + WebSocket으로 RPS, 평균 응답 시간, 서비스 상태를 1초마다 실시간 업데이트
+- Vanilla JavaScript + Chart.js + WebSocket으로 RPS, 평균 응답 시간, 서비스 상태를 2초마다 실시간 업데이트
 - Stats Aggregator가 WebSocket으로 집계 메트릭을 Dashboard에 푸시
 
 #### 기술 스택
@@ -412,13 +411,13 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 #### 프로젝트 개요
 
-Django 프레임워크를 활용한 온라인 시험 출제 및 관리 시스템입니다. 관리자, 교사, 학생 3가지 역할을 가진 사용자 모델을 설계하고, Django Admin을 통해 시스템 운영 기능을 구현했습니다. 이 프로젝트를 Django 5.2 LTS + React 19로 완전 재작성한 것이 exam-platform v2입니다.
+Django 프레임워크를 활용한 온라인 시험 출제 및 관리 시스템입니다. 교사, 학생 2가지 역할을 가진 사용자 모델을 설계하고 (관리자는 Django is_staff 활용), Django Admin을 통해 시스템 운영 기능을 구현했습니다. 이 프로젝트를 Django 5.2 LTS + React 19로 완전 재작성한 것이 exam-platform v2입니다.
 
 #### 주요 구현 사항
 
 **1. 역할 기반 사용자 모델 설계**
 
-- `user_type` 필드로 관리자, 교사, 학생 3가지 역할을 구분하는 사용자 모델 정의
+- `user_type` 필드로 교사(`teacher`), 학생(`student`) 2가지 역할을 구분하는 사용자 모델 정의 (관리자는 Django 기본 `is_staff` 활용)
 - Django Admin을 통해 사용자 등록, 역할 할당, 권한 관리 기능 제공
 
 **2. 도메인 모델링**
@@ -430,8 +429,7 @@ Django 프레임워크를 활용한 온라인 시험 출제 및 관리 시스템
 **3. Django Admin 커스터마이징**
 
 - 시험지/문제/응시 결과를 Django Admin에서 관리할 수 있도록 ModelAdmin 등록 및 커스터마이징
-- `list_display`, `list_filter`, `search_fields` 설정으로 데이터 조회 효율화
-- Inline Admin으로 시험지 생성 시 문제를 동시에 추가하는 UX 개선
+- `list_display`, `search_fields` 설정으로 데이터 조회 효율화
 
 **4. Frontend**
 
@@ -571,6 +569,10 @@ Spring Boot 환경에서 WebSocket 프로토콜과 STOMP 메시지 브로커를 
 
 **단국대학교 컴퓨터공학과**
 2021.03 ~ 2026.02 (졸업 예정)
+
+**자격증**
+- 2023.06 - 정보처리기사
+- 2022.01 - Azure AI Fundamentals (AZ-900)
 
 **수상 경력**
 2022.08 - 경소톤 Hackathon 동상 (Dorazy - 도서관 예약 System)

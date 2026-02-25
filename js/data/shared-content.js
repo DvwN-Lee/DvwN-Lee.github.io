@@ -85,15 +85,15 @@ export const cloudNativeV2Content = {
     actions: [
         '<strong>Terraform 도입으로 인프라 코드화(IaC)</strong>: Solid Cloud(OpenStack) 환경의 모든 인프라(네트워크, 스토리지, VM 등)를 코드로 정의하여, 명령어 하나로 전체 인프라를 일관되게 생성하고 관리하는 기반을 마련했습니다.',
         '<strong>GitOps 자동화 파이프라인 구축</strong>: GitHub Actions로 CI(Docker 빌드, Trivy 보안 스캔, 이미지 푸시)를 자동화하고, Argo CD를 이용해 Git Repository를 기준으로 클러스터 상태를 동기화하는 CD 파이프라인을 구축하여 <strong>5분 내 무중단 배포</strong>를 실현했습니다.',
-        '<strong>Service Mesh 보안 체계 적용</strong>: Istio Service Mesh의 <strong>mTLS STRICT 모드</strong>로 서비스 간 통신을 상호 인증 및 암호화하여 서비스 간 보안 통신을 구현했습니다. 또한 CI 단계에 <strong>Trivy</strong>를 통합하여 이미지 취약점을 사전에 차단했습니다.',
+        '<strong>Service Mesh 보안 체계 적용</strong>: Istio Service Mesh의 <strong>mTLS STRICT 모드</strong>로 서비스 간 통신을 상호 인증 및 암호화하여 서비스 간 보안 통신을 구현했습니다. 또한 CI 단계에 <strong>Trivy</strong>를 통합하여 CRITICAL/HIGH 취약점을 자동 탐지하고 PR 코멘트로 리포팅을 자동화했습니다.',
         '<strong>통합 관측 가능성 시스템 구축</strong>: Prometheus로 실시간 메트릭을 수집하고, Loki로 로그를 중앙화했으며, Grafana를 통해 Golden Signals 대시보드를 구축했습니다. Kiali를 활용해 서비스 메시를 시각적으로 모니터링하여 복잡한 MSA 구조의 트래픽 흐름을 명확히 파악할 수 있게 되었습니다.',
-        '<strong>k6 부하 테스트 기반 성능 최적화</strong>: k6 스크립트로 실제와 유사한 트래픽 시나리오 기반의 부하 테스트를 진행했습니다. 테스트 결과 드러난 병목 현상을 기반으로 HPA의 임계값을 정밀하게 튜닝하여 <strong>P99 Latency 94% 감소(3.71s → 238ms)</strong>, 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성하고 안정적인 트래픽 처리 용량을 확보했습니다.'
+        '<strong>k6 부하 테스트 기반 성능 최적화</strong>: k6 스크립트로 실제와 유사한 트래픽 시나리오 기반의 부하 테스트를 진행했습니다. 테스트 결과 드러난 병목 현상을 기반으로 HPA의 임계값을 정밀하게 튜닝하여 <strong>P99 Latency 99.5% 개선(3.71s → 20.4ms)</strong>, 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성하고 안정적인 트래픽 처리 용량을 확보했습니다.'
     ],
 
     results: [
         '<strong>배포 속도 및 안정성 향상</strong>: 수동으로 수십 분 걸리던 배포가 <strong>Git Push 후 평균 5분 내</strong>의 완전 자동화된 프로세스로 개선되었고, 휴먼 에러 가능성을 원천 차단했습니다.',
         '<strong>보안 자동화 및 강화</strong>: Istio mTLS STRICT 모드로 서비스 간 암호화 통신을 구현하고, 자동화된 Trivy 취약점 스캔을 통해 코드 변경 없이 <strong>높은 수준의 보안 체계</strong>를 구축했습니다.',
-        '<strong>정량적 성능 개선</strong>: HPA 최적화를 통해 <strong>P99 Latency 94% 감소(3.71s → 238ms)</strong>, 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성하고, Grafana 정상 트래픽 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 부하 테스트(100 VU) <strong>P95 74.76ms / 에러율 0.01%</strong>의 시스템 안정성을 확보했습니다.',
+        '<strong>정량적 성능 개선</strong>: HPA 최적화를 통해 <strong>P99 Latency 99.5% 개선(3.71s → 20.4ms)</strong>, 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성하고, Grafana 정상 트래픽 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 부하 테스트(100 VU) <strong>P95 74.76ms / 에러율 0.01%</strong>의 시스템 안정성을 확보했습니다.',
         '<strong>운영 효율성 증대</strong>: 인프라 및 배포 자동화, 중앙화된 관측성 시스템을 통해 복잡한 MSA 환경의 운영 부담을 크게 절감하고, 장애 발생 시 원인 분석 시간을 단축했습니다.'
     ],
 
@@ -104,11 +104,11 @@ export const cloudNativeV2Content = {
         keyFeatures: [
             '<strong>Terraform 기반 인프라 자동화</strong>: Solid Cloud 인프라(VM, 네트워크, 스토리지)를 코드로 관리',
             '<strong>GitOps 기반 완전 자동화 CI/CD</strong>: GitHub Actions, Argo CD, Kustomize를 연동하여 Git Push 후 5분 내 자동 배포',
-            '<strong>컨테이너 보안 자동화</strong>: CI 파이프라인에 <strong>Trivy</strong>를 통합하여 이미지 빌드 시 취약점을 자동 탐지 및 차단',
+            '<strong>컨테이너 보안 자동화</strong>: CI 파이프라인에 <strong>Trivy</strong>를 통합하여 CRITICAL/HIGH 취약점을 자동 탐지 및 PR 코멘트 리포팅 자동화',
             '<strong>Service Mesh 보안</strong>: Istio mTLS STRICT 모드를 적용하여 서비스 간 상호 인증 및 암호화 통신 구현',
             '<strong>통합 관측성(Observability) 시스템</strong>: Prometheus/Grafana/Loki로 Golden Signals 모니터링, 중앙화된 로그 관리',
             '<strong>서비스 메시 시각화</strong>: Kiali 대시보드를 통해 MSA 트래픽 흐름과 서비스 의존성을 시각적으로 분석',
-            '<strong>성능 부하 테스트 및 최적화</strong>: k6 부하 테스트 기반 HPA 튜닝으로 P99 Latency 94% 감소(3.71s → 238ms), 5xx 에러율 99.1% 감소(0.460% → 0.004%)'
+            '<strong>성능 부하 테스트 및 최적화</strong>: k6 부하 테스트 기반 HPA 튜닝으로 P99 Latency 99.5% 개선(3.71s → 20.4ms), 5xx 에러율 99.1% 감소(0.460% → 0.004%)'
         ],
 
         technicalImplementation: [
@@ -127,7 +127,7 @@ export const cloudNativeV2Content = {
             '<strong>GitOps 기반 CI/CD 파이프라인 완전 자동화</strong>: 개발부터 배포까지의 전체 프로세스를 자동화하며 MSA 환경의 복잡성을 관리하는 경험을 쌓았습니다.',
             '<strong>Service Mesh를 활용한 고급 보안 및 트래픽 관리</strong>: Istio를 통해 코드 수정 없이 mTLS 암호화, 접근 제어 등 높은 수준의 보안을 적용하고, Kiali로 복잡한 서비스 관계를 시각화하며 디버깅 효율을 높였습니다.',
             '<strong>DevSecOps</strong>: CI 과정에 Trivy 취약점 스캔을 통합하여 개발 초기 단계부터 보안을 고려하는 DevSecOps를 실천했습니다.',
-            '<strong>데이터 기반 성능 최적화</strong>: k6 부하 테스트로 시스템의 병목을 정량적으로 분석하고, HPA 튜닝을 통해 P99 Latency 94% 감소(3.71s → 238ms) 및 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성했습니다.'
+            '<strong>데이터 기반 성능 최적화</strong>: k6 부하 테스트로 시스템의 병목을 정량적으로 분석하고, HPA 튜닝을 통해 P99 Latency 99.5% 개선(3.71s → 20.4ms) 및 5xx 에러율 99.1% 감소(0.460% → 0.004%)를 달성했습니다.'
         ]
     }
 };
@@ -140,23 +140,23 @@ export const examPlatformV2Content = {
 
     tasks: [
         '<strong>Legacy 시스템 Full-Stack 마이그레이션</strong>: Django 2.1 → Django 5.2 LTS, jQuery → React 19로 완전 재작성.',
-        '<strong>TDD 기반 품질 보증 체계 구축</strong>: pytest + Playwright 기반 Backend 303개 테스트, 92% 커버리지 달성.',
+        '<strong>TDD 기반 품질 보증 체계 구축</strong>: pytest + Playwright 기반 Backend 317개 테스트, 95% 커버리지 달성.',
         '<strong>Service Layer Pattern 도입</strong>: View에 혼재된 비즈니스 로직을 Service Layer로 분리하여 유지보수성 향상.',
         '<strong>N+1 쿼리 최적화</strong>: ORM 쿼리 분석을 통해 select_related/prefetch_related 적용으로 Database 접근 횟수 감소.'
     ],
 
     actions: [
         '<strong>Full-Stack 재작성</strong>: Backend를 Django 5.2 LTS + DRF로 전환하고, Frontend를 React 19 + TypeScript SPA로 완전 재작성하여 Modern Stack 기반의 확장 가능한 아키텍처를 구축했습니다.',
-        '<strong>TDD Workflow 확립</strong>: Red-Green-Refactor 사이클을 적용하여 pytest 기반 Backend 303개 테스트를 작성하고, Unit/Integration/E2E 3계층 테스트 전략으로 92% 커버리지를 달성했습니다.',
+        '<strong>TDD Workflow 확립</strong>: Red-Green-Refactor 사이클을 적용하여 pytest 기반 Backend 317개 테스트를 작성하고, Unit/Integration/E2E 3계층 테스트 전략으로 95% 커버리지를 달성했습니다.',
         '<strong>Service Layer 분리</strong>: View에 혼재되어 있던 비즈니스 로직을 Service Layer로 분리하여 단일 책임 원칙을 적용하고, 테스트 용이성과 코드 재사용성을 향상시켰습니다.',
         '<strong>N+1 쿼리 최적화</strong>: Django Debug Toolbar로 ORM 쿼리를 분석하고, select_related/prefetch_related를 적용하여 시험 목록 조회 시 Database 접근 횟수를 감소시켰습니다.',
-        '<strong>JWT HttpOnly Cookie 인증</strong>: Access/Refresh Token을 HttpOnly Cookie로 관리하고, Frontend/Backend 양측에서 RBAC 이중 검증을 적용하여 보안을 강화했습니다.',
+        '<strong>JWT HttpOnly Cookie 인증</strong>: Refresh Token을 HttpOnly Cookie로 관리하고, Frontend/Backend 양측에서 RBAC 이중 검증을 적용하여 보안을 강화했습니다.',
         '<strong>Modern Frontend 구축</strong>: TanStack Query로 Server State를 관리하고, TanStack Router로 Type-Safe 라우팅을 구현하여 SPA 수준의 UX를 제공했습니다.',
         '<strong>Dual Grading + Auto-Save</strong>: 자동 채점과 수동 채점을 지원하는 이중 채점 시스템을 구현하고, 시험 응시 중 Auto-Save 기능으로 답안 유실을 방지했습니다.'
     ],
 
     results: [
-        '<strong>92% 테스트 커버리지 달성</strong>: Backend 303개 테스트(Unit/Integration/E2E 3계층)로 코드 변경 시 안전망을 확보하고, 리팩토링 자신감을 확보했습니다.',
+        '<strong>95% 테스트 커버리지 달성</strong>: Backend 317개 테스트(Unit/Integration/E2E 3계층)로 코드 변경 시 안전망을 확보하고, 리팩토링 자신감을 확보했습니다.',
         '<strong>유지보수성 향상</strong>: Service Layer Pattern 도입으로 비즈니스 로직이 View에서 분리되어 코드 재사용성과 테스트 용이성이 향상되었습니다.',
         '<strong>Database 접근 70% 감소</strong>: N+1 쿼리 최적화로 시험 목록 조회 시 select_related/prefetch_related 적용으로 Database 접근 횟수가 감소하여 응답 속도가 개선되었습니다.',
         '<strong>Modern Stack 경험 확보</strong>: Django 5.2 LTS + React 19 + TypeScript 기반의 Full-Stack 개발 역량을 확보했습니다.',
@@ -164,10 +164,10 @@ export const examPlatformV2Content = {
     ],
 
     modal: {
-        overview: 'Legacy Django 2.1 온라인 시험 시스템을 <strong>Django 5.2 LTS + React 19</strong> Full-Stack으로 완전 재작성한 프로젝트입니다. <strong>TDD 방법론</strong>으로 Backend 303개 테스트(92% 커버리지)를 달성하고, Service Layer Pattern과 N+1 쿼리 최적화로 코드 품질과 성능을 개선했습니다.',
+        overview: 'Legacy Django 2.1 온라인 시험 시스템을 <strong>Django 5.2 LTS + React 19</strong> Full-Stack으로 완전 재작성한 프로젝트입니다. <strong>TDD 방법론</strong>으로 Backend 317개 테스트(95% 커버리지)를 달성하고, Service Layer Pattern과 N+1 쿼리 최적화로 코드 품질과 성능을 개선했습니다.',
 
         keyFeatures: [
-            '<strong>TDD Backend 303개 테스트</strong>: pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략 (92% 커버리지)',
+            '<strong>TDD Backend 317개 테스트</strong>: pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략 (95% 커버리지)',
             '<strong>Service Layer Pattern</strong>: 비즈니스 로직과 View 분리로 단일 책임 원칙 적용',
             '<strong>N+1 쿼리 최적화</strong>: select_related/prefetch_related로 Database 접근 횟수 감소',
             '<strong>JWT HttpOnly Cookie</strong>: Access/Refresh Token + RBAC Frontend/Backend 이중 검증',

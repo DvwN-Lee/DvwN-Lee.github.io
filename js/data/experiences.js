@@ -22,7 +22,7 @@ export const experiencesData = [
     subtitle: '개인 프로젝트 - Legacy 시스템 Full-Stack 재작성',
     achievements: [
       'Legacy Django 2.1/Python 3.6/jQuery를 Django 5.2 LTS/Python 3.14/React 19로 완전 재작성',
-      'TDD 방법론 적용 - pytest + Playwright 기반 Backend 303개 테스트 (92% 커버리지)',
+      'TDD 방법론 적용 - pytest + Playwright 기반 Backend 317개 테스트 (95% 커버리지)',
       'Service Layer Pattern 도입으로 비즈니스 로직과 View 분리',
       'N+1 쿼리 최적화로 Database 접근 70% 감소 (10→3회)',
       'JWT HttpOnly Cookie + RBAC Frontend/Backend 이중 검증으로 보안 강화',
@@ -50,7 +50,7 @@ export const experiencesData = [
       'GitHub Actions + Argo CD 기반 GitOps 파이프라인 (Git Push 후 5분 내 자동 배포)',
       'Istio Service Mesh 도입 및 mTLS STRICT 모드 적용 (Zero Trust Network)',
       'Prometheus/Grafana/Loki 관측성 시스템 구축 (Grafana 실측 P95 9.77ms / P99 19.8ms, k6 P95 74.76ms / 에러율 0.01%)',
-      'k6 부하 테스트 기반 Kubernetes HPA 최적화 (P99 Latency 94% 감소: 3.71s → 238ms, 5xx 에러 완전 제거)'
+      'k6 부하 테스트 기반 Kubernetes HPA 최적화 (P99 Latency 99.5% 개선: 3.71s → 20.4ms, 5xx 에러율 99.1% 감소)'
     ]
   },
   {
@@ -71,7 +71,7 @@ export const experiencesData = [
     subtitle: 'Django 기반 풀스택 웹 애플리케이션 프로젝트',
     achievements: [
       'Django 프레임워크를 활용한 풀스택 웹 애플리케이션 개발 및 MySQL 데이터베이스 연동',
-      '관리자, 교사, 학생 3가지 역할을 가진 사용자 모델 설계 및 Django Admin 기반 운영 인터페이스 구현',
+      '교사, 학생 2가지 역할을 가진 사용자 모델 설계 및 Django Admin 기반 운영 인터페이스 구현',
       '사용자, 문제, 시험지, 시험 관리 등 4가지 핵심 모듈로 구성된 도메인 로직 처리',
       'Django Admin 커스터마이징을 통한 시스템 운영 및 데이터 관리 효율화'
     ]

@@ -91,7 +91,7 @@ export const projectsData = [
         category: 'fullstack',
         badge: 'Featured',
         title: 'exam-platform - 온라인 시험 플랫폼',
-        summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 기반 Backend 303개 테스트(92% 커버리지)를 달성한 프로젝트',
+        summary: 'Legacy Django 2.1 시스템을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성하고, TDD 기반 Backend 317개 테스트(95% 커버리지)를 달성한 프로젝트',
         imageUrl: 'https://github.com/DvwN-Lee/exam-platform/raw/main/docs/demo/screenshots/08-teacher-dashboard-after.png',
         imageAlt: 'exam-platform Teacher Dashboard - 시험 목록과 관리 기능이 표시된 교사용 메인 화면',
         architectureUrl: 'images/architecture/exam_platform_v2.png',
@@ -99,7 +99,7 @@ export const projectsData = [
         tech: ['Django 5.2 LTS', 'DRF', 'React 19', 'TypeScript', 'TanStack Query', 'TanStack Router', 'PostgreSQL', 'MongoDB', 'Redis', 'pytest', 'Playwright', 'Docker Compose', 'GitHub Actions', 'GCP'],
         highlights: [
             'Legacy Django 2.1/Python 3.6/jQuery를 <strong>Django 5.2 LTS/React 19 Full-Stack으로 완전 재작성</strong>',
-            '<strong>TDD Backend 303개 테스트, 92% 커버리지</strong> - pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략',
+            '<strong>TDD Backend 317개 테스트, 95% 커버리지</strong> - pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략',
             '<strong>Service Layer Pattern</strong> 도입으로 비즈니스 로직과 View 분리, 단일 책임 원칙 적용',
             '<strong>N+1 쿼리 최적화</strong>로 시험 목록 조회 시 Database 접근 70% 감소 (10→3회)',
             'JWT <strong>HttpOnly Cookie + RBAC</strong> Frontend/Backend 이중 검증으로 보안 강화'
@@ -138,8 +138,8 @@ export const projectsData = [
         highlights: [
             'Terraform(IaC)으로 Solid Cloud 인프라를 코드화하고, Kustomize로 환경별 설정을 분리하여 재현 가능한 운영 환경 구축',
             'GitHub Actions, Argo CD 기반 GitOps 파이프라인으로 <strong>Git Push 후 5분 내 자동 배포</strong> 달성',
-            'CI 파이프라인에 <strong>Trivy 보안 스캔을 통합</strong>하여 빌드 단계에서 컨테이너 취약점을 자동으로 탐지 및 차단',
-            'Istio Service Mesh의 <strong>mTLS STRICT 모드</strong>와 <strong>NetworkPolicy</strong>를 적용하여 Zero Trust Network 보안 아키텍처 구현',
+            'CI 파이프라인에 <strong>Trivy 보안 스캔을 통합</strong>하여 CRITICAL/HIGH 취약점을 자동 탐지하고 PR 코멘트 자동화',
+            'Istio Service Mesh의 <strong>mTLS STRICT 모드</strong>를 적용하여 서비스 간 상호 인증·암호화 통신 구현',
             'Prometheus, Grafana, Loki 기반 통합 관측성 시스템을 구축하고, Golden Signals 대시보드로 Grafana 실측 <strong>P95 9.77ms / P99 19.8ms</strong>, k6 부하 테스트(100 VU) <strong>P95 74.76ms / 에러율 0.01%</strong> 달성'
         ],
         githubUrl: 'https://github.com/DvwN-Lee/Monitoring-v2',
@@ -229,7 +229,7 @@ export const projectsData = [
         highlights: [
             'Go 언어와 고루틴을 활용한 커스텀 로드밸런서 및 Stats Aggregator 개발 (타임아웃 2초로 장애 전파 차단)',
             'Kustomize base/overlay 패턴으로 개발/운영 환경별 Kubernetes 매니페스트 선언적 관리',
-            'Go + Python FastAPI 마이크로서비스 아키텍처 설계 (100 RPS 성능 목표 검증)',
+            'Go + Python FastAPI 마이크로서비스 아키텍처 설계 (최대 80 RPS 동시성 안정성 검증)',
             'Vanilla JS + WebSocket 통신 기반 실시간 모니터링 대시보드 구축 (RPS, 응답시간, 서비스 상태 시각화)',
             '각 서비스의 통계를 병렬 수집하는 프록시/집계 패턴으로 관측 가능성 확보'
         ],
@@ -237,12 +237,12 @@ export const projectsData = [
         modalDetails: [
             {
                 title: 'Overview',
-                content: 'Go와 Python FastAPI를 사용한 마이크로서비스 아키텍처 기반 실시간 모니터링 플랫폼입니다. 커스텀 로드밸런서와 통계 집계 시스템을 구축하여 100 RPS 이상의 트래픽을 안정적으로 처리합니다.'
+                content: 'Go와 Python FastAPI를 사용한 마이크로서비스 아키텍처 기반 실시간 모니터링 플랫폼입니다. 커스텀 로드밸런서와 통계 집계 시스템을 구축하여 최대 80 RPS 동시성을 안정적으로 처리합니다.'
             },
             {
                 title: 'Key Features',
                 items: [
-                    '<strong>고성능 로드밸런서</strong>: Go 고루틴 기반 비동기 처리로 100 RPS 이상 안정적 처리',
+                    '<strong>고성능 로드밸런서</strong>: Go 고루틴 기반 비동기 처리로 최대 80 RPS 안정적 처리',
                     '<strong>장애 격리</strong>: 타임아웃 2초 설정으로 서비스 간 장애 전파 차단',
                     '<strong>실시간 대시보드</strong>: WebSocket을 통한 실시간 RPS, 응답시간, 서비스 상태 시각화',
                     '<strong>환경별 배포</strong>: Kustomize로 개발/운영 환경 매니페스트 분리 관리'
@@ -280,7 +280,7 @@ export const projectsData = [
         tech: ['Django', 'MySQL', 'jQuery', 'Bootstrap'],
         highlights: [
             'Django 프레임워크를 활용한 풀스택 웹 애플리케이션 개발 및 MySQL 데이터베이스 연동',
-            '관리자, 교사, 학생 3가지 역할을 가진 사용자 모델 설계 및 Django Admin 기반 운영 인터페이스 구현',
+            '교사, 학생 2가지 역할을 가진 사용자 모델 설계 및 Django Admin 기반 운영 인터페이스 구현',
             '사용자, 문제, 시험지, 시험 관리 등 4가지 핵심 모듈로 구성된 복잡한 도메인 로직 처리',
             'Django Admin 커스터마이징으로 시스템 운영 및 데이터 관리 효율성 증대'
         ],
@@ -294,7 +294,7 @@ export const projectsData = [
                 title: 'Key Features',
                 items: [
                     '시험 문제 출제 및 관리 (문제 은행)',
-                    '역할 기반 사용자 관리 (학생, 교사, 관리자)',
+                    '역할 기반 사용자 관리 (교사, 학생)',
                     '실시간 시험 진행 및 자동 채점',
                     '성적 조회 및 통계'
                 ]
