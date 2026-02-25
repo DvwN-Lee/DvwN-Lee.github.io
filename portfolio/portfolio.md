@@ -137,9 +137,10 @@ v2(Solid Cloud) 환경의 한계(수동 인프라 프로비저닝, 검증 부재
 
 #### 핵심 학습
 
-- **인프라 신뢰성 정량화:** Terratest 6단계 파이프라인을 통해 인프라 변경에 따른 리스크를 코드 수준에서 검증하고 수치화하는 경험
-- **선언적 플랫폼 운영:** App of Apps 패턴으로 다수의 마이크로서비스와 인프라 컴포넌트를 단일 진실 공급원(Git)을 통해 통합 관리하는 체계 구축
-- **최적의 인프라 설계:** MIG + Spot VM과 HPA 튜닝을 조합하여 애플리케이션 트래픽 부하에 탄력적으로 대응하면서도 비용을 최적화하는 아키텍처 실현
+- Terratest 6단계 파이프라인으로 인프라를 코드 수준에서 자동 검증하는 Platform Reliability 체계 구축
+- App of Apps 패턴으로 다수 ArgoCD Application을 계층적으로 관리하는 선언적 플랫폼 구조 설계
+- IAP·Shielded VM·Firewall·NetworkPolicy·mTLS 조합으로 코드로 표현된 다층 Zero Trust 보안 아키텍처 구현
+- MIG + Spot VM을 활용한 Worker Node 자동 확장 및 비용 최적화 경험
 
 ---
 
@@ -286,9 +287,10 @@ Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화�
 
 #### 핵심 학습
 
-- **GitOps 기반 선언적 운영:** Argo CD와 Kustomize를 연동하여 코드 기반의 일관된 배포 환경을 구축하고 운영하는 역량 습득
-- **데이터 기반 성능 최적화:** k6 테스트 결과 분석을 통해 P99 Latency를 94% 감소시키는 실질적인 성능 개선 성과 도출
-- **Service Mesh 보안:** Istio mTLS 및 NetworkPolicy를 활용한 Zero Trust 네트워크 설계 및 트래픽 가시화 경험
+- IaC로 재현 가능한 인프라를 구축하고 Terraform State를 별도 Backend에 저장하여 State 일관성 확보
+- ArgoCD + Kustomize 기반 GitOps: 선언적 배포로 환경별 일관성을 코드로 보장
+- Istio mTLS STRICT와 NetworkPolicy로 네임스페이스 수준의 Zero Trust 네트워크 구현
+- k6 부하 테스트 → Golden Signals 실측 → HPA 튜닝으로 이어지는 데이터 기반 성능 최적화 사이클 경험
 
 ---
 
@@ -342,9 +344,9 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 #### 핵심 학습
 
-- **인프라 프로비저닝 자동화:** Terraform과 Ansible을 연계한 자동화 파이프라인을 통해 수동 구성의 번거로움을 제거하고, 약 15분 내에 일관된 환경을 구축할 수 있는 프로세스 정립
-- **베어메탈급 네트워크 설계:** Cilium eBPF 기반 CNI와 MetalLB를 활용하여 클라우드 환경에 적합한 네트워크 레이어 구축 경험
-- **CI/CD 플랫폼 직접 구축:** Jenkins와 GitLab을 활용하여 자체적인 소프트웨어 공급망(Software Supply Chain)을 구축하고 운영하는 역량 확보
+- Terraform(인프라 프로비저닝) + Ansible(소프트웨어 구성 관리) 역할 분리로 반복 가능한 플랫폼 부트스트랩 자동화
+- Ansible 멱등성 Playbook으로 kubeadm 기반 Kubernetes Cluster를 수동 개입 없이 재현 가능하게 구성
+- Cilium eBPF CNI와 MetalLB를 코드로 통합하여 네트워킹 레이어까지 IaC 범위 확장
 
 ---
 
@@ -396,9 +398,9 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 #### 핵심 학습
 
-- **플랫폼 코어 직접 구현:** Go 고루틴과 채널을 활용하여 100 RPS 이상의 트래픽을 처리하는 API Gateway 및 통계 집계 엔진을 직접 설계하고 구현한 경험
-- **MSA 패턴의 실전 적용:** Database per Service, API Gateway, Circuit Breaker 등 마이크로서비스 핵심 패턴을 코드로 직접 구현하며 아키텍처에 대한 깊은 이해 확보
-- **환경별 배포 전략 수립:** Kustomize base/overlay 패턴을 최초 도입하여 다양한 실행 환경에 유연하게 대응하는 배포 체계 마련
+- Go 고루틴 기반 비동기 처리로 커스텀 Reverse Proxy·Stats Aggregator를 구현하여 Service Mesh의 핵심 역할을 직접 이해
+- Kustomize base/overlay 패턴으로 환경별 Kubernetes Manifest를 선언적으로 관리하는 플랫폼 구조 설계
+- 커스텀 구현의 한계를 실제로 경험하고 표준 도구(Istio) 도입의 필요성을 데이터 기반으로 판단
 
 ---
 
