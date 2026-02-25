@@ -231,6 +231,8 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 
 Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화와 GitOps 배포 파이프라인을 구축한 Cloud-Native 플랫폼입니다. Istio Service Mesh로 서비스 간 보안 통신을 구현하고, Prometheus/Grafana/Loki 통합 관측성 시스템을 구축했습니다. k6 부하 테스트 기반 HPA 튜닝으로 트래픽 부하에 대응하는 안정성을 확보했습니다.
 
+온프레미스 CloudStack 환경의 네트워크 구성 제약과, Terraform으로 배포한 인프라 자체를 코드 수준에서 자동으로 검증하는 체계가 없다는 점을 인식했습니다. 이를 해결하기 위해 v3에서 GCP로 전환하고 Terratest 기반 6단계 인프라 검증 체계를 구축했습니다.
+
 #### 주요 구현 사항
 
 **1. Infrastructure as Code (Terraform + Kustomize)**
@@ -354,7 +356,9 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 #### 프로젝트 개요
 
-단국대학교 CloudStack(Solid Cloud) 환경에서 Go와 Python(FastAPI)을 활용한 폴리글랏 마이크로서비스 기반 실시간 모니터링 대시보드를 구축했습니다. Go로 API Gateway와 Stats Aggregator를 구현하여 100 RPS 이상의 트래픽을 안정적으로 처리하고, Kustomize로 Kubernetes 환경별 배포를 관리합니다. 이 프로젝트는 v2.0의 기반이 되었으며, v2.0에서 커스텀 컴포넌트를 Istio Service Mesh로 대체하고 GitOps 파이프라인을 추가했습니다.
+단국대학교 CloudStack(Solid Cloud) 환경에서 Go와 Python(FastAPI)을 활용한 폴리글랏 마이크로서비스 기반 실시간 모니터링 대시보드를 구축했습니다. Go로 API Gateway와 Stats Aggregator를 구현하여 100 RPS 이상의 트래픽을 안정적으로 처리하고, Kustomize로 Kubernetes 환경별 배포를 관리합니다.
+
+직접 구현한 Circuit Breaker, Stats Aggregator는 기능적으로 동작했으나, 이를 유지보수하는 비용과 프로덕션 수준의 Service Mesh 기능(세밀한 트래픽 제어, 서비스 간 가시성)을 커스텀으로 구현하는 것의 한계를 확인했습니다. 이 경험이 v2에서 Istio Service Mesh를 도입하고 커스텀 컴포넌트를 대체하는 결정의 근거가 되었습니다.
 
 #### 주요 구현 사항
 
