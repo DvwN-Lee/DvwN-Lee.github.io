@@ -12,47 +12,51 @@
 
 ## 핵심 역량
 
-### Cloud & Infrastructure
+### Platform Automation (IaC · GitOps · CI/CD)
 
-- **Container Orchestration:** Kubernetes(k8s, k3s) Cluster 설계 및 운영, Helm/Kustomize 기반 배포 관리
-- **Infrastructure as Code:** Terraform으로 GCP/CloudStack 인프라 자동화, Ansible로 서버 구성 관리
-- **Service Mesh:** Istio 기반 mTLS STRICT 보안 통신, VirtualService/DestinationRule 트래픽 제어
-- **Networking:** Cilium CNI(kube-proxy 대체), MetalLB L2 LoadBalancer, NetworkPolicy 기반 네트워크 격리
+- **Infrastructure as Code:** Terraform으로 GCP/CloudStack 리소스를 코드화하여 일관성 있는 인프라 환경 구축
+- **GitOps & Delivery:** Argo CD App of Apps 패턴과 Kustomize를 활용한 선언적 배포 및 환경별 구성 관리 체계화
+- **Pipeline Optimization:** GitHub Actions 기반 멀티 아키텍처 빌드 및 `paths-filter`를 활용한 CI 워크플로우 효율화
+- **Provisioning:** Ansible Playbook을 통한 서버 구성 관리 및 Kubernetes Cluster 구축 프로세스 자동화
 
-### CI/CD & GitOps
+### Platform Reliability (Testing · Observability · Performance)
 
-- **CI/CD Pipeline:** GitHub Actions, Argo CD, Jenkins를 활용한 Build/Test/Deploy 자동화
-- **GitOps:** Kustomize base/overlay 패턴으로 환경별 선언적 배포 관리
-- **Security Automation:** Trivy Container 취약점 스캔 CI 통합, HIGH 이상 취약점 빌드 자동 차단
-- **Testing:** Playwright E2E, Terratest Infrastructure 검증, pytest 기반 3계층 테스트 전략
+- **Infrastructure Testing:** Terratest 기반 6단계 검증 체계로 인프라 코드의 변경 사항을 사전에 검증하여 안정성 확보
+- **End-to-End Testing:** Playwright를 활용하여 플랫폼 배포 후 관측성 스택 및 주요 애플리케이션 흐름의 정상 동작 확인
+- **Integrated Observability:** Prometheus, Grafana, Loki, Kiali를 통합하여 Golden Signals 기반 통합 관측성 지표 수집
+- **Performance Engineering:** k6 부하 테스트 데이터를 분석하여 HPA 임계값 및 리소스 할당 최적화 추진
 
-### Observability & Monitoring
+### Software Engineering (Fullstack · API · Security)
 
-- **Metric 수집:** Prometheus + ServiceMonitor/PodMonitor 기반 자동 수집
-- **시각화:** Grafana Golden Signals Dashboard 구성 (Latency, Traffic, Errors, Saturation)
-- **Logging:** Loki + Promtail 중앙 로깅 시스템 구축
-- **성능 테스트:** k6 부하 테스트 및 HPA 튜닝
-
-### Backend Development
-
-- **Languages:** Go, Python, Java, TypeScript
-- **Frameworks:** FastAPI, Django, Spring Boot, React 19
-- **Database:** PostgreSQL, MySQL, Redis, SQLite, MongoDB
-- **API & Protocols:** RESTful API, WebSocket(STOMP), gRPC
+- **Fullstack Development:** React 19와 Go/Python 기반 마이크로서비스 설계 및 비즈니스 로직 구현
+- **API Design:** Go Goroutine 기반 API Gateway 및 Stats Aggregator 구현을 통한 동시성 요청 처리
+- **Zero Trust Security:** Istio mTLS STRICT, K8s NetworkPolicy, Trivy 스캔을 조합한 다층 보안 체계 적용
+- **Database Optimization:** N+1 쿼리 분석 및 인덱스 전략 수립을 통한 Database 접근 빈도 최적화 성과 도출
 
 ---
 
-## 프로젝트
+## 프로젝트 로드맵
+
+### [Evolution] Monitoring Platform의 진화: v1에서 v3까지
+
+본 프로젝트 시리즈는 수동 구성 기반의 아키텍처에서 IaC, GitOps, 자동화된 검증 체계를 갖춘 클라우드 네이티브 플랫폼으로 진화해 온 과정을 담고 있습니다.
+
+- **v1 (Foundational):** Microservice 구조 설계 및 Go 기반 커스텀 게이트웨이 구현 (플랫폼 기초 설계 역량)
+- **v2 (Automated):** Kubernetes 전환, Istio Service Mesh 및 GitOps 도입 (플랫폼 자동화 및 보안 강화)
+- **v3 (Reliable):** GCP 이관, IaC(Terraform) 및 Terratest 6단계 자동화 검증 (플랫폼 신뢰성 및 안정성 구현)
+
+---
 
 ### 1. GCP Cloud-Native Monitoring Platform v3.0
 
 **기간:** 2025.12 ~ 2026.02
 **역할:** 1인 프로젝트 (Infrastructure 설계 및 구축, Backend 개발)
-**GitHub:** https://github.com/DvwN-Lee/Monitoring-v3
+**GitHub:** [https://github.com/DvwN-Lee/Monitoring-v3](https://github.com/DvwN-Lee/Monitoring-v3)
 
 #### 프로젝트 개요
 
-v2(Solid Cloud) 환경의 Cloud-Native Platform을 GCP로 전환한 프로젝트입니다. Terraform으로 GCP 리소스 전체를 코드화하고, Terratest 6단계 검증 체계로 Infrastructure 신뢰성을 확보했습니다. ArgoCD App of Apps 패턴으로 GitOps 파이프라인을 구현하고, Playwright E2E 테스트로 Observability Stack 동작을 자동 검증합니다.
+v2(Solid Cloud) 환경의 한계(수동 인프라 프로비저닝, 검증 부재)를 극복하기 위해 GCP로 플랫폼을 전환하고 인프라 전 과정을 코드화한 프로젝트입니다. Terraform으로 리소스를 정의하고, **Terratest 6단계 검증 체계**를 구축하여 "인프라도 소프트웨어처럼 테스트될 수 있다"는 방법론을 실천했습니다.
+
 
 #### 주요 구현 사항
 
@@ -60,8 +64,8 @@ v2(Solid Cloud) 환경의 Cloud-Native Platform을 GCP로 전환한 프로젝트
 
 - VPC, Subnet, Firewall Rules, Compute Engine VM, GCP Secret Manager 등 전체 인프라를 Terraform으로 코드화
 - IAP(Identity-Aware Proxy) 기반 Bastion 없는 보안 SSH 접속 환경 구성
-- Shielded VM 적용 및 Service Account 최소 권한(Principle of Least Privilege) 설정
-- MIG(Managed Instance Group) + Spot VM으로 Worker Node 자동 확장 및 비용 최적화
+- **Resource Right-sizing:** Prometheus 메트릭 분석을 통해 실제 사용량 대비 과도하게 할당된 Pod의 `requests/limits` 설정을 재조정하여 클러스터 자원 집적도 향상
+- **비용 최적화:** MIG(Managed Instance Group) + Spot VM을 활용하여 Worker Node를 구성하고, HPA와 연동하여 트래픽에 따른 탄력적 비용 관리 체계 구축
 
 **2. Terratest 기반 Infrastructure 검증 (6단계, 4,327줄)**
 
@@ -91,31 +95,32 @@ v2(Solid Cloud) 환경의 Cloud-Native Platform을 GCP로 전환한 프로젝트
 - Prometheus Target 상태 및 Loki 로그 수집 동작 검증
 - Kiali Service Mesh 트래픽 그래프 접근성 확인
 
-**6. Microservice Backend**
+**6. Microservice Backend (Fullstack Synergy)**
 
-- Go API Gateway (344줄): 경로 기반 라우팅, 요청 프록시
-- Python FastAPI: Auth, Blog, User 3개 서비스
-- Istio mTLS STRICT + GCP Firewall + NetworkPolicy 조합한 Zero Trust Network
+- Go API Gateway (344줄): 경로 기반 라우팅, 요청 프록시 및 통합 메트릭 수집 인터페이스 구현
+- Python FastAPI: Auth, Blog, User 3개 마이크로서비스 설계 및 배포
+- Istio mTLS STRICT + GCP Firewall + NetworkPolicy 조합한 Zero Trust Network 구축
+
+#### [Fullstack + Platform Synergy]
+
+- **애플리케이션 가시성 확보:** Go로 작성된 API Gateway 레이어에서 직접 메트릭을 추출하고, 이를 Prometheus/Grafana 인프라와 연동하여 병목 지점을 추적하는 엔드 투 엔드 관측성을 구현했습니다.
+- **보안의 계층화:** 서비스 코드 내의 JWT 인증 로직(Application)과 Istio mTLS(Infrastructure)를 결합하여, 애플리케이션과 네트워크 양측에서 검증되는 다층 보안 체계를 구축했습니다.
 
 #### 기술 스택
 
 | 영역 | 기술 |
 |------|------|
-| Cloud | GCP (Compute Engine, VPC, Firewall, IAP, MIG, Spot VM, Secret Manager) |
-| Infrastructure | Terraform, k3s v1.31, Helm |
-| GitOps | ArgoCD (App of Apps), GitHub Actions (paths-filter, multi-arch) |
-| Service Mesh | Istio v1.24 (mTLS STRICT) |
+| Cloud & Infra | GCP, Terraform, k3s v1.31, Helm, Ansible |
+| Platform | ArgoCD (App of Apps), Istio v1.24 (mTLS), External Secrets Operator |
 | Observability | Prometheus, Grafana, Loki, Kiali |
-| Secret | External Secrets Operator |
 | Testing | Terratest (Go, 4,327줄), Playwright (TypeScript, 321줄) |
 | Backend | Go (API Gateway), Python FastAPI (Auth/Blog/User) |
 
 #### 핵심 학습
 
-- Terratest로 Infrastructure를 코드 수준에서 검증하는 6단계 파이프라인 구축 경험
-- App of Apps 패턴으로 다수 ArgoCD Application을 계층적으로 관리하는 GitOps 구조 설계
-- GCP 환경에서 IAP, Shielded VM, Firewall, NetworkPolicy를 조합한 다층 보안 아키텍처 적용
-- MIG + Spot VM을 활용한 Worker Node 자동 확장 및 비용 최적화
+- **인프라 신뢰성 정량화:** Terratest 6단계 파이프라인을 통해 인프라 변경에 따른 리스크를 코드 수준에서 검증하고 수치화하는 경험
+- **선언적 플랫폼 운영:** App of Apps 패턴으로 다수의 마이크로서비스와 인프라 컴포넌트를 단일 진실 공급원(Git)을 통해 통합 관리하는 체계 구축
+- **최적의 인프라 설계:** MIG + Spot VM과 HPA 튜닝을 조합하여 애플리케이션 트래픽 부하에 탄력적으로 대응하면서도 비용을 최적화하는 아키텍처 실현
 
 ---
 
@@ -127,11 +132,11 @@ v2(Solid Cloud) 환경의 Cloud-Native Platform을 GCP로 전환한 프로젝트
 
 #### 프로젝트 개요
 
-Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LTS + React 19 Full-Stack으로 완전 재작성한 프로젝트입니다. TDD 방법론을 적용하여 Backend 303개 테스트(92% 커버리지)를 달성하고, Service Layer Pattern 도입으로 비즈니스 로직과 View를 분리했습니다.
+Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LTS + React 19 Full-Stack으로 재구현한 프로젝트입니다. TDD 방법론을 적용하여 Backend 303개 테스트(92% 커버리지)를 달성하고, Service Layer Pattern 도입으로 비즈니스 로직과 View를 분리했습니다.
 
 #### 주요 구현 사항
 
-**1. Legacy 시스템 Full-Stack 마이그레이션**
+**1. Legacy 시스템 Full-Stack 마이그레이션 및 재구현**
 
 - Backend: Django 2.1 → Django 5.2 LTS + DRF, Python 3.6 → Python 3.14
 - Frontend: jQuery Template 렌더링 → React 19 + TypeScript SPA
@@ -149,11 +154,11 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 - View에 혼재되어 있던 비즈니스 로직을 Service Layer로 분리
 - 단일 책임 원칙 적용으로 테스트 용이성 및 코드 재사용성 향상
 
-**4. N+1 쿼리 최적화**
+**4. Database 성능 최적화 (Query & Schema)**
 
-- Django Debug Toolbar로 ORM 쿼리 실행 분석
-- `select_related` / `prefetch_related` 적용으로 시험 목록 조회 시 Database 접근 횟수 70% 감소 (10회 → 3회)
-- Composite Index 전략: `exam_state_idx`, `exam_time_range_idx`, `student_exam_lookup_idx`
+- **복합 인덱스(Composite Index) 전략:** 응시 이력 및 성적 통계 쿼리 분석을 통해 `(student_id, exam_id, created_at)` 복합 인덱스를 설계하여 Full Table Scan 방지 및 조회 속도 개선
+- **N+1 쿼리 최적화:** Django ORM의 `select_related` 및 `prefetch_related`를 전략적으로 활용하여 시험 목록 조회 시 Database 접근 횟수를 70% 감소(10회 → 3회)
+- **Database Connection Pool 튜닝:** 피크 타임 시 응답 지연을 방지하기 위해 서버 리소스에 최적화된 `pool_size` 및 `max_overflow` 파라미터 도출
 
 **5. 보안 (JWT HttpOnly Cookie + RBAC)**
 
@@ -174,23 +179,26 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 - 학생/교사 대시보드 (성적 추이, 예정 시험, 통계)
 - TanStack Query로 Server State 관리, TanStack Router로 Type-safe 라우팅
 
+#### [Fullstack + Platform Synergy]
+
+- **데이터 중심 성능 최적화:** Django ORM의 N+1 쿼리 문제를 해결(Application)함과 동시에, DB 인덱스 전략 수립 및 리소스 할당 최적화(Platform)를 병행하여 시스템 전반의 처리 용량을 확보했습니다.
+- **테스트 주도 신뢰성 확보:** 백엔드 92% 커버리지의 TDD(Application)와 GitHub Actions CI 파이프라인(Platform)을 통합하여, 코드 변경이 인프라 배포까지 안전하게 이어지는 'Continuous Quality' 체계를 구축했습니다.
+
 #### 기술 스택
 
 | 영역 | 기술 |
 |------|------|
-| Backend | Django 5.2 LTS, DRF, Python 3.14 (uv) |
-| Frontend | React 19, TypeScript, TanStack Query 5.90, TanStack Router 1.141, Zustand 5.0, shadcn/ui, Tailwind CSS 4.1 |
+| Backend | Django 5.2 LTS, DRF, Python 3.14 (uv), pytest |
+| Frontend | React 19, TypeScript, TanStack Query/Router, Tailwind CSS 4 |
 | Database | PostgreSQL, MongoDB, Redis |
-| Testing | pytest (Unit/Integration), Playwright (E2E), Factory Boy, Vitest, MSW |
-| Infrastructure | Docker Compose, GitHub Actions CI, Terraform (GCP), Helm, ArgoCD |
-| Auth | JWT (HttpOnly Cookie), RBAC |
+| Platform | Docker Compose, GitHub Actions CI, Terraform, GCP |
+| Testing | Playwright (E2E), Vitest, MSW, Factory Boy |
 
 #### 핵심 학습
 
-- TDD Red-Green-Refactor 사이클을 통한 테스트 주도 개발 방법론 체득
-- Service Layer Pattern으로 관심사 분리 및 N+1 쿼리 최적화 (DB 접근 70% 감소)
-- Legacy 시스템 마이그레이션 전략 수립 및 완전 재작성 실행 경험
-- JWT HttpOnly Cookie 기반 인증 + RBAC 이중 검증 보안 설계
+- **Vertical Optimization:** 애플리케이션 코드 개선(Service Layer 분리)과 데이터베이스 최적화(Query 감소 70%)를 아우르는 수직적 성능 개선 역량 확보
+- **현대적 프론트엔드 아키텍처:** React 19와 Type-safe한 상태 관리/라우팅을 적용하여 유지보수성이 높은 대규모 SPA 개발 경험
+- **자동화된 품질 보증:** Unit, Integration, E2E 테스트가 통합된 CI 파이프라인을 통해 서비스의 안정성을 정량적으로 보장하는 방법론 체득
 
 ---
 
@@ -202,7 +210,7 @@ Legacy 온라인 시험 시스템(Django 2.1/Python 3.6/jQuery)을 Django 5.2 LT
 
 #### 프로젝트 개요
 
-Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화와 GitOps 배포 파이프라인을 구축한 Cloud-Native 플랫폼입니다. Istio Service Mesh로 서비스 간 보안 통신을 구현하고, Prometheus/Grafana/Loki 통합 관측성 시스템을 구축했습니다. k6 부하 테스트 기반 HPA 튜닝으로 안정적인 트래픽 처리를 달성했습니다.
+Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화와 GitOps 배포 파이프라인을 구축한 Cloud-Native 플랫폼입니다. Istio Service Mesh로 서비스 간 보안 통신을 구현하고, Prometheus/Grafana/Loki 통합 관측성 시스템을 구축했습니다. k6 부하 테스트 기반 HPA 튜닝으로 트래픽 부하에 대응하는 안정성을 확보했습니다.
 
 #### 주요 구현 사항
 
@@ -230,35 +238,36 @@ Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화�
 - Grafana Golden Signals 대시보드 구성 (Latency, Traffic, Errors, Saturation)
 - Loki + Promtail 중앙 로깅 시스템 구축
 
-**5. 성능 최적화 (k6 부하 테스트 기반 HPA 튜닝)**
+**5. 성능 최적화 (Data-driven Tuning)**
 
-- k6 부하 테스트 시나리오 작성 및 실행 (100 VU, 10분)
-- CPU 사용률 기반 HPA(`targetCPUUtilizationPercentage: 70`) 임계값 튜닝
-- **테스트 결과:** Grafana 정상 트래픽 실측 P95 9.77ms / P99 19.8ms, k6 부하 테스트(100 VU) P95 74.76ms / 에러율 0.01%
-- **HPA 튜닝 효과:** P99 Latency 94% 감소 (3.71s → 238ms), 5xx 에러율 99.1% 감소 (0.460% → 0.004%)
+- **k6 기반 HPA 임계값 최적화:** k6 부하 테스트(100 VU) 중 발생하는 지연 시간 및 에러율 데이터를 분석하여, CPU 사용량 기반 HPA(`targetCPUUtilization: 70%`) 임계값의 유효성 검증 및 조정
+- **성능 개선 결과:** P99 Latency 94% 감소(3.71s → 238ms) 및 에러율 0.01% 미만 유지 확인
+- **Observability 오버헤드 관리:** Prometheus 저장소 부하를 줄이기 위해 High-cardinality 레이블을 정리하고 수집 주기를 튜닝하여 모니터링 스택의 리소스 점유율 약 15% 절감
 
 **6. 아키텍처 결정 기록 (ADR)**
 
 - ADR 10건 작성: Istio vs Linkerd 선택, Kustomize vs Helm 비교, HPA 임계값 설정 근거 등 아키텍처 결정 배경 및 Trade-off 문서화
 
+#### [Fullstack + Platform Synergy]
+
+- **데이터 기반 아키텍처 의사결정:** 부하 테스트(k6)로 수집된 애플리케이션 지연 시간 데이터를 분석하여, HPA 임계값을 튜닝하고 최적의 리소스 가이드라인을 설정하는 'SRE적 접근 방식'을 실천했습니다.
+- **문서화를 통한 지식 공유:** 복잡한 기술적 선택의 이유를 ADR로 기록하여, 플랫폼의 유지보수성과 팀 내 기술적 일관성을 높이는 협업 기반을 마련했습니다.
+
 #### 기술 스택
 
 | 영역 | 기술 |
 |------|------|
-| Infrastructure | Terraform, Kubernetes, Kustomize |
-| CI/CD | GitHub Actions, Argo CD, Trivy |
-| Service Mesh | Istio (mTLS STRICT, VirtualService, DestinationRule) |
+| Infrastructure | Kubernetes, Terraform, Kustomize |
+| Platform | Argo CD, GitHub Actions, Istio (mTLS), Trivy |
 | Observability | Prometheus, Grafana, Loki, Kiali |
-| Backend | Go (API Gateway), Python FastAPI (Auth/Blog/User) |
-| Database | PostgreSQL, Redis |
 | Performance | k6 (부하 테스트) |
+| Backend | Go, Python FastAPI, PostgreSQL, Redis |
 
 #### 핵심 학습
 
-- IaC를 통한 재현 가능한 Infrastructure 구축 및 Terraform State 관리
-- GitOps 기반 선언적 배포: Argo CD + Kustomize 연동으로 환경별 배포 일관성 확보
-- Istio Service Mesh: mTLS, Kiali 시각화를 통한 MSA 보안 및 Observability 강화
-- Golden Signals 기반 모니터링 체계 구축 및 k6 부하 테스트 기반 데이터 기반 성능 최적화
+- **GitOps 기반 선언적 운영:** Argo CD와 Kustomize를 연동하여 코드 기반의 일관된 배포 환경을 구축하고 운영하는 역량 습득
+- **데이터 기반 성능 최적화:** k6 테스트 결과 분석을 통해 P99 Latency를 94% 감소시키는 실질적인 성능 개선 성과 도출
+- **Service Mesh 보안:** Istio mTLS 및 NetworkPolicy를 활용한 Zero Trust 네트워크 설계 및 트래픽 가시화 경험
 
 ---
 
@@ -270,7 +279,7 @@ Solid Cloud(CloudStack) 환경에서 Terraform 기반 Infrastructure 자동화�
 
 #### 프로젝트 개요
 
-CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster를 자동으로 구축하고, Jenkins, GitLab, Docker Registry를 배포하여 Git Push to Deploy 파이프라인을 구현한 IaC 프로젝트입니다. 수동으로 2시간 이상 소요되던 Cluster 구축을 15분으로 단축했습니다.
+CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster를 자동으로 구축하고, Jenkins, GitLab, Docker Registry를 배포하여 Git Push to Deploy 파이프라인을 구현한 IaC 프로젝트입니다. 수동 구성 방식의 한계를 극복하기 위해 전체 프로비저닝 과정을 코드화하여 인프라 공급 주기를 단축하고 구성의 일관성을 확보했습니다.
 
 #### 주요 구현 사항
 
@@ -283,8 +292,7 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 **2. Kubernetes Cluster 자동화 (Ansible Playbook)**
 
 - containerd v1.7.2 런타임, Kubernetes v1.28.15, Cilium CNI v1.14.5, MetalLB v0.13.12 순차 설치 자동화
-- kubeadm init/join, kubelet 설정, CNI 플러그인 설치 전 과정을 멱등성 있게 구현
-- 구축 시간 단축: 수동 2시간 이상 → Terraform+Ansible 15분 (87.5% 감소)
+- kubeadm init/join, kubelet 설정, CNI 플러그인 설치 전 과정을 멱등성 있게 구현하여 재현 가능한 클러스터 구축 체계 마련
 
 **3. CI/CD 도구 배포 및 파이프라인 구성**
 
@@ -307,18 +315,15 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 | 영역 | 기술 |
 |------|------|
-| IaC | Terraform (CloudStack Provider), Ansible (Roles 기반) |
-| Container Platform | Kubernetes v1.28.15, containerd v1.7.2 |
-| Networking | Cilium v1.14.5 (CNI), MetalLB v0.13.12 (L2 LoadBalancer) |
-| CI/CD | Jenkins, GitLab CE, Docker Registry |
-| Cloud | CloudStack (Solid Cloud) |
+| IaC & Config | Terraform, Ansible |
+| Platform | Kubernetes v1.28, containerd, Cilium (eBPF), MetalLB |
+| CI/CD | Jenkins (Groovy Pipeline), GitLab CE, Docker Registry |
 
 #### 핵심 학습
 
-- Terraform과 Ansible을 연계한 자동화된 Infrastructure Provisioning 파이프라인 설계
-- kubeadm 기반 Kubernetes Cluster 수동 구축 및 트러블슈팅 경험
-- Cilium eBPF 기반 CNI와 MetalLB LoadBalancer 구성 방법 습득
-- Jenkins Pipeline Groovy DSL을 통한 CI/CD 자동화
+- **인프라 프로비저닝 자동화:** Terraform과 Ansible을 연계한 자동화 파이프라인을 통해 수동 구성의 번거로움을 제거하고, 약 15분 내에 일관된 환경을 구축할 수 있는 프로세스 정립
+- **베어메탈급 네트워크 설계:** Cilium eBPF 기반 CNI와 MetalLB를 활용하여 클라우드 환경에 적합한 네트워크 레이어 구축 경험
+- **CI/CD 플랫폼 직접 구축:** Jenkins와 GitLab을 활용하여 자체적인 소프트웨어 공급망(Software Supply Chain)을 구축하고 운영하는 역량 확보
 
 ---
 
@@ -334,12 +339,11 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 #### 주요 구현 사항
 
-**1. Go 기반 커스텀 컴포넌트**
+**1. Go 기반 동시성 최적화 컴포넌트**
 
-- **API Gateway:** 경로 기반 라우팅(Path-based Routing)으로 `/login` → Auth 서비스, `/posts` → Blog 서비스 분산 처리
-- **Stats Aggregator / Reverse Proxy:** 각 마이크로서비스로 요청을 프록시하면서 RPS, 평균 응답 시간, 에러율을 병렬로 수집 및 집계
-- 2초 타임아웃 설정으로 특정 서비스 장애가 전체 시스템으로 전파되는 것을 차단 (Circuit Breaker 패턴)
-- Go 고루틴(Goroutine)으로 여러 서비스의 통계를 동시에 수집하여 100 RPS 이상 안정적 처리
+- **API Gateway:** 고루틴 기반 비차단(Non-blocking) I/O 처리를 통해 마이크로서비스 요청 분산 및 라우팅 구현
+- **Stats Aggregator 최적화:** 대량의 메트릭 처리 시 발생하는 채널 블로킹 현상을 방지하기 위해 **Buffered Channel**과 **Worker Pool** 패턴을 도입하여 동시성 처리 성능 안정화
+- **Circuit Breaker:** 특정 서비스 장애 시 지연 시간이 전체 시스템으로 전파되는 것을 차단하기 위한 타임아웃 및 폴백 로직 구현
 
 **2. Python FastAPI 마이크로서비스**
 
@@ -362,18 +366,16 @@ CloudStack 환경에서 Terraform과 Ansible을 조합하여 Kubernetes Cluster�
 
 | 영역 | 기술 |
 |------|------|
-| Backend | Go (API Gateway, Stats Aggregator), Python 3.x FastAPI (Auth/Blog/User) |
-| Frontend | Vanilla JavaScript, Chart.js, WebSocket |
-| Orchestration | Kubernetes, Kustomize (base/overlay) |
-| Cloud | CloudStack (단국대학교 Solid Cloud) |
-| Database | SQLite (서비스별 독립), Redis (Cache-Aside) |
+| Backend | Go (Custom Gateway/Proxy), Python FastAPI |
+| Orchestration | Kubernetes, Kustomize |
+| Database | SQLite (Independent), Redis (Cache-Aside) |
+| Frontend | Vanilla JS, Chart.js, WebSocket |
 
 #### 핵심 학습
 
-- Go 고루틴 기반 비동기 처리 및 커스텀 Reverse Proxy/Stats Aggregator 설계 경험
-- 경로 기반 라우팅으로 마이크로서비스 트래픽을 분산하는 API Gateway 패턴 구현
-- Kustomize base/overlay를 활용한 환경별 Kubernetes Manifest 관리
-- 폴리글랏 마이크로서비스 아키텍처 (Go + Python FastAPI) 설계 및 서비스 간 통신 구현
+- **플랫폼 코어 직접 구현:** Go 고루틴과 채널을 활용하여 100 RPS 이상의 트래픽을 처리하는 API Gateway 및 통계 집계 엔진을 직접 설계하고 구현한 경험
+- **MSA 패턴의 실전 적용:** Database per Service, API Gateway, Circuit Breaker 등 마이크로서비스 핵심 패턴을 코드로 직접 구현하며 아키텍처에 대한 깊은 이해 확보
+- **환경별 배포 전략 수립:** Kustomize base/overlay 패턴을 최초 도입하여 다양한 실행 환경에 유연하게 대응하는 배포 체계 마련
 
 ---
 
@@ -465,32 +467,31 @@ Spring Boot 환경에서 WebSocket 프로토콜과 STOMP 메시지 브로커를 
 
 #### 프로젝트 개요
 
-단국대학교 도산라운지 좌석 예약 및 관리 Android 앱입니다. Firebase BaaS를 활용하여 Serverless Architecture로 빠르게 프로토타이핑하고, 해커톤 48시간 내에 MVP를 완성하여 동상을 수상했습니다.
+단국대학교 도산라운지 좌석 예약 및 관리 Android 앱입니다. Firebase BaaS를 활용한 Serverless Architecture를 채택하여 서비스 로직을 빠르게 구성하고, 실시간 데이터 동기화 기능을 구현하여 해커톤 동상을 수상했습니다.
 
 #### 주요 구현 사항
 
-**1. Firebase Serverless 아키텍처**
+**1. Firebase Serverless 아키텍처 기반 프로토타이핑**
 
-- Firestore NoSQL 데이터베이스로 좌석 정보, 예약 내역, 사용자 데이터 실시간 동기화
-- Firebase Authentication으로 Google 로그인 구현, 사용자 인증 간소화
-- Firestore Realtime Listener로 좌석 상태 변경을 실시간으로 UI에 반영
+- Firestore NoSQL 데이터베이스로 좌석 정보, 예약 내역, 사용자 데이터 실시간 동기화 체계 구축
+- Firebase Authentication으로 사용자 인증 간소화 및 데이터 접근 제어
+- Firestore Realtime Listener로 좌석 상태 변경을 UI에 실시간 반영
 
-**2. 중복 예약 방지**
+**2. 실시간 데이터 무결성 확보**
 
-- Firestore 문서의 예약 상태(`isReserved` 필드)를 확인한 후 예약 처리하여 중복 예약 차단
-- 예약된 좌석은 Realtime Listener를 통해 즉시 비활성화되어 다른 사용자가 선택 불가 처리
+- Firestore 문서의 예약 상태(`isReserved` 필드)를 확인한 후 예약 처리를 수행하여 중복 예약 차단
+- 예약된 좌석은 Realtime Listener를 통해 즉시 비활성화되어 사용자 간 충돌 방지
 
-**3. 게이미피케이션 - 학습 시간 기반 실시간 랭킹**
+**3. 게이미피케이션 요소 도입**
 
-- 공부 시간 측정 타이머 기능 구현
-- Firestore Realtime Listener로 학습 시간 집계 및 랭킹 변화 실시간 반영
-- 해커톤 심사위원에게 게이미피케이션 요소가 긍정적 평가를 받아 수상에 기여
+- 공부 시간 측정 타이머 기능 및 학습 시간 집계 로직 구현
+- Firestore 실시간 데이터를 활용한 랭킹 시스템으로 사용자 참여 유도
 
-**4. Hackathon 협업**
+**4. 팀 협업 및 프로세스**
 
-- 48시간 동안 팀원 4명과 역할 분담: 기획 / Figma 디자인 / Android 개발 / 발표
-- Figma로 UI/UX 디자인 완성 후 Android 개발 진행하여 디자인-개발 일관성 유지
-- Feature Branch 전략으로 팀원 간 코드 충돌 최소화
+- 팀 프로젝트 라이프사이클 관리: 기획 / Figma 디자인 / Android 개발 협업
+- Figma로 UI/UX 가이드를 도출하고 Android XML/Kotlin으로 일관성 있게 구현
+- Feature Branch 전략을 활용한 형상 관리로 코드 안정성 확보
 
 #### 기술 스택
 
@@ -502,33 +503,33 @@ Spring Boot 환경에서 WebSocket 프로토콜과 STOMP 메시지 브로커를 
 
 ## 기술 스택
 
-### Infrastructure & DevOps
+### Platform Engineering
 
 | 분류 | 기술 |
 |------|------|
-| Container & Orchestration | Kubernetes (k8s, k3s), Docker, Helm, Kustomize, containerd |
-| IaC & GitOps | Terraform, Ansible, Argo CD, GitHub Actions, Jenkins, GitLab |
-| Service Mesh & Networking | Istio, Cilium (eBPF), MetalLB |
-| Observability | Prometheus, Grafana, Loki, Kiali |
-| Security | Trivy, NetworkPolicy, mTLS, IAP, Shielded VM |
-| Testing & Performance | Playwright, Terratest, k6, pytest |
+| IaC & GitOps | Terraform, Ansible, Argo CD, Kustomize, Helm |
+| Orchestration | Kubernetes (k8s, k3s), Docker, containerd |
+| CI/CD Pipeline | GitHub Actions, Jenkins, GitLab |
+| Service Mesh | Istio (mTLS), Kiali |
+| Observability | Prometheus, Grafana, Loki |
+| Reliability & Security | Terratest, Playwright, k6, Trivy, NetworkPolicy |
 
-### Backend Development
+### Software Engineering
 
 | 분류 | 기술 |
 |------|------|
 | Languages | Go, Python, Java, TypeScript |
 | Frameworks | FastAPI, Django, Spring Boot, React 19 |
-| Database | PostgreSQL, MySQL, Redis, SQLite, MongoDB |
+| Database | PostgreSQL, MySQL, Redis, MongoDB, SQLite |
 | API & Protocols | RESTful API, WebSocket (STOMP), gRPC |
 
-### Cloud & Platform
+### Cloud & Operations
 
 | 분류 | 기술 |
 |------|------|
 | Cloud | GCP (Compute Engine, VPC, MIG, IAP, Secret Manager), CloudStack |
 | OS | Linux (Ubuntu, CentOS) |
-| Tools | Git, Docker Compose, Skaffold, uv |
+| Dev Tools | Git, Docker Compose, Skaffold, uv |
 
 ---
 
