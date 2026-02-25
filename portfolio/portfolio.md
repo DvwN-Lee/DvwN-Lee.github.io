@@ -528,33 +528,42 @@ Spring Boot 환경에서 WebSocket 프로토콜과 STOMP 메시지 브로커를 
 
 ## 기술 스택
 
-### Platform Engineering
+### Platform Automation
 
 | 분류 | 기술 |
 |------|------|
-| IaC & GitOps | Terraform, Ansible, Argo CD, Kustomize, Helm |
-| Orchestration | Kubernetes (k8s, k3s), Docker, containerd |
-| CI/CD Pipeline | GitHub Actions, Jenkins, GitLab |
-| Service Mesh | Istio (mTLS), Kiali |
-| Observability | Prometheus, Grafana, Loki |
-| Reliability & Security | Terratest, Playwright, k6, Trivy, NetworkPolicy |
+| Container & Orchestration | Kubernetes (k8s, k3s), Docker, Helm, Kustomize, containerd |
+| IaC & GitOps | Terraform, Ansible, Argo CD, GitHub Actions, Jenkins, GitLab |
+| Service Mesh & Networking | Istio, Cilium (eBPF), MetalLB |
 
-### Software Engineering
+### Platform Reliability
+
+| 분류 | 기술 |
+|------|------|
+| Observability | Prometheus, Grafana, Loki, Kiali |
+| Testing & Performance | Playwright, Terratest, k6, pytest |
+
+### Platform Security
+
+| 분류 | 기술 |
+|------|------|
+| Zero Trust & Supply Chain | Trivy, NetworkPolicy, mTLS, IAP, Shielded VM, External Secrets Operator |
+
+### Backend Development
 
 | 분류 | 기술 |
 |------|------|
 | Languages | Go, Python, Java, TypeScript |
 | Frameworks | FastAPI, Django, Spring Boot, React 19 |
-| Database | PostgreSQL, MySQL, Redis, MongoDB, SQLite |
+| Database | PostgreSQL, MySQL, Redis, SQLite, MongoDB |
 | API & Protocols | RESTful API, WebSocket (STOMP), gRPC |
 
-### Cloud & Operations
+### Cloud & Tools
 
 | 분류 | 기술 |
 |------|------|
 | Cloud | GCP (Compute Engine, VPC, MIG, IAP, Secret Manager), CloudStack |
-| OS | Linux (Ubuntu, CentOS) |
-| Dev Tools | Git, Docker Compose, Skaffold, uv |
+| OS & Tools | Linux (Ubuntu, CentOS), Git, Docker Compose, uv |
 
 ---
 
