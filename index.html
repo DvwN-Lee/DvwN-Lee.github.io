@@ -3,302 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이동주 - Platform Engineer & Backend Developer</title>
+    <title>이동주 - AI Agent Developer Portfolio</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Terraform, ArgoCD GitOps, Kubernetes 기반 재현 가능한 클라우드 플랫폼을 구축하는 Platform Engineer 이동주입니다. IaC, 선언적 배포, 자동화된 검증을 통해 신뢰할 수 있는 인프라를 만듭니다.">
-    <meta name="keywords" content="Platform Engineer, Kubernetes, Terraform, ArgoCD, GitOps, CI/CD, Istio, Prometheus, Grafana, Cloud Native, IaC, 클라우드, 인프라, 백엔드">
+    <meta name="description" content="LangGraph, MCP Protocol, RAG 기반 AI Agent를 설계하고 구현하는 AI Agent Developer 이동주입니다. LLM Serving Observability부터 토큰 효율 분석까지, Agent 개발 전 과정을 경험했습니다.">
+    <meta name="keywords" content="AI Agent Developer, LangGraph, MCP Protocol, RAG, LLM Observability, FastAPI, FAISS, LangFuse, Prometheus, Docker">
     <meta name="author" content="이동주 (DJ Lee)">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="이동주 - Platform Engineer Portfolio">
-    <meta property="og:description" content="Terraform, ArgoCD GitOps, Kubernetes 기반 재현 가능한 플랫폼을 구축하는 Platform Engineer입니다. 선언적 배포와 자동화된 검증을 통해 신뢰할 수 있는 시스템을 만듭니다.">
+    <meta property="og:title" content="이동주 - AI Agent Developer Portfolio">
+    <meta property="og:description" content="LangGraph, MCP Protocol, RAG 기반 AI Agent를 설계하고 구현하는 AI Agent Developer입니다. LLM Serving Observability부터 토큰 효율 분석까지, Agent 개발 전 과정을 경험했습니다.">
     <meta property="og:url" content="https://dvwn-lee.github.io">
     <meta property="og:site_name" content="이동주 Portfolio">
     <meta property="og:locale" content="ko_KR">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="이동주 - Platform Engineer Portfolio">
-    <meta name="twitter:description" content="Terraform, ArgoCD GitOps, Kubernetes 기반 재현 가능한 플랫폼을 구축하는 Platform Engineer입니다.">
+    <meta name="twitter:title" content="이동주 - AI Agent Developer Portfolio">
+    <meta name="twitter:description" content="LangGraph, MCP Protocol, RAG 기반 AI Agent를 설계하고 구현하는 AI Agent Developer입니다.">
 
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☁️</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
 
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t) {
+        document.documentElement.setAttribute('data-theme', t);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+    </script>
 </head>
 <body>
-    <!-- Skip to main content (접근성) -->
-    <a href="#home" class="skip-to-content">본문으로 건너뛰기</a>
 
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress"></div>
+<!-- Side Navigation -->
+<aside class="side-nav" id="sideNav">
+  <div class="side-nav-logo">DJ</div>
+  <nav class="side-nav-links">
+    <a href="#home" class="side-nav-link active" data-section="home" title="Home">
+      <i class="fas fa-terminal"></i>
+      <span class="side-nav-label">Home</span>
+    </a>
+    <a href="#about" class="side-nav-link" data-section="about" title="About">
+      <i class="fas fa-user"></i>
+      <span class="side-nav-label">About</span>
+    </a>
+    <a href="#skills" class="side-nav-link" data-section="skills" title="Skills">
+      <i class="fas fa-code"></i>
+      <span class="side-nav-label">Skills</span>
+    </a>
+    <a href="#projects" class="side-nav-link" data-section="projects" title="Projects">
+      <i class="fas fa-folder-open"></i>
+      <span class="side-nav-label">Projects</span>
+    </a>
+    <a href="#experience" class="side-nav-link" data-section="experience" title="Experience">
+      <i class="fas fa-briefcase"></i>
+      <span class="side-nav-label">Experience</span>
+    </a>
+  </nav>
+  <div class="side-nav-bottom">
+    <button class="theme-btn" id="themeBtn">&#9789;</button>
+  </div>
+</aside>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">DJ.Lee</span>
-            </div>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#skills" class="nav-link">Skills</a></li>
-                    <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#problem-solving" class="nav-link">Problem Solving</a></li>
-                    <li><a href="#experience" class="nav-link">Experience</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-            </div>
-            <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기/닫기" aria-expanded="false" aria-controls="nav-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+<!-- Hero -->
+<section class="hero" id="home">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-inner">
+    <h1 class="hero-title">AI Agent Developer</h1>
+    <p class="hero-name">이동주</p>
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+        <span class="terminal-title">portfolio — agent@dongju</span>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-line">
+          <span class="terminal-prompt">$</span>
+          <span class="terminal-cmd">agent</span>
+          <span class="terminal-flag">--name</span> dongju
+          <span class="terminal-flag">--role</span> ai-agent-dev
         </div>
-    </nav>
-
-    <main>
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-bg">
-            <div class="hero-mesh"></div>
-            <div class="hero-grain"></div>
-            <canvas id="heroCanvas"></canvas>
+        <div class="terminal-line terminal-output">
+          <span class="terminal-gt">&gt;</span> Initializing portfolio...
         </div>
-        <div class="hero-content">
-            <h1 class="hero-title" data-aos="fade-up"></h1>
-            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100"></p>
-            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="200">
-                <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
-                <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-            </div>
-            <div class="hero-scroll">
-                <div class="scroll-icon">
-                    <span></span>
-                </div>
-            </div>
+        <div class="terminal-line terminal-output">
+          <span class="terminal-gt">&gt;</span> Role: <span class="terminal-highlight">AI Agent Developer</span>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">About Me</h2>
-            <div class="about-content">
-                <div class="about-text" data-aos="fade-right">
-                    <!-- About 텍스트는 intro-ui.js에서 동적으로 렌더링됩니다 -->
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <i class="fas fa-cloud"></i>
-                            <span>Cloud Native</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-infinity"></i>
-                            <span>Platform</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-server"></i>
-                            <span>Backend</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Security</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-stats" data-aos="fade-left">
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="5">0</div>
-                        <div class="stat-label">주요 프로젝트</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">99.9%</div>
-                        <div class="stat-label">시스템 가용성 목표</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">CI/CD</div>
-                        <div class="stat-label">Pipeline 자동화</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">IaC</div>
-                        <div class="stat-label">Infrastructure as Code</div>
-                    </div>
-                </div>
-            </div>
+        <div class="terminal-line terminal-output">
+          <span class="terminal-gt">&gt;</span> Stack: LangGraph · MCP Protocol · RAG · LLM Observability · FastAPI
         </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Technical Skills</h2>
-
-            <div class="skills-grid">
-                <div class="skeleton-block skeleton-skill-card">
-                    <div class="skeleton-line skeleton-skill-title"></div>
-                    <div class="skeleton-skill-items">
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                    </div>
-                </div>
-                <div class="skeleton-block skeleton-skill-card">
-                    <div class="skeleton-line skeleton-skill-title"></div>
-                    <div class="skeleton-skill-items">
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                    </div>
-                </div>
-                <div class="skeleton-block skeleton-skill-card">
-                    <div class="skeleton-line skeleton-skill-title"></div>
-                    <div class="skeleton-skill-items">
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                        <div class="skeleton-block skeleton-skill-item"></div>
-                    </div>
-                </div>
-            </div>
+        <div class="terminal-line terminal-output">
+          <span class="terminal-gt">&gt;</span> Status: <span class="terminal-success">ready</span>
         </div>
-    </section>
-
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Featured Projects</h2>
-
-            <!-- Project Filter -->
-            <div class="project-filter" role="group" aria-label="프로젝트 필터" data-aos="fade-up" data-aos-delay="100">
-                <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-                <button class="filter-btn" data-filter="cloud" aria-pressed="false">Cloud/DevOps</button>
-                <button class="filter-btn" data-filter="backend" aria-pressed="false">Backend</button>
-                <button class="filter-btn" data-filter="fullstack" aria-pressed="false">Full Stack</button>
-            </div>
-
-            <div class="projects-grid">
-                <!-- 프로젝트 카드는 script.js의 renderProjects() 함수에서 동적으로 렌더링됩니다 -->
-            </div>
+        <div class="terminal-line">
+          <span class="terminal-prompt">$</span>
+          <span class="terminal-cursor"></span>
         </div>
-    </section>
-
-    <!-- Problem Solving Section -->
-    <section id="problem-solving" class="problem-solving">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Problem Solving</h2>
-            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                프로젝트에서 마주한 기술적 과제를 정의하고, 해결하기 위해 어떤 고민과 노력을 했는지, 그리고 그 결과 어떤 성과를 얻었는지에 대한 기록입니다.
-            </p>
-
-            <div class="problem-items-container">
-                <div class="skeleton-block skeleton-problem-item">
-                    <div class="skeleton-line" style="width: 50%"></div>
-                    <div class="skeleton-line" style="width: 80%"></div>
-                </div>
-                <div class="skeleton-block skeleton-problem-item">
-                    <div class="skeleton-line" style="width: 45%"></div>
-                    <div class="skeleton-line" style="width: 75%"></div>
-                </div>
-                <div class="skeleton-block skeleton-problem-item">
-                    <div class="skeleton-line" style="width: 55%"></div>
-                    <div class="skeleton-line" style="width: 70%"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Experience & Certifications</h2>
-
-            <div class="timeline">
-                <div class="skeleton-block skeleton-timeline-item">
-                    <div class="skeleton-line" style="width: 30%"></div>
-                    <div class="skeleton-line" style="width: 60%"></div>
-                    <div class="skeleton-line"></div>
-                </div>
-                <div class="skeleton-block skeleton-timeline-item">
-                    <div class="skeleton-line" style="width: 30%"></div>
-                    <div class="skeleton-line" style="width: 60%"></div>
-                    <div class="skeleton-line"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
-            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                새로운 기회와 도전을 항상 환영합니다
-            </p>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <!-- Contact 아이템은 site-info-ui.js에서 동적으로 렌더링됩니다 -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    </main>
-
-    <!-- ARIA Live Region (복사 피드백 등 동적 알림) -->
-    <div id="ariaLiveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-
-    <!-- Scroll to Top Button -->
-    <button id="scrollToTop" class="scroll-to-top" aria-label="맨 위로 가기">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <!-- Footer 내용은 site-info-ui.js에서 동적으로 렌더링됩니다 -->
-        </div>
-    </footer>
-
-    <!-- Project Modal -->
-    <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-content" role="document">
-            <div class="modal-content-inner">
-                <!-- Dynamic content will be loaded here -->
-            </div>
-        </div>
+      </div>
     </div>
-
-    <!-- Architecture Lightbox -->
-    <div id="architectureLightbox" class="arch-lightbox" role="dialog"
-         aria-modal="true" aria-hidden="true">
-        <div class="arch-lightbox-controls">
-            <button class="arch-lightbox-close" aria-label="Close enlarged view">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="arch-lightbox-content">
-            <img src="" alt="" class="arch-lightbox-img" draggable="false">
-        </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">Projects</a>
+      <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub &#8599;</a>
     </div>
+  </div>
+</section>
 
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-    </button>
+<!-- About -->
+<section class="section" id="about">
+    <div class="section-label">// about</div>
+    <div class="section-title">About</div>
+    <p class="section-desc" style="max-width:700px;margin-bottom:0">
+        LangGraph, MCP Protocol, RAG 기반 AI Agent를 설계하고 구현하는 AI Agent Developer 이동주입니다.
+        FastAPI + Docker Compose로 Agent 서비스를 배포하고, Prometheus 기반 LLM 전용 메트릭을 설계하여 Observability를 확보한 경험이 있습니다.
+    </p>
+</section>
 
-    <!-- Scripts -->
-    <!-- Particles.js 제거됨 - CSS-only 배경으로 대체 -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script type="module" src="js/main.js"></script>
+<!-- Skills -->
+<section class="section" id="skills" style="padding-top:40px">
+    <div class="section-label">// skills</div>
+    <div class="section-title">Tech Stack</div>
+    <div class="section-desc">AI Agent 설계부터 LLM Serving, Observability, Backend까지</div>
+    <div class="skills-grid" id="skillsGrid"></div>
+</section>
+
+<!-- Projects -->
+<section class="section" id="projects">
+    <div class="section-label">// projects</div>
+    <div class="section-title">Projects</div>
+    <div class="section-desc">AI Agent 시스템 설계부터 LLM 인프라 구축까지</div>
+    <div class="filter-tabs" id="filterTabs"></div>
+    <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<!-- Experience -->
+<section class="section" id="experience">
+    <div class="section-label">// experience</div>
+    <div class="section-title">Experience</div>
+    <div class="exp-list" id="expList"></div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+    <p><a href="mailto:dongju101101@gmail.com">dongju101101@gmail.com</a> &middot; <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    <p style="margin-top:6px;font-size:.75rem">&copy; 2026 Dongju Lee</p>
+</div>
+
+<!-- Chat FAB (minimized state) -->
+<button class="chat-fab" id="chatFab">&#128172;</button>
+
+<!-- Chat Widget -->
+<div class="chat-widget" id="chatWidget">
+    <div class="cw-header">
+        <div class="cw-title"><span class="cw-status"></span>portfolio-agent</div>
+        <button class="cw-close" id="chatClose">&#10005;</button>
+    </div>
+    <div class="cw-body" id="cwBody"></div>
+</div>
+
+<!-- Scripts -->
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

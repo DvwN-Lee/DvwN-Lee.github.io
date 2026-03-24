@@ -2,123 +2,72 @@
 // Skills Data Module
 // ========================================
 
-/**
- * 스킬 아이템 데이터 스키마
- * @typedef {Object} Skill
- * @property {string} name - 스킬 이름
- * @property {string} iconUrl - 아이콘 이미지 URL
- * @property {number} level - 숙련도 (0-100)
- * @property {string} [iconClass] - 선택적 아이콘 CSS 클래스
- */
-
-/**
- * 스킬 카테고리 데이터 스키마
- * @typedef {Object} SkillCategory
- * @property {string} icon - Font Awesome 아이콘 클래스
- * @property {string} title - 카테고리 제목
- * @property {Skill[]} skills - 스킬 목록
- */
-
-/**
- * 전체 스킬 데이터
- * @type {SkillCategory[]}
- */
 export const skillsData = [
   {
-    icon: 'fas fa-cloud',
-    title: 'Cloud',
+    icon: 'fas fa-robot',
+    title: 'Agent Framework',
     skills: [
-      { name: 'GCP', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg', level: 85 },
-      { name: 'AWS', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', level: 75 },
-      { name: 'CloudStack', iconUrl: 'https://www.svgrepo.com/show/353402/apache-cloudstack.svg', level: 80 }
+      { name: 'LangGraph', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 90 },
+      { name: 'LangChain', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 85 },
+      { name: 'FastMCP', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 85 },
+      { name: 'MCP Protocol', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg', level: 85 },
+      { name: 'Gemini API', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg', level: 80 }
     ]
   },
   {
-    icon: 'fas fa-ship',
-    title: 'Container & Orchestration',
+    icon: 'fas fa-search',
+    title: 'RAG & Vector DB',
     skills: [
-      { name: 'Kubernetes', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', level: 90 },
-      { name: 'Docker', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', level: 90 },
-      { name: 'Helm', iconUrl: 'https://www.vectorlogo.zone/logos/helmsh/helmsh-icon.svg', level: 85, iconClass: 'icon-inverted' },
-      { name: 'Cilium', iconUrl: 'https://www.vectorlogo.zone/logos/ciliumio/ciliumio-icon.svg', level: 75 },
-      { name: 'MetalLB', iconUrl: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/metallb.svg', level: 75 }
-    ]
-  },
-  {
-    icon: 'fas fa-code',
-    title: 'IaC & GitOps',
-    skills: [
-      { name: 'Terraform', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg', level: 85 },
-      { name: 'Ansible', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg', level: 80 },
-      { name: 'ArgoCD', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg', level: 85 },
-      { name: 'GitHub Actions', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', level: 90 },
-      { name: 'Jenkins', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg', level: 80 },
-      { name: 'GitLab', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg', level: 80 }
-    ]
-  },
-  {
-    icon: 'fas fa-shield-alt',
-    title: 'Service Mesh & Security',
-    skills: [
-      { name: 'Istio', iconUrl: 'https://www.vectorlogo.zone/logos/istioio/istioio-icon.svg', level: 75 },
-      { name: 'Trivy', iconUrl: 'https://raw.githubusercontent.com/aquasecurity/trivy/main/docs/imgs/logo.png', level: 80 }
+      { name: 'FAISS', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 85 },
+      { name: 'Voyage AI', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 80 },
+      { name: 'pgvector', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', level: 75 },
+      { name: 'RAGAS', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 80 }
     ]
   },
   {
     icon: 'fas fa-chart-line',
-    title: 'Monitoring & Observability',
+    title: 'LLM Serving & Obs',
     skills: [
       { name: 'Prometheus', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg', level: 85 },
       { name: 'Grafana', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg', level: 85 },
-      { name: 'Loki', iconUrl: 'https://raw.githubusercontent.com/grafana/loki/main/docs/sources/logo.png', level: 80 }
-    ]
-  },
-  {
-    icon: 'fas fa-vial',
-    title: 'Testing',
-    skills: [
-      { name: 'pytest', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg', level: 90 },
-      { name: 'Playwright', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg', level: 80 },
-      { name: 'Terratest', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg', level: 75 }
-    ]
-  },
-  {
-    icon: 'fas fa-laptop-code',
-    title: 'Frontend Development',
-    skills: [
-      { name: 'React', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', level: 85 },
-      { name: 'TypeScript', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', level: 80 }
+      { name: 'LangFuse', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 80 },
+      { name: 'Ollama', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg', level: 80 }
     ]
   },
   {
     icon: 'fas fa-server',
-    title: 'Backend Development',
+    title: 'Backend & Infra',
     skills: [
-      { name: 'Go', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg', level: 85 },
       { name: 'Python', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 90 },
       { name: 'FastAPI', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg', level: 85 },
-      { name: 'Django', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg', level: 80 },
-      { name: 'Node.js', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg', level: 85 },
-      { name: 'JavaScript', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', level: 80 }
-    ]
-  },
-  {
-    icon: 'fas fa-database',
-    title: 'Database & Storage',
-    skills: [
-      { name: 'PostgreSQL', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', level: 85 },
-      { name: 'Redis', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg', level: 80 },
-      { name: 'MySQL', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', level: 75 },
-      { name: 'SQLite', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg', level: 75 },
-      { name: 'MongoDB', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', level: 75 }
+      { name: 'Go', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg', level: 80 },
+      { name: 'TypeScript', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', level: 80 },
+      { name: 'Docker', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', level: 85 },
+      { name: 'Kubernetes', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', level: 80 },
+      { name: 'Terraform', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg', level: 80 }
     ]
   },
   {
     icon: 'fas fa-tools',
-    title: 'Tools & Platform',
+    title: 'Agent Tooling',
     skills: [
-      { name: 'Git', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg', level: 85 },
-      { name: 'Linux', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg', level: 80 }
+      { name: 'Claude Code', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg', level: 85 },
+      { name: 'tmux/clmux', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg', level: 80 },
+      { name: 'SAGA', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/markdown/markdown-original.svg', level: 80 },
+      { name: 'Hook API', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg', level: 75 },
+      { name: 'VETO', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg', level: 75 }
+    ]
+  },
+  {
+    icon: 'fas fa-database',
+    title: 'DB & Testing',
+    skills: [
+      { name: 'PostgreSQL', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', level: 85 },
+      { name: 'Redis', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg', level: 80 },
+      { name: 'SQLite', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg', level: 80 },
+      { name: 'MongoDB', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg', level: 75 },
+      { name: 'pytest', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytest/pytest-original.svg', level: 90 },
+      { name: 'Playwright', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg', level: 80 }
     ]
   }
 ];

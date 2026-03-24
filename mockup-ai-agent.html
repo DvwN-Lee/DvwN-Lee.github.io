@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Developer - Portfolio Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#FAFAFA;--bg-card:#FFF;--bg-chat:#F1F5F9;--bg-nav:rgba(250,250,250,.92);
+  --text:#1E293B;--text-sub:#64748B;--text-muted:#94A3B8;--border:#E2E8F0;
+  --agent:#D97706;--agent-bg:#FEF3C7;--agent-border:#FDE68A;
+  --user:#2563EB;--user-bg:#DBEAFE;--user-border:#BFDBFE;
+  --tool:#059669;--tool-bg:#D1FAE5;--tool-border:#A7F3D0;
+  --accent:#7C3AED;
+  --shadow:0 4px 20px rgba(0,0,0,.06);--shadow-lg:0 12px 40px rgba(0,0,0,.12);
+  --font:'Inter',-apple-system,sans-serif;--mono:'JetBrains Mono',monospace;
+  --r:16px;--rs:10px;--rx:6px
+}
+[data-theme="dark"]{
+  --bg:#0F172A;--bg-card:#1E293B;--bg-chat:#1E293B;--bg-nav:rgba(15,23,42,.92);
+  --text:#E2E8F0;--text-sub:#94A3B8;--text-muted:#64748B;--border:#334155;
+  --agent:#F59E0B;--agent-bg:rgba(245,158,11,.12);--agent-border:rgba(245,158,11,.25);
+  --user:#60A5FA;--user-bg:rgba(96,165,250,.12);--user-border:rgba(96,165,250,.25);
+  --tool:#34D399;--tool-bg:rgba(52,211,153,.12);--tool-border:rgba(52,211,153,.25);
+  --accent:#A78BFA;--shadow:0 4px 20px rgba(0,0,0,.3);--shadow-lg:0 12px 40px rgba(0,0,0,.5)
+}
+body{font-family:var(--font);color:var(--text);background:var(--bg);
+  line-height:1.6;transition:background .3s,color .3s;-webkit-font-smoothing:antialiased}
+
+/* === Navbar === */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--bg-nav);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background .3s}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;height:56px;
+  display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--mono);font-weight:600;font-size:1rem;color:var(--agent)}
+.logo .d{color:var(--text-muted)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:var(--text-sub);text-decoration:none;font-size:.88rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--agent)}
+.nav-r{display:flex;align-items:center;gap:12px}
+.theme-btn{background:var(--bg-card);border:1px solid var(--border);border-radius:99px;
+  padding:5px 12px;cursor:pointer;font-size:.95rem;transition:all .2s}
+.theme-btn:hover{border-color:var(--agent)}
+
+/* === Sections === */
+.section{max-width:1100px;margin:0 auto;padding:80px 24px}
+.section-label{font-family:var(--mono);font-size:.78rem;color:var(--agent);font-weight:600;letter-spacing:.05em;margin-bottom:8px}
+.section-title{font-size:2rem;font-weight:800;margin-bottom:12px}
+.section-desc{color:var(--text-sub);font-size:.95rem;margin-bottom:40px;max-width:600px}
+
+/* === Hero === */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:56px}
+.hero-inner{max-width:1100px;margin:0 auto;padding:0 24px;width:100%}
+.hero-label{font-family:var(--mono);font-size:.85rem;color:var(--agent);font-weight:600;margin-bottom:16px}
+.hero-title{font-size:3.2rem;font-weight:800;line-height:1.2;margin-bottom:20px}
+.hero-title .gradient{background:linear-gradient(135deg,var(--agent),var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.1rem;color:var(--text-sub);max-width:560px;margin-bottom:32px;line-height:1.8}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.hero-tag{font-family:var(--mono);font-size:.78rem;padding:6px 14px;border-radius:99px;
+  background:var(--tool-bg);color:var(--tool);border:1px solid var(--tool-border)}
+.hero-btns{display:flex;gap:12px}
+.btn{padding:11px 24px;border-radius:99px;font-size:.88rem;font-weight:600;
+  text-decoration:none;cursor:pointer;border:none;transition:all .2s;font-family:var(--font);
+  display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--agent);color:#fff}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--agent);color:var(--agent)}
+
+/* === Skills === */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.skill-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rs);
+  padding:20px;transition:all .2s}
+.skill-card:hover{border-color:var(--agent);box-shadow:var(--shadow);transform:translateY(-2px)}
+.skill-card-title{font-weight:700;font-size:.92rem;margin-bottom:10px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:5px}
+.skill-tag{font-family:var(--mono);font-size:.72rem;padding:4px 10px;border-radius:99px;
+  background:var(--bg-chat);color:var(--text-sub);border:1px solid var(--border)}
+
+/* === Projects === */
+.filter-tabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.filter-tab{padding:8px 16px;border-radius:99px;font-size:.82rem;font-weight:500;
+  background:transparent;border:1px solid var(--border);color:var(--text-sub);
+  cursor:pointer;transition:all .2s;font-family:var(--font)}
+.filter-tab.active{background:var(--agent);color:#fff;border-color:var(--agent)}
+.filter-tab:hover:not(.active){border-color:var(--agent);color:var(--agent)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.proj-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);
+  padding:22px;transition:all .25s;position:relative}
+.proj-card:hover{border-color:var(--agent);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.proj-badge{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:.65rem;
+  padding:2px 8px;border-radius:99px;background:var(--agent);color:#fff;font-weight:600}
+.proj-name{font-weight:700;font-size:1rem;margin-bottom:3px}
+.proj-sub{font-size:.78rem;color:var(--text-sub);margin-bottom:10px}
+.proj-desc{font-size:.88rem;color:var(--text-sub);margin-bottom:14px;line-height:1.6}
+.proj-tools-label{font-family:var(--mono);font-size:.7rem;color:var(--tool);font-weight:600;margin-bottom:6px}
+.proj-tool-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+.proj-tool-tag{font-family:var(--mono);font-size:.68rem;padding:2px 7px;border-radius:99px;
+  background:var(--tool-bg);color:var(--tool);border:1px solid var(--tool-border)}
+.proj-metrics{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.pm{font-family:var(--mono);font-size:.76rem;color:var(--text-sub)}
+.pm b{color:var(--text);font-weight:600}
+.proj-actions{display:flex;gap:10px;padding-top:12px;border-top:1px solid var(--border)}
+.proj-actions .btn{font-size:.78rem;padding:6px 14px}
+
+/* === Experience === */
+.exp-list{max-width:700px}
+.exp-item{padding:16px 0;border-bottom:1px solid var(--border)}
+.exp-item:last-child{border-bottom:none}
+.exp-period{font-family:var(--mono);font-size:.75rem;color:var(--agent);font-weight:600;margin-bottom:4px}
+.exp-title{font-weight:700;font-size:.95rem;margin-bottom:3px}
+.exp-desc{font-size:.85rem;color:var(--text-sub)}
+
+/* === Footer === */
+.footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);
+  color:var(--text-muted);font-size:.82rem}
+.footer a{color:var(--agent);text-decoration:none}
+
+/* ============ CHAT WIDGET ============ */
+.chat-fab{position:fixed;bottom:24px;right:24px;z-index:200;
+  width:56px;height:56px;border-radius:50%;background:var(--agent);color:#fff;
+  border:none;cursor:pointer;font-size:1.4rem;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);transition:all .3s;transform:scale(0)}
+.chat-fab.visible{transform:scale(1)}
+.chat-fab:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(0,0,0,.3)}
+
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:200;
+  width:400px;height:520px;max-height:70vh;
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);
+  box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden;
+  transition:all .35s cubic-bezier(.4,0,.2,1);transform-origin:bottom right}
+.chat-widget.collapsed{transform:scale(0);opacity:0;pointer-events:none}
+
+.cw-header{padding:12px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cw-title{font-family:var(--mono);font-size:.82rem;font-weight:600;color:var(--agent);
+  display:flex;align-items:center;gap:6px}
+.cw-status{width:7px;height:7px;background:var(--tool);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.cw-close{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--text-muted);
+  padding:4px;border-radius:6px;transition:all .2s;line-height:1}
+.cw-close:hover{color:var(--text);background:var(--bg-chat)}
+
+.cw-body{flex:1;overflow-y:auto;padding:16px;scroll-behavior:smooth}
+
+/* Chat messages (reused) */
+.msg{margin-bottom:14px;animation:fadeUp .3s ease}
+.msg.fade-out{animation:fadeOut .3s ease forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeOut{from{opacity:1}to{opacity:0;transform:translateY(-6px)}}
+.msg-role{font-size:.68rem;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.msg-role.user{color:var(--user)}.msg-role.agent{color:var(--agent)}
+.msg-bubble{padding:10px 14px;border-radius:var(--rs);font-size:.84rem;line-height:1.65}
+.user-msg{display:flex;flex-direction:column;align-items:flex-end}
+.user-msg .msg-role{justify-content:flex-end}
+.user-msg .msg-bubble{background:var(--user-bg);border:1px solid var(--user-border);display:inline-block}
+.agent-msg .msg-bubble{background:var(--agent-bg);border:1px solid var(--agent-border)}
+
+.tc{margin-top:10px;padding:8px 12px;background:var(--tool-bg);border:1px solid var(--tool-border);
+  border-radius:var(--rx);font-family:var(--mono);font-size:.72rem}
+.tc-h{color:var(--tool);font-weight:600;margin-bottom:4px}
+.tc-item{padding:1px 0;color:var(--text-sub);display:flex;align-items:center;gap:5px;font-size:.7rem}
+.tc-dot{display:inline-block;width:3px;height:3px;background:var(--tool);border-radius:50%;flex-shrink:0}
+
+.presets{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.preset-btn{padding:6px 12px;border-radius:99px;font-size:.75rem;font-weight:500;
+  background:var(--bg-card);border:1px solid var(--border);color:var(--text);
+  cursor:pointer;transition:all .2s;font-family:var(--font)}
+.preset-btn:hover{border-color:var(--agent);color:var(--agent)}
+
+.cursor{display:inline-block;width:2px;height:1em;background:var(--agent);
+  animation:blink 1s infinite;vertical-align:text-bottom;margin-left:1px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.chunk{opacity:0;animation:chunkIn .25s ease forwards}
+@keyframes chunkIn{from{opacity:0}to{opacity:1}}
+
+/* Chat inline cards (compact) */
+.cw-cards{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.cw-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rx);
+  padding:10px 12px;cursor:pointer;transition:all .2s}
+.cw-card:hover{border-color:var(--agent);box-shadow:var(--shadow)}
+.cw-card-name{font-weight:700;font-size:.8rem;margin-bottom:2px}
+.cw-card-sub{font-size:.68rem;color:var(--text-sub)}
+
+.cw-detail{margin-top:10px;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--rx);padding:12px}
+.cw-detail-label{font-family:var(--mono);font-size:.68rem;color:var(--tool);font-weight:600;margin-bottom:4px}
+.cw-detail p{font-size:.78rem;color:var(--text-sub);line-height:1.6;margin-bottom:8px}
+.cw-detail-metrics{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.cdm{font-family:var(--mono);font-size:.7rem;color:var(--text-sub)}
+.cdm b{color:var(--text);font-weight:600}
+.cw-detail a{font-size:.78rem;color:var(--agent);text-decoration:none;font-weight:600}
+
+.cw-s-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.cw-s-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--rx);padding:8px 10px}
+.cw-s-title{font-weight:700;font-size:.72rem;margin-bottom:4px}
+.cw-s-tags{display:flex;flex-wrap:wrap;gap:3px}
+.cw-s-tag{font-family:var(--mono);font-size:.62rem;padding:2px 6px;border-radius:99px;
+  background:var(--bg-chat);color:var(--text-sub);border:1px solid var(--border)}
+
+.cw-exp{padding:8px 0;border-bottom:1px solid var(--border)}
+.cw-exp:last-child{border-bottom:none}
+.cw-exp-period{font-family:var(--mono);font-size:.66rem;color:var(--agent);font-weight:600;margin-bottom:2px}
+.cw-exp-title{font-weight:700;font-size:.78rem;margin-bottom:1px}
+.cw-exp-desc{font-size:.72rem;color:var(--text-sub)}
+
+.cw-contact-item{display:flex;align-items:center;gap:6px;font-size:.78rem;padding:4px 0}
+.cw-contact-item a{color:var(--agent);text-decoration:none;font-weight:500}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero-title{font-size:2.2rem}
+  .projects-grid{grid-template-columns:1fr}
+  .chat-widget{width:calc(100vw - 32px);right:16px;bottom:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="logo">agent<span class="d">@</span>dongju<span class="d"> ~</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+    </ul>
+    <div class="nav-r">
+      <button class="theme-btn" id="themeBtn">&#9789;</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-label">// AI Agent Developer</div>
+    <h1 class="hero-title">
+      <span class="gradient">AI Agent</span>를 설계하고<br>구현합니다
+    </h1>
+    <p class="hero-sub">
+      LangGraph, MCP Protocol, RAG 기반 AI Agent를 설계하고 구현합니다.
+      LLM Serving Observability부터 토큰 효율 분석까지, Agent 개발 전 과정을 경험했습니다.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">LangGraph</span>
+      <span class="hero-tag">MCP Protocol</span>
+      <span class="hero-tag">RAG</span>
+      <span class="hero-tag">LLM Observability</span>
+      <span class="hero-tag">FastAPI</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">Projects</a>
+      <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub &#8599;</a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="section-label">// about</div>
+  <div class="section-title">About</div>
+  <p class="section-desc" style="max-width:700px;margin-bottom:0">
+    LangGraph, MCP Protocol, RAG 기반 AI Agent를 설계하고 구현하는 AI Agent Developer 이동주입니다.
+    FastAPI + Docker Compose로 Agent 서비스를 배포하고, Prometheus 기반 LLM 전용 메트릭을 설계하여 Observability를 확보한 경험이 있습니다.
+  </p>
+</section>
+
+<!-- Skills -->
+<section class="section" id="skills" style="padding-top:40px">
+  <div class="section-label">// skills</div>
+  <div class="section-title">Tech Stack</div>
+  <div class="section-desc">AI Agent 설계부터 LLM Serving, Observability, Backend까지</div>
+  <div class="skills-grid" id="skillsGrid"></div>
+</section>
+
+<!-- Projects -->
+<section class="section" id="projects">
+  <div class="section-label">// projects</div>
+  <div class="section-title">Projects</div>
+  <div class="section-desc">AI Agent 시스템 설계부터 LLM 인프라 구축까지</div>
+  <div class="filter-tabs" id="filterTabs"></div>
+  <div class="projects-grid" id="projectsGrid"></div>
+</section>
+
+<!-- Experience -->
+<section class="section" id="experience">
+  <div class="section-label">// experience</div>
+  <div class="section-title">Experience</div>
+  <div class="exp-list" id="expList"></div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+  <p><a href="mailto:dongju101101@gmail.com">dongju101101@gmail.com</a> &middot; <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+  <p style="margin-top:6px;font-size:.75rem">&copy; 2026 Dongju Lee</p>
+</div>
+
+<!-- Chat FAB (minimized state) -->
+<button class="chat-fab" id="chatFab">&#128172;</button>
+
+<!-- Chat Widget -->
+<div class="chat-widget" id="chatWidget">
+  <div class="cw-header">
+    <div class="cw-title"><span class="cw-status"></span>portfolio-agent</div>
+    <button class="cw-close" id="chatClose">&#10005;</button>
+  </div>
+  <div class="cw-body" id="cwBody"></div>
+</div>
+
+<script>
+/* ========== DATA ========== */
+var DATA = {
+  intro: {
+    text: 'LangGraph, MCP Protocol, RAG 기반 AI Agent를 설계하고 구현하는 AI Agent Developer 이동주입니다. FastAPI + Docker Compose로 Agent 서비스를 배포하고, Prometheus 기반 LLM 전용 메트릭을 설계하여 Observability를 확보한 경험이 있습니다.',
+    toolName: 'get_profile()',
+    toolResults: ['Email: dongju101101@gmail.com', 'GitHub: github.com/DvwN-Lee', 'Location: Anyang, Korea']
+  },
+  projects: [
+    { id:'financial', name:'fAInancial-agent', sub:'Agent System', cat:'agent', featured:true,
+      tags:['LangGraph','MCP','RAG','FAISS','FastAPI','LangFuse'],
+      desc:'LangGraph StateGraph + MCP Protocol 기반 한국 금융 데이터 분석 AI Agent. DART/KRX 데이터를 자연어로 질의하고, Voyage AI 임베딩 + FAISS 벡터 검색으로 공시 문서 RAG를 수행합니다.',
+      metrics:[['99','tests'],['94','commits'],['RAGAS faith','1.000'],['3','Docker services']],
+      github:'https://github.com/DvwN-Lee/fAInancial-agent',
+      details:'Phase 0(while loop) \u2192 Phase 2-B(LangGraph StateGraph) 진화 과정을 코드로 보존. MCP Server(FastMCP Streamable HTTP)로 DART/KRX/RAG 도구를 분리. LangFuse v3 self-hosted tracing 통합. Streamlit Bloomberg Terminal 테마 UI.'
+    },
+    { id:'llm-obs', name:'llm-serving-observability', sub:'LLM Infra', cat:'infra', featured:true,
+      tags:['Prometheus','Grafana','FastAPI','Ollama','Docker'],
+      desc:'LLM Serving 전용 Observability Stack. TTFT, TPS, TPOT, Queue Depth 등 11개 커스텀 Prometheus 메트릭을 설계하고, 5개 부하 테스트 시나리오로 성능을 정량 분석했습니다.',
+      metrics:[['11','LLM metrics'],['5','load scenarios'],['TTFT','213x degradation'],['10','Grafana panels']],
+      github:'https://github.com/DvwN-Lee/llm-serving-observability',
+      details:'MonitoredSemaphore로 active_requests/queue_depth를 추적. TTFT 213x 열화 발견 \u2014 throughput만으로는 보이지 않는 queuing bottleneck을 canary metric으로 가시화.'
+    },
+    { id:'ai-exam', name:'AI-exam-platform', sub:'Agent System', cat:'agent', featured:true,
+      tags:['MCP x5','Multi-Agent','Django 5.2','React 19','GKE','Terraform'],
+      desc:'Django 5.2 + React 19 Full-Stack 시험 플랫폼. 5개 MCP 서버 통합, Multi-Agent consensus/VETO 프로토콜 적용.',
+      metrics:[['957','tests'],['309','commits'],['95%','coverage'],['86','PRs']],
+      github:'https://github.com/DvwN-Lee/AI-exam-platform',
+      details:'5 MCP Servers 통합. Multi-Agent consensus protocol. AI Exam Agent BRD: Generator \u2192 Critic \u2192 Refiner 파이프라인 설계.'
+    },
+    { id:'token', name:'Token Monitor', sub:'Agent Tooling', cat:'tooling', featured:true,
+      tags:['TypeScript','SQLite','commander.js','Vitest'],
+      desc:'AI Agent 토큰 소비를 추적하고 코드 품질 메트릭을 정량화하는 CLI 도구. 모델 교체 시뮬레이션으로 비용 최적화를 지원합니다.',
+      metrics:[['3-layer','architecture'],['4','CLI commands'],['v1.1.0','release']],
+      github:'https://github.com/DvwN-Lee/Token_monitoring',
+      details:'Collector \u2192 Core Engine \u2192 Reporter 3계층 플러그 구조. Session-Commit matching. simulate 명령으로 모델 교체 비용 예측.'
+    },
+    { id:'saga', name:'SAGA Methodology', sub:'Agent Tooling', cat:'tooling', featured:false,
+      tags:['Methodology','VETO','TDAID','Multi-Agent'],
+      desc:'AI Agent 협업 개발 방법론. 6-Phase 워크플로우, VETO bilateral rejection 프로토콜.',
+      metrics:[['9','core docs'],['19','research docs'],['6','phases']],
+      github:'https://github.com/DvwN-Lee/SAGA-Methodology',
+      details:'6단계 워크플로우. 3-Track 라우팅. VETO mechanism. TDAID TDD 확장.'
+    },
+    { id:'clmux', name:'clmux', sub:'Agent Tooling', cat:'tooling', featured:false,
+      tags:['zsh','tmux','Claude Code'],
+      desc:'Claude Code multi-session 격리를 위한 tmux wrapper.',
+      metrics:[['234','lines'],['iTerm2','optimized']],
+      github:'https://github.com/DvwN-Lee/clmux',
+      details:'ITERM_SESSION_ID 기반 세션 네이밍. 위험한 tmux 바인딩 비활성화. HUP trap으로 detached session 방지.'
+    }
+  ],
+  skills: [
+    {title:'Agent Framework', tags:['LangGraph','LangChain','FastMCP','MCP Protocol','Gemini API']},
+    {title:'RAG & Vector DB', tags:['FAISS','Voyage AI','pgvector','RAGAS']},
+    {title:'LLM Serving & Obs', tags:['Prometheus','Grafana','LangFuse','Ollama','TTFT/TPS']},
+    {title:'Backend & Infra', tags:['Python','FastAPI','Go','TypeScript','Docker','K8s','Terraform']},
+    {title:'Agent Tooling', tags:['Claude Code','tmux/clmux','SAGA','Hook API','VETO']},
+    {title:'DB & Testing', tags:['PostgreSQL','Redis','SQLite','MongoDB','pytest','Playwright']}
+  ],
+  experience: [
+    {period:'2025.12 ~ 2026.03', title:'fAInancial-agent + LLM Observability', desc:'LangGraph + MCP + RAG 기반 AI Agent 설계/구현, LLM Serving 메트릭 11종 설계'},
+    {period:'2025.12 ~ 2026.02', title:'AI-exam-platform Full-Stack', desc:'Django 5.2 + React 19 마이그레이션, 5 MCP 서버 통합, 957 tests (95% coverage)'},
+    {period:'2025.09 ~ 2025.12', title:'Monitoring v2/v3 Platform', desc:'Terraform IaC, ArgoCD GitOps, Istio Service Mesh, Observability Stack 구축'},
+    {period:'2025.05 ~ present', title:'D-Lab Coding Academy', desc:'Python 프로그래밍 강사'}
+  ],
+  contact: {email:'dongju101101@gmail.com',github:'github.com/DvwN-Lee',location:'Anyang, Gyeonggi-do, Korea'}
+};
+
+/* ========== MAIN PAGE RENDER ========== */
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text)e.textContent=text;return e}
+
+// Skills
+var sg=document.getElementById('skillsGrid');
+DATA.skills.forEach(function(s){
+  var c=el('div','skill-card');
+  c.appendChild(el('div','skill-card-title',s.title));
+  var t=el('div','skill-tags');
+  s.tags.forEach(function(tag){t.appendChild(el('span','skill-tag',tag))});
+  c.appendChild(t);sg.appendChild(c);
+});
+
+// Filter tabs
+var cats=['All','Agent System','LLM Infra','Agent Tooling'];
+var catMap={All:'all','Agent System':'agent','LLM Infra':'infra','Agent Tooling':'tooling'};
+var ft=document.getElementById('filterTabs');
+cats.forEach(function(c,i){
+  var b=el('button','filter-tab'+(i===0?' active':''),c);
+  b.addEventListener('click',function(){
+    ft.querySelectorAll('.filter-tab').forEach(function(t){t.classList.remove('active')});
+    b.classList.add('active');
+    renderProjects(catMap[c]);
+  });
+  ft.appendChild(b);
+});
+
+function renderProjects(cat){
+  var pg=document.getElementById('projectsGrid');
+  pg.textContent='';
+  DATA.projects.forEach(function(p){
+    if(cat!=='all'&&p.cat!==cat)return;
+    var c=el('div','proj-card');
+    if(p.featured)c.appendChild(el('span','proj-badge','Featured'));
+    c.appendChild(el('div','proj-name',p.name));
+    c.appendChild(el('div','proj-sub',p.sub));
+    c.appendChild(el('div','proj-desc',p.desc));
+    c.appendChild(el('div','proj-tools-label','\uD83D\uDD27 tool_calls'));
+    var tt=el('div','proj-tool-tags');
+    p.tags.forEach(function(t){tt.appendChild(el('span','proj-tool-tag',t))});
+    c.appendChild(tt);
+    var mr=el('div','proj-metrics');
+    p.metrics.forEach(function(m){
+      var dm=el('div','pm');var b=document.createElement('b');b.textContent=m[0];
+      dm.appendChild(b);dm.appendChild(document.createTextNode(' '+m[1]));mr.appendChild(dm);
+    });
+    c.appendChild(mr);
+    var ac=el('div','proj-actions');
+    var gh=document.createElement('a');gh.className='btn btn-outline';gh.style.fontSize='.78rem';gh.style.padding='6px 14px';
+    gh.href=p.github;gh.target='_blank';gh.rel='noopener noreferrer';gh.textContent='GitHub \u2197';
+    ac.appendChild(gh);c.appendChild(ac);
+    pg.appendChild(c);
+  });
+}
+renderProjects('all');
+
+// Experience
+var el2=document.getElementById('expList');
+DATA.experience.forEach(function(e){
+  var it=el('div','exp-item');
+  it.appendChild(el('div','exp-period',e.period));
+  it.appendChild(el('div','exp-title',e.title));
+  it.appendChild(el('div','exp-desc',e.desc));
+  el2.appendChild(it);
+});
+
+// Theme
+document.getElementById('themeBtn').addEventListener('click',function(){
+  var h=document.documentElement;
+  if(h.dataset.theme==='light'){h.dataset.theme='dark';this.textContent='\u2606';}
+  else{h.dataset.theme='light';this.textContent='\u263D';}
+});
+
+/* ========== CHAT WIDGET ========== */
+var widget=document.getElementById('chatWidget');
+var fab=document.getElementById('chatFab');
+var cwBody=document.getElementById('cwBody');
+var isAnimating=false;
+var currentConvo=null;
+var PRESETS=['\uc18c\uac1c','Projects','Skills','Experience','Contact'];
+
+document.getElementById('chatClose').addEventListener('click',function(){
+  widget.classList.add('collapsed');
+  setTimeout(function(){fab.classList.add('visible')},200);
+});
+fab.addEventListener('click',function(){
+  fab.classList.remove('visible');
+  widget.classList.remove('collapsed');
+});
+
+function cwScrollBottom(){cwBody.scrollTop=cwBody.scrollHeight}
+
+function cwAddUser(text){
+  var m=el('div','msg user-msg');
+  m.appendChild(el('div','msg-role user','\uD83D\uDC64 User'));
+  var b=el('div','msg-bubble');b.textContent=text;m.appendChild(b);
+  cwBody.appendChild(m);cwScrollBottom();return m;
+}
+function cwAddAgent(){
+  var m=el('div','msg agent-msg');
+  m.appendChild(el('div','msg-role agent','\uD83E\uDD16 Agent'));
+  var b=el('div','msg-bubble');m.appendChild(b);
+  cwBody.appendChild(m);cwScrollBottom();return{msg:m,bubble:b};
+}
+
+function cwStream(elem,text){
+  return new Promise(function(resolve){
+    var cur=el('span','cursor');elem.appendChild(cur);
+    var chunks=[];var words=text.split(/(?<=\s)/);var buf='';
+    for(var w=0;w<words.length;w++){buf+=words[w];if(buf.length>=4||w===words.length-1){chunks.push(buf);buf='';}}
+    var i=0;
+    function tick(){
+      if(i<chunks.length){var s=el('span','chunk');s.textContent=chunks[i];elem.insertBefore(s,cur);cwScrollBottom();i++;setTimeout(tick,45);}
+      else{cur.remove();resolve();}
+    }tick();
+  });
+}
+function cwDelay(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function cwFadeIn(e){e.style.opacity='0';e.style.transform='translateY(6px)';requestAnimationFrame(function(){e.style.transition='all .3s ease';e.style.opacity='1';e.style.transform='translateY(0)'})}
+function cwToolCall(bubble,name,items){
+  var tc=el('div','tc');tc.appendChild(el('div','tc-h','\uD83D\uDD27 tool_call: '+name));
+  items.forEach(function(t){var it=el('div','tc-item');it.appendChild(el('span','tc-dot'));it.appendChild(document.createTextNode(t));tc.appendChild(it)});
+  bubble.appendChild(tc);cwFadeIn(tc);cwScrollBottom();
+}
+function cwPresets(bubble){
+  var row=el('div','presets');
+  PRESETS.forEach(function(p){
+    var btn=el('button','preset-btn',p);
+    btn.addEventListener('click',function(){cwHandle(p)});
+    row.appendChild(btn);
+  });
+  bubble.appendChild(row);cwFadeIn(row);
+}
+function cwRemovePrev(){
+  return new Promise(function(resolve){
+    if(!currentConvo){resolve();return}
+    var els=[currentConvo.u,currentConvo.a];var done=0;
+    els.forEach(function(e){e.classList.add('fade-out');e.addEventListener('animationend',function(){if(e.parentNode)e.parentNode.removeChild(e);done++;if(done>=2)resolve()})});
+    currentConvo=null;
+  });
+}
+
+async function cwHandle(name){
+  if(isAnimating)return;isAnimating=true;
+  await cwRemovePrev();
+  var u=cwAddUser(name);await cwDelay(200);
+  var a=cwAddAgent();currentConvo={u:u,a:a.msg};
+
+  if(name==='\uc18c\uac1c'){
+    await cwStream(a.bubble,DATA.intro.text);await cwDelay(150);
+    cwToolCall(a.bubble,DATA.intro.toolName,DATA.intro.toolResults);
+  } else if(name==='Projects'){
+    await cwStream(a.bubble,'\uD504\uB85C\uC81D\uD2B8 \uBAA9\uB85D\uC785\uB2C8\uB2E4.');await cwDelay(150);
+    cwToolCall(a.bubble,'get_projects()',DATA.projects.map(function(p){return p.name+' \u2014 '+p.sub}));
+    await cwDelay(150);
+    var cards=el('div','cw-cards');
+    DATA.projects.forEach(function(p){
+      var c=el('div','cw-card');c.appendChild(el('div','cw-card-name',p.name));c.appendChild(el('div','cw-card-sub',p.sub));
+      c.addEventListener('click',function(){cwProjectDetail(p)});cards.appendChild(c);
+    });
+    a.bubble.appendChild(cards);cwFadeIn(cards);
+  } else if(name==='Skills'){
+    await cwStream(a.bubble,'AI Agent \uAC1C\uBC1C\uC5D0 \uD65C\uC6A9\uD558\uB294 \uAE30\uC220 \uC2A4\uD0DD\uC785\uB2C8\uB2E4.');await cwDelay(150);
+    var g=el('div','cw-s-grid');
+    DATA.skills.forEach(function(s){var c=el('div','cw-s-card');c.appendChild(el('div','cw-s-title',s.title));
+      var t=el('div','cw-s-tags');s.tags.forEach(function(tag){t.appendChild(el('span','cw-s-tag',tag))});c.appendChild(t);g.appendChild(c)});
+    a.bubble.appendChild(g);cwFadeIn(g);
+  } else if(name==='Experience'){
+    await cwStream(a.bubble,'\uC8FC\uC694 \uACBD\uD5D8 \uD0C0\uC784\uB77C\uC778\uC785\uB2C8\uB2E4.');await cwDelay(150);
+    var list=el('div');DATA.experience.forEach(function(e){var it=el('div','cw-exp');it.appendChild(el('div','cw-exp-period',e.period));
+      it.appendChild(el('div','cw-exp-title',e.title));it.appendChild(el('div','cw-exp-desc',e.desc));list.appendChild(it)});
+    a.bubble.appendChild(list);cwFadeIn(list);
+  } else if(name==='Contact'){
+    await cwStream(a.bubble,'\uC5F0\uB77D\uCC98 \uC815\uBCF4\uC785\uB2C8\uB2E4.');await cwDelay(150);
+    var c=DATA.contact;var row=el('div');
+    [['Email',c.email,'mailto:'+c.email],['GitHub',c.github,'https://'+c.github],['Location',c.location,null]].forEach(function(i){
+      var it=el('div','cw-contact-item');it.appendChild(el('strong','',i[0]+': '));
+      if(i[2]){var a2=document.createElement('a');a2.href=i[2];a2.textContent=i[1];a2.target='_blank';a2.rel='noopener noreferrer';it.appendChild(a2)}
+      else{it.appendChild(document.createTextNode(i[1]))}row.appendChild(it)});
+    a.bubble.appendChild(row);cwFadeIn(row);
+  }
+  cwScrollBottom();isAnimating=false;
+}
+
+async function cwProjectDetail(p){
+  if(isAnimating)return;isAnimating=true;
+  await cwRemovePrev();
+  var u=cwAddUser(p.name+' \uC0C1\uC138');await cwDelay(200);
+  var a=cwAddAgent();currentConvo={u:u,a:a.msg};
+  await cwStream(a.bubble,p.desc);await cwDelay(150);
+  cwToolCall(a.bubble,'get_detail("'+p.id+'")',p.tags);await cwDelay(150);
+  var d=el('div','cw-detail');
+  var ml=el('div');ml.appendChild(el('div','cw-detail-label','Metrics'));
+  var mr=el('div','cw-detail-metrics');p.metrics.forEach(function(m){var dm=el('div','cdm');var b=document.createElement('b');b.textContent=m[0];dm.appendChild(b);dm.appendChild(document.createTextNode(' '+m[1]));mr.appendChild(dm)});
+  ml.appendChild(mr);d.appendChild(ml);
+  d.appendChild(el('p','',p.details));
+  var lk=document.createElement('a');lk.href=p.github;lk.target='_blank';lk.rel='noopener noreferrer';lk.textContent='GitHub \u2197';lk.style.cssText='font-size:.78rem;color:var(--agent);text-decoration:none;font-weight:600';
+  d.appendChild(lk);a.bubble.appendChild(d);cwFadeIn(d);
+  cwScrollBottom();isAnimating=false;
+}
+
+// Chat init
+async function cwInit(){
+  await cwDelay(500);
+  var a=cwAddAgent();
+  await cwStream(a.bubble,'\uC548\uB155\uD558\uC138\uC694! AI Agent Developer \uC774\uB3D9\uC8FC\uC758 \uD3EC\uD2B8\uD3F4\uB9AC\uC624\uC785\uB2C8\uB2E4. \uBB34\uC5C7\uC774 \uAD81\uAE08\uD558\uC2E0\uAC00\uC694?');
+  cwPresets(a.bubble);
+}
+cwInit();
+</script>
+</body>
+</html>
