@@ -73,7 +73,7 @@ function renderSkills() {
 }
 
 // ========================================
-// Projects — Accordion (Agent Execution Log)
+// Projects — Mission Brief Cards
 // ========================================
 const CATEGORIES = [
     { label: 'All', value: 'all' },
@@ -97,90 +97,57 @@ function renderFilterTabs(onFilter) {
     });
 }
 
-function renderProjects(category) {
-    const grid = document.getElementById('projectsGrid');
-    if (!grid) return;
+function renderProjects(cat) {
+    var grid = document.getElementById('projectsGrid');
     grid.textContent = '';
 
     projectsData.forEach(function(p) {
-        if (category !== 'all' && p.category !== category) return;
+        if (cat !== 'all' && p.category !== cat) return;
 
-        const card = el('div', 'exec-card');
+        var card = el('div', 'mission-card' + (p.badge === 'Featured' ? ' featured' : ''));
 
-        // Header (always visible)
-        const header = el('div', 'exec-header');
-        header.appendChild(el('span', 'exec-arrow', '\u25B6'));
-        const headerInfo = el('div', 'exec-header-info');
-        headerInfo.appendChild(el('span', 'exec-name', p.title));
-        const meta = el('div', 'exec-meta');
-        meta.appendChild(el('span', 'exec-period', p.badge || ''));
-        meta.appendChild(el('span', 'exec-cat', p.category || ''));
-        headerInfo.appendChild(meta);
-        header.appendChild(headerInfo);
-        card.appendChild(header);
-
-        // Body (collapsed)
-        const body = el('div', 'exec-body');
-        body.style.display = 'none';
-
-        body.appendChild(el('p', 'exec-desc', p.summary));
-
-        body.appendChild(el('div', 'exec-tool-label', 'tool_calls:'));
-        const toolTags = el('div', 'exec-tool-tags');
-        p.tech.forEach(function(t) { toolTags.appendChild(el('span', 'exec-tool-tag', t)); });
-        body.appendChild(toolTags);
-
-        // Metrics
-        const metrics = getProjectMetrics(p);
-        if (metrics.length > 0) {
-            const metricsEl = el('div', 'exec-metrics');
-            metrics.forEach(function(m) {
-                const pm = el('span', 'pm');
-                pm.appendChild(el('b', '', m[0]));
-                pm.appendChild(document.createTextNode(' ' + m[1]));
-                metricsEl.appendChild(pm);
-            });
-            body.appendChild(metricsEl);
-        }
-
-        // GitHub link
-        const ghLink = document.createElement('a');
-        ghLink.className = 'exec-gh';
-        ghLink.href = p.githubUrl;
-        ghLink.target = '_blank';
-        ghLink.rel = 'noopener noreferrer';
-        ghLink.textContent = 'GitHub \u2197';
-        body.appendChild(ghLink);
-
-        card.appendChild(body);
-
-        // Toggle
-        header.addEventListener('click', function() {
-            var isOpen = body.style.display !== 'none';
-            body.style.display = isOpen ? 'none' : 'block';
-            header.querySelector('.exec-arrow').textContent = isOpen ? '\u25B6' : '\u25BC';
-            card.classList.toggle('exec-open', !isOpen);
-        });
-
-        // Featured: expand by default
+        // 상태 + 기간 행
+        var statusRow = el('div', 'mission-status-row');
         if (p.badge === 'Featured') {
-            body.style.display = 'block';
-            header.querySelector('.exec-arrow').textContent = '\u25BC';
-            card.classList.add('exec-open');
+            var badge = el('span', 'featured-pill', '\u2605 FEATURED');
+            statusRow.appendChild(badge);
+        } else {
+            var status = el('span', 'mission-status');
+            var dot = el('span', 'mission-dot');
+            status.appendChild(dot);
+            status.appendChild(document.createTextNode('COMPLETED'));
+            statusRow.appendChild(status);
         }
+        card.appendChild(statusRow);
+
+        // 주제목
+        card.appendChild(el('div', 'mission-heading', p.heading || p.title));
+        // 부제목 (repo명)
+        card.appendChild(el('div', 'mission-repo', p.title));
+
+        // 설명
+        card.appendChild(el('p', 'mission-desc', p.summary));
+
+        // 기술 pill 태그
+        var pills = el('div', 'mission-pills');
+        p.tech.slice(0, 6).forEach(function(t) {
+            pills.appendChild(el('span', 'mission-pill', t));
+        });
+        card.appendChild(pills);
+
+        // GitHub 링크
+        var actions = el('div', 'mission-actions');
+        var gh = document.createElement('a');
+        gh.className = 'mission-gh';
+        gh.href = p.githubUrl;
+        gh.target = '_blank';
+        gh.rel = 'noopener noreferrer';
+        gh.textContent = 'GitHub \u2197';
+        actions.appendChild(gh);
+        card.appendChild(actions);
 
         grid.appendChild(card);
     });
-}
-
-function getProjectMetrics(p) {
-    if (p.id === 'financial') return [['99', 'tests'], ['94', 'commits'], ['1.000', 'RAGAS faith'], ['3', 'Docker services']];
-    if (p.id === 'llm-obs') return [['11', 'LLM metrics'], ['5', 'load scenarios'], ['213x', 'TTFT degradation'], ['10', 'Grafana panels']];
-    if (p.id === 'ai-exam') return [['957', 'tests'], ['309', 'commits'], ['95%', 'coverage'], ['86', 'PRs']];
-    if (p.id === 'token') return [['3-layer', 'architecture'], ['4', 'CLI commands'], ['v1.1.0', 'release']];
-    if (p.id === 'saga') return [['9', 'core docs'], ['19', 'research docs'], ['6', 'phases']];
-    if (p.id === 'clmux') return [['234', 'lines'], ['iTerm2', 'optimized']];
-    return [];
 }
 
 // ========================================
