@@ -19,27 +19,61 @@ function el(tag, cls, text) {
 }
 
 // ========================================
-// Skills — Card Style
+// Skills — Stack Card + Category Subcards
 // ========================================
 function renderSkills() {
-    const grid = document.getElementById('skillsGrid');
-    if (!grid) return;
+    var container = document.getElementById('skillsGrid');
+    if (!container) return;
+    container.textContent = '';
 
-    skillsData.forEach((cat) => {
-        const card = el('div', 'skill-card');
-        card.appendChild(el('div', 'skill-card-title', cat.title));
+    skillsData.forEach(function(cat) {
+        // 서브카드 (카테고리)
+        var subcard = el('div', 'stack-subcard');
 
-        const tags = el('div', 'skill-tags');
-        cat.skills.forEach((sk) => {
-            tags.appendChild(el('span', 'skill-tag', sk.name));
+        // 카테고리 타이틀
+        var titleEl = el('div', 'stack-subcard-title');
+        if (cat.icon) {
+            var icon = document.createElement('i');
+            icon.className = cat.icon;
+            titleEl.appendChild(icon);
+            titleEl.appendChild(document.createTextNode(' ' + cat.title));
+        } else {
+            titleEl.textContent = cat.title;
+        }
+        subcard.appendChild(titleEl);
+
+        // 도구 pill 그리드
+        var pills = el('div', 'stack-pills');
+        cat.skills.forEach(function(skill) {
+            var pill = el('div', 'stack-pill');
+
+            // 아이콘
+            if (skill.iconUrl) {
+                var img = document.createElement('img');
+                img.src = skill.iconUrl;
+                img.alt = skill.name;
+                img.width = 18;
+                img.height = 18;
+                img.className = 'stack-pill-icon';
+                pill.appendChild(img);
+            } else if (skill.iconClass) {
+                var icon = document.createElement('i');
+                icon.className = skill.iconClass + ' stack-pill-fa';
+                pill.appendChild(icon);
+            }
+
+            // 이름
+            pill.appendChild(el('span', 'stack-pill-name', skill.name));
+
+            pills.appendChild(pill);
         });
-        card.appendChild(tags);
-        grid.appendChild(card);
+        subcard.appendChild(pills);
+        container.appendChild(subcard);
     });
 }
 
 // ========================================
-// Projects — Card Style
+// Projects — Accordion (Agent Execution Log)
 // ========================================
 const CATEGORIES = [
     { label: 'All', value: 'all' },
@@ -52,10 +86,10 @@ function renderFilterTabs(onFilter) {
     const container = document.getElementById('filterTabs');
     if (!container) return;
 
-    CATEGORIES.forEach((cat, i) => {
+    CATEGORIES.forEach(function(cat, i) {
         const btn = el('button', 'filter-tab' + (i === 0 ? ' active' : ''), cat.label);
-        btn.addEventListener('click', () => {
-            container.querySelectorAll('.filter-tab').forEach((t) => t.classList.remove('active'));
+        btn.addEventListener('click', function() {
+            container.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
             btn.classList.add('active');
             onFilter(cat.value);
         });
@@ -68,52 +102,72 @@ function renderProjects(category) {
     if (!grid) return;
     grid.textContent = '';
 
-    projectsData.forEach((p) => {
+    projectsData.forEach(function(p) {
         if (category !== 'all' && p.category !== category) return;
 
-        const card = el('div', 'proj-card');
+        const card = el('div', 'exec-card');
 
-        // Badge
-        if (p.badge) {
-            card.appendChild(el('span', 'proj-badge', p.badge));
-        }
+        // Header (always visible)
+        const header = el('div', 'exec-header');
+        header.appendChild(el('span', 'exec-arrow', '\u25B6'));
+        const headerInfo = el('div', 'exec-header-info');
+        headerInfo.appendChild(el('span', 'exec-name', p.title));
+        const meta = el('div', 'exec-meta');
+        meta.appendChild(el('span', 'exec-period', p.badge || ''));
+        meta.appendChild(el('span', 'exec-cat', p.category || ''));
+        headerInfo.appendChild(meta);
+        header.appendChild(headerInfo);
+        card.appendChild(header);
 
-        // Name + summary
-        card.appendChild(el('div', 'proj-name', p.title));
-        card.appendChild(el('div', 'proj-desc', p.summary));
+        // Body (collapsed)
+        const body = el('div', 'exec-body');
+        body.style.display = 'none';
 
-        // Tool calls label + tags
-        card.appendChild(el('div', 'proj-tools-label', 'tool_calls'));
-        const toolTags = el('div', 'proj-tool-tags');
-        p.tech.forEach((t) => {
-            toolTags.appendChild(el('span', 'proj-tool-tag', t));
-        });
-        card.appendChild(toolTags);
+        body.appendChild(el('p', 'exec-desc', p.summary));
+
+        body.appendChild(el('div', 'exec-tool-label', 'tool_calls:'));
+        const toolTags = el('div', 'exec-tool-tags');
+        p.tech.forEach(function(t) { toolTags.appendChild(el('span', 'exec-tool-tag', t)); });
+        body.appendChild(toolTags);
 
         // Metrics
         const metrics = getProjectMetrics(p);
         if (metrics.length > 0) {
-            const metricsDiv = el('div', 'proj-metrics');
-            metrics.forEach((m) => {
+            const metricsEl = el('div', 'exec-metrics');
+            metrics.forEach(function(m) {
                 const pm = el('span', 'pm');
-                const b = el('b', '', m[0]);
-                pm.appendChild(b);
+                pm.appendChild(el('b', '', m[0]));
                 pm.appendChild(document.createTextNode(' ' + m[1]));
-                metricsDiv.appendChild(pm);
+                metricsEl.appendChild(pm);
             });
-            card.appendChild(metricsDiv);
+            body.appendChild(metricsEl);
         }
 
-        // Actions
-        const ac = el('div', 'proj-actions');
-        const gh = document.createElement('a');
-        gh.className = 'btn btn-outline';
-        gh.href = p.githubUrl;
-        gh.target = '_blank';
-        gh.rel = 'noopener noreferrer';
-        gh.textContent = 'GitHub \u2197';
-        ac.appendChild(gh);
-        card.appendChild(ac);
+        // GitHub link
+        const ghLink = document.createElement('a');
+        ghLink.className = 'exec-gh';
+        ghLink.href = p.githubUrl;
+        ghLink.target = '_blank';
+        ghLink.rel = 'noopener noreferrer';
+        ghLink.textContent = 'GitHub \u2197';
+        body.appendChild(ghLink);
+
+        card.appendChild(body);
+
+        // Toggle
+        header.addEventListener('click', function() {
+            var isOpen = body.style.display !== 'none';
+            body.style.display = isOpen ? 'none' : 'block';
+            header.querySelector('.exec-arrow').textContent = isOpen ? '\u25B6' : '\u25BC';
+            card.classList.toggle('exec-open', !isOpen);
+        });
+
+        // Featured: expand by default
+        if (p.badge === 'Featured') {
+            body.style.display = 'block';
+            header.querySelector('.exec-arrow').textContent = '\u25BC';
+            card.classList.add('exec-open');
+        }
 
         grid.appendChild(card);
     });
@@ -130,21 +184,26 @@ function getProjectMetrics(p) {
 }
 
 // ========================================
-// Experience — Timeline Style
+// Experience — Vertical Timeline
 // ========================================
 function renderExperience() {
     const list = document.getElementById('expList');
     if (!list) return;
+    list.textContent = '';
+    list.className = 'timeline';
 
-    experiencesData.forEach((e) => {
-        const item = el('div', 'exp-item');
-        item.appendChild(el('div', 'exp-period', e.date));
-        item.appendChild(el('div', 'exp-title', e.title));
-
-        const desc = e.subtitle || (e.achievements ? e.achievements[0] : '');
+    experiencesData.forEach(function(exp) {
+        const item = el('div', 'timeline-item');
+        const dot = el('div', 'timeline-dot');
+        const content = el('div', 'timeline-content');
+        content.appendChild(el('div', 'timeline-period', exp.date));
+        content.appendChild(el('div', 'timeline-title', exp.title));
+        var desc = exp.subtitle || (exp.achievements ? exp.achievements[0] : '');
         if (desc) {
-            item.appendChild(el('div', 'exp-desc', desc));
+            content.appendChild(el('div', 'timeline-desc', desc));
         }
+        item.appendChild(dot);
+        item.appendChild(content);
         list.appendChild(item);
     });
 }

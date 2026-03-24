@@ -7,21 +7,21 @@ export const skillsData = [
     icon: 'fas fa-robot',
     title: 'Agent Framework',
     skills: [
-      { name: 'LangGraph', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 90 },
-      { name: 'LangChain', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 85 },
-      { name: 'FastMCP', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 85 },
-      { name: 'MCP Protocol', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg', level: 85 },
-      { name: 'Gemini API', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg', level: 80 }
+      { name: 'LangGraph', iconUrl: 'https://cdn.simpleicons.org/langgraph', level: 90 },
+      { name: 'LangChain', iconUrl: 'https://cdn.simpleicons.org/langchain', level: 85 },
+      { name: 'FastMCP', iconUrl: 'https://fastmcp.me/img/fastmcp-logo-for-white-bg.svg', level: 85 },
+      { name: 'MCP', iconUrl: 'https://cdn.simpleicons.org/modelcontextprotocol', level: 85 },
+      { name: 'Gemini API', iconUrl: 'https://www.gstatic.com/lamda/images/gemini_favicon_f069958c85030456e93de685481c559f160ea06b.png', level: 80 }
     ]
   },
   {
     icon: 'fas fa-search',
     title: 'RAG & Vector DB',
     skills: [
-      { name: 'FAISS', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 85 },
-      { name: 'Voyage AI', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 80 },
+      { name: 'FAISS', iconUrl: 'https://cdn.simpleicons.org/meta', level: 85 },
+      { name: 'Voyage AI', iconUrl: 'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/voyage.svg', level: 80 },
       { name: 'pgvector', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg', level: 75 },
-      { name: 'RAGAS', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 80 }
+      { name: 'RAGAS', iconUrl: 'https://raw.githubusercontent.com/explodinggradients/ragas/main/docs/_static/imgs/ragas-logo.png', level: 80 }
     ]
   },
   {
@@ -30,8 +30,8 @@ export const skillsData = [
     skills: [
       { name: 'Prometheus', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg', level: 85 },
       { name: 'Grafana', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg', level: 85 },
-      { name: 'LangFuse', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', level: 80 },
-      { name: 'Ollama', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg', level: 80 }
+      { name: 'LangFuse', iconUrl: 'https://raw.githubusercontent.com/langfuse/langfuse/main/web/public/apple-touch-icon.png', level: 80 },
+      { name: 'Ollama', iconUrl: 'https://cdn.simpleicons.org/ollama', level: 80 }
     ]
   },
   {
@@ -45,17 +45,6 @@ export const skillsData = [
       { name: 'Docker', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg', level: 85 },
       { name: 'Kubernetes', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg', level: 80 },
       { name: 'Terraform', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg', level: 80 }
-    ]
-  },
-  {
-    icon: 'fas fa-tools',
-    title: 'Agent Tooling',
-    skills: [
-      { name: 'Claude Code', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg', level: 85 },
-      { name: 'tmux/clmux', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg', level: 80 },
-      { name: 'SAGA', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/markdown/markdown-original.svg', level: 80 },
-      { name: 'Hook API', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg', level: 75 },
-      { name: 'VETO', iconUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg', level: 75 }
     ]
   },
   {

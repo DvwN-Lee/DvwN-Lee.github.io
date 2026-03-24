@@ -52,7 +52,7 @@
   <div class="side-nav-logo">DJ</div>
   <nav class="side-nav-links">
     <a href="#home" class="side-nav-link active" data-section="home" title="Home">
-      <i class="fas fa-terminal"></i>
+      <i class="fas fa-home"></i>
       <span class="side-nav-label">Home</span>
     </a>
     <a href="#about" class="side-nav-link" data-section="about" title="About">
@@ -60,15 +60,15 @@
       <span class="side-nav-label">About</span>
     </a>
     <a href="#skills" class="side-nav-link" data-section="skills" title="Skills">
-      <i class="fas fa-code"></i>
+      <i class="fas fa-layer-group"></i>
       <span class="side-nav-label">Skills</span>
     </a>
     <a href="#projects" class="side-nav-link" data-section="projects" title="Projects">
-      <i class="fas fa-folder-open"></i>
+      <i class="fas fa-code-branch"></i>
       <span class="side-nav-label">Projects</span>
     </a>
     <a href="#experience" class="side-nav-link" data-section="experience" title="Experience">
-      <i class="fas fa-briefcase"></i>
+      <i class="fas fa-route"></i>
       <span class="side-nav-label">Experience</span>
     </a>
   </nav>
@@ -124,20 +124,77 @@
 
 <!-- About -->
 <section class="section" id="about">
-    <div class="section-label">// about</div>
-    <div class="section-title">About</div>
-    <p class="section-desc" style="max-width:700px;margin-bottom:0">
-        LangGraph, MCP Protocol, RAG 기반 AI Agent를 설계하고 구현하는 AI Agent Developer 이동주입니다.
-        FastAPI + Docker Compose로 Agent 서비스를 배포하고, Prometheus 기반 LLM 전용 메트릭을 설계하여 Observability를 확보한 경험이 있습니다.
-    </p>
+  <div class="card-wrapper">
+  <div class="card-badge"><i class="fas fa-user"></i></div>
+  <div class="about-card">
+    <div class="about-header">
+      <h2 class="about-title">About</h2>
+      <div class="about-badges">
+        <span class="about-badge"><span class="status-dot-green"></span> 활동중</span>
+      </div>
+    </div>
+    <div class="about-divider"></div>
+    <div class="about-narrative">
+      <p>AI 에이전트 시스템을 <span class="hl">설계</span>하고 <span class="hl">구현</span>하는 개발자입니다. <span class="hl">LangGraph</span>와 <span class="hl">MCP Protocol</span>로 에이전트를 구축하고, <span class="hl">RAG 파이프라인</span>으로 데이터를 검색하며, <span class="hl">LLM Observability</span> 시스템으로 성능을 측정합니다.</p>
+    </div>
+    <div class="about-competencies">
+      <h3 class="about-section-title">핵심 역량</h3>
+      <div class="competency-grid">
+        <div class="competency-card">
+          <div class="competency-icon"><i class="fas fa-robot"></i></div>
+          <div class="competency-label">에이전트 설계</div>
+          <div class="competency-desc">AI 워크플로우를 설계하고 자동화합니다</div>
+          <div class="competency-bar"><div class="competency-bar-fill" style="width:85%"></div></div>
+          <div class="competency-tech">LangGraph · MCP · FastMCP</div>
+        </div>
+        <div class="competency-card">
+          <div class="competency-icon"><i class="fas fa-search"></i></div>
+          <div class="competency-label">데이터 검색 증강</div>
+          <div class="competency-desc">대규모 문서에서 핵심 정보를 찾아냅니다</div>
+          <div class="competency-bar"><div class="competency-bar-fill" style="width:75%"></div></div>
+          <div class="competency-tech">RAG · FAISS · Voyage AI</div>
+        </div>
+        <div class="competency-card">
+          <div class="competency-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="competency-label">LLM 모니터링</div>
+          <div class="competency-desc">AI 시스템의 성능과 비용을 추적합니다</div>
+          <div class="competency-bar"><div class="competency-bar-fill" style="width:80%"></div></div>
+          <div class="competency-tech">Prometheus · Grafana · LangFuse</div>
+        </div>
+        <div class="competency-card">
+          <div class="competency-icon"><i class="fas fa-server"></i></div>
+          <div class="competency-label">백엔드 개발</div>
+          <div class="competency-desc">안정적인 API와 서버를 구축합니다</div>
+          <div class="competency-bar"><div class="competency-bar-fill" style="width:85%"></div></div>
+          <div class="competency-tech">Python · FastAPI · Go</div>
+        </div>
+        <div class="competency-card">
+          <div class="competency-icon"><i class="fas fa-cubes"></i></div>
+          <div class="competency-label">인프라 자동화</div>
+          <div class="competency-desc">서버 환경을 코드로 구축하고 관리합니다</div>
+          <div class="competency-bar"><div class="competency-bar-fill" style="width:80%"></div></div>
+          <div class="competency-tech">Docker · Kubernetes · Terraform</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-links">
+      <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer" class="about-link-btn"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://velog.io/@dongju101/" target="_blank" rel="noopener noreferrer" class="about-link-btn"><img src="https://cdn.simpleicons.org/velog/20C997" alt="Velog" style="width:16px;height:16px;vertical-align:middle"> Velog</a>
+    </div>
+  </div>
+  </div>
 </section>
 
 <!-- Skills -->
-<section class="section" id="skills" style="padding-top:40px">
-    <div class="section-label">// skills</div>
-    <div class="section-title">Tech Stack</div>
-    <div class="section-desc">AI Agent 설계부터 LLM Serving, Observability, Backend까지</div>
-    <div class="skills-grid" id="skillsGrid"></div>
+<section class="section" id="skills">
+  <div class="card-wrapper">
+  <div class="card-badge"><i class="fas fa-layer-group"></i></div>
+  <div class="stack-card">
+    <h2 class="stack-title">Tech Stack</h2>
+    <div class="stack-divider"></div>
+    <div id="skillsGrid"></div>
+  </div>
+  </div>
 </section>
 
 <!-- Projects -->
@@ -157,9 +214,20 @@
 </section>
 
 <!-- Footer -->
-<div class="footer">
-    <p><a href="mailto:dongju101101@gmail.com">dongju101101@gmail.com</a> &middot; <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-    <p style="margin-top:6px;font-size:.75rem">&copy; 2026 Dongju Lee</p>
+<div class="footer" id="footer">
+  <div class="footer-inner">
+    <p class="footer-msg">Process completed successfully.</p>
+    <p class="footer-msg-sub">Thank you for reviewing my portfolio.</p>
+    <div class="footer-connect">
+      <span class="footer-prompt">&gt; connect</span>
+      <div class="footer-links">
+        <a href="mailto:dongju101101@gmail.com" class="footer-link"><i class="fas fa-envelope"></i> Mail</a>
+        <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer" class="footer-link"><i class="fab fa-github"></i> GitHub</a>
+      </div>
+    </div>
+    <p class="footer-exit">exit 0</p>
+    <p class="footer-copy">&copy; 2026 이동주</p>
+  </div>
 </div>
 
 <!-- Chat FAB (minimized state) -->
