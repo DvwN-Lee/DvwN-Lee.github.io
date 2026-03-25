@@ -53,6 +53,7 @@
   <nav class="side-nav-links">
     <a href="#home" class="side-nav-link active" data-section="home" title="Home">
       <i class="fas fa-home"></i>
+      <span class="home-hint"></span>
       <span class="side-nav-label">Home</span>
     </a>
     <a href="#about" class="side-nav-link" data-section="about" title="About">
@@ -70,6 +71,10 @@
     <a href="#experience" class="side-nav-link" data-section="experience" title="Experience">
       <i class="fas fa-route"></i>
       <span class="side-nav-label">Experience</span>
+    </a>
+    <a href="#footer" class="side-nav-link" data-section="footer" title="Contact">
+      <i class="fas fa-envelope"></i>
+      <span class="side-nav-label">Contact</span>
     </a>
   </nav>
   <div class="side-nav-bottom">
@@ -212,36 +217,40 @@
 
 <!-- Experience -->
 <section class="section" id="experience">
-    <div class="section-label">// experience</div>
-    <div class="section-title">Experience</div>
-    <div class="exp-list" id="expList"></div>
+  <div class="card-wrapper">
+    <div class="card-badge"><i class="fas fa-route"></i></div>
+    <div class="exp-container">
+      <h2 class="exp-title">Experience</h2>
+      <div class="exp-divider"></div>
+      <div class="exp-timeline" id="expList"></div>
+    </div>
+  </div>
 </section>
 
 <!-- Footer -->
-<div class="footer" id="footer">
+<div class="footer-zone" id="footer">
   <div class="footer-inner">
-    <p class="footer-msg">Process completed successfully.</p>
-    <p class="footer-msg-sub">Thank you for reviewing my portfolio.</p>
-    <div class="footer-connect">
-      <span class="footer-prompt">&gt; connect</span>
-      <div class="footer-links">
-        <a href="mailto:dongju101101@gmail.com" class="footer-link"><i class="fas fa-envelope"></i> Mail</a>
-        <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer" class="footer-link"><i class="fab fa-github"></i> GitHub</a>
-      </div>
+    <p class="footer-cmd">$ Contact</p>
+    <div class="footer-links">
+      <a href="mailto:dongju101101@gmail.com" class="footer-link-icon" title="Mail"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/DvwN-Lee" target="_blank" rel="noopener noreferrer" class="footer-link-icon" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://velog.io/@dongju101/" target="_blank" rel="noopener noreferrer" class="footer-link-icon" title="Blog"><img src="https://cdn.simpleicons.org/velog/20C997" alt="Velog" width="16" height="16"></a>
     </div>
-    <p class="footer-exit">exit 0</p>
-    <p class="footer-copy">&copy; 2026 이동주</p>
+    <p class="footer-copy">&copy; 2026 Dongju Lee</p>
   </div>
 </div>
 
 <!-- Chat FAB (minimized state) -->
-<button class="chat-fab" id="chatFab">&#128172;</button>
+<button class="chat-fab" id="chatFab"><span class="fab-prompt">&gt; _</span></button>
 
 <!-- Chat Widget -->
 <div class="chat-widget" id="chatWidget">
-    <div class="cw-header">
-        <div class="cw-title"><span class="cw-status"></span>portfolio-agent</div>
-        <button class="cw-close" id="chatClose">&#10005;</button>
+    <div class="cw-header" id="cwHeader">
+        <div class="cw-title"><span class="cw-status"></span> portfolio-agent</div>
+        <div class="cw-header-btns">
+            <button class="cw-scroll-top" id="cwScrollTop" title="Scroll to top">&#9650; TOP</button>
+            <button class="cw-close" id="chatClose">&#10005;</button>
+        </div>
     </div>
     <div class="cw-body" id="cwBody"></div>
 </div>

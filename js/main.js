@@ -109,13 +109,10 @@ function renderProjects(cat) {
         // 상태 + 기간 행
         var statusRow = el('div', 'mission-status-row');
         if (p.badge === 'Featured') {
-            var badge = el('span', 'featured-pill', '\u2605 FEATURED');
+            var badge = el('span', 'featured-pill', '\u25B8 [FEATURED]');
             statusRow.appendChild(badge);
         } else {
-            var status = el('span', 'mission-status');
-            var dot = el('span', 'mission-dot');
-            status.appendChild(dot);
-            status.appendChild(document.createTextNode('COMPLETED'));
+            var status = el('span', 'mission-status', '[DONE]');
             statusRow.appendChild(status);
         }
         card.appendChild(statusRow);
@@ -151,27 +148,29 @@ function renderProjects(cat) {
 }
 
 // ========================================
-// Experience — Vertical Timeline
+// Experience — Container + Timeline
 // ========================================
 function renderExperience() {
-    const list = document.getElementById('expList');
+    var list = document.getElementById('expList');
     if (!list) return;
     list.textContent = '';
-    list.className = 'timeline';
 
     experiencesData.forEach(function(exp) {
-        const item = el('div', 'timeline-item');
-        const dot = el('div', 'timeline-dot');
-        const content = el('div', 'timeline-content');
-        content.appendChild(el('div', 'timeline-period', exp.date));
-        content.appendChild(el('div', 'timeline-title', exp.title));
+        var node = el('div', 'exp-node');
+
+        // 기간
+        node.appendChild(el('div', 'exp-period', exp.date));
+
+        // 역할/활동 제목
+        node.appendChild(el('div', 'exp-heading', exp.title));
+
+        // 설명/성과
         var desc = exp.subtitle || (exp.achievements ? exp.achievements[0] : '');
         if (desc) {
-            content.appendChild(el('div', 'timeline-desc', desc));
+            node.appendChild(el('div', 'exp-desc', desc));
         }
-        item.appendChild(dot);
-        item.appendChild(content);
-        list.appendChild(item);
+
+        list.appendChild(node);
     });
 }
 
@@ -210,7 +209,9 @@ function initTheme() {
 // ========================================
 function initScrollSpy() {
     const sections = document.querySelectorAll('section[id]');
+    const footer = document.getElementById('footer');
     const navLinks = document.querySelectorAll('.side-nav-link');
+    const homeLink = document.querySelector('.side-nav-link[data-section="home"]');
 
     function updateActiveNav() {
         let current = 'home';
@@ -220,15 +221,41 @@ function initScrollSpy() {
                 current = section.getAttribute('id');
             }
         });
+
+        // Footer(Contact) detection: near bottom of page
+        if (footer) {
+            var atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+            if (atBottom) current = 'footer';
+        }
+
         navLinks.forEach(function(link) {
             link.classList.remove('active');
             if (link.getAttribute('data-section') === current) {
                 link.classList.add('active');
             }
         });
+
+        // Home hint: show dot when scrolled past hero
+        if (homeLink) {
+            var heroBottom = (sections[0] ? sections[0].offsetTop + sections[0].offsetHeight : window.innerHeight);
+            if (window.scrollY > heroBottom * 0.5) {
+                homeLink.classList.add('has-hint');
+            } else {
+                homeLink.classList.remove('has-hint');
+            }
+        }
     }
 
     window.addEventListener('scroll', updateActiveNav);
+
+    // Smooth scroll on nav link click
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var target = document.querySelector(link.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
 }
 
 // ========================================
