@@ -728,3 +728,6 @@ export function initProjectsUI() {
 
     debugLog('Projects UI module initialized');
 }
+
+// Named exports for selective import (main.js에서 모달 기능만 사용할 때)
+export { openProjectModal, setupModalListeners };

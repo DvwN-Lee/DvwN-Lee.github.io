@@ -1,18 +1,18 @@
-# 자기소개서: DevOps/Backend Engineer
+# 자기소개서: AI Agent Developer
 
 ## 헤드라인
 
-"GitOps 파이프라인으로 배포를 5분 이내로 자동화하고, k6 부하 테스트 기반 P95 Latency 74.76ms를 달성한 DevOps/Backend 엔지니어입니다. Kubernetes부터 Spring Boot까지, 인프라와 애플리케이션 전 영역에서 안정성과 효율성을 추구합니다." (목표 및 지향점 강조, 야망을 표현, 달성하고자 하는 목표를 명시)
+"LangGraph StateGraph와 MCP Protocol로 금융 데이터 AI Agent를 구현하고, LLM 전용 Prometheus 메트릭을 설계하여 서빙 성능을 정량화한 AI Agent Developer입니다. Agent 설계부터 LLM Serving Observability, Cloud-Native Platform까지 AI 시스템 전 과정을 경험했습니다."
 
 ---
 
 ## 1. 자기소개
 
-### DevOps와 Backend 개발, 두 영역의 시너지
+### AI Agent 개발과 Platform Engineering, 두 영역의 시너지
 
-자동화를 통해 안정적이고 효율적인 시스템을 구축하는 것이 DevOps의 핵심이라고 생각합니다. 저는 Backend 개발 경험(Django, Spring Boot, FastAPI)을 바탕으로 DevOps 영역으로 진출하여, 개발자의 관점에서 운영 자동화를 설계했습니다.
+AI Agent를 설계하고 구현하는 것이 핵심 역량이지만, 이 Agent가 안정적으로 동작하기 위한 Platform을 직접 구축할 수 있다는 점이 차별점입니다.
 
-단국대학교 재학 중 Solid Cloud(CloudStack) 환경에서 Kubernetes 클러스터를 직접 구축하며, Linux 커널 수준의 네트워크(Cilium eBPF)부터 애플리케이션 레벨의 트래픽 제어(Istio Service Mesh)까지 학습했습니다. 특히 Backend 애플리케이션을 직접 개발한 경험이 있기에, 개발자가 겪는 배포 과정의 불편함을 이해하고 이를 자동화할 수 있었습니다.
+LangGraph StateGraph로 금융 데이터 분석 Agent를 구현하면서, Prometheus 기반 LLM 전용 메트릭을 설계하여 Agent 시스템의 성능을 정량적으로 측정했습니다. 이 Observability 역량은 Monitoring v1→v2→v3 시리즈에서 쌓은 Platform Engineering 경험에서 비롯되었습니다. Backend(Django, FastAPI, Go) 개발 경험을 토대로 Cloud-Native Platform(Kubernetes, Terraform, Istio, ArgoCD)을 직접 설계하고 구현했으며, 이 인프라 역량을 기반으로 AI Agent 시스템의 배포, 관측, 품질 검증까지 엔드투엔드로 수행합니다.
 
 ### 기술 커뮤니케이션 역량
 
@@ -63,7 +63,7 @@
 
 ### Cloud-Native 마이크로서비스 플랫폼 v2.0
 
-**기간:** 2025.09 ~ 2025.11
+**기간:** 2025.09 ~ 2025.12
 **역할:** 1인 프로젝트 (인프라 설계, 구축, 백엔드 개발)
 **기술 스택:** Kubernetes, Terraform, Argo CD, Istio, Prometheus, Grafana, Loki, Kustomize, Go, Python (FastAPI)
 **GitHub:** https://github.com/DvwN-Lee/Monitoring-v2
@@ -200,17 +200,17 @@ Go와 Python(FastAPI)을 활용한 폴리글랏 마이크로서비스 아키텍�
 
 - Auth, User, Blog 3개의 마이크로서비스를 FastAPI로 구현하고, RESTful API를 설계했습니다.
 - Redis Cache-Aside 패턴을 적용하여 자주 조회되는 데이터를 캐싱하고, 응답 속도를 개선했습니다.
-- SQLite를 사용하여 각 서비스의 데이터를 독립적으로 관리했습니다 (Database per Service 패턴).
+- User, Blog 서비스는 SQLite를 사용하여 데이터를 독립적으로 관리했습니다 (Database per Service 패턴). Auth-service는 별도 DB 없이 인메모리로 처리했습니다.
 
 **3. Kustomize 환경별 설정 관리**
 
 - Kustomize base/overlay 패턴으로 개발/운영 환경별 Kubernetes 매니페스트를 선언적으로 관리했습니다.
 - Base: 공통 설정 (Deployment, Service, ConfigMap), Overlay: 환경별 차이 (Replica 수, Resource Limits)
 
-**4. 실시간 대시보드 (WebSocket)**
+**4. 실시간 대시보드 (HTTP 폴링)**
 
-- Vanilla JavaScript + Chart.js + WebSocket으로 RPS, 평균 응답 시간, 서비스 상태를 실시간으로 시각화했습니다.
-- WebSocket으로 1초마다 Stats Aggregator로부터 메트릭을 수신하여 대시보드를 업데이트했습니다.
+- Vanilla JavaScript + Chart.js + HTTP 폴링으로 RPS, 평균 응답 시간, 서비스 상태를 실시간으로 시각화했습니다.
+- HTTP 폴링으로 1초마다 Stats Aggregator로부터 메트릭을 수신하여 대시보드를 업데이트했습니다. WebSocket은 하트비트(연결 상태 확인) 전용으로 사용했습니다.
 
 #### v1.0에서 v2.0으로의 발전
 

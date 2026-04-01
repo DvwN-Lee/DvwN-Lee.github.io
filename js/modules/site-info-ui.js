@@ -109,7 +109,7 @@ function renderFooter() {
         `).join('');
 
     footerContainer.innerHTML = `
-        <p class="footer-tagline">Cloud/DevOps Engineer</p>
+        <p class="footer-tagline">AI Agent Developer</p>
         <p>&copy; ${currentYear} 이동주. All rights reserved.</p>
         <nav class="footer-links" aria-label="Footer">
             ${footerLinksHTML}

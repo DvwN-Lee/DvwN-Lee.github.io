@@ -54,6 +54,6 @@ export const config = {
             eagerLoadCount: 6,
             maxSequentialAnimation: 6,
         },
-        typeWriterWords: ['AI Agent Developer', 'LLM Engineer', 'Backend Developer'],
+        typeWriterWords: ['AI Agent Developer', 'LLM Ops Engineer', 'Platform Engineer'],
     },
 };

@@ -77,9 +77,9 @@ function renderSkills() {
 // ========================================
 const CATEGORIES = [
     { label: 'All', value: 'all' },
-    { label: 'Agent System', value: 'agent' },
-    { label: 'LLM Infra', value: 'infra' },
-    { label: 'Agent Tooling', value: 'tooling' }
+    { label: 'AI Agent', value: 'agent' },
+    { label: 'Platform', value: 'platform' },
+    { label: 'Backend', value: 'backend' }
 ];
 
 function renderFilterTabs(onFilter) {
@@ -104,13 +104,19 @@ function renderProjects(cat) {
     projectsData.forEach(function(p) {
         if (cat !== 'all' && p.category !== cat) return;
 
-        var card = el('div', 'mission-card' + (p.badge === 'Featured' ? ' featured' : ''));
+        var cardClass = 'mission-card';
+        if (p.badge === 'Featured') cardClass += ' featured';
+        else if (p.badge === 'Award') cardClass += ' award';
+        var card = el('div', cardClass);
 
         // 상태 + 기간 행
         var statusRow = el('div', 'mission-status-row');
         if (p.badge === 'Featured') {
             var badge = el('span', 'featured-pill', '\u25B8 [FEATURED]');
             statusRow.appendChild(badge);
+        } else if (p.badge === 'Award') {
+            var award = el('span', 'award-pill', '\u25B8 [' + (p.awardLabel || 'AWARD') + ']');
+            statusRow.appendChild(award);
         } else {
             var status = el('span', 'mission-status', '[DONE]');
             statusRow.appendChild(status);
@@ -143,35 +149,135 @@ function renderProjects(cat) {
         actions.appendChild(gh);
         card.appendChild(actions);
 
+        // 카드 클릭 → Chat Widget에서 프로젝트 상세 표시
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function(e) {
+            if (e.target.closest('a')) return;
+            document.dispatchEvent(new CustomEvent('cw:open-project', { detail: { projectId: p.id } }));
+        });
+
         grid.appendChild(card);
     });
 }
 
 // ========================================
-// Experience — Container + Timeline
+// Experience — Category Sub-cards
 // ========================================
 function renderExperience() {
     var list = document.getElementById('expList');
     if (!list) return;
     list.textContent = '';
 
+    var groups = {};
     experiencesData.forEach(function(exp) {
-        var node = el('div', 'exp-node');
-
-        // 기간
-        node.appendChild(el('div', 'exp-period', exp.date));
-
-        // 역할/활동 제목
-        node.appendChild(el('div', 'exp-heading', exp.title));
-
-        // 설명/성과
-        var desc = exp.subtitle || (exp.achievements ? exp.achievements[0] : '');
-        if (desc) {
-            node.appendChild(el('div', 'exp-desc', desc));
-        }
-
-        list.appendChild(node);
+        var cat = exp.category || 'Other';
+        if (!groups[cat]) groups[cat] = [];
+        groups[cat].push(exp);
     });
+
+    var totalCompleted = 0;
+    var totalRunning = 0;
+    var totalAchievements = 0;
+
+    Object.keys(groups).forEach(function(category) {
+        var items = groups[category];
+        var subcard = el('div', 'exp-subcard');
+
+        // data-category 매핑
+        var catMap = {
+            'AI Agent': 'ai-agent',
+            'Platform Engineering': 'platform',
+            'Full-Stack Development': 'fullstack',
+            'Teaching': 'teaching'
+        };
+        subcard.setAttribute('data-category', catMap[category] || 'ai-agent');
+
+        // 범주 헤더 (아이콘 + 텍스트)
+        var iconMap = {
+            'AI Agent': 'fas fa-robot',
+            'Platform Engineering': 'fas fa-server',
+            'Full-Stack Development': 'fas fa-code',
+            'Teaching': 'fas fa-chalkboard-teacher'
+        };
+        var header = el('div', 'exp-subcard-header');
+        var icon = document.createElement('i');
+        icon.className = iconMap[category] || 'fas fa-folder';
+        header.appendChild(icon);
+        header.appendChild(document.createTextNode(category));
+        subcard.appendChild(header);
+
+        items.forEach(function(exp) {
+            var isRunning = exp.date.includes('present');
+            if (isRunning) totalRunning++; else totalCompleted++;
+            totalAchievements += exp.achievements.length;
+
+            var node = el('div', 'exp-item');
+
+            // 제목 행
+            var titleRow = el('div', 'exp-item-title');
+            titleRow.textContent = exp.title;
+            node.appendChild(titleRow);
+
+            // 부제목
+            node.appendChild(el('div', 'exp-item-sub', exp.subtitle));
+
+            // 메타 행 (상태 pill + 기간)
+            var metaRow = el('div', 'exp-meta-row');
+            var statusCls = isRunning ? 'exp-status exp-status--running' : 'exp-status exp-status--completed';
+            metaRow.appendChild(el('span', statusCls, isRunning ? 'RUNNING' : 'COMPLETED'));
+            metaRow.appendChild(el('span', 'exp-date', exp.date));
+            node.appendChild(metaRow);
+
+            // 하단 gradient fade + chevron 힌트
+            var toggleHint = el('div', 'exp-toggle-hint');
+            var chevronIcon = document.createElement('i');
+            chevronIcon.className = 'fas fa-chevron-down';
+            toggleHint.appendChild(chevronIcon);
+            node.appendChild(toggleHint);
+
+            // 성과 펼침 영역
+            var details = el('div', 'exp-details');
+            details.appendChild(el('div', 'exp-details-label', '\uC8FC\uC694 \uC131\uACFC'));
+
+            exp.achievements.forEach(function(a) {
+                var item = el('div', 'exp-tree-item');
+                item.textContent = a;
+                details.appendChild(item);
+            });
+
+            // duration 요약
+            var duration = '';
+            if (isRunning) {
+                var start = new Date(exp.date.split(' ~ ')[0].replace('.', '-').replace('.', '-') + '-01');
+                var months = Math.floor((new Date() - start) / (1000 * 60 * 60 * 24 * 30));
+                duration = months + '\uAC1C\uC6D4+ \u00B7 ';
+            } else {
+                var parts = exp.date.split(' ~ ');
+                var s = new Date(parts[0].replace('.', '-').replace('.', '-') + '-01');
+                var e2 = new Date(parts[1].replace('.', '-').replace('.', '-') + '-01');
+                var m = Math.round((e2 - s) / (1000 * 60 * 60 * 24 * 30));
+                duration = m + '\uAC1C\uC6D4 \u00B7 ';
+            }
+            var summary = el('div', 'exp-details-summary');
+            summary.textContent = duration + '\uC131\uACFC ' + exp.achievements.length + '\uAC74';
+            if (isRunning) summary.textContent += ' \u00B7 \u25CF \uC9C4\uD589 \uC911';
+            details.appendChild(summary);
+
+            node.appendChild(details);
+
+            // 클릭 토글 (CSS transition 기반)
+            function toggleItem() {
+                node.classList.toggle('is-open');
+            }
+            node.addEventListener('click', toggleItem);
+            node.style.cursor = 'pointer';
+
+            subcard.appendChild(node);
+        });
+
+        list.appendChild(subcard);
+    });
+
 }
 
 // ========================================
@@ -191,9 +297,11 @@ function initTheme() {
 
     function updateIcon() {
         const theme = document.documentElement.getAttribute('data-theme');
-        btn.textContent = theme === 'dark' ? '\u2606' : '\u263D';
+        btn.textContent = theme === 'dark' ? '\u2600' : '\u263D';
     }
     updateIcon();
+    var floodEl = document.querySelector('#tvStatic feFlood');
+    if (floodEl) floodEl.setAttribute('flood-color', getComputedStyle(document.documentElement).getPropertyValue('--agent').trim());
 
     btn.addEventListener('click', () => {
         const current = document.documentElement.getAttribute('data-theme');
@@ -201,6 +309,7 @@ function initTheme() {
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
         updateIcon();
+        var floodEl = document.querySelector('#tvStatic feFlood'); if (floodEl) floodEl.setAttribute('flood-color', getComputedStyle(document.documentElement).getPropertyValue('--agent').trim());
     });
 }
 
@@ -358,5 +467,107 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFilterTabs((cat) => renderProjects(cat));
     renderProjects('all');
     renderExperience();
+    // Radio Static Noise — Section Reveal
+    // 노이즈 바가 콘텐츠 선두에서 아래로 함께 이동하며 sweep
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reducedMotion) {
+        var turbulence = document.querySelector('#tvStatic feTurbulence');
+
+        // 로드 시 이미 뷰포트 안에 있는 섹션은 즉시 표시, 나머지만 pending
+        var viewBottom = window.scrollY + window.innerHeight;
+        document.querySelectorAll('section.section').forEach(function(s) {
+            if (s.offsetTop < viewBottom) {
+                // 이미 보이는 위치 — noise 없이 즉시 표시
+            } else {
+                s.classList.add('section--pending');
+            }
+        });
+
+        function revealWithNoise(section) {
+            var wrapper = section.querySelector('.card-wrapper');
+            var innerCard = wrapper ? (wrapper.querySelector('.about-card, .stack-card, .projects-container, .exp-container') || wrapper) : section;
+            var rect = innerCard.getBoundingClientRect();
+            var sectionH = innerCard.offsetHeight;
+            var docTop = window.scrollY + rect.top;
+            var barHeight = 8;
+
+            var noiseBar = document.createElement('div');
+            noiseBar.className = 'static-noise-bar';
+            noiseBar.style.cssText = 'left:' + rect.left + 'px;width:' + rect.width + 'px;top:' + docTop + 'px;height:' + barHeight + 'px';
+            document.body.appendChild(noiseBar);
+
+            var duration = 700;
+            var delay = 75;
+            var startTime = null;
+            var lastSeedTime = 0;
+
+            section.style.willChange = 'clip-path';
+            section.style.clipPath = 'inset(0 0 100% 0)';
+            section.classList.remove('section--pending');
+
+            function tick(timestamp) {
+                if (!startTime) startTime = timestamp;
+                var elapsed = timestamp - startTime;
+
+                if (timestamp - lastSeedTime > 50) {
+                    if (turbulence) turbulence.setAttribute('seed', Math.floor(Math.random() * 9999));
+                    lastSeedTime = timestamp;
+                }
+
+                if (elapsed < delay) {
+                    if (Math.random() > 0.7) {
+                        noiseBar.style.opacity = (Math.random() > 0.5) ? '0.9' : '0.2';
+                    }
+                    requestAnimationFrame(tick);
+                    return;
+                }
+
+                var sweepElapsed = elapsed - delay;
+                var progress = Math.min(sweepElapsed / duration, 1);
+                var eased = progress < 0.5
+                    ? 2 * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                var clipBottom = 100 - (eased * 100);
+
+                // clip-path는 section 전체 기준이므로, wrapper 비율을 section 비율로 변환
+                var wrapperBottom = wrapper ? (wrapper.offsetTop + sectionH) : sectionH;
+                var sectionTotalH = section.offsetHeight;
+                var revealedPx = sectionH * eased;
+                var clipBottomPx = sectionTotalH - (wrapper ? wrapper.offsetTop : 0) - revealedPx;
+                var clipBottomPct = Math.max(0, (clipBottomPx / sectionTotalH) * 100);
+                section.style.clipPath = 'inset(0 0 ' + clipBottomPct + '% 0)';
+
+                var noiseTop = docTop + (sectionH * eased) - barHeight / 2;
+                noiseBar.style.top = noiseTop + 'px';
+
+                if (Math.random() > 0.6) {
+                    noiseBar.style.opacity = (0.5 + Math.random() * 0.5).toFixed(2);
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(tick);
+                } else {
+                    section.style.clipPath = '';
+                    section.style.willChange = 'auto';
+                    noiseBar.remove();
+                }
+            }
+
+            requestAnimationFrame(tick);
+        }
+
+        var sectionObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    revealWithNoise(entry.target);
+                    sectionObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0, rootMargin: '0px 0px -30% 0px' });
+
+        document.querySelectorAll('section.section.section--pending').forEach(function(s) {
+            sectionObserver.observe(s);
+        });
+    }
     initChatWidget();
 });

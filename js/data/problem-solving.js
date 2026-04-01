@@ -15,30 +15,30 @@ export const problemSolvingData = [
     {
         id: 'llm-observability',
         title: 'LLM Serving 전용 Observability Stack 구축',
-        subtitle: 'llm-serving-observability: 11개 LLM 메트릭 설계, TTFT 213x 열화 발견',
+        subtitle: 'obLLMa: LLM 전용 메트릭 설계, TTFT canary metric 발굴',
         tags: ['Prometheus', 'Grafana', 'FastAPI', 'Ollama', 'Docker'],
         ...llmObservabilityContent
     },
     {
         id: 'ai-exam-platform',
         title: 'Multi-Agent 시험 플랫폼 구축',
-        subtitle: 'AI-exam-platform: 5 MCP 서버 통합, Multi-Agent consensus/VETO 프로토콜',
-        tags: ['MCP', 'Multi-Agent', 'Django 5.2', 'React 19', 'TDD'],
-        situation: 'Legacy 온라인 시험 시스템을 AI Agent 기반으로 전환해야 했습니다. 5개 도메인별 도구를 Agent에 통합하고, 복수 Agent 간 합의 메커니즘이 필요했으며, 957개 테스트로 검증된 안정적인 Full-Stack 시스템이 요구되었습니다.',
+        subtitle: 'exam-platform: Full-Stack 재작성, TDD 3계층 테스트 전략, Service Layer Pattern',
+        tags: ['Django', 'React', 'TypeScript', 'PostgreSQL', 'pytest', 'TDD'],
+        situation: 'Legacy 온라인 시험 시스템의 구조적 한계(테스트 부재, View에 혼재된 비즈니스 로직, N+1 쿼리)를 해결하기 위해 Full-Stack 재작성이 필요했습니다.',
         tasks: [
-            '<strong>5 MCP 서버 통합</strong>: 시험 출제, 채점, 분석 등 도메인별 MCP 서버를 Agent 생태계에 통합.',
-            '<strong>Multi-Agent 합의 메커니즘</strong>: consensus/VETO 프로토콜로 Agent 간 품질 게이트 구현.',
-            '<strong>TDD 기반 Full-Stack 마이그레이션</strong>: Django 5.2 + React 19로 완전 재작성, 957 tests (95% coverage).'
+            '<strong>Full-Stack 재작성</strong>: Legacy Django → Django LTS + React Full-Stack으로 완전 전환.',
+            '<strong>TDD 3계층 테스트 전략</strong>: Unit/Integration/E2E 테스트로 안정적인 변경 안전망 구축.',
+            '<strong>Service Layer Pattern</strong>: 비즈니스 로직과 View를 분리하여 테스트 용이성 및 재사용성 향상.'
         ],
         actions: [
-            '<strong>5 MCP 서버 아키텍처 설계</strong>: 시험 출제, 채점, 분석, 피드백, 관리 도메인별 MCP 서버를 구축하고, Agent가 MCP Protocol을 통해 도구를 발견/호출하는 구조를 구현했습니다.',
-            '<strong>Multi-Agent consensus/VETO 프로토콜 구현</strong>: Generator → Critic → Refiner 파이프라인에서 각 Agent가 결과를 검토하고, VETO 권한을 행사할 수 있는 합의 메커니즘을 구축했습니다.',
-            '<strong>TDD Red-Green-Refactor 사이클 적용</strong>: pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략으로 957개 테스트, 95% 커버리지를 달성했습니다.'
+            '<strong>Service Layer Pattern 도입</strong>: View에 혼재되어 있던 비즈니스 로직을 Service Layer로 분리하여 단일 책임 원칙을 적용하고, 테스트 가능한 구조로 전환했습니다.',
+            '<strong>TDD Red-Green-Refactor 사이클 적용</strong>: pytest + Playwright 기반 Unit/Integration/E2E 3계층 테스트 전략을 구축하여 코드 변경 시 안전망을 확보했습니다.',
+            '<strong>DB 최적화</strong>: N+1 쿼리 해결(select_related/prefetch_related), 복합 인덱스 전략 수립, Connection Pool 튜닝으로 DB 접근 횟수를 대폭 감소시켰습니다.'
         ],
         results: [
-            '<strong>5 MCP 서버 통합 완료</strong>: 도메인별 도구를 독립 MCP 서버로 분리하여 Agent 도구 생태계를 구축했습니다.',
-            '<strong>Multi-Agent 품질 게이트 확립</strong>: VETO 프로토콜로 Agent 간 합의 기반 품질 보증 메커니즘을 구현했습니다.',
-            '<strong>957 tests, 95% coverage 달성</strong>: TDD 기반으로 코드 변경 시 안전망을 확보하고, 리팩토링 자신감을 확보했습니다.'
+            '<strong>아키텍처 현대화 완료</strong>: Django LTS + React Full-Stack으로 완전 전환하여 유지보수성과 확장성을 확보했습니다.',
+            '<strong>TDD 기반 품질 보증 체계 확립</strong>: Unit/Integration/E2E 3계층 테스트로 코드 변경 시 안전망을 확보하고 리팩토링 자신감을 확보했습니다.',
+            '<strong>DB 성능 최적화</strong>: N+1 쿼리 해결과 복합 인덱스로 DB 접근 횟수를 대폭 감소시켜 응답 속도를 개선했습니다.'
         ]
     }
 ];

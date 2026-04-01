@@ -161,7 +161,7 @@ function getProjectsForChat() {
         id: p.id,
         name: p.title,
         sub: p.badge || p.category,
-        desc: p.summary,
+        desc: p.widgetDesc || p.summary,
         tags: p.tech,
         metrics: extractMetrics(p),
         github: p.githubUrl,
@@ -170,14 +170,15 @@ function getProjectsForChat() {
 }
 
 function extractMetrics(p) {
-    // Extract meaningful metrics from project highlights/data
     const metrics = [];
-    if (p.id === 'financial') metrics.push(['99', 'tests'], ['94', 'commits'], ['RAGAS faith', '1.000'], ['3', 'Docker services']);
-    else if (p.id === 'llm-obs') metrics.push(['11', 'LLM metrics'], ['5', 'load scenarios'], ['TTFT', '213x degradation'], ['10', 'Grafana panels']);
-    else if (p.id === 'ai-exam') metrics.push(['957', 'tests'], ['309', 'commits'], ['95%', 'coverage'], ['86', 'PRs']);
-    else if (p.id === 'token') metrics.push(['3-layer', 'architecture'], ['4', 'CLI commands'], ['v1.1.0', 'release']);
-    else if (p.id === 'saga') metrics.push(['9', 'core docs'], ['19', 'research docs'], ['6', 'phases']);
-    else if (p.id === 'clmux') metrics.push(['234', 'lines'], ['iTerm2', 'optimized']);
+    if (p.id === 'llm-obs') metrics.push(['11', 'LLM 메트릭'], ['5', '부하 시나리오'], ['213x', 'TTFT 저하'], ['10', 'Grafana 패널']);
+    else if (p.id === 'financial') metrics.push(['99', '테스트'], ['1.000', 'RAGAS 점수'], ['3', 'MCP 서버'], ['5', '분석 도구']);
+    else if (p.id === 'exam') metrics.push(['3', '테스트 계층'], ['3', 'DB 통합'], ['2', '보안 계층']);
+    else if (p.id === 'mon-v3') metrics.push(['6', '검증 단계'], ['3', '보안 계층'], ['1', '프로비저닝']);
+    else if (p.id === 'mon-v2') metrics.push(['3+', 'ADR 문서'], ['3', '보안 계층']);
+    else if (p.id === 'k8s-cicd') metrics.push(['3', '자동화 단계'], ['3', 'CI/CD 도구']);
+    else if (p.id === 'mon-v1') metrics.push(['2', 'Go 서비스'], ['→v2', 'Istio 전환']);
+    else if (p.id === 'dorazy') metrics.push(['4', '팀원'], ['🥉', '해커톤 동상']);
     return metrics;
 }
 
@@ -397,14 +398,16 @@ async function cwProjectDetail(cwBody, p) {
 
     var detail = el('div', 'cw-detail');
     var ms = el('div');
-    ms.appendChild(el('div', 'cw-detail-label', 'Metrics'));
+    ms.appendChild(el('div', 'cw-detail-label', 'Key Numbers'));
     var mrow = el('div', 'cw-detail-metrics');
     p.metrics.forEach(function(m) {
         var dm = el('div', 'cdm');
         var b = document.createElement('b');
         b.textContent = m[0];
         dm.appendChild(b);
-        dm.appendChild(document.createTextNode(' ' + m[1]));
+        var lbl = document.createElement('span');
+        lbl.textContent = m[1];
+        dm.appendChild(lbl);
         mrow.appendChild(dm);
     });
     ms.appendChild(mrow);
@@ -483,4 +486,21 @@ export function initChatWidget() {
     }
 
     cwInit();
+
+    // 프로젝트 카드 클릭 → Chat Widget에서 상세 표시
+    document.addEventListener('cw:open-project', function(e) {
+        var projectId = e.detail && e.detail.projectId;
+        if (!projectId) return;
+
+        // Widget 열기
+        fab.classList.remove('visible');
+        widget.classList.remove('collapsed');
+
+        // 프로젝트 찾기
+        var projects = getProjectsForChat();
+        var p = projects.find(function(proj) { return proj.id === projectId; });
+        if (p) {
+            cwProjectDetail(cwBody, p);
+        }
+    });
 }
