@@ -380,14 +380,14 @@ export const projectsData = [
         awardLabel: 'BRONZE AWARD',
         heading: 'Dorazy - 도서관 예약 시스템',
         title: 'Dorazy',
-        summary: '단국대학교 도산라운지 좌석 예약 Android 앱. Firebase 서버리스 아키텍처로 실시간 좌석 상태 동기화를 구현했습니다. 해커톤 동상 수상, 4인 팀 리더.',
-        widgetDesc: '단국대학교 도서관 좌석 예약이 수기로 관리되는 문제를 해결하기 위해 해커톤에서 개발한 프로젝트입니다. 4인 팀 리더로서 기획부터 개발까지 총괄했으며, Firebase Firestore의 실시간 동기화를 활용하여 좌석 상태가 즉시 반영되는 시스템을 구축했습니다. 제한된 시간 내에 동작하는 프로토타입이 필요했기 때문에 서버리스 아키텍처를 핵심 전략으로 선택했고, 결과적으로 동상을 수상했습니다.',
+        summary: '단국대학교 도산라운지 좌석 예약 Android 앱. Firebase 서버리스 아키텍처로 실시간 좌석 상태 동기화를 구현했습니다. 해커톤 동상 수상.',
+        widgetDesc: '단국대학교 도서관 좌석 예약이 수기로 관리되는 문제를 해결하기 위해 해커톤에서 개발한 프로젝트입니다. Firebase Firestore의 실시간 동기화를 활용하여 좌석 상태가 즉시 반영되는 시스템을 구축했습니다. 제한된 시간 내에 동작하는 프로토타입이 필요했기 때문에 서버리스 아키텍처를 핵심 전략으로 선택했고, 결과적으로 동상을 수상했습니다.',
         imageUrl: 'https://opengraph.githubassets.com/1/kimyeonhong00/dorazy',
         imageAlt: 'Dorazy - 도서관 좌석 예약 시스템',
         tech: ['Android', 'Kotlin', 'Firebase', 'Figma'],
         highlights: [
             'Firebase Firestore <strong>실시간 데이터 동기화</strong> + 중복 예약 방지 로직',
-            '<strong>4인 팀 리더</strong>로서 기획-디자인-개발 총괄, 해커톤 동상 수상'
+            '기획-디자인-개발 총괄, 해커톤 동상 수상'
         ],
         githubUrl: 'https://github.com/kimyeonhong00/dorazy',
         modalDetails: [
@@ -416,7 +416,7 @@ export const projectsData = [
                 title: 'Learning Points',
                 items: [
                     'Firebase BaaS 기반 빠른 프로토타이핑 및 실시간 데이터 동기화',
-                    '해커톤에서 팀 리더로서 기획-디자인-개발 총괄'
+                    '해커톤에서 기획-디자인-개발 총괄'
                 ]
             }
         ]
