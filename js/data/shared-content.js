@@ -115,3 +115,47 @@ export const llmObservabilityContent = {
         ]
     }
 };
+
+export const clauMuxContent = {
+    modal: {
+        overview: 'Claude Code에서 Gemini CLI와 Codex CLI를 AI teammate로 연결하는 MCP 브리지입니다. Lead Claude가 SendMessage로 inbox.json에 메시지를 기록하면, clmux-bridge.zsh가 2초 간격으로 폴링하여 tmux pane의 teammate에 전달합니다. Teammate는 write_to_lead MCP 도구로 outbox.json에 응답을 기록하고, Claude Code가 teammate-message 이벤트로 수신합니다.',
+
+        keyFeatures: [
+            '<strong>Lead → Teammate 채널</strong>: SendMessage → inbox.json → bridge 2s 폴링 → tmux send-keys(Gemini) / paste-buffer(Codex)',
+            '<strong>Teammate → Lead 채널</strong>: write_to_lead MCP 도구 → bridge-mcp-server.js(stdio) → outbox.json → teammate-message 이벤트',
+            '<strong>세션 격리</strong>: 각 Claude Code 인스턴스를 독립 tmux 세션으로 분리, 동일 세션 중복 실행 차단',
+            '<strong>Orphan 정리</strong>: attached 클라이언트 없는 세션 자동 탐지 및 clmux-cleanup 일괄 제거',
+            '<strong>범용 teammate 연결</strong>: Gemini CLI · Codex CLI · 임의 MCP 지원 CLI를 teammate로 확장 가능',
+            '<strong>npm 배포</strong>: bridge-mcp-server.js를 npx clau-mux-bridge로 즉시 사용'
+        ],
+
+        chatDemo: [
+            { role: 'lead',   agent: 'Lead',          text: 'TeamCreate(team_name: "saga-clmux")' },
+            { role: 'lead',   agent: 'Lead',          text: 'zsh -ic "clmux-gemini -t saga-clmux" && zsh -ic "clmux-codex -t saga-clmux"' },
+            { role: 'system', agent: 'clmux-bridge',  text: 'gemini-worker attached — pane:%242  bridge PID:16576' },
+            { role: 'system', agent: 'clmux-bridge',  text: 'codex-worker attached — pane:%243  bridge PID:17242' },
+            { role: 'lead',   agent: 'Lead',          text: 'SendMessage("*", "Broadcast 테스트입니다. 이름과 상태를 응답해주세요.")' },
+            { role: 'worker', agent: 'haiku-worker',  text: '안녕하세요. haiku-worker입니다. 현재 대기 중이며 지시를 받을 준비가 되어 있습니다.' },
+            { role: 'worker', agent: 'gemini-worker', text: '이름: gemini-worker / 상태: saga-clmux 팀의 Context 내에서 Task 수행 준비 완료.' },
+            { role: 'worker', agent: 'codex-worker',  text: '이름: codex-worker / 상태: 연결 완료, 현재 대기 중입니다.' },
+            { role: 'lead',   agent: 'Lead',          text: 'SendMessage("*", "/exit")' },
+            { role: 'system', agent: 'clmux-bridge',  text: '← gemini-worker has shut down.  ← codex-worker has shut down.' }
+        ],
+
+        technicalImplementation: [
+            '<strong>clmux-bridge.zsh</strong>: inbox.json 2s 폴링 → tmux send-keys(Gemini) / paste-buffer(Codex) 전달',
+            '<strong>bridge-mcp-server.js</strong>: stdio MCP 서버, write_to_lead 도구 → outbox.json 원자적 기록',
+            '<strong>clmux.zsh</strong>: tmux 세션 생성·격리·중복 차단, git branch precmd 훅',
+            '<strong>Python 헬퍼</strong>: read_unread.py · mark_read.py · notify_shutdown.py (inbox/outbox 조작)',
+            '<strong>Protocol</strong>: JSON 파일 기반 비동기 큐 (50msg LRU), 원자적 rename 쓰기로 손상 방지',
+            '<strong>배포</strong>: npm 패키지(clau-mux-bridge), setup.sh 자동 MCP 등록'
+        ],
+
+        learningPoints: [
+            'stdio JSON-RPC 기반 MCP 서버를 직접 구현하여 write_to_lead 단방향 응답 채널 설계',
+            'tmux send-keys(TUI stdin 주입)와 paste-buffer(클립보드 경유)의 동작 차이 이해 및 CLI별 선택 적용',
+            'inbox/outbox 파일 폴링으로 프로세스 간 결합도 없이 비동기 메시지 흐름 구현',
+            'zsh + Node.js + tmux 계층 분리로 어떤 MCP 지원 CLI도 teammate로 연결 가능한 범용 브리지 설계'
+        ]
+    }
+};

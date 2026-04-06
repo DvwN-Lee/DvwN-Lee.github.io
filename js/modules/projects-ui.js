@@ -401,6 +401,14 @@ function openProjectModal(projectId) {
                     if (index === 0) {
                         return `<div class="modal-section modal-overview"><h4>${section.title}</h4>${sectionContent}</div>`;
                     }
+                } else if (section.type === 'chat' && section.messages) {
+                    const bubblesHTML = section.messages.map(msg => {
+                        return `<div class="modal-chat-msg modal-chat-msg--${msg.role}">
+            <span class="modal-chat-agent">${msg.agent}</span>
+            <span class="modal-chat-text">${msg.text}</span>
+        </div>`;
+                    }).join('');
+                    sectionContent = `<div class="modal-chat-demo">${bubblesHTML}</div>`;
                 } else if (section.items) {
                     const listTag = section.listType === 'ol' ? 'ol' : 'ul';
                     const itemsHTML = section.items.map(item => `<li>${item}</li>`).join('');

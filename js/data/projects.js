@@ -2,7 +2,7 @@
 // Projects Data Module
 // ========================================
 
-import { fAInancialAgentContent, llmObservabilityContent } from './shared-content.js';
+import { fAInancialAgentContent, llmObservabilityContent, clauMuxContent } from './shared-content.js';
 
 export const projectsData = [
     // === Featured ===
@@ -29,6 +29,32 @@ export const projectsData = [
             { title: 'Key Features', items: llmObservabilityContent.modal.keyFeatures },
             { title: 'Technical Details', items: llmObservabilityContent.modal.technicalImplementation },
             { title: 'Learning Points', items: llmObservabilityContent.modal.learningPoints }
+        ]
+    },
+    {
+        id: 'clau-mux',
+        category: 'agent',
+        badge: 'Featured',
+        heading: 'Claude Code AI Teammate Bridge',
+        title: 'clau-mux',
+        summary: 'Claude Code의 tmux 세션 관리와 Gemini/Codex CLI를 AI teammate로 연결하는 MCP 브리지. SendMessage로 inbox.json에 메시지를 기록하면 bridge가 폴링하여 tmux pane에 전달하고, teammate는 write_to_lead MCP 도구로 outbox.json에 응답을 돌려보냅니다.',
+        widgetDesc: 'Claude Code에서 Gemini와 Codex를 teammate로 활용하고 싶다는 필요에서 출발했습니다. Lead와 teammate 간 비동기 메시지 흐름을 inbox/outbox JSON + zsh bridge + stdio MCP server의 세 계층으로 분리했고, 어떤 MCP 지원 CLI도 teammate로 연결할 수 있는 범용 구조를 설계했습니다.',
+        imageUrl: 'https://opengraph.githubassets.com/1/DvwN-Lee/clau-mux',
+        imageAlt: 'clau-mux - Claude Code AI Teammate Bridge',
+        tech: ['Claude Code', 'tmux', 'MCP', 'Node.js', 'zsh', 'Gemini CLI'],
+        highlights: [
+            'inbox.json 폴링 + tmux send-keys/paste-buffer로 <strong>Lead → Teammate 비동기 메시지 전달</strong>',
+            'bridge-mcp-server.js(stdio MCP)로 <strong>Teammate → Lead write_to_lead 응답 채널</strong> 구현',
+            '<strong>세션 격리·중복 방지</strong>: 동일 세션 재진입 차단, orphaned 세션 자동 정리',
+            'Gemini CLI · Codex CLI · 임의 MCP 지원 CLI를 <strong>teammate로 범용 연결</strong>'
+        ],
+        githubUrl: 'https://github.com/DvwN-Lee/clau-mux',
+        modalDetails: [
+            { title: 'Overview', content: clauMuxContent.modal.overview },
+            { title: 'Key Features', items: clauMuxContent.modal.keyFeatures },
+            { title: 'Live Demo', type: 'chat', messages: clauMuxContent.modal.chatDemo },
+            { title: 'Technical Details', items: clauMuxContent.modal.technicalImplementation },
+            { title: 'Learning Points', items: clauMuxContent.modal.learningPoints }
         ]
     },
     {

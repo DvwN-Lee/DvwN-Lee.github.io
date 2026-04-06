@@ -728,6 +728,32 @@ body{
 }
 .arch-lightbox-close:hover{color:var(--agent);border-color:var(--agent)}
 
+/* ── Modal Chat Demo (clau-mux teammate simulation) ── */
+.modal-chat-demo{
+  display:flex;flex-direction:column;gap:5px;
+  background:#0D1117;border:1px solid #21262D;
+  border-radius:var(--rs);padding:12px 14px;
+  font-family:var(--mono);font-size:.75rem;margin-top:4px
+}
+[data-theme="dark"] .modal-chat-demo{background:#060D06;border-color:var(--border)}
+
+.modal-chat-msg{display:flex;flex-direction:column;gap:2px;padding:5px 9px;border-radius:var(--rx)}
+
+.modal-chat-msg--lead{background:rgba(21,128,61,.10);border-left:2px solid var(--agent)}
+.modal-chat-msg--lead .modal-chat-agent{color:var(--agent)}
+.modal-chat-msg--lead .modal-chat-text{color:var(--text);font-style:italic}
+
+.modal-chat-msg--worker{background:rgba(4,120,87,.07);border-left:2px solid var(--tool);margin-left:14px}
+.modal-chat-msg--worker .modal-chat-agent{color:var(--tool)}
+
+.modal-chat-msg--system{opacity:.5;border-left:2px solid var(--border);margin-left:6px}
+.modal-chat-msg--system .modal-chat-agent{color:var(--text-muted)}
+
+.modal-chat-agent{font-weight:700;font-size:.68rem}
+.modal-chat-agent::before{content:'['}
+.modal-chat-agent::after{content:'] '}
+.modal-chat-text{color:var(--text-sub);line-height:1.55;word-break:break-word}
+
 /* Modal responsive */
 @media(max-width:640px){
   .project-modal .modal-content{width:95%;max-height:90vh}
